@@ -1,0 +1,139 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+/* My components */
+
+/* Table */
+.container-table {
+  display: flex;
+  margin: 3% 1%; /* Combines top, left, and right margins */
+  margin-bottom: 0%;
+  margin-top: 0;
+}
+.table-left {
+  width: 50%;
+  margin-bottom: 50%;
+}
+.table-right {
+  width: 50%;
+  margin-bottom: 50%;
+}
+.button-container {
+  margin-left: 4%;
+}
+.card-container {
+  width: 100px;
+}
+
+
+/*Footer */
+footer {
+  background-color: #fff;
+  color: #333;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 97%;
+  border-top: 1px solid #b5b5b5;
+}
+
+.nav {
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-bottom: 20px;
+  height: 75px;
+}
+.nav-container {
+  width: 103.1%;
+}
+.container-title-table {
+  display: flex;
+}
+
+/*Login Form*/
+.container-logo-login {
+  display: flex;
+}
+
+.logo-login {
+  width: 150px;
+  height: 100px;
+}
+
+/* Buttoms */
+/* .btn-generate-pdf {
+  margin-top: px;
+} */
+
+/* Input file */
+.file-select {
+  position: relative;
+  display: inline-block;
+}
+
+.file-select::before {
+  background-color: #2ECC71;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'Seleccionar'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}
+
+#src-file1::before {
+  content: 'Importar Archivo Excel';
+}

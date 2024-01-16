@@ -1,0 +1,1 @@
+const { PDFDocument, StandardFonts, rgb } = "pdf-lib";
