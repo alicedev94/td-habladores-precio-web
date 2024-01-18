@@ -1,6 +1,8 @@
 const sequelize = require("../lib/sequelize");
 const { models } = require("../lib/sequelize");
 
+
+
 const findAll = async () => {
   const rta = await sequelize.models.Users.findAll();
   return rta;
@@ -69,7 +71,7 @@ const processData = async (data) => {
   });
 
   const rta = await sequelize.query(`
-  SELECT DISTINCT top 11
+  SELECT DISTINCT
     T1.[Referencia] Codigo
     ,T1.[Nombre] Nombre
     ,T5.[Marca] Marca
@@ -158,7 +160,20 @@ const stateData = () => {
       "Lista Precio": "6",
     },
   ];
-  return data
+  return data;
+};
+
+const priceTalkerData = [];
+const modelData = (data) => {
+  data.map((item) => {
+    priceTalkerData.push({
+      priceTalkerBrand: item.Marca,
+      priceTalkerdescription: item.Nombre,
+      priceTalkerPrice: item.PrecioaMostrar,
+    });
+  });
+
+  return priceTalkerData;
 };
 
 module.exports = {
@@ -168,5 +183,6 @@ module.exports = {
   updateUser,
   products,
   processData,
-  stateData
+  stateData,
+  modelData,
 };

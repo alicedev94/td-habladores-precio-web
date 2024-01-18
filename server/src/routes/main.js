@@ -7,8 +7,12 @@ const {
   deleteUser,
   products,
   processData,
-  stateData
+  stateData,
+  modelData
 } = require("../controllers/main");
+
+// const { proccessData } = require('../controllers/debug.controller');
+const { bigPriceTalker } = require('../controllers/priceTalkerPdfGrande.controller');
 
 // GET
 router.get("/", async (req, res) => {
@@ -44,9 +48,16 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+// router.post("/generate-pdf", async (req, res) => {
+//   console.log(req.body);
+//   res.json({ oye: "todo bien"})
+// });
+
 router.post("/generate-pdf", async (req, res) => {
-  console.log(req.body);
-  res.json({ oye: "todo bien"})
+  const data = req.body;
+  const proData = await modelData(data);
+  const rta = await bigPriceTalker(proData[0]);
+  res.json(rta);
 });
 
 router.post("/send/sap-code", async (req, res) => {

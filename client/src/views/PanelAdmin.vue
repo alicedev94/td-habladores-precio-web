@@ -2,6 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
+import Swal from 'sweetalert2'
 
 const listProducts = ref([]);
 const listProducts2 = ref([]);
@@ -14,6 +15,8 @@ const filterExpoListProducts = ref();
 const searchTable1 = ref("")
 const searchTable2 = ref("")
 const isDisabled = ref(true)
+const isLoading = ref(false)
+const isLoading2 = ref(false)
 
 const sapCode = ref([])
 
@@ -137,8 +140,10 @@ const headers = [
 ];
 
 onMounted(async () => {
+    isLoading.value = true
     const response = await axios.get(`http://localhost:3001/api/v1/products`);
     listProducts.value = response.data
+    isLoading.value = false
 })
 
 watch(() => {
@@ -161,13 +166,20 @@ watch(() => {
 const fGeneratePdf = async () => {
     try {
         const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, filterExpoListProducts.value);
-        console.log(response)
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: response.data.path,
+            showConfirmButton: false,
+            timer: 2000
+        });
     } catch (error) {
         console.error(error);
     }
 }
 
 const fImportXlsx = async (event) => {
+    isLoading2.value = true
     try {
         await readXlsxFile(event.target.files[0]).then((rows) => {
             sapCode.value.push(rows)
@@ -188,6 +200,7 @@ const fImportXlsx = async (event) => {
                 // Handle successful response
                 console.log('Post created successfully:', data);
                 expoListProduct.value = data // expoListProduct listProducts2
+                isLoading2.value = false
             })
             .catch(error => {
                 // Handle errors
@@ -214,8 +227,8 @@ const fImportXlsx = async (event) => {
                 style="width: 400px; height: 20px; margin-left: 20px; margin-bottom: 50px"
                 label="Buscar por código o descripción"></v-text-field>
             <v-data-table width="600px" height="300px" v-model="selectedProducts" :headers="headers" :search="searchTable1"
-                :items="listProducts" item-value="Codigo" show-select no-data-text="No hay datos disponibles"
-                items-per-page-text="Número de filas por página" />
+                :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
+                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" />
         </v-card>
         <div class="button-container"></div>
         <v-card width="600px" height="50%" elevation="8">
@@ -231,13 +244,13 @@ const fImportXlsx = async (event) => {
             <v-text-field v-model="searchTable2" variant="solo"
                 style="width: 460px; height: 20px; margin-left: 20px; margin-bottom: 50px"
                 label="Buscar por código o descripción"></v-text-field>
-                
+
             <v-data-table width="600px" height="300px" class="table" v-model="selectedExpoProducts" :search="searchTable2"
-                :headers="headers" :items="expoListProduct" item-value="Codigo" show-select
+                :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                 no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" />
 
-                <!-- LA MISMA TABLA PERO FUNCIONAL -->
-                <!-- <v-data-table width="600px" height="300px" v-model="selectedProducts" :headers="headers" :search="searchTable1"
+            <!-- LA MISMA TABLA PERO FUNCIONAL -->
+            <!-- <v-data-table width="600px" height="300px" v-model="selectedProducts" :headers="headers" :search="searchTable1"
                 :items="listProducts2" item-value="Codigo" show-select no-data-text="No hay datos disponibles"
                 items-per-page-text="Número de filas por página" /> -->
 
