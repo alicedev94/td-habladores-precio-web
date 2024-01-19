@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const pathLogo = require("../img/index");
 const bwipjs = require("bwip-js");
+const moment = require("moment-timezone");
 
 // -- VARIABLES --
 
@@ -142,7 +143,7 @@ const bigPriceTalker = async (priceTalkerData) => {
     )
     .fontSize(priceTalkerFontSizePrice)
     .text(
-      `$ ${priceTalkerData.priceTalkerPrice},00`,
+      `$ ${priceTalkerData.priceTalkerPrice}`,
       priceTalkerPositionPriceX,
       priceTalkerPositionPriceY
     );
@@ -159,13 +160,13 @@ const bigPriceTalker = async (priceTalkerData) => {
       )
     )
     .fontSize(priceTalkerfontSize)
-    .text("ld-00002917".toLocaleUpperCase(), 142, 133, {
+    .text(priceTalkerData.priceTalkerSapCode.toLocaleUpperCase(), 142, 133, {
       width: priceTalkerWidthText,
       align: "center",
     });
 
   // -- CÓDIGO DE BARRAS
-  const img = await generateBarcode("ld-00002917");
+  const img = await generateBarcode(priceTalkerData.priceTalkerBarCode);
   doc.image(img, 200, 150, {
     fit: [99, 28],
     align: "center",
@@ -200,10 +201,15 @@ const bigPriceTalker = async (priceTalkerData) => {
       )
     )
     .fontSize(10)
-    .text(`Tiempo de Garantía ${360} días`, 28, 204, {
-      width: priceTalkerWidthText,
-      align: "center",
-    });
+    .text(
+      `Tiempo de Garantía ${priceTalkerData.priceTalkerWarranty} días`,
+      28,
+      204,
+      {
+        width: priceTalkerWidthText,
+        align: "center",
+      }
+    );
 
   // -- RECUADRO QUE ENCIERRA EL HABLADOR --
 
@@ -231,9 +237,13 @@ const bigPriceTalker = async (priceTalkerData) => {
   // Passing size to the addPage function
   //doc.addPage({ size: "A4", layout:"landscape" });
 
-  const rta = doc.pipe(fs.createWriteStream(`file24424.pdf`)); // C:/Users/d.marcano/Desktop/
-
-  doc.end();
+  let horaVenezuela = moment()
+    .tz("America/Caracas")
+    .format()
+    .replace(/:/g, "-")
+    .replace(/-/g, "_");
+  doc.pipe(fs.createWriteStream(`${horaVenezuela}.pdf`)); // C:/Users/d.marcano/Desktop/ ${horaVenezuela}
+  const rta = doc.end();
 
   return rta;
 };

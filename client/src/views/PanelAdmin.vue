@@ -166,13 +166,23 @@ watch(() => {
 const fGeneratePdf = async () => {
     try {
         const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, filterExpoListProducts.value);
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: response.data.path,
-            showConfirmButton: false,
-            timer: 2000
-        });
+        if (response.data.value) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Operación Exitosa!",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Algo salio mal!",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
     } catch (error) {
         console.error(error);
     }

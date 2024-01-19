@@ -1,8 +1,6 @@
 const sequelize = require("../lib/sequelize");
 const { models } = require("../lib/sequelize");
 
-
-
 const findAll = async () => {
   const rta = await sequelize.models.Users.findAll();
   return rta;
@@ -170,6 +168,9 @@ const modelData = (data) => {
       priceTalkerBrand: item.Marca,
       priceTalkerdescription: item.Nombre,
       priceTalkerPrice: item.PrecioaMostrar,
+      priceTalkerSapCode: item.Codigo,
+      priceTalkerBarCode: item.Codigo_Barra,
+      priceTalkerWarranty: item.Garantia,
     });
   });
 

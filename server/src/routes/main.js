@@ -57,7 +57,7 @@ router.post("/generate-pdf", async (req, res) => {
   const data = req.body;
   const proData = await modelData(data);
   const rta = await bigPriceTalker(proData[0]);
-  res.json(rta);
+  res.json({value: rta});
 });
 
 router.post("/send/sap-code", async (req, res) => {
