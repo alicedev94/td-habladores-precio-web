@@ -89,7 +89,7 @@ async function generateBarcode(text) {
 let contador = 0;
 
 const bigPriceTalker = async (priceTalkerData) => {
-  priceTalkerData.forEach((product) => {
+  priceTalkerData.forEach((product) => { 
     // Script para determinar la cantidad de habladores que se deben renderizar por pagina
     if (contador > 3) {
       // Passing size to the addPage function
