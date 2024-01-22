@@ -51,7 +51,7 @@ let priceTalkerLogoWith = 48;
 let priceTalkerLogoHeight = 43;
 let priceTalkerCodeSapX = 142;
 let priceTalkerCodeSapY = 133;
-let priceTalkerPositionWarrantyX = 28; 
+let priceTalkerPositionWarrantyX = 28;
 let priceTalkerPositionWarrantyY = 204;
 
 // -- Contenido calculado box
@@ -89,7 +89,9 @@ async function generateBarcode(text) {
 let contador = 0;
 
 const bigPriceTalker = async (priceTalkerData) => {
-  priceTalkerData.forEach((product) => { 
+  for (let i = 0; i < priceTalkerData.length; i++) {
+    const product = priceTalkerData[i];
+
     // Script para determinar la cantidad de habladores que se deben renderizar por pagina
     if (contador > 3) {
       // Passing size to the addPage function
@@ -193,6 +195,14 @@ const bigPriceTalker = async (priceTalkerData) => {
             align: "center",
           }
         );
+
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, 200, 150, {
+        fit: [99, 28],
+        align: "center",
+        valign: "center",
+      });
 
       // -- TIEMPO DE GARANTÍA --
       doc
@@ -582,21 +592,20 @@ const bigPriceTalker = async (priceTalkerData) => {
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
           priceTalkerPositionWarrantyX + boxWith,
           priceTalkerPositionWarrantyY + boxHeight,
-          { 
+          {
             width: priceTalkerWidthText,
             align: "center",
           }
         );
     }
     contador++;
-  });
+  }
 
   contador = 0;
   doc.pipe(fs.createWriteStream(`lll.pdf`)); // C:/Users/d.marcano/Desktop/ ${horaVenezuela}
   const rta = doc.end();
   return rta;
 };
-
 
 // // -- CÓDIGO DE BARRAS
 // const img = await generateBarcode(priceTalkerData.priceTalkerBarCode);
