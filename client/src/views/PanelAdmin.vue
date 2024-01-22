@@ -238,7 +238,7 @@ const fImportXlsx = async (event) => {
                 label="Buscar por código o descripción"></v-text-field>
             <v-data-table width="600px" height="300px" v-model="selectedProducts" :headers="headers" :search="searchTable1"
                 :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
-                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" />
+                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" loading-text="Cargando..." />
         </v-card>
         <div class="button-container"></div>
         <v-card width="600px" height="50%" elevation="8">
@@ -257,7 +257,7 @@ const fImportXlsx = async (event) => {
 
             <v-data-table width="600px" height="300px" class="table" v-model="selectedExpoProducts" :search="searchTable2"
                 :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
-                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" />
+                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página" loading-text="Cargando..." />
 
             <!-- LA MISMA TABLA PERO FUNCIONAL -->
             <!-- <v-data-table width="600px" height="300px" v-model="selectedProducts" :headers="headers" :search="searchTable1"

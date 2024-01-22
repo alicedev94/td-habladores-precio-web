@@ -56,7 +56,7 @@ router.post("/signin", async (req, res) => {
 router.post("/generate-pdf", async (req, res) => {
   const data = req.body;
   const proData = await modelData(data);
-  const rta = await bigPriceTalker(proData[0]);
+  const rta = await bigPriceTalker(proData);
   res.json({value: rta});
 });
 
