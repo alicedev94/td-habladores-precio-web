@@ -9,50 +9,43 @@ const moment = require("moment-timezone");
 // -- VARIABLES --
 
 // Posición
-const boxPositionX = 3;
-const boxPositionY = 3;
-const priceTalkerDescriptionPositionX = 28;
-const priceTalkerDescriptionPositionY = 68;
-const priceTalkerBrandPositionX = 33;
-const priceTalkerBrandPositionY = 51;
-const priceTalkerPositionPriceX = 28;
-const priceTalkerPositionPriceY = 145;
+let boxPositionX = 70;
+let boxPositionY = 30;
+let priceTalkerDescriptionPositionX = 98;
+let priceTalkerDescriptionPositionY = 98;
+let priceTalkerBrandPositionX = 103;
+let priceTalkerBrandPositionY = 81;
+let priceTalkerPositionPriceX = 98;
+let priceTalkerPositionPriceY = 175;
+let priceTalkerLogoPositionX = 339;
+let priceTalkerLogoPositionY = 84;
+let priceTalkerCodeSapX = 212;
+let priceTalkerCodeSapY = 163;
+let priceTalkerPositionWarrantyX = 98;
+let priceTalkerPositionWarrantyY = 234;
+let priceTalkerBarCodeX = 270;
+let priceTalkerBarCodeY = 180;
 
 // Tamaño
 const boxWith = 363;
 const boxHeight = 264;
+let priceTalkerBarCodeWith = 99;
+let priceTalkerBarCodeHeight = 28;
+let priceTalkerLogoWith = 48;
+let priceTalkerLogoHeight = 43;
 
 // Fuente
 const priceTalkerfontSize = 12;
 const priceTalkerFontSizePrice = 30;
-
-// -- Contenido dinamico -- // MODIFICAR A UN OBJETO PARA PODER ACCEDER A LAS PROPIEDADES
-// const priceTalkerBrand = "GREEN OFFICE";
-// const priceTalkerdescription =
-//   "ESCRITORIO GAMER CON REPISA E ILUMINACION LED CNEGRO GODGB3 GREEN OFFICE";
-// const priceTalkerPrice = 145;
-
-// const priceTalkerData = {
-//   priceTalkerBrand: "GREEN OFFICE",
-//   priceTalkerdescription:
-//     "ESCRITORIO GAMER CON REPISA E ILUMINACION LED CNEGRO GODGB3 GREEN OFFICE",
-//   priceTalkerPrice: 145,
-// };
 
 // -- Contenido estático
 const priceTalkerWidthText = 221;
 const priceTalkerFontPath =
   "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server";
 const doc = new PDFDocument({ size: "A4", layout: "landscape" });
-// Logo
-let priceTalkerLogoPositionX = 269;
-let priceTalkerLogoPositionY = 54;
-let priceTalkerLogoWith = 48;
-let priceTalkerLogoHeight = 43;
-let priceTalkerCodeSapX = 142;
-let priceTalkerCodeSapY = 133;
-let priceTalkerPositionWarrantyX = 28;
-let priceTalkerPositionWarrantyY = 204;
+
+// Controlador de flujo para la generación de habladores
+let contador = 0;
 
 // -- Contenido calculado box
 // Box1
@@ -79,14 +72,10 @@ async function generateBarcode(text) {
   try {
     const png = await bwipjs.toBuffer(optionsBarCode);
     return png;
-    //await fs.writeFile("barcode.png", png);
-    //console.log("Barcode image generated successfully!");
   } catch (err) {
     console.error("Error generating barcode:", err);
   }
 }
-
-let contador = 0;
 
 const bigPriceTalker = async (priceTalkerData) => {
   for (let i = 0; i < priceTalkerData.length; i++) {
@@ -198,8 +187,8 @@ const bigPriceTalker = async (priceTalkerData) => {
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, 200, 150, {
-        fit: [99, 28],
+      doc.image(img, priceTalkerBarCodeX, priceTalkerBarCodeY, {
+        fit: [priceTalkerBarCodeWith, priceTalkerBarCodeHeight],
         align: "center",
         valign: "center",
       });
@@ -328,6 +317,14 @@ const bigPriceTalker = async (priceTalkerData) => {
           }
         );
 
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, priceTalkerBarCodeX + boxWith, priceTalkerBarCodeY, {
+        fit: [priceTalkerBarCodeWith, priceTalkerBarCodeHeight],
+        align: "center",
+        valign: "center",
+      });
+
       // -- TIEMPO DE GARANTÍA --
       doc
         .font(
@@ -451,6 +448,14 @@ const bigPriceTalker = async (priceTalkerData) => {
             align: "center",
           }
         );
+
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, priceTalkerBarCodeX, priceTalkerBarCodeY + boxHeight, {
+        fit: [priceTalkerBarCodeWith, priceTalkerBarCodeHeight],
+        align: "center",
+        valign: "center",
+      });
 
       // -- TIEMPO DE GARANTÍA --
       doc
@@ -576,6 +581,19 @@ const bigPriceTalker = async (priceTalkerData) => {
           }
         );
 
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(
+        img,
+        priceTalkerBarCodeX + boxWith,
+        priceTalkerBarCodeY + boxHeight,
+        {
+          fit: [priceTalkerBarCodeWith, priceTalkerBarCodeHeight],
+          align: "center",
+          valign: "center",
+        }
+      );
+
       // -- TIEMPO DE GARANTÍA --
       doc
         .font(
@@ -606,14 +624,6 @@ const bigPriceTalker = async (priceTalkerData) => {
   const rta = doc.end();
   return rta;
 };
-
-// // -- CÓDIGO DE BARRAS
-// const img = await generateBarcode(priceTalkerData.priceTalkerBarCode);
-// doc.image(img, 200, 150, {
-//   fit: [99, 28],
-//   align: "center",
-//   valign: "center",
-// });
 
 // let horaVenezuela = moment()
 //   .tz("America/Caracas")
