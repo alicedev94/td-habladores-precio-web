@@ -42,7 +42,6 @@ const priceTalkerFontSizePrice = 30;
 const priceTalkerWidthText = 221;
 const priceTalkerFontPath =
   "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server";
-const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
@@ -77,7 +76,11 @@ async function generateBarcode(text) {
   }
 }
 
+
 const bigPriceTalker = async (priceTalkerData) => {
+ const doc = new PDFDocument({ size: "A4", layout: "landscape" });
+
+  // Borra el contenido existente
   for (let i = 0; i < priceTalkerData.length; i++) {
     const product = priceTalkerData[i];
 
@@ -620,18 +623,16 @@ const bigPriceTalker = async (priceTalkerData) => {
   }
 
   contador = 0;
-  doc.pipe(fs.createWriteStream(`lll.pdf`)); // C:/Users/d.marcano/Desktop/ ${horaVenezuela}
-  const rta = doc.end();
-  return rta;
-};
+  doc.end();
 
-// let horaVenezuela = moment()
-//   .tz("America/Caracas")
-//   .format()
-//   .replace(/:/g, "-")
-//   .replace(/-/g, "_");
-// doc.pipe(fs.createWriteStream(`${horaVenezuela}.pdf`)); // C:/Users/d.marcano/Desktop/ ${horaVenezuela}
-// const rta = doc.end();
+  let horaVenezuela = moment()
+    .tz("America/Caracas")
+    .format()
+    .replace(/:/g, "-")
+    .replace(/-/g, "_");
+  const writeStream = doc.pipe(fs.createWriteStream(`${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}g.pdf`));
+  return writeStream;
+};
 
 module.exports = {
   bigPriceTalker,

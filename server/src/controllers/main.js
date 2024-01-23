@@ -161,8 +161,12 @@ const stateData = () => {
   return data;
 };
 
-const priceTalkerData = [];
+let priceTalkerData = [];
+
 const modelData = (data) => {
+
+  priceTalkerData = [];
+  
   data.map((item) => {
     priceTalkerData.push({
       priceTalkerBrand: item.Marca,

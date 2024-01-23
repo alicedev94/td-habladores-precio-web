@@ -8,11 +8,18 @@ const {
   products,
   processData,
   stateData,
-  modelData
+  modelData,
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
-const { bigPriceTalker } = require('../controllers/priceTalkerPdfGrande.controller');
+const {
+  bigPriceTalker,
+} = require("../controllers/priceTalkerPdfGrande.controller");
+
+const {
+  createFolder,
+} = require("../controllers/createFolder.controller");
+
 
 // GET
 router.get("/", async (req, res) => {
@@ -34,16 +41,16 @@ router.post("/newUser", async (req, res) => {
 router.post("/signin", async (req, res) => {
   // manejar las respuestas del servidor
   const { email, password } = req.body;
-  console.log(req.body)
-  if(email == "admin" && password == 123) {
+  console.log(req.body);
+  if (email == "admin" && password == 123) {
     res.json({
       auth: true,
       rtaEmail: "alice@gmail.com",
-      rtaRol: "admin" // customer
+      rtaRol: "admin", // customer
     });
   } else {
     res.json({
-      auth: false
+      auth: false,
     });
   }
 });
@@ -54,15 +61,22 @@ router.post("/signin", async (req, res) => {
 // });
 
 router.post("/generate-pdf", async (req, res) => {
-  const data = req.body;
-  const proData = await modelData(data);
-  const rta = await bigPriceTalker(proData);
-  res.json({value: rta});
+  try {
+    const folder = createFolder("Habladores-Precio-Web");
+    if (folder) {
+      const data = req.body;
+      const proData = await modelData(data);
+      const rta = await bigPriceTalker(proData);
+      res.json({ value: rta });
+    }
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 router.post("/send/sap-code", async (req, res) => {
   const rta = await processData(req.body);
- // let rtaJson = JSON.stringify(rta)
+  // let rtaJson = JSON.stringify(rta)
   res.json(rta[0]);
 });
 
