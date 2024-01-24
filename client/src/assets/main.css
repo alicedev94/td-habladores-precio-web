@@ -3,6 +3,20 @@ body {
   margin: 20px;
 }
 
+.body-gradiet {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(4, 2, 57, 1) 0%,
+    rgba(9, 9, 121, 1) 53%,
+    rgba(0, 71, 171, 1) 100%
+  );
+}
+.body-white {
+  background: #b5b5b5;
+}
+
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -65,7 +79,6 @@ button:hover {
   width: 100px;
 }
 
-
 /*Footer */
 footer {
   background-color: #fff;
@@ -94,6 +107,8 @@ footer {
 /*Login Form*/
 .container-logo-login {
   display: flex;
+  justify-content: center;
+  margin-bottom: 10%;
 }
 
 .logo-login {
@@ -113,13 +128,13 @@ footer {
 }
 
 .file-select::before {
-  background-color: #2ECC71;
+  background-color: #2ecc71;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 3px;
-  content: 'Seleccionar'; /* testo por defecto */
+  content: "Seleccionar"; /* testo por defecto */
   position: absolute;
   left: 0;
   right: 0;
@@ -135,5 +150,23 @@ footer {
 }
 
 #src-file1::before {
-  content: 'Importar Archivo Excel';
+  content: "Importar Archivo Excel";
+}
+/* .version-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #000;
+  border: 1px solid #ccc;
+} */
+.version-label {
+  float: right;
+  margin-right: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.red-table {
+  background-color: #b5b5b5 !important;
 }
