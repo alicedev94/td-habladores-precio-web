@@ -116,14 +116,16 @@ footer {
 }
 
 /* Buttoms */
-/* .btn-generate-pdf {
-  margin-top: px;
-} */
+.btn-generate-pdf {
+  margin-left: 10px;
+  margin-bottom: 13px;
+}
 
 /* Input file */
 .file-select {
   position: relative;
   display: inline-block;
+  height: 27px;
 }
 
 .file-select::before {
@@ -143,8 +145,8 @@ footer {
 
 .file-select input[type="file"] {
   opacity: 0;
-  width: 200px;
-  height: 32px;
+  width: 180px;
+  height: 20px;
   display: inline-block;
 }
 
