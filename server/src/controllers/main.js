@@ -34,7 +34,7 @@ const deleteUser = async (id) => {
 
 const products = async (list, type) => {
   const rta = await sequelize.query(`
-  SELECT DISTINCT top 10
+  SELECT DISTINCT 
   T1.[Referencia] Codigo
   ,T1.[Nombre] Nombre
   ,T5.[Marca] Marca

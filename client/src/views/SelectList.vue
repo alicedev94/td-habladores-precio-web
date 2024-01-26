@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue'
 
 const items = ref([
+{ title: 'Lista Estandar', value: '2' },
     { title: 'Lista Para Porlamar', value: '3' },
     { title: 'Lista Especial', value: '11' },
     { title: 'Lista Verde', value: '6' }

@@ -136,13 +136,17 @@ const rightBtn = () => {
         </v-card>
         <v-btn size="small" variant="outlined" @click="rightBtn">derecha</v-btn>
         <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
-            <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
-                :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
+            <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2" :headers="headers"
+                :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                 no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
                 loading-text="Cargando..." />
             <div class="file-select" id="src-file1">
                 <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
             </div>
+            <v-btn class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red" width="160"
+                @click="fGeneratePdf">
+                Generar .PDF
+            </v-btn>
         </v-card>
     </div>
 </template>
