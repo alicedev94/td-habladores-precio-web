@@ -1,6 +1,6 @@
 {
-  "name": "vite-login-routing",
-  "version": "0.0.0",
+  "name": "client-price-talker-web",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {

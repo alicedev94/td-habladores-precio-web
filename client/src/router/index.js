@@ -1,5 +1,6 @@
 import Login from "@/views/Login.vue";
 import PanelAdmin from "@/views/PanelAdmin.vue";
+import SelectListVue from "@/views/SelectList.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const token = localStorage.getItem("token");
@@ -30,7 +31,13 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: "/table-user",
+      path: "/select-list",
+      name: "SelectListVue",
+      component: SelectListVue,
+      beforeEnter: isAuthenticate,
+    },
+    {
+      path: "/table-data/:list/:type",
       name: "PanelAdmin",
       component: PanelAdmin,
       beforeEnter: isAuthenticate,

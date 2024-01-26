@@ -1,11 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 
 const email = ref('')
 const password = ref('')
 const visible = ref(false)
-const isLoading = ref(true)
+const isLoading = ref(false)
 
 onMounted(() => {
   document.body.classList.add("body-gradiet")
@@ -17,19 +17,25 @@ const login = async () => {
   const portApi = 3001 // remplace with source port origin using an enviroment variable
 
   try {
-    const response = await axios.post(`http://localhost:${portApi}/api/v1/signin`, {
-      email: email.value,
-      password: password.value,
-    });
+    isLoading.value = true
+    setTimeout(async () => {
 
-    const { auth } = response.data;
+      const response = await axios.post(`http://localhost:${portApi}/api/v1/signin`, {
+        email: email.value,
+        password: password.value,
+      });
 
-    if (auth) {
-      localStorage.setItem('token', JSON.stringify(response.data))
-      window.location.pathname = "/table-user"
-    } else {
-      window.location.href = "/"
-    }
+      const { auth } = response.data;
+
+      if (auth) {
+        localStorage.setItem('token', JSON.stringify(response.data))
+        window.location.pathname = "/select-list"
+        isLoading = false
+      } else {
+        window.location.href = "/"
+        isLoading = false
+      }
+    }, 1000)
 
   } catch (error) {
     console.error(error);
@@ -38,12 +44,17 @@ const login = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="login">
-    <v-card height="450px" class="mx-auto pa-12 pb-8 mt-16" elevation="8" max-width="400" rounded="lg">
+  <div class="container-loader" v-if="isLoading">
+    <div class="loader"></div>
+  </div>
+
+  <form v-else @submit.prevent="login">
+    <v-card height="500px" class="mx-auto pa-12 pb-8 mt-16" elevation="8" max-width="400" rounded="lg">
       <div class="container-logo-login">
-        <v-img class="logo-login" src="logo_daka_se_feliz.png" align="center"
-          justify="center"></v-img>
+        <v-img class="logo-login" src="logo_daka_se_feliz.png" align="center" justify="center"></v-img>
       </div>
+
+      <h2 class="text-center hablador-precio">HABLADOR DE PRECIO WEB</h2>
 
       <v-text-field v-model="email" density="compact" placeholder="Ingresa tu correo corporativo"
         prepend-inner-icon="mdi-email-outline" color="primary" background-color="rgba(255, 255, 255, 0.1)"
@@ -63,3 +74,12 @@ const login = async () => {
   </form>
 </template>
 
+<style scoped>
+.hablador-precio {
+  font-family: 'Sofia', sans-serif; /* Puedes usar una fuente más elegante aquí */
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>

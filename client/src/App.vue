@@ -27,7 +27,7 @@ onMounted(() => {
 <template>
   <div v-if="isVisible && pathname !== '/'">
     <Nav @logout="logout" />
-    <!-- <Footer /> -->
+    <Footer />
   </div>
 
   <RouterView />

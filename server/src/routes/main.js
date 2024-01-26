@@ -41,12 +41,13 @@ router.post("/newUser", async (req, res) => {
 router.post("/signin", async (req, res) => {
   // manejar las respuestas del servidor
   const { email, password } = req.body;
-  console.log(req.body);
   if (email == "admin" && password == 123) {
     res.json({
       auth: true,
       rtaEmail: "alice@gmail.com",
       rtaRol: "admin", // customer
+      idSucursal: "4",
+      sucursal: "Valencia"
     });
   } else {
     res.json({
