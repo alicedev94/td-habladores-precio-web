@@ -319,3 +319,7 @@ footer {
 .separador-text {
   margin-top: 1%;
 }
+
+.table-container {
+  display: flex;
+}

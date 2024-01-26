@@ -28,8 +28,15 @@ const headers = [
 ];
 
 onMounted(async () => {
+    const ruta = location.pathname;
+    const regex = /\/(\d+)\/(\d+)$/;
+    const match = ruta.match(regex);
+
+    const list = match[1];
+    const type = match[2];
+
     isLoading.value = true
-    const response = await axios.get(`http://localhost:3001/api/v1/products`);
+    const response = await axios.get(`http://localhost:3001/api/v1/products/${list}/${type}`);
     listProducts.value = response.data
     isLoading.value = false
     document.body.classList.add("body-white")
@@ -112,15 +119,32 @@ const fImportXlsx = async (event) => {
         console.error(error);
     }
 }
+
+const rightBtn = () => {
+    const filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    expoListProduct.value = filterListProducts
+}
 </script>
 
 <template>
-    <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
-        <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
+    <div class="table-container">
+        <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+            <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
                 :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
                 no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
                 loading-text="Cargando..." />
-    </v-card>
+        </v-card>
+        <v-btn size="small" variant="outlined" @click="rightBtn">derecha</v-btn>
+        <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+            <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
+                :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
+                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
+                loading-text="Cargando..." />
+            <div class="file-select" id="src-file1">
+                <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
+            </div>
+        </v-card>
+    </div>
 </template>
 
 

@@ -27,8 +27,9 @@ router.get("/", async (req, res) => {
   res.json(rta);
 });
 
-router.get("/products", async (req, res) => {
-  const rta = await products(); // stateData products
+router.get("/products/:list/:type", async (req, res) => {
+  const { list, type } = req.params;
+  const rta = await products(list, type); // stateData products
   res.json(rta[0]); // rta[0]
 });
 

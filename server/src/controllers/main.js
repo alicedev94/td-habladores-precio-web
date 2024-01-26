@@ -32,7 +32,7 @@ const deleteUser = async (id) => {
   return rta;
 };
 
-const products = async () => {
+const products = async (list, type) => {
   const rta = await sequelize.query(`
   SELECT DISTINCT top 10
   T1.[Referencia] Codigo
@@ -55,7 +55,7 @@ const products = async () => {
   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-  WHERE T1.[Referencia] LIKE 'l%' --AND T2.Cod_ListaPrecio = 2  --and T6.CodigoSucursal = 4`);
+  WHERE T1.[Referencia] LIKE 'l%' AND T2.Cod_ListaPrecio = ${list}  and T6.CodigoSucursal = 4`);
 
   //console.log(rta);
   return rta;
