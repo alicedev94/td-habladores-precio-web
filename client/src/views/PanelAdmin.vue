@@ -20,6 +20,10 @@ const isLoading2 = ref(false)
 
 const sapCode = ref([])
 
+//  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
+const list = ref("")
+const sizeTalker = ref("")
+
 
 // SETTINGS
 const headers = [
@@ -31,12 +35,10 @@ onMounted(async () => {
     const ruta = location.pathname;
     const regex = /\/(\d+)\/(\d+)$/;
     const match = ruta.match(regex);
-
-    const list = match[1];
-    const type = match[2];
-
+    list.value = match[1];
+    sizeTalker.value = match[2];
     isLoading.value = true
-    const response = await axios.get(`http://localhost:3001/api/v1/products/${list}/${type}`);
+    const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}`);
     listProducts.value = response.data
     isLoading.value = false
     document.body.classList.add("body-white")
@@ -61,7 +63,10 @@ watch(() => {
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
     try {
-        const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, filterExpoListProducts.value);
+        const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, {
+            data: filterExpoListProducts.value,
+            sizeTalker: sizeTalker.value
+        });
         if (response.data.value) {
             Swal.fire({
                 position: "top-end",
@@ -143,8 +148,8 @@ const rightBtn = () => {
             <div class="file-select" id="src-file1">
                 <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
             </div>
-            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red" width="160"
-                @click="fGeneratePdf">
+            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
+                width="160" @click="fGeneratePdf">
                 Generar .PDF
             </v-btn>
         </v-card>

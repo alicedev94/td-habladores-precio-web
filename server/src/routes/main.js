@@ -15,11 +15,11 @@ const {
 const {
   bigPriceTalker,
 } = require("../controllers/priceTalkerPdfGrande.controller");
-
 const {
-  createFolder,
-} = require("../controllers/createFolder.controller");
+  smallPriceTalker,
+} = require("../controllers/priceTalkerPdfPequeno.controller");
 
+const { createFolder } = require("../controllers/createFolder.controller");
 
 // GET
 router.get("/", async (req, res) => {
@@ -48,7 +48,7 @@ router.post("/signin", async (req, res) => {
       rtaEmail: "alice@gmail.com",
       rtaRol: "admin", // customer
       idSucursal: "4",
-      sucursal: "Valencia"
+      sucursal: "Valencia",
     });
   } else {
     res.json({
@@ -66,10 +66,20 @@ router.post("/generate-pdf", async (req, res) => {
   try {
     const folder = createFolder("Habladores-Precio-Web");
     if (folder) {
-      const data = req.body;
-      const proData = await modelData(data);
-      const rta = await bigPriceTalker(proData);
-      res.json({ value: rta });
+      const { data, sizeTalker } = req.body;
+      if (sizeTalker === "0") {
+        // HABLADOR PEQUEÑO
+        const proData = await modelData(data);
+        const rta = await smallPriceTalker(proData);
+        res.json({ value: rta });
+      } else if (sizeTalker === "1") {
+        // HABLADOR GRANDE
+        const proData = await modelData(data);
+        const rta = await bigPriceTalker(proData);
+        res.json({ value: rta });
+      } else {
+        console.error("DATO NO CONTEMPLADO");
+      }
     }
   } catch (error) {
     res.json(error);
