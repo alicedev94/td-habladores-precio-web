@@ -21,6 +21,8 @@ const {
 
 const { createFolder } = require("../controllers/createFolder.controller");
 
+const { calculateIva } = require("../controllers/calculate.controller");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -66,15 +68,20 @@ router.post("/generate-pdf", async (req, res) => {
   try {
     const folder = createFolder("Habladores-Precio-Web");
     if (folder) {
-      const { data, sizeTalker } = req.body;
+      const { data, list, sizeTalker } = req.body;
       if (sizeTalker === "0") {
         // HABLADOR PEQUEÑO
         const proData = await modelData(data);
-        const rta = await smallPriceTalker(proData);
+        // Precios con iva aqui
+        const proData1 = await calculateIva(proData);
+        // --
+        const rta = await smallPriceTalker(proData1);
         res.json({ value: rta });
       } else if (sizeTalker === "1") {
         // HABLADOR GRANDE
         const proData = await modelData(data);
+        // Precios con iva aqui
+        // --
         const rta = await bigPriceTalker(proData);
         res.json({ value: rta });
       } else {

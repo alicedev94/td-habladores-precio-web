@@ -65,6 +65,7 @@ const fGeneratePdf = async () => {
     try {
         const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, {
             data: filterExpoListProducts.value,
+            list: list.value,
             sizeTalker: sizeTalker.value
         });
         if (response.data.value) {
