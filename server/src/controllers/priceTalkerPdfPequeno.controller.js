@@ -1591,7 +1591,7 @@ const smallPriceTalker = async (priceTalkerData) => {
     .replace(/-/g, "_");
   const writeStream = doc.pipe(
     fs.createWriteStream(
-      `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/pequeno.pdf` // ${horaVenezuela}p
+      `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}p.pdf` // ${horaVenezuela}p
     )
   );
   return writeStream;

@@ -32,16 +32,37 @@ const headers = [
 ];
 
 onMounted(async () => {
-    const ruta = location.pathname;
-    const regex = /\/(\d+)\/(\d+)$/;
+    // const ruta = location.pathname;
+    // //const regex = /\/(\d+)\/(\d+)$/;
+    // const regex = /(?:\/(\d+)){3}\/$/; 
+    // const match = ruta.match(regex);
+    // list.value = match[1];
+    // sizeTalker.value = match[2];
+    // console.log(match[3]);
+    // isLoading.value = true
+    // const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}`);
+    // listProducts.value = response.data
+    // isLoading.value = false
+    // document.body.classList.add("body-white")
+
+    const ruta = window.location.pathname;
+    const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
-    list.value = match[1];
-    sizeTalker.value = match[2];
-    isLoading.value = true
-    const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}`);
-    listProducts.value = response.data
-    isLoading.value = false
-    document.body.classList.add("body-white")
+
+    if (match) {
+        list.value = match[1];
+        sizeTalker.value = match[2];
+        const sucur = match[3];
+
+        isLoading.value = true
+        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur}`);
+        listProducts.value = response.data
+        isLoading.value = false
+        document.body.classList.add("body-white")
+
+    } else {
+        console.error("La ruta no coincide con el patrón esperado.");
+    }
 })
 
 watch(() => {

@@ -1,13 +1,26 @@
 const sequelize = require("../lib/sequelize");
-const { models } = require("../lib/sequelize");
 
 const findAll = async () => {
   const rta = await sequelize.models.Users.findAll();
   return rta;
 };
 
+const findByEmail = async (email) => {
+  const rta = await sequelize.models.Users.findOne({
+    where: {
+      email: email,
+    },
+  });
+  return rta;
+};
+
 const newUser = async (data) => {
   const rta = await sequelize.models.Users.create(data);
+  return rta;
+};
+
+const newList = async (list) => {
+  const rta = await sequelize.models.List.create(list);
   return rta;
 };
 
@@ -32,30 +45,17 @@ const deleteUser = async (id) => {
   return rta;
 };
 
-const products = async (list, type) => {
+const products = async (list, type, sucur) => {
   const rta = await sequelize.query(`
-  SELECT DISTINCT 
-  T1.[Referencia] Codigo
-  ,T1.[Nombre] Nombre
-  ,T5.[Marca] Marca
-  ,T4.[CantidadDiasGarantia] Garantia
-  ,isNull(T3.[Barra], 0) Codigo_Barra
-  ,T2.[Precio] PrecioaMostrar
-  ,0 PrecioTachado
-  --,T6.Inventario
-  --,T6.CodigoSucursal
-  --,T6.Sucursal
-  --,T6.CodArea
-  ,T2.Cod_ListaPrecio 'Lista Precio'
-  --,T6.Sucursal
-  --,T6.CodArea
-  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
-  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
-  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON T1.[IdProducto] = T3.[IdProducto]
-  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
-  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
-  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-  WHERE T1.[Referencia] LIKE 'l%' AND T2.Cod_ListaPrecio = ${list}  and T6.CodigoSucursal = 4`);
+    SELECT DISTINCT [Codigo]
+        ,[Nombre]
+        ,[Marca]
+        ,[Garantia]
+        ,[Codigo_Barra]
+        ,[PrecioaMostrar]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE  CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo like 'L%'
+ `);
 
   //console.log(rta);
   return rta;
@@ -164,9 +164,8 @@ const stateData = () => {
 let priceTalkerData = [];
 
 const modelData = (data) => {
-
   priceTalkerData = [];
-  
+
   data.map((item) => {
     priceTalkerData.push({
       priceTalkerBrand: item.Marca,
@@ -181,6 +180,18 @@ const modelData = (data) => {
   return priceTalkerData;
 };
 
+const priceList = async () => {
+  const rta = await sequelize.models.List.findAll();
+  return rta;
+};
+
+// let list =
+// {
+//   title: "Lista Estandar",
+//   value: 2
+// }
+// newList(list)
+
 module.exports = {
   findAll,
   newUser,
@@ -190,4 +201,6 @@ module.exports = {
   processData,
   stateData,
   modelData,
+  findByEmail,
+  priceList,
 };

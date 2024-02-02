@@ -8,7 +8,7 @@ const token = localStorage.getItem("token");
 const isAuthenticate = () => {
   if (token !== null) {
     let { rtaEmail, rtaRol } = JSON.parse(token);
-    if(rtaRol === "admin") {
+    if(rtaRol === "ADMIN") {
       return async (to, from, next) => {
         return next();
       };
@@ -37,7 +37,7 @@ const router = createRouter({
       beforeEnter: isAuthenticate,
     },
     {
-      path: "/table-data/:list/:type",
+      path: "/table-data/:list/:type/:sucursal",
       name: "PanelAdmin",
       component: PanelAdmin,
       beforeEnter: isAuthenticate,

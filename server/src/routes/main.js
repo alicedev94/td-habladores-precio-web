@@ -9,6 +9,8 @@ const {
   processData,
   stateData,
   modelData,
+  findByEmail,
+  priceList
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -29,10 +31,15 @@ router.get("/", async (req, res) => {
   res.json(rta);
 });
 
-router.get("/products/:list/:type", async (req, res) => {
-  const { list, type } = req.params;
-  const rta = await products(list, type); // stateData products
+router.get("/products/:list/:type/:sucur", async (req, res) => {
+  const { list, type, sucur } = req.params;
+  const rta = await products(list, type, sucur); // stateData products
   res.json(rta[0]); // rta[0]
+});
+
+router.get("/priceList", async (req, res) => {
+  const rta = await priceList(); 
+  res.json(rta); 
 });
 
 // POST
@@ -44,17 +51,28 @@ router.post("/newUser", async (req, res) => {
 router.post("/signin", async (req, res) => {
   // manejar las respuestas del servidor
   const { email, password } = req.body;
-  if (email == "admin" && password == 123) {
-    res.json({
-      auth: true,
-      rtaEmail: "alice@gmail.com",
-      rtaRol: "admin", // customer
-      idSucursal: "4",
-      sucursal: "Valencia",
-    });
+
+  // PRIMER NIVEL DE VALIDACION
+  const user = await findByEmail(email);
+  if (user != null) {
+    // SEGUNDO NIVEL DE VALIDACION
+    if (user.dataValues.password === password) {
+      res.json({
+        auth: true,
+        rtaEmail: user.dataValues.email,
+        rtaRol: user.dataValues.rol,
+        idSucursal: user.dataValues.idSucursal,
+      });
+    } else {
+      res.json({
+        auth: false,
+        note: "Contraseña incorrecta."
+      });
+    }
   } else {
     res.json({
       auth: false,
+      note: "No se pudo encontrar un usuario con el correo electrónico proporcionado. Verifique la dirección e intente nuevamente."
     });
   }
 });
@@ -69,6 +87,7 @@ router.post("/generate-pdf", async (req, res) => {
     const folder = createFolder("Habladores-Precio-Web");
     if (folder) {
       const { data, list, sizeTalker } = req.body;
+      // console.log(req.body);
       if (sizeTalker === "0") {
         // HABLADOR PEQUEÑO
         const proData = await modelData(data);

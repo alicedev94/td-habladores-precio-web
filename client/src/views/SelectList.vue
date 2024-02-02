@@ -1,23 +1,29 @@
 <script setup>
 import axios from 'axios';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
-const items = ref([
-{ title: 'Lista Estandar', value: '2' },
-    { title: 'Lista Para Porlamar', value: '3' },
-    { title: 'Lista Especial', value: '11' },
-    { title: 'Lista Verde', value: '6' }
-])
+const items = ref([])
 
 const isLoading = ref(false)
 const selectData = ref({ typeList: ' ', sizeTalker: '' })
+
+const userSucursal = ref("")
+
+onMounted(async () => {
+    const response = await axios.get(`http://localhost:3001/api/v1/priceList`)
+    //items.value = response.data
+    items.value = response.data
+    let token = localStorage.getItem("token")
+    let { idSucursal, rtaRol } = JSON.parse(token)
+    userSucursal.value = idSucursal
+})
 
 const btnSend = () => {
     // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)
     isLoading.value = true
     setTimeout(() => {
         isLoading.value = false
-        location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}`
+        location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`
     }, 1000)
 }
 </script>
@@ -44,6 +50,8 @@ const btnSend = () => {
                 <!-- <v-radio label="Radio Three" value="three"></v-radio> -->
             </v-radio-group>
 
+            <input hidden v-model="userSucursal" />
+
             <div class="text-caption">Paso 3:</div>
             <v-card-actions>
                 <v-btn variant="elevated" color="#d0fdd7" :loading="isLoading"
@@ -53,5 +61,4 @@ const btnSend = () => {
             </v-card-actions>
         </v-card-item>
     </v-card>
-    
 </template>
