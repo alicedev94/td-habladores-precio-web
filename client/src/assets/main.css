@@ -325,3 +325,7 @@ footer {
 .table-container {
   display: flex;
 }
+
+.rightBtn {
+  margin-top: 8%;
+}

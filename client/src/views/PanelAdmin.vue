@@ -155,26 +155,41 @@ const rightBtn = () => {
 
 <template>
     <div class="table-container">
-        <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
-            <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
-                :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
-                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
-                loading-text="Cargando..." />
-        </v-card>
-        <v-btn size="small" variant="outlined" @click="rightBtn">derecha</v-btn>
-        <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
-            <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2" :headers="headers"
-                :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
-                no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
-                loading-text="Cargando..." />
-            <div class="file-select" id="src-file1">
-                <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
-            </div>
-            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
-                width="160" @click="fGeneratePdf">
-                Generar .PDF
-            </v-btn>
-        </v-card>
+
+        <div>
+            <v-text-field v-model="searchTable1" variant="outlined"
+                style="width: 600px; height: 20px; margin-left: 0%; margin-bottom: 30px"
+                label="Buscar por código o descripción"></v-text-field>
+            <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+                <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
+                    :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
+                    no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
+                    loading-text="Cargando..." />
+            </v-card>
+        </div>
+
+        <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">derecha</v-btn>
+
+        <div>
+            <v-text-field v-model="searchTable2" variant="outlined"
+                style="width: 600px; height: 20px; margin-left: 0px; margin-bottom: 30px"
+                label="Buscar por código o descripción"></v-text-field>
+
+            <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+                <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
+                    :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
+                    no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
+                    loading-text="Cargando..." />
+                <div class="file-select" id="src-file1">
+                    <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
+                </div>
+                <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
+                    width="160" @click="fGeneratePdf">
+                    Generar .PDF
+                </v-btn>
+            </v-card>
+        </div>
+
     </div>
 </template>
 

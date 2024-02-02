@@ -187,8 +187,8 @@ const priceList = async () => {
 
 // let list =
 // {
-//   title: "Lista Estandar",
-//   value: 2
+//   title: "Lista Especial",
+//   value: 11
 // }
 // newList(list)
 
