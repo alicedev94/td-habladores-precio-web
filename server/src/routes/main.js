@@ -112,8 +112,9 @@ router.post("/generate-pdf", async (req, res) => {
   }
 });
 
-router.post("/send/sap-code", async (req, res) => {
-  const rta = await processData(req.body);
+router.post("/send/sap-code/:list/:sucur", async (req, res) => {
+  const { list, sucur} = req.params
+  const rta = await processData(req.body, list, sucur);
   // let rtaJson = JSON.stringify(rta)
   res.json(rta[0]);
 });

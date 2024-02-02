@@ -23,7 +23,7 @@ const sapCode = ref([])
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
 const list = ref("")
 const sizeTalker = ref("")
-
+const sucur = ref("")
 
 // SETTINGS
 const headers = [
@@ -52,10 +52,10 @@ onMounted(async () => {
     if (match) {
         list.value = match[1];
         sizeTalker.value = match[2];
-        const sucur = match[3];
+        sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur}`);
+        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")
@@ -119,7 +119,7 @@ const fImportXlsx = async (event) => {
         })
 
         // http://localhost:3001/api/v1/send/sap-code1
-        fetch('http://localhost:3001/api/v1/send/sap-code', {
+        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' // For sending JSON data
