@@ -53,6 +53,7 @@ const products = async (list, type, sucur) => {
         ,[Garantia]
         ,[Codigo_Barra]
         ,[PrecioaMostrar]
+        ,[IdHablador]
     FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
     WHERE  CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo like 'L%'
  `);

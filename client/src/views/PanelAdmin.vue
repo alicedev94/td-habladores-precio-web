@@ -17,6 +17,7 @@ const searchTable2 = ref("")
 const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
+const isLoadingPdf = ref(false)
 
 const sapCode = ref([])
 
@@ -83,6 +84,7 @@ watch(() => {
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
+    isLoadingPdf.value = true
     try {
         const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, {
             data: filterExpoListProducts.value,
@@ -97,6 +99,7 @@ const fGeneratePdf = async () => {
                 showConfirmButton: false,
                 timer: 2000
             });
+            isLoadingPdf.value = false
         } else {
             Swal.fire({
                 position: "top-end",
@@ -105,9 +108,11 @@ const fGeneratePdf = async () => {
                 showConfirmButton: false,
                 timer: 2000
             });
+            isLoadingPdf.value = false
         }
     } catch (error) {
         console.error(error);
+        isLoadingPdf.value = false
     }
 }
 
@@ -154,6 +159,7 @@ const rightBtn = () => {
 </script>
 
 <template>
+    <span v-if="isLoadingPdf" class="loaderPdf"></span>
     <div class="table-container">
 
         <div>
