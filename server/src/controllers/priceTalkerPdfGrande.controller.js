@@ -8,6 +8,9 @@ const moment = require("moment-timezone");
 
 // -- VARIABLES --
 
+// GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
+var precio = 0;
+
 // Posición
 let boxPositionX = 70;
 let boxPositionY = 30;
@@ -76,9 +79,8 @@ async function generateBarcode(text) {
   }
 }
 
-
 const bigPriceTalker = async (priceTalkerData) => {
- const doc = new PDFDocument({ size: "A4", layout: "landscape" });
+  const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   // Borra el contenido existente
   for (let i = 0; i < priceTalkerData.length; i++) {
@@ -149,6 +151,24 @@ const bigPriceTalker = async (priceTalkerData) => {
       });
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -161,7 +181,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY
         );
@@ -281,6 +301,24 @@ const bigPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -293,7 +331,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY
         );
@@ -413,6 +451,23 @@ const bigPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
       doc
         .font(
           path.join(
@@ -425,7 +480,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -545,6 +600,23 @@ const bigPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
       doc
         .font(
           path.join(
@@ -557,7 +629,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -630,7 +702,11 @@ const bigPriceTalker = async (priceTalkerData) => {
     .format()
     .replace(/:/g, "-")
     .replace(/-/g, "_");
-  const writeStream = doc.pipe(fs.createWriteStream(`${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}g.pdf`));
+  const writeStream = doc.pipe(
+    fs.createWriteStream(
+      `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}g.pdf`
+    )
+  );
   return writeStream;
 };
 

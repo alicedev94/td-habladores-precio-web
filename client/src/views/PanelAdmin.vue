@@ -26,6 +26,10 @@ const list = ref("")
 const sizeTalker = ref("")
 const sucur = ref("")
 
+// STATIC VARIBLES
+var deleteCode = []
+var existDestintCode = []
+
 // SETTINGS
 const headers = [
     { text: 'Código', value: 'Codigo' },
@@ -33,19 +37,7 @@ const headers = [
 ];
 
 onMounted(async () => {
-    // const ruta = location.pathname;
-    // //const regex = /\/(\d+)\/(\d+)$/;
-    // const regex = /(?:\/(\d+)){3}\/$/; 
-    // const match = ruta.match(regex);
-    // list.value = match[1];
-    // sizeTalker.value = match[2];
-    // console.log(match[3]);
-    // isLoading.value = true
-    // const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}`);
-    // listProducts.value = response.data
-    // isLoading.value = false
-    // document.body.classList.add("body-white")
-
+    2
     const ruta = window.location.pathname;
     const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
@@ -137,7 +129,7 @@ const fImportXlsx = async (event) => {
             .then(data => {
                 // Handle successful response
                 console.log('Post created successfully:', data);
-                expoListProduct.value = data // expoListProduct listProducts2
+                expoListProduct.value = expoListProduct.value.concat(data) // expoListProduct listProducts2
                 isLoading2.value = false
             })
             .catch(error => {
@@ -152,9 +144,40 @@ const fImportXlsx = async (event) => {
     }
 }
 
+var filterListProducts = []
 const rightBtn = () => {
-    const filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    expoListProduct.value = filterListProducts
+    // if (expoListProduct.value.length != 0) {
+    //     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    //     console.log(expoListProduct.value);
+
+    //     // // GENERRAR ARREGLO DE PRODUCTOS EXISTENTES EN NUESTRA TABLA DESTINO
+    //     // expoListProduct.value.map((item) => {
+    //     //     existDestintCode.push(item.Codigo)
+    //     // })
+
+    //     // console.log(existDestintCode);
+
+    //     // filterListProducts = filterListProducts.filter(item => !existDestintCode.includes(item.Codigo))
+    //     // console.log(filterListProducts);
+    //     // expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+    // } else {
+    //     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    //     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+    //     filterListProducts.length = 0
+    // }
+    // filterListProducts.length = 0
+
+    filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+}
+
+const deleteBtn = () => {
+    const filterListProducts2 = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
+    filterListProducts2.map((item) => {
+        deleteCode.push(item.Codigo)
+    })
+    expoListProduct.value = expoListProduct.value.filter(item => !deleteCode.includes(item.Codigo));
+    deleteCode.length = 0
 }
 </script>
 
@@ -174,7 +197,10 @@ const rightBtn = () => {
             </v-card>
         </div>
 
-        <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">derecha</v-btn>
+        <div display="flex">
+            <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">Agregar</v-btn>
+            <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
+        </div>
 
         <div>
             <v-text-field v-model="searchTable2" variant="outlined"

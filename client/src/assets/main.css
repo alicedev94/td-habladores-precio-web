@@ -327,7 +327,12 @@ footer {
 }
 
 .rightBtn {
-  margin-top: 8%;
+  margin-top: 100%;
+  height: 500px;
+  width: 108px;
+}
+.deleteBtn {
+  width: 108px;
 }
 
 .loaderPdf {
