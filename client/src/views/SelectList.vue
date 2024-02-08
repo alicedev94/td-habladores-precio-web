@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const items = ref([])
 
@@ -17,6 +17,10 @@ onMounted(async () => {
     let { idSucursal, rtaRol } = JSON.parse(token)
     userSucursal.value = idSucursal
 })
+
+// watch(() => {
+
+// })
 
 const btnSend = () => {
     // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)

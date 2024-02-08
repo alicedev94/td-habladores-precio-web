@@ -45,7 +45,46 @@ const deleteUser = async (id) => {
   return rta;
 };
 
+const store = (list) => {
+  if (list === "3") {
+    // AZUL
+    return ["'EXH-AZ'", "'RC-RCBLE'"];
+  } else if (list === "11") {
+    // ESPECIAL
+    return ["'ALM'", "'EXH', 'OB'"];
+  } else if (list === "2") {
+    // ESTANDAR
+    return ["'ALM'", "'EXH', 'OB'"];
+  } else if (list === "8") {
+    // GRADO A
+    return ["'ALM-GD-A'", "'GD-A'"];
+  } else if (list === "9") {
+    // GRADO B
+    return ["'ALM-GD-B'", "'GD-B'"];
+  } else if (list === "10") {
+    // GRADO C
+    return ["'ALM-GD-C'", "'GD-C'"];
+  } else if (list === "7") {
+    // GRADO C
+    return ["'RC-RCMGT'"];
+  } else if (list === "1") {
+    // ESPECIAL
+    return ["'ALM'", "'EXH', 'OB'"];
+  } else if (list === "4") {
+    // ESPECIAL
+    return ["'EXH-NJ'", "'RC-RCORG'"];
+  } else if (list === "6") {
+    // ESPECIAL
+    return ["'EXH-VD'", "'RC-RCGRN'"];
+  } else {
+    return null;
+  }
+};
+
 const products = async (list, type, sucur) => {
+  // OBTENER ALMACEN SEGUN LA LISTA
+  let rtaStore = store(list);
+
   const rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
@@ -56,6 +95,7 @@ const products = async (list, type, sucur) => {
         ,[IdHablador]
     FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
     WHERE  CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo like 'L%'
+    AND [IdAlmacen] IN (${rtaStore})
  `);
 
   //console.log(rta);
@@ -69,7 +109,7 @@ const processData = async (data, list, sucur) => {
     return `'${elemento}'`;
   });
 
-const rta = await sequelize.query(`
+  const rta = await sequelize.query(`
   SELECT DISTINCT [Codigo]
   ,[Nombre]
   ,[Marca]
@@ -153,8 +193,6 @@ let priceTalkerData = [];
 const modelData = (data) => {
   priceTalkerData = [];
 
-  console.log(data);
-
   data.map((item) => {
     priceTalkerData.push({
       priceTalkerBrand: item.Marca,
@@ -163,7 +201,7 @@ const modelData = (data) => {
       priceTalkerSapCode: item.Codigo,
       priceTalkerBarCode: item.Codigo_Barra,
       priceTalkerWarranty: item.Garantia,
-      priceTalkerIdHablador: item.IdHablador
+      priceTalkerIdHablador: item.IdHablador,
     });
   });
 
@@ -171,14 +209,16 @@ const modelData = (data) => {
 };
 
 const priceList = async () => {
-  const rta = await sequelize.models.List.findAll();
+  const rta = await sequelize.models.List.findAll({
+    order: [["title", "ASC"]],
+  });
   return rta;
 };
 
 // let list =
 // {
-//   title: "Lista Especial",
-//   value: 11
+//   title: "Lista Margarita",
+//   value: 1
 // }
 // newList(list)
 

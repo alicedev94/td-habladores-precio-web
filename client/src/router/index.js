@@ -1,6 +1,7 @@
 import Login from "@/views/Login.vue";
 import PanelAdmin from "@/views/PanelAdmin.vue";
 import SelectListVue from "@/views/SelectList.vue";
+import logoChange from "@/views/logoChange.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const token = localStorage.getItem("token");
@@ -40,6 +41,12 @@ const router = createRouter({
       path: "/table-data/:list/:type/:sucursal",
       name: "PanelAdmin",
       component: PanelAdmin,
+      beforeEnter: isAuthenticate,
+    },
+    {
+      path: "/marketing/logo-change",
+      name: "logoChange",
+      component: logoChange,
       beforeEnter: isAuthenticate,
     }
   ],

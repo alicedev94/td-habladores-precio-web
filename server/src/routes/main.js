@@ -1,4 +1,7 @@
 const { Router } = require("express");
+const path = require("path");
+const fs = require("fs");
+
 const router = Router();
 const {
   findAll,
@@ -10,7 +13,7 @@ const {
   stateData,
   modelData,
   findByEmail,
-  priceList
+  priceList,
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -25,6 +28,9 @@ const { createFolder } = require("../controllers/createFolder.controller");
 
 const { calculateIva } = require("../controllers/calculate.controller");
 
+const { uploadImage, upload } = require("../controllers/changeLogo.controller");
+
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -38,8 +44,8 @@ router.get("/products/:list/:type/:sucur", async (req, res) => {
 });
 
 router.get("/priceList", async (req, res) => {
-  const rta = await priceList(); 
-  res.json(rta); 
+  const rta = await priceList();
+  res.json(rta);
 });
 
 // POST
@@ -66,13 +72,13 @@ router.post("/signin", async (req, res) => {
     } else {
       res.json({
         auth: false,
-        note: "Contraseña incorrecta."
+        note: "Contraseña incorrecta.",
       });
     }
   } else {
     res.json({
       auth: false,
-      note: "No se pudo encontrar un usuario con el correo electrónico proporcionado. Verifique la dirección e intente nuevamente."
+      note: "No se pudo encontrar un usuario con el correo electrónico proporcionado. Verifique la dirección e intente nuevamente.",
     });
   }
 });
@@ -113,7 +119,7 @@ router.post("/generate-pdf", async (req, res) => {
 });
 
 router.post("/send/sap-code/:list/:sucur", async (req, res) => {
-  const { list, sucur} = req.params
+  const { list, sucur } = req.params;
   const rta = await processData(req.body, list, sucur);
   // let rtaJson = JSON.stringify(rta)
   res.json(rta[0]);
@@ -123,6 +129,23 @@ router.post("/send/sap-code1", async (req, res) => {
   const rta = await stateData();
   //let rtaJson = JSON.stringify(rta)
   res.json(rta); // rtaJson
+});
+
+router.post("/change/logo", async (req, res) => {
+ // const filePath = path.join(__dirname, "/uploads/", req.file.originalname);
+  // console.log(filePath);
+  try {
+    uploadImage(req, res, (err) => {
+      if (err) {
+        err.message = "The file is so heavy for my service";
+        return res.send(err);
+      }
+      const { originalname } = req.file;
+      //const rta = changeLogo(originalname);
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 // PUT
