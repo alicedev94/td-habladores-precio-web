@@ -1,5 +1,19 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 defineEmits(['logout']);
+const isMarketing = ref(true)
+// const rolMarketing = ref(true)
+
+onMounted(()=> {
+    let rolMarketing = localStorage.getItem("token")
+    let { rtaEmail, rtaRol } = JSON.parse(rolMarketing);
+
+    if(rtaRol === "MARKETING"){
+        isMarketing.value = true
+    } else {
+        isMarketing.value = false
+    }
+})
 </script>
 
 <template>
@@ -8,8 +22,8 @@ defineEmits(['logout']);
             <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150"
                 align-self="start" />
 
-            <ul>
-                <li>
+            <ul v-if="isMarketing">
+                <li class="li-logo-change">
                     <a href="/marketing/logo-change">CAMBIO DE LOGO</a>
                 </li>
             </ul>
@@ -44,7 +58,7 @@ li a {
     font-weight: bold;
 }
 
-li a:hover {
+.li-logo-change {
     background-color: #9b9b9b;
     opacity: 1;
 }

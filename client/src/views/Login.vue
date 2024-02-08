@@ -30,10 +30,10 @@ const login = async () => {
       if (auth) {
         localStorage.setItem('token', JSON.stringify(response.data))
         window.location.pathname = "/select-list"
-        isLoading = false
+        isLoading.value = false
       } else {
         window.location.href = "/"
-        isLoading = false
+        isLoading.value = false
       }
     }, 1000)
 

@@ -9,7 +9,7 @@ const token = localStorage.getItem("token");
 const isAuthenticate = () => {
   if (token !== null) {
     let { rtaEmail, rtaRol } = JSON.parse(token);
-    if(rtaRol === "ADMIN") {
+    if(rtaRol === "ADMIN" || rtaRol === "MARKETING") {
       return async (to, from, next) => {
         return next();
       };

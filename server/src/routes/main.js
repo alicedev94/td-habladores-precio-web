@@ -138,9 +138,11 @@ router.post("/change/logo", async (req, res) => {
     uploadImage(req, res, (err) => {
       if (err) {
         err.message = "The file is so heavy for my service";
-        return res.send(err);
+        return res.json(err);
+      } else {
+        res.json(req.file)
       }
-      const { originalname } = req.file;
+      // const { originalname } = req.file;
       //const rta = changeLogo(originalname);
     });
   } catch (error) {
