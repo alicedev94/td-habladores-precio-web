@@ -1,1 +1,4 @@
-module.exports = require('path').join(__dirname)
+const path = require("path");
+
+const dirnameLogo = path.join(__dirname);
+module.exports = dirnameLogo;

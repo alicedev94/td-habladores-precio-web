@@ -30,6 +30,7 @@ const { calculateIva } = require("../controllers/calculate.controller");
 
 const { uploadImage, upload } = require("../controllers/changeLogo.controller");
 
+const { changeLogo } = require("../controllers/remplaceRoute.controller");
 
 // GET
 router.get("/", async (req, res) => {
@@ -89,6 +90,7 @@ router.post("/signin", async (req, res) => {
 // });
 
 router.post("/generate-pdf", async (req, res) => {
+  // console.log(req.body);
   try {
     const folder = createFolder("Habladores-Precio-Web");
     if (folder) {
@@ -140,6 +142,8 @@ router.post("/change/logo", async (req, res) => {
         err.message = "The file is so heavy for my service";
         return res.json(err);
       } else {
+        const { originalname } = req.file;
+        const rta = changeLogo(originalname);
         res.json(req.file)
       }
       // const { originalname } = req.file;

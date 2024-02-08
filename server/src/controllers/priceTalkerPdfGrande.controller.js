@@ -1,3 +1,11 @@
+// TYPES PROMOTION
+/*
+    1 PROMO ACTUAL
+    2 SE FELIZ .99
+    3 SE FELIZ CON ENTERO
+    4 POR APLICAR
+*/
+
 // -- LIBRERÍAS --
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
@@ -5,6 +13,10 @@ const path = require("path");
 const pathLogo = require("../img/index");
 const bwipjs = require("bwip-js");
 const moment = require("moment-timezone");
+
+// LOGO DIRECCION DE LOGO DINAMICO
+const dirnameLogo = require("../routes/uploads/index");
+var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
 
@@ -144,11 +156,34 @@ const bigPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
-      doc.image(pathLogo, priceTalkerLogoPositionX, priceTalkerLogoPositionY, {
-        fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
-        align: "center",
-        valign: "center",
-      });
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      // `${dirnameLogo}/${logoName}`
+
+      doc.image(
+        `${dirnameLogo}/${logoName}`,
+        priceTalkerLogoPositionX,
+        priceTalkerLogoPositionY,
+        {
+          // pathLogo
+          fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
+          align: "center",
+          valign: "center",
+        }
+      );
 
       // -- PRECIO --
       // TYPES PROMOTION
@@ -289,8 +324,25 @@ const bigPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      // `${dirnameLogo}/${logoName}`
+
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY,
         {
@@ -439,8 +491,25 @@ const bigPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      // `${dirnameLogo}/${logoName}`
+
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX,
         priceTalkerLogoPositionY + boxHeight,
         {
@@ -588,8 +657,25 @@ const bigPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      // `${dirnameLogo}/${logoName}`
+
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY + boxHeight,
         {
