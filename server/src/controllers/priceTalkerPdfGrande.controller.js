@@ -165,7 +165,8 @@ const bigPriceTalker = async (priceTalkerData) => {
         */
       if (product.priceTalkerIdHablador != 1) {
         // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
-        logoName = "LOGO_DAKA_SE_FELIZ.png";3
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
       } else {
         // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
         logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
@@ -272,6 +273,108 @@ const bigPriceTalker = async (priceTalkerData) => {
             align: "center",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      }
+      // -- FIN DEL BLOQUE DE CODIGO
     } else if (contador == 1) {
       // box 2
       doc

@@ -65,16 +65,16 @@ const store = (list) => {
     // GRADO C
     return ["'ALM-GD-C'", "'GD-C'"];
   } else if (list === "7") {
-    // GRADO C
+    // MAGENTA
     return ["'RC-RCMGT'"];
   } else if (list === "1") {
-    // ESPECIAL
+    // MARGARITA
     return ["'ALM'", "'EXH', 'OB'"];
   } else if (list === "4") {
-    // ESPECIAL
+    // NARANJA
     return ["'EXH-NJ'", "'RC-RCORG'"];
   } else if (list === "6") {
-    // ESPECIAL
+    // VERDE
     return ["'EXH-VD'", "'RC-RCGRN'"];
   } else {
     return null;
@@ -84,8 +84,13 @@ const store = (list) => {
 const products = async (list, type, sucur) => {
   // OBTENER ALMACEN SEGUN LA LISTA
   let rtaStore = store(list);
+  var rta = "";
 
-  const rta = await sequelize.query(`
+  console.log(type);
+
+  if (type == "0") {
+    // HABLADOR PEQUEÑO
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
@@ -94,10 +99,38 @@ const products = async (list, type, sucur) => {
         ,[PrecioaMostrar]
         ,[IdHablador]
     FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
-    WHERE  CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo like 'L%'
+    WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
-
+  } else if (type == "1") {
+    // HABLADOR GRANDE
+    rta = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+        ,[Nombre]
+        ,[Marca]
+        ,[Garantia]
+        ,[Codigo_Barra]
+        ,[PrecioaMostrar]
+        ,[IdHablador]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
+    AND [IdAlmacen] IN (${rtaStore})
+ `);
+  } else {
+    // HABLADOR ESTANDAR
+    rta = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+        ,[Nombre]
+        ,[Marca]
+        ,[Garantia]
+        ,[Codigo_Barra]
+        ,[PrecioaMostrar]
+        ,[IdHablador]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
+    AND [IdAlmacen] IN (${rtaStore})
+ `);
+  }
   //console.log(rta);
   return rta;
 };

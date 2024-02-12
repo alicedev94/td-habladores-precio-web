@@ -33,7 +33,7 @@ const btnSend = () => {
 </script>
 
 <template>
-    <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+    <v-card class="mx-auto card-select-list" width="600" height="465" color="#000" variant="outlined" elevation="8">
         <v-card-item>
             <div>
                 <div class="text-overline mb-3">
@@ -48,9 +48,10 @@ const btnSend = () => {
                 v-model="selectData.typeList" variant="outlined"></v-autocomplete>
 
             <div class="text-caption">Paso 2:</div>
-            <v-radio-group inline v-model="selectData.sizeTalker" v-bind:disabled="selectData.typeList === ' '">
+            <v-radio-group  v-model="selectData.sizeTalker" v-bind:disabled="selectData.typeList === ' '">
                 <v-radio label="Hablador Pequeño" value="0"></v-radio>
                 <v-radio label="Hablador Grande" value="1"></v-radio>
+                <v-radio label="Hablador Estandar" value="2"></v-radio>
                 <!-- <v-radio label="Radio Three" value="three"></v-radio> -->
             </v-radio-group>
 

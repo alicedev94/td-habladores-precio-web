@@ -109,6 +109,23 @@ router.post("/generate-pdf", async (req, res) => {
         const proData = await modelData(data);
         // Precios con iva aqui
         // --
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+
+        //console.log(proData);
+        const rta = await bigPriceTalker(proData);
+        res.json({ value: rta });
+      } else if (sizeTalker === "2") {
+        // HABLADOR GRANDE
+        const proData = await modelData(data);
+        // Precios con iva aqui
+        // --
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+
+        //console.log(proData);
         const rta = await bigPriceTalker(proData);
         res.json({ value: rta });
       } else {
@@ -134,7 +151,7 @@ router.post("/send/sap-code1", async (req, res) => {
 });
 
 router.post("/change/logo", async (req, res) => {
- // const filePath = path.join(__dirname, "/uploads/", req.file.originalname);
+  // const filePath = path.join(__dirname, "/uploads/", req.file.originalname);
   // console.log(filePath);
   try {
     uploadImage(req, res, (err) => {
@@ -144,7 +161,7 @@ router.post("/change/logo", async (req, res) => {
       } else {
         const { originalname } = req.file;
         const rta = changeLogo(originalname);
-        res.json(req.file)
+        res.json(req.file);
       }
       // const { originalname } = req.file;
       //const rta = changeLogo(originalname);
