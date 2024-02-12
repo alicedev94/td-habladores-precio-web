@@ -165,7 +165,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         */
       if (product.priceTalkerIdHablador != 1) {
         // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
-        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        logoName = "LOGO_DAKA_SE_FELIZ.png";3
       } else {
         // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
         logoName = "LOGO_DAKA_PROMO_ACTUAL.png";

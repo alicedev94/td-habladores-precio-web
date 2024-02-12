@@ -2,10 +2,17 @@
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
-const pathLogo = require("../img/index");
+const pathLog1 = require("../img/index");
 const moment = require("moment-timezone");
 
+// LOGO DIRECCION DE LOGO DINAMICO
+const dirnameLogo = require("../routes/uploads/index");
+var logoName = "PRUEBA.png";
+
 // -- VARIABLES --
+
+// GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
+var precio = 0;
 
 // Posición
 let boxPositionX = 70;
@@ -123,13 +130,51 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
-      doc.image(pathLogo, priceTalkerLogoPositionX, priceTalkerLogoPositionY, {
-        fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
-        align: "right",
-        valign: "right",
-      });
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+      doc.image(
+        `${dirnameLogo}/${logoName}`,
+        priceTalkerLogoPositionX,
+        priceTalkerLogoPositionY,
+        {
+          fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
+          align: "right",
+          valign: "right",
+        }
+      );
 
-      // -- PRECIO --
+      // -- PRECIOnew --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(precio * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(precio * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -142,7 +187,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY
         );
@@ -242,8 +287,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY,
         {
@@ -253,7 +313,25 @@ const smallPriceTalker = async (priceTalkerData) => {
         }
       );
 
-      // -- PRECIO --
+      // -- PRECIOnew --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(precio * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(precio * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -266,7 +344,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY
         );
@@ -366,8 +444,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith + boxWith,
         priceTalkerLogoPositionY,
         {
@@ -378,6 +471,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -390,7 +501,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY
         );
@@ -490,8 +601,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX,
         priceTalkerLogoPositionY + boxHeight,
         {
@@ -502,6 +628,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -514,7 +658,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -613,8 +757,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY + boxHeight,
         {
@@ -625,6 +784,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -637,7 +814,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -736,8 +913,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith + boxWith,
         priceTalkerLogoPositionY + boxHeight,
         {
@@ -748,6 +940,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -760,7 +970,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -864,8 +1074,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX,
         priceTalkerLogoPositionY + boxHeight + boxHeight,
         {
@@ -876,6 +1101,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -888,7 +1131,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -992,8 +1235,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY + boxHeight + boxHeight,
         {
@@ -1004,6 +1262,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -1016,7 +1292,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -1120,8 +1396,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith + boxWith,
         priceTalkerLogoPositionY + boxHeight + boxHeight,
         {
@@ -1132,6 +1423,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -1144,7 +1453,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -1248,8 +1557,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX,
         priceTalkerLogoPositionY + boxHeight + boxHeight + boxHeight,
         {
@@ -1260,6 +1584,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -1272,7 +1614,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );
@@ -1376,8 +1718,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith,
         priceTalkerLogoPositionY + boxHeight + boxHeight + boxHeight,
         {
@@ -1388,6 +1745,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -1400,7 +1775,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );
@@ -1504,8 +1879,23 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- LOGO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+        3;
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
       doc.image(
-        pathLogo,
+        `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX + boxWith + boxWith,
         priceTalkerLogoPositionY + boxHeight + boxHeight + boxHeight,
         {
@@ -1516,6 +1906,24 @@ const smallPriceTalker = async (priceTalkerData) => {
       );
 
       // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+        1 PROMO ACTUAL
+        2 SE FELIZ .99
+        3 SE FELIZ CON ENTERO
+        4 POR APLICAR
+      */
+      if (product.priceTalkerIdHablador != 3) {
+        // CON .99
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = parseFloat(precio.toFixed(2));
+        precio = precio - 0.01;
+      } else {
+        // ENTERO
+        precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        precio = precio.toFixed(2);
+      }
+
       doc
         .font(
           path.join(
@@ -1528,7 +1936,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${product.priceTalkerPrice}`,
+          `$ ${precio}`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );
