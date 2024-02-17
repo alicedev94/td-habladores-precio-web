@@ -100,12 +100,17 @@ router.post("/generate-pdf", async (req, res) => {
         // HABLADOR PEQUEÑO
         const proData = await modelData(data);
         // Precios con iva aqui
-        const proData1 = await calculateIva(proData);
+        //const proData1 = await calculateIva(proData);
         // --
-        const rta = await smallPriceTalker(proData1);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+        
+        const rta = await smallPriceTalker(proData);
         res.json({ value: rta });
       } else if (sizeTalker === "1") {
         // HABLADOR GRANDE
+        // console.log(data);
         const proData = await modelData(data);
         // Precios con iva aqui
         // --
@@ -114,6 +119,7 @@ router.post("/generate-pdf", async (req, res) => {
         });
 
         //console.log(proData);
+        // const proData1 = await calculateIva(proData);
         const rta = await bigPriceTalker(proData);
         res.json({ value: rta });
       } else if (sizeTalker === "2") {

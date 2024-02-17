@@ -10,13 +10,17 @@ const promotion = 1;
 */
 
 const calculateIva = (products) => {
-  if (promotion !== 3) {
+  if (promotion != "3") {
     // 1 PROMO ACTUAL
     // 2 SE FELIZ .99
-    products.forEach((product) => {
-      product.priceTalkerPrice =
-        Math.ceil(product.priceTalkerPrice * iva) - 0.01;
-    });
+    // products.forEach((product) => {
+    //   product.priceTalkerPrice =
+    //     Math.ceil(product.priceTalkerPrice * iva) - 0.01;
+    // });
+    console.log(products);
+    // products.forEach((product) => {
+    //   product.priceTalkerPrice = Math.ceil(product.priceTalkerPrice * iva);
+    // });
   } else {
     // 3 SE FELIZ CON ENTERO
     products.forEach((product) => {

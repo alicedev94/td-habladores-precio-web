@@ -166,13 +166,25 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(precio * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(precio * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+
+     
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+
+        // console.log(precio);
+
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(precio * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(precio * 1.16);
+        // precio = precio.toFixed(2);
+        
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -187,7 +199,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY
         );
@@ -323,13 +335,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(precio * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(precio * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(precio * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(precio * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -344,7 +362,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY
         );
@@ -480,13 +498,20 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -501,7 +526,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY
         );
@@ -637,13 +662,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -658,7 +689,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -793,13 +824,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -814,7 +851,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -949,13 +986,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -970,7 +1013,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -1110,13 +1153,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1131,7 +1180,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -1271,13 +1320,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1292,7 +1347,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -1432,13 +1487,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1453,7 +1514,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight
         );
@@ -1593,13 +1654,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1614,7 +1681,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );
@@ -1754,13 +1821,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1775,7 +1848,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );
@@ -1915,13 +1988,19 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -1936,7 +2015,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith + boxWith,
           priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
         );

@@ -16,6 +16,7 @@ const moment = require("moment-timezone");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
+const { log } = require("console");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -166,7 +167,6 @@ const bigPriceTalker = async (priceTalkerData) => {
       if (product.priceTalkerIdHablador != 1) {
         // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
         logoName = "LOGO_DAKA_SE_FELIZ.png";
-    
       } else {
         // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
         logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
@@ -174,11 +174,11 @@ const bigPriceTalker = async (priceTalkerData) => {
 
       // `${dirnameLogo}/${logoName}`
 
-      // // CABLE 
+      // // CABLE
       // if(product.priceTalkerSapCode == "LM-00000853") {
       //   logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
       // }
-      
+
       doc.image(
         `${dirnameLogo}/${logoName}`,
         priceTalkerLogoPositionX,
@@ -201,13 +201,22 @@ const bigPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
+       
+        // console.log(Math.round(precio2));
+      // console.log(precio2.toFixed(2));
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -222,7 +231,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY
         );
@@ -379,6 +388,34 @@ const bigPriceTalker = async (priceTalkerData) => {
           .fontSize(20)
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
       }
+      // -- 15022024
+      if (
+        product.priceTalkerList === "3" ||
+        product.priceTalkerList === "4" ||
+        product.priceTalkerList === "6" ||
+        product.priceTalkerList === "7" ||
+        product.priceTalkerList === "8" ||
+        product.priceTalkerList === "9" ||
+        product.priceTalkerList === "10"
+      ) {
+        // FRASE MERCANCIA ESPECIAL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(15)
+          .text(
+            `MERCANCÍA ESPECIAL`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + 32
+          );
+      }
       // -- FIN DEL BLOQUE DE CODIGO
     } else if (contador == 1) {
       // box 2
@@ -470,13 +507,21 @@ const bigPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
+        console.log("ska");
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
 
       doc
@@ -491,7 +536,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY
         );
@@ -676,6 +721,36 @@ const bigPriceTalker = async (priceTalkerData) => {
             priceTalkerLogoPositionY
           );
       }
+
+      // -- 15022024
+      if (
+        product.priceTalkerList === "3" ||
+        product.priceTalkerList === "4" ||
+        product.priceTalkerList === "6" ||
+        product.priceTalkerList === "7" ||
+        product.priceTalkerList === "8" ||
+        product.priceTalkerList === "9" ||
+        product.priceTalkerList === "10"
+      ) {
+        // FRASE MERCANCIA ESPECIAL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(15)
+          .text(
+            `MERCANCÍA ESPECIAL`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + 32
+          );
+      }
+      // FIN DEL CAMPO
     } else if (contador == 2) {
       // box 3
       doc
@@ -766,13 +841,19 @@ const bigPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
       doc
         .font(
@@ -786,7 +867,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -857,7 +938,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `AZ`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -871,7 +956,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `VD`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -885,7 +974,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `NJ`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -899,7 +992,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `MG`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -913,7 +1010,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `A`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -927,7 +1028,11 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `B`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -941,9 +1046,41 @@ const bigPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(20)
-          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY + boxHeight);
+          .text(
+            `C`,
+            priceTalkerLogoPositionX - 32,
+            priceTalkerLogoPositionY + boxHeight
+          );
       }
-      // -- FIN DEL BLOQUE DE CODIGO
+      // -- 15022024
+      if (
+        product.priceTalkerList === "3" ||
+        product.priceTalkerList === "4" ||
+        product.priceTalkerList === "6" ||
+        product.priceTalkerList === "7" ||
+        product.priceTalkerList === "8" ||
+        product.priceTalkerList === "9" ||
+        product.priceTalkerList === "10"
+      ) {
+        // FRASE MERCANCIA ESPECIAL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(15)
+          .text(
+            `MERCANCÍA ESPECIAL`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight + 32
+          );
+      }
+      // FIN DEL CAMPO
     } else if (contador == 3) {
       // box 4
       doc
@@ -1034,13 +1171,19 @@ const bigPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = parseFloat(precio.toFixed(2));
-        precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = parseFloat(precio.toFixed(2));
+        // precio = precio - 0.01;
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       } else {
         // ENTERO
-        precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        precio = precio.toFixed(2);
+        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
+        // precio = precio.toFixed(2);
+        precio = parseFloat(product.priceTalkerPrice * 1.16)
+        precio = Math.round(precio)
       }
       doc
         .font(
@@ -1054,7 +1197,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerFontSizePrice)
         .text(
-          `$ ${precio}`,
+          `$ ${precio},00`,
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY + boxHeight
         );
@@ -1116,7 +1259,7 @@ const bigPriceTalker = async (priceTalkerData) => {
           }
         );
 
-              // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
         doc
@@ -1244,6 +1387,31 @@ const bigPriceTalker = async (priceTalkerData) => {
             priceTalkerLogoPositionY + boxHeight
           );
       }
+          // -- 15022024
+          if (
+            product.priceTalkerList === "3" ||
+            product.priceTalkerList === "4" ||
+            product.priceTalkerList === "6" ||
+            product.priceTalkerList === "7" ||
+            product.priceTalkerList === "8" ||
+            product.priceTalkerList === "9" ||
+            product.priceTalkerList === "10"
+          ) {
+            // FRASE MERCANCIA ESPECIAL
+            doc
+            .font(
+              path.join(
+                priceTalkerFontPath,
+                "node_modules",
+                "@canvas-fonts",
+                "arial-bold",
+                "Arial Bold.ttf"
+              )
+            )
+            .fontSize(15)
+            .text(`MERCANCÍA ESPECIAL`, priceTalkerPositionPriceX + boxWith, priceTalkerPositionPriceY + boxHeight + 32);
+          }
+          // FIN DEL CAMPO
     }
     contador++;
   }
