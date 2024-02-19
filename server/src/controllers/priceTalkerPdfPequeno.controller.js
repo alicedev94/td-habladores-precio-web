@@ -662,8 +662,11 @@ const smallPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(priceTalkerfontSize + 2)
-          .text(`C`, priceTalkerBrandPositionX + boxWith + 120,
-          priceTalkerBrandPositionY);
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY
+          );
       }
       // -- 15022024
     } else if (contador == 2) {
@@ -762,30 +765,48 @@ const smallPriceTalker = async (priceTalkerData) => {
 
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith + boxWith,
-          priceTalkerPositionPriceY
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -847,7 +868,7 @@ const smallPriceTalker = async (priceTalkerData) => {
           .fontSize(priceTalkerfontSize + 2)
           .text(
             `AZ`,
-            priceTalkerBrandPositionX + boxWith +  boxWith + 120,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
       } else if (product.priceTalkerList === "6") {
@@ -953,8 +974,11 @@ const smallPriceTalker = async (priceTalkerData) => {
             )
           )
           .fontSize(priceTalkerfontSize + 2)
-          .text(`C`,  priceTalkerBrandPositionX + boxWith+ boxWith + 120,
-          priceTalkerBrandPositionY);
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY
+          );
       }
       // -- 15022024
     } else if (contador == 3) {
@@ -1052,30 +1076,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1120,6 +1162,136 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize)
+          .text(
+            `A`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 4) {
       doc
         .rect(boxPositionX2, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -1214,30 +1386,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1282,6 +1472,136 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 5) {
       doc
         .rect(boxPositionX3, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -1376,30 +1696,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith + boxWith,
-          priceTalkerPositionPriceY + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1444,6 +1782,135 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 6) {
       doc
         .rect(
@@ -1543,30 +2010,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1611,6 +2096,135 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize)
+          .text(
+            `A`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 7) {
       doc
         .rect(
@@ -1710,30 +2324,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1778,6 +2410,135 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 8) {
       doc
         .rect(
@@ -1877,30 +2638,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith + boxWith,
-          priceTalkerPositionPriceY + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1945,6 +2724,135 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 9) {
       doc
         .rect(
@@ -2044,30 +2952,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -2112,6 +3038,136 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize)
+          .text(
+            `A`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 10) {
       doc
         .rect(
@@ -2211,30 +3267,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -2279,6 +3353,136 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     } else if (contador == 11) {
       doc
         .rect(
@@ -2378,30 +3582,48 @@ const smallPriceTalker = async (priceTalkerData) => {
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
         precio = parseFloat(product.priceTalkerPrice * 1.16);
         precio = Math.round(precio);
-      }
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith + boxWith,
-          priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith + boxWith,
+            priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -2446,6 +3668,136 @@ const smallPriceTalker = async (priceTalkerData) => {
             align: "left",
           }
         );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AA`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
+            priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
+          );
+      }
+      // -- 15022024
     }
 
     contador++;
