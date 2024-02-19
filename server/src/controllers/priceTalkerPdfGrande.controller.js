@@ -204,37 +204,53 @@ const bigPriceTalker = async (priceTalkerData) => {
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = parseFloat(precio.toFixed(2));
         // precio = precio - 0.01;
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
-       
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+        precio = precio - 0.01;
         // console.log(Math.round(precio2));
-      // console.log(precio2.toFixed(2));
+        // console.log(precio2.toFixed(2));
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
-      }
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
 
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -513,15 +529,49 @@ const bigPriceTalker = async (priceTalkerData) => {
 
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
-        console.log("ska");
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
       }
 
       doc
@@ -846,31 +896,49 @@ const bigPriceTalker = async (priceTalkerData) => {
         // precio = precio - 0.01;
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+        precio = precio - 0.01;
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
-      }
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1176,31 +1244,49 @@ const bigPriceTalker = async (priceTalkerData) => {
         // precio = precio - 0.01;
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+        precio = precio - 0.01;
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
       } else {
         // ENTERO
         // precio = Math.ceil(product.priceTalkerPrice * 1.16);
         // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16)
-        precio = Math.round(precio)
-      }
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+        precio = parseFloat(product.priceTalkerPrice * 1.16);
+        precio = Math.round(precio);
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY + boxHeight
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight
+          );
+      }
 
       // -- CÓDIGO SAP
       doc
@@ -1387,31 +1473,35 @@ const bigPriceTalker = async (priceTalkerData) => {
             priceTalkerLogoPositionY + boxHeight
           );
       }
-          // -- 15022024
-          if (
-            product.priceTalkerList === "3" ||
-            product.priceTalkerList === "4" ||
-            product.priceTalkerList === "6" ||
-            product.priceTalkerList === "7" ||
-            product.priceTalkerList === "8" ||
-            product.priceTalkerList === "9" ||
-            product.priceTalkerList === "10"
-          ) {
-            // FRASE MERCANCIA ESPECIAL
-            doc
-            .font(
-              path.join(
-                priceTalkerFontPath,
-                "node_modules",
-                "@canvas-fonts",
-                "arial-bold",
-                "Arial Bold.ttf"
-              )
+      // -- 15022024
+      if (
+        product.priceTalkerList === "3" ||
+        product.priceTalkerList === "4" ||
+        product.priceTalkerList === "6" ||
+        product.priceTalkerList === "7" ||
+        product.priceTalkerList === "8" ||
+        product.priceTalkerList === "9" ||
+        product.priceTalkerList === "10"
+      ) {
+        // FRASE MERCANCIA ESPECIAL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
             )
-            .fontSize(15)
-            .text(`MERCANCÍA ESPECIAL`, priceTalkerPositionPriceX + boxWith, priceTalkerPositionPriceY + boxHeight + 32);
-          }
-          // FIN DEL CAMPO
+          )
+          .fontSize(15)
+          .text(
+            `MERCANCÍA ESPECIAL`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY + boxHeight + 32
+          );
+      }
+      // FIN DEL CAMPO
     }
     contador++;
   }
