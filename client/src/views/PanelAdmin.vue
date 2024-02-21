@@ -37,7 +37,6 @@ const headers = [
 ];
 
 onMounted(async () => {
-    2
     const ruta = window.location.pathname;
     const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
@@ -116,7 +115,7 @@ const fImportXlsx = async (event) => {
         })
 
         // http://localhost:3001/api/v1/send/sap-code1
-        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}`, {
+        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' // For sending JSON data
@@ -128,13 +127,12 @@ const fImportXlsx = async (event) => {
             .then(response => response.json())
             .then(data => {
                 // Handle successful response
-                console.log('Post created successfully:', data);
                 expoListProduct.value = expoListProduct.value.concat(data) // expoListProduct listProducts2
                 isLoading2.value = false
             })
             .catch(error => {
                 // Handle errors
-                console.error(error);
+               alert(error)
             });
 
         //expoListProduct.value = response.data.data

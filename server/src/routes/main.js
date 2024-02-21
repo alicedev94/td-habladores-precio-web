@@ -143,9 +143,9 @@ router.post("/generate-pdf", async (req, res) => {
   }
 });
 
-router.post("/send/sap-code/:list/:sucur", async (req, res) => {
-  const { list, sucur } = req.params;
-  const rta = await processData(req.body, list, sucur);
+router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
+  const { list, sucur, sizeTalker } = req.params;
+  const rta = await processData(req.body, list, sucur, sizeTalker);
   // let rtaJson = JSON.stringify(rta)
   res.json(rta[0]);
 });

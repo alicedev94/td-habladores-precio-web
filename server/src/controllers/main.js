@@ -86,8 +86,6 @@ const products = async (list, type, sucur) => {
   let rtaStore = store(list);
   var rta = "";
 
-  console.log(type);
-
   if (type == "0") {
     // HABLADOR PEQUEÑO
     rta = await sequelize.query(`
@@ -114,7 +112,7 @@ const products = async (list, type, sucur) => {
         ,[IdHablador]
     FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
-    AND [IdAlmacen] IN (${rtaStore})
+    AND [IdAlmacen] IN (${rtaStore}) 
  `);
   } else {
     // HABLADOR ESTANDAR
@@ -135,22 +133,56 @@ const products = async (list, type, sucur) => {
   return rta;
 };
 
-const processData = async (data, list, sucur) => {
+const processData = async (data, list, sucur, sizeTalker) => {
+  // OBTENER ALMACEN SEGUN LA LISTA
+  let rtaStore = store(list);
+  var rta = "";
   const sku = data.sapCode[0].flat();
 
   const modSku = sku.map((elemento) => {
     return `'${elemento}'`;
   });
 
-  const rta = await sequelize.query(`
-  SELECT DISTINCT [Codigo]
-  ,[Nombre]
-  ,[Marca]
-  ,[Garantia]
-  ,[Codigo_Barra]
-  ,[PrecioaMostrar]
-  FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
-  WHERE  CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})`);
+  if (sizeTalker == "0") {
+    // HALADOR PEQUEÑO
+    rta = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+    ,[Nombre]
+    ,[Marca]
+    ,[Garantia]
+    ,[Codigo_Barra]
+    ,[PrecioaMostrar]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
+    AND [IdAlmacen] IN (${rtaStore})
+    `);
+  } else if (sizeTalker == "1") {
+    // HABLADOR GRANDE
+    rta = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+    ,[Nombre]
+    ,[Marca]
+    ,[Garantia]
+    ,[Codigo_Barra]
+    ,[PrecioaMostrar]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
+    AND [IdAlmacen] IN (${rtaStore})`);
+  } else if (sizeTalker == "2") {
+    // HABLADOR ESTANDAR
+    rta = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+    ,[Nombre]
+    ,[Marca]
+    ,[Garantia]
+    ,[Codigo_Barra]
+    ,[PrecioaMostrar]
+    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
+    AND [IdAlmacen] IN (${rtaStore})`);
+  } else {
+    return rta
+  }
 
   return rta;
 };

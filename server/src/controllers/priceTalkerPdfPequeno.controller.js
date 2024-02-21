@@ -46,7 +46,7 @@ const priceTalkerFontSizePrice = 18;
 // -- Contenido estático
 const priceTalkerWidthText = 128; // px 4,5 cm
 const priceTalkerFontPath =
-  "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server";
+  global.rutaActual; // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
@@ -165,25 +165,34 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(precio * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-
-        // console.log(precio);
-
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
       } else {
         // ENTERO
-        // precio = Math.ceil(precio * 1.16);
-        // precio = precio.toFixed(2);
 
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
       }
 
       doc
@@ -463,20 +472,34 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(precio * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
       } else {
         // ENTERO
-        // precio = Math.ceil(precio * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
       }
 
       doc
@@ -757,15 +780,21 @@ const smallPriceTalker = async (priceTalkerData) => {
       */
       if (product.priceTalkerIdHablador != 3) {
         // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
 
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -785,10 +814,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -1068,15 +1105,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -1096,11 +1138,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
 
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
         doc
           .font(
             path.join(
@@ -1378,15 +1427,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -1406,10 +1460,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -1688,15 +1750,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -1716,10 +1783,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2002,15 +2077,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2030,10 +2110,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2316,15 +2404,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2344,10 +2437,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2630,15 +2731,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2658,10 +2764,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2944,15 +3058,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -2972,10 +3091,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -3259,15 +3386,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -3287,10 +3419,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -3574,15 +3714,20 @@ const smallPriceTalker = async (priceTalkerData) => {
         4 POR APLICAR
       */
       if (product.priceTalkerIdHablador != 3) {
-        // CON .99
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = parseFloat(precio.toFixed(2));
-        // precio = precio - 0.01;
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
-        precio = precio - 0.01;
+        // . 99
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -3602,10 +3747,18 @@ const smallPriceTalker = async (priceTalkerData) => {
           );
       } else {
         // ENTERO
-        // precio = Math.ceil(product.priceTalkerPrice * 1.16);
-        // precio = precio.toFixed(2);
-        precio = parseFloat(product.priceTalkerPrice * 1.16);
-        precio = Math.round(precio);
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
 
         doc
           .font(
@@ -3799,7 +3952,7 @@ const smallPriceTalker = async (priceTalkerData) => {
       }
       // -- 15022024
     }
-
+ 
     contador++;
   }
 

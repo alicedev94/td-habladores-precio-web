@@ -2,16 +2,32 @@
 import { ref, onMounted } from 'vue'
 defineEmits(['logout']);
 const isMarketing = ref(true)
+const back = ref(false)
 // const rolMarketing = ref(true)
 
-onMounted(()=> {
+onMounted(() => {
     let rolMarketing = localStorage.getItem("token")
     let { rtaEmail, rtaRol } = JSON.parse(rolMarketing);
 
-    if(rtaRol === "MARKETING"){
+    if (rtaRol === "MARKETING") {
         isMarketing.value = true
     } else {
         isMarketing.value = false
+    }
+
+    // SABER LA RUTA DONDE ESTOY
+    let route = location.pathname
+
+    // Divide la ruta en segmentos
+    let segmentos = route.split('/');
+
+    // Comprueba si estás en la ruta correcta
+    if ((segmentos[1] === 'table-data' && segmentos.length === 5) || (segmentos[1] === 'marketing' && segmentos[2] === 'logo-change')) {
+        // RUTA CORRECTA 
+        back.value = true
+    } else {
+        // RUTA INCORRECTA 
+        back.value = false
     }
 })
 </script>
@@ -22,13 +38,21 @@ onMounted(()=> {
             <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150"
                 align-self="start" />
 
-            <ul v-if="isMarketing">
+            <v-btn v-if="isMarketing" class="btnRedirectBack" variant="elevated">
+                <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a>
+            </v-btn>
+
+            <v-btn v-if="back" variant="elevated">
+                <a class="btn-link" href="/select-list">VOLVER</a>
+            </v-btn>
+
+            <!-- <ul v-if="isMarketing">
                 <li class="li-logo-change">
                     <a href="/marketing/logo-change">CAMBIO DE LOGO</a>
                 </li>
-            </ul>
-
+            </ul> -->
             <v-spacer></v-spacer>
+            <!-- <v-spacer></v-spacer> -->
             <v-btn @click="$emit('logout')" icon>
                 <v-icon>mdi-export</v-icon>
             </v-btn>
@@ -61,5 +85,14 @@ li a {
 .li-logo-change {
     background-color: #9b9b9b;
     opacity: 1;
+}
+
+.btn-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.btnRedirectBack {
+    margin-right: 1%;
 }
 </style>
