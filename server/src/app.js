@@ -8,7 +8,7 @@ const port = 3001;
 const path = require("path");
 
 // Obtén la ruta del directorio actual
-let route = path.resolve();
+// let route = path.resolve();
 
 // Aumenta el límite de tamaño del body a 10MB
 app.use(bodyParser.json({ limit: "10mb" }));
@@ -20,10 +20,6 @@ app.use("/api/v1", router);
 //   app.locals.route = req.flash(route);
 //   next();
 // });
-
-app.locals.route = route
-
-console.log(app.locals.env);
 
 app.listen(port, () => {
   console.log(`run on port ${port}`);

@@ -45,8 +45,7 @@ const priceTalkerFontSizePrice = 18;
 
 // -- Contenido estático
 const priceTalkerWidthText = 128; // px 4,5 cm
-const priceTalkerFontPath =
-  global.rutaActual; // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
+const priceTalkerFontPath = process.cwd(); // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
@@ -178,6 +177,24 @@ const smallPriceTalker = async (priceTalkerData) => {
           precio = Math.round(precio);
           precio = precio - 0.01;
         }
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY
+          );
+
         // FIN DEL BLOQUE DE CODIGO
       } else {
         // ENTERO
@@ -192,25 +209,26 @@ const smallPriceTalker = async (priceTalkerData) => {
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
         }
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY
+          );
+
         // FIN DEL BLOQUE DE CODIGO
       }
-
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY
-        );
 
       // -- CÓDIGO SAP
       doc
@@ -485,6 +503,24 @@ const smallPriceTalker = async (priceTalkerData) => {
           precio = Math.round(precio);
           precio = precio - 0.01;
         }
+
+        doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial-bold",
+            "Arial Bold.ttf"
+          )
+        )
+        .fontSize(priceTalkerFontSizePrice)
+        .text(
+          `$ ${precio}`,
+          priceTalkerPositionPriceX + boxWith,
+          priceTalkerPositionPriceY
+        );
+
         // FIN DEL BLOQUE DE CODIGO
       } else {
         // ENTERO
@@ -499,10 +535,8 @@ const smallPriceTalker = async (priceTalkerData) => {
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
         }
-        // FIN DEL BLOQUE DE CODIGO
-      }
 
-      doc
+        doc
         .font(
           path.join(
             priceTalkerFontPath,
@@ -518,6 +552,10 @@ const smallPriceTalker = async (priceTalkerData) => {
           priceTalkerPositionPriceX + boxWith,
           priceTalkerPositionPriceY
         );
+
+        // FIN DEL BLOQUE DE CODIGO
+      }
+
 
       // -- CÓDIGO SAP
       doc
@@ -3413,7 +3451,7 @@ const smallPriceTalker = async (priceTalkerData) => {
           )
           .fontSize(priceTalkerFontSizePrice)
           .text(
-            `$ ${precio},00`,
+            `$ ${precio}`,
             priceTalkerPositionPriceX + boxWith,
             priceTalkerPositionPriceY + boxHeight + boxHeight + boxHeight
           );
@@ -3952,7 +3990,7 @@ const smallPriceTalker = async (priceTalkerData) => {
       }
       // -- 15022024
     }
- 
+
     contador++;
   }
 

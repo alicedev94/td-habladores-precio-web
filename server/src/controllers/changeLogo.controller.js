@@ -2,10 +2,8 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const path = require('path');
 
-console.log(global);
-
 const storage = multer.diskStorage({
-  destination: path.join("C:/Users/d.marcano/Desktop/td-habladores-precio-web/server", "/src/routes/uploads/"), // destination: path.join(__dirname, "/src/routes/uploads/"), // "C:/Users/d.marcano/Desktop/td-habladores-precio-web/server/src/routes/uploads/", // destination: path.join(__dirname, "/src/routes/uploads/")
+  destination: path.join(process.cwd(), "/src/routes/uploads/"), // destination: path.join(__dirname, "/src/routes/uploads/"), // "C:/Users/d.marcano/Desktop/td-habladores-precio-web/server/src/routes/uploads/", // destination: path.join(__dirname, "/src/routes/uploads/")
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },

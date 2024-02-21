@@ -16,7 +16,6 @@ const moment = require("moment-timezone");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
-const { log } = require("console");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -56,8 +55,7 @@ const priceTalkerFontSizePrice = 30;
 
 // -- Contenido estático
 const priceTalkerWidthText = 221;
-const priceTalkerFontPath =
-  global.rutaActual;
+const priceTalkerFontPath = process.cwd();
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
@@ -577,43 +575,26 @@ const bigPriceTalker = async (priceTalkerData) => {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
-        }
-        // FIN DEL BLOQUE DE CODIGO
 
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
+          doc
+            .font(
+              path.join(
+                priceTalkerFontPath,
+                "node_modules",
+                "@canvas-fonts",
+                "arial-bold",
+                "Arial Bold.ttf"
+              )
             )
-          )
-          .fontSize(priceTalkerFontSizePrice)
-          .text(
-            `$ ${precio},00`,
-            priceTalkerPositionPriceX + boxWith,
-            priceTalkerPositionPriceY
-          );
+            .fontSize(priceTalkerFontSizePrice)
+            .text(
+              `$ ${precio},00`,
+              priceTalkerPositionPriceX + boxWith,
+              priceTalkerPositionPriceY
+            );
+        }
       }
-
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY
-        );
+      // FIN DEL BLOQUE DE CODIGO
 
       // -- CÓDIGO SAP
       doc
@@ -943,8 +924,8 @@ const bigPriceTalker = async (priceTalkerData) => {
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio}`,
-            priceTalkerPositionPriceX + boxWith,
-            priceTalkerPositionPriceY
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight
           );
       } else {
         // ENTERO
@@ -973,8 +954,8 @@ const bigPriceTalker = async (priceTalkerData) => {
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio},00`,
-            priceTalkerPositionPriceX + boxWith,
-            priceTalkerPositionPriceY
+            priceTalkerPositionPriceX,
+            priceTalkerPositionPriceY + boxHeight
           );
       }
 
