@@ -92,7 +92,8 @@ router.post("/signin", async (req, res) => {
 router.post("/generate-pdf", async (req, res) => {
   // console.log(req.body);
   try {
-    const folder = createFolder("Habladores-Precio-Web");
+    const folder = await createFolder("Habladores-Precio-Web");
+
     if (folder) {
       const { data, list, sizeTalker } = req.body;
       // console.log(req.body);
