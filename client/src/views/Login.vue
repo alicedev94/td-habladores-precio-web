@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const email = ref('')
 const password = ref('')
@@ -29,11 +30,16 @@ const login = async () => {
 
       if (auth) {
         localStorage.setItem('token', JSON.stringify(response.data))
+        isLoading.value = false
         window.location.pathname = "/select-list"
-        isLoading.value = false
       } else {
-        window.location.href = "/"
+        // window.location.href = "/"
         isLoading.value = false
+        Swal.fire({
+          title: "Error",
+          text: "Las credenciales proporcionadas no son válidas. Por favor, verifique e intente nuevamente.",
+          icon: "error"
+        });
       }
     }, 1000)
 
@@ -76,7 +82,8 @@ const login = async () => {
 
 <style scoped>
 .hablador-precio {
-  font-family: 'Sofia', sans-serif; /* Puedes usar una fuente más elegante aquí */
+  font-family: 'Sofia', sans-serif;
+  /* Puedes usar una fuente más elegante aquí */
   font-size: 20px;
   color: #333;
   margin-top: 20px;

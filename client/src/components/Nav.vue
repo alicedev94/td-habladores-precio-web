@@ -30,13 +30,19 @@ onMounted(() => {
         back.value = false
     }
 })
+
+// functions 
+const handleClick = () => {
+    location.reload()
+}
+
 </script>
 
 <template>
     <div class="nav-container">
         <v-toolbar class="nav" dark prominent color="#00308F">
-            <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150"
-                align-self="start" />
+            <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150" align-self="start"
+                @click="handleClick" />
 
             <v-btn v-if="isMarketing" class="btnRedirectBack" variant="elevated">
                 <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a>

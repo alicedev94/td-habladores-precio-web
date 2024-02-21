@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const items = ref([])
 

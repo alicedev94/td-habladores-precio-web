@@ -1,4 +1,31 @@
-const sequelize = require("../lib/sequelize");
+const { sequelize, sequelize120 } = require("../lib/sequelize");
+
+// 120 querys
+const testConnectionFrom120 = async () => {
+  const rta = await sequelize120.query(`
+  SELECT TOP (1000) [Codigo]
+    ,[Nombre]
+    ,[Marca]
+    ,[Garantia]
+    ,[Codigo_Barra]
+    ,[PrecioaMostrar]
+    ,[PrecioTachado]
+    ,[CodigoSucursal]
+    ,[Sucursal]
+    ,[IdAlmacen]
+    ,[Almacen]
+    ,[Lista Precio]
+    ,[IdHablador]
+    ,[Hablador]
+    ,[IdMotivo]
+    ,[FecCrea]
+  FROM [MDW_ERP].[dbo].[DK_VW_Habladores]`);
+
+  console.log(rta);
+};
+
+// testConnectionFrom120();
+// ---
 
 const findAll = async () => {
   const rta = await sequelize.models.Users.findAll();
@@ -18,6 +45,57 @@ const newUser = async (data) => {
   const rta = await sequelize.models.Users.create(data);
   return rta;
 };
+
+const newSucur = async (sucur) => {
+  const rta = await sequelize.models.Sucurs.bulkCreate(sucur);
+  return rta;
+};
+
+// newSucur([
+//   // { sucur: "Agencia Centro Valencia", idSucursal: "13" },
+//   { sucur: "Casa Central", idSucursal: "1" },
+//   { sucur: "Sucursal Lechería", idSucursal: "10" },
+//   { sucur: "Sucursal Puerto Ordaz", idSucursal: "11" },
+//   { sucur: "Agencia San Diego", idSucursal: "12" },
+//   { sucur: "Sucursal El Paraiso", idSucursal: "14" },
+//   { sucur: "Sucursal Chacao", idSucursal: "15" },
+//   { sucur: "Sucursal Maracaibo", idSucursal: "16" },
+//   { sucur: "Agencia Puerto Cabello", idSucursal: "17" },
+//   { sucur: "Sucursal La Trinidad", idSucursal: "18" },
+//   { sucur: "Sucursal Candelaria", idSucursal: "19" },
+//   { sucur: "Principal", idSucursal: "2" },
+//   { sucur: "Agencia Online", idSucursal: "20" },
+//   { sucur: "Sucursal Puerto Ordaz II", idSucursal: "21" },
+//   { sucur: "Sucursal El Recreo", idSucursal: "22" },
+//   { sucur: "Sucursal Acarigua-Araure", idSucursal: "23" },
+//   { sucur: "Sucursal Valle La Pascua", idSucursal: "24" },
+//   { sucur: "Sucursal Maturin", idSucursal: "25" },
+//   { sucur: "Sucursal El Tigre", idSucursal: "26" },
+//   { sucur: "Agencia Guacara", idSucursal: "27" },
+//   { sucur: "Agencia Cdd", idSucursal: "28" },
+//   { sucur: "Sucursal Porlamar", idSucursal: "29" },
+//   { sucur: "Sucursal Punto Fijo", idSucursal: "3" },
+//   { sucur: "Sucursal Barquisimeto Centro", idSucursal: "30" },
+//   { sucur: "Sucursal Maracay Centro", idSucursal: "31" },
+//   { sucur: "Sucursal San Felipe", idSucursal: "32" },
+//   { sucur: "Sucursal San Cristobal", idSucursal: "33" },
+//   { sucur: "Sucursal Valera", idSucursal: "34" },
+//   { sucur: "Sucursal Puerto La Cruz Centro", idSucursal: "35" },
+//   { sucur: "Sucursal Cabimas", idSucursal: "36" },
+//   { sucur: "Agencia Valencia", idSucursal: "4" },
+//   { sucur: "Sucursal Bello Monte", idSucursal: "5" },
+//   { sucur: "Sucursal Boleita", idSucursal: "6" },
+//   { sucur: "Sucursal Barquisimeto", idSucursal: "7" },
+//   { sucur: "Sucursal Maracay", idSucursal: "8" },
+//   { sucur: "Sucursal Carrizal", idSucursal: "9" },
+//   { sucur: "CDD", idSucursal: "99" },
+//   { sucur: "SMARTECH", idSucursal: "98" },
+//   { sucur: "Sucursal La Guaira", idSucursal: "37" },
+//   { sucur: "IMPORTACIONES", idSucursal: "97" },
+//   { sucur: "Sucursal La Limpia", idSucursal: "38" },
+//   { sucur: "Sucursal 5 de Julio", idSucursal: "39" },
+//   { sucur: "Sucursal San Martin", idSucursal: "40" },
+// ]);
 
 const newList = async (list) => {
   const rta = await sequelize.models.List.create(list);
@@ -181,7 +259,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
-    return rta
+    return rta;
   }
 
   return rta;
@@ -280,19 +358,18 @@ const priceList = async () => {
   return rta;
 };
 
-const  ajustarCadena = (cadena) => {
-  let palabras = cadena.split(' ');
+const ajustarCadena = (cadena) => {
+  let palabras = cadena.split(" ");
 
   while (cadena.length > 75) {
-      // Quita la última palabra
-      palabras.pop();
-      // Reconstruye la cadena
-      cadena = palabras.join(' ');
+    // Quita la última palabra
+    palabras.pop();
+    // Reconstruye la cadena
+    cadena = palabras.join(" ");
   }
 
   return cadena;
-}
-
+};
 
 // let list =
 // {
@@ -312,5 +389,5 @@ module.exports = {
   modelData,
   findByEmail,
   priceList,
-  ajustarCadena
+  ajustarCadena,
 };
