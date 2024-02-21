@@ -280,6 +280,20 @@ const priceList = async () => {
   return rta;
 };
 
+const  ajustarCadena = (cadena) => {
+  let palabras = cadena.split(' ');
+
+  while (cadena.length > 75) {
+      // Quita la última palabra
+      palabras.pop();
+      // Reconstruye la cadena
+      cadena = palabras.join(' ');
+  }
+
+  return cadena;
+}
+
+
 // let list =
 // {
 //   title: "Lista Margarita",
@@ -298,4 +312,5 @@ module.exports = {
   modelData,
   findByEmail,
   priceList,
+  ajustarCadena
 };

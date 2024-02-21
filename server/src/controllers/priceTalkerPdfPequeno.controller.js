@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const pathLog1 = require("../img/index");
 const moment = require("moment-timezone");
+const { ajustarCadena } = require("../controllers/main");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
@@ -13,6 +14,7 @@ var logoName = "PRUEBA.png";
 
 // GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
 var precio = 0;
+var descrip = "";
 
 // Posición
 let boxPositionX = 70;
@@ -107,6 +109,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -119,7 +122,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX,
           priceTalkerDescriptionPositionY,
           {
@@ -433,6 +436,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -445,7 +449,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith,
           priceTalkerDescriptionPositionY,
           {
@@ -505,21 +509,21 @@ const smallPriceTalker = async (priceTalkerData) => {
         }
 
         doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio}`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
 
         // FIN DEL BLOQUE DE CODIGO
       } else {
@@ -537,25 +541,24 @@ const smallPriceTalker = async (priceTalkerData) => {
         }
 
         doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
           )
-        )
-        .fontSize(priceTalkerFontSizePrice)
-        .text(
-          `$ ${precio},00`,
-          priceTalkerPositionPriceX + boxWith,
-          priceTalkerPositionPriceY
-        );
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
 
         // FIN DEL BLOQUE DE CODIGO
       }
-
 
       // -- CÓDIGO SAP
       doc
@@ -760,6 +763,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -772,7 +776,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith + boxWith,
           priceTalkerDescriptionPositionY,
           {
@@ -1086,6 +1090,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -1098,7 +1103,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX,
           priceTalkerDescriptionPositionY + boxHeight,
           {
@@ -1408,6 +1413,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -1420,7 +1426,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith,
           priceTalkerDescriptionPositionY + boxHeight,
           {
@@ -1731,6 +1737,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -1743,7 +1750,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith + boxWith,
           priceTalkerDescriptionPositionY + boxHeight,
           {
@@ -2058,6 +2065,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -2070,7 +2078,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+         descrip,
           priceTalkerDescriptionPositionX,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
@@ -2385,6 +2393,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -2397,7 +2406,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
@@ -2712,6 +2721,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -2724,7 +2734,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith + boxWith,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
@@ -3039,6 +3049,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -3051,7 +3062,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
@@ -3367,6 +3378,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -3379,7 +3391,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
@@ -3695,6 +3707,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         );
 
       // -- DESCRIPCIÓN --
+      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
       doc
         .font(
           path.join(
@@ -3707,7 +3720,7 @@ const smallPriceTalker = async (priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
+          descrip,
           priceTalkerDescriptionPositionX + boxWith + boxWith,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
