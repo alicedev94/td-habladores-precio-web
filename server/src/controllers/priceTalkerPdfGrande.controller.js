@@ -197,7 +197,7 @@ const bigPriceTalker = async (priceTalkerData) => {
         3 SE FELIZ CON ENTERO
         4 POR APLICAR
       */
-      if (product.priceTalkerIdHablador != 3) {
+      if (product.priceTalkerIdHablador != "3") {
         // CON .99
 
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
@@ -575,24 +575,24 @@ const bigPriceTalker = async (priceTalkerData) => {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
-
-          doc
-            .font(
-              path.join(
-                priceTalkerFontPath,
-                "node_modules",
-                "@canvas-fonts",
-                "arial-bold",
-                "Arial Bold.ttf"
-              )
-            )
-            .fontSize(priceTalkerFontSizePrice)
-            .text(
-              `$ ${precio},00`,
-              priceTalkerPositionPriceX + boxWith,
-              priceTalkerPositionPriceY
-            );
         }
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            priceTalkerPositionPriceX + boxWith,
+            priceTalkerPositionPriceY
+          );
       }
       // FIN DEL BLOQUE DE CODIGO
 

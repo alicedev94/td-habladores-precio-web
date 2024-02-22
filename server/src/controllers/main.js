@@ -7,8 +7,8 @@ const testConnectionFrom120 = async () => {
     ,[Nombre]
     ,[Marca]
     ,[Garantia]
-    ,[Codigo_Barra]
-    ,[PrecioaMostrar]
+    ,[CodigoBarra]
+    ,[PrecioMostras]
     ,[PrecioTachado]
     ,[CodigoSucursal]
     ,[Sucursal]
@@ -19,7 +19,7 @@ const testConnectionFrom120 = async () => {
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
-  FROM [MDW_ERP].[dbo].[DK_VW_Habladores]`);
+  FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]`);
 
   console.log(rta);
 };
@@ -166,43 +166,43 @@ const products = async (list, type, sucur) => {
 
   if (type == "0") {
     // HABLADOR PEQUEÑO
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
         ,[Garantia]
-        ,[Codigo_Barra]
-        ,[PrecioaMostrar]
+        ,[CodigoBarra]
+        ,[PrecioMostras]
         ,[IdHablador]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
   } else if (type == "1") {
     // HABLADOR GRANDE
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
         ,[Garantia]
-        ,[Codigo_Barra]
-        ,[PrecioaMostrar]
+        ,[CodigoBarra]
+        ,[PrecioMostras]
         ,[IdHablador]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
   } else {
     // HABLADOR ESTANDAR
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
         ,[Garantia]
-        ,[Codigo_Barra]
-        ,[PrecioaMostrar]
+        ,[CodigoBarra]
+        ,[PrecioMostras]
         ,[IdHablador]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -223,39 +223,42 @@ const processData = async (data, list, sucur, sizeTalker) => {
 
   if (sizeTalker == "0") {
     // HALADOR PEQUEÑO
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]
     ,[Garantia]
-    ,[Codigo_Barra]
-    ,[PrecioaMostrar]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    ,[CodigoBarra]
+    ,[PrecioMostras]
+    ,[IdHablador]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
   } else if (sizeTalker == "1") {
     // HABLADOR GRANDE
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]
     ,[Garantia]
-    ,[Codigo_Barra]
-    ,[PrecioaMostrar]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    ,[CodigoBarra]
+    ,[PrecioMostras]
+    ,[IdHablador]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
     // HABLADOR ESTANDAR
-    rta = await sequelize.query(`
+    rta = await sequelize120.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]
     ,[Garantia]
-    ,[Codigo_Barra]
-    ,[PrecioaMostrar]
-    FROM [HABLADOR_PRECIO_DEV].[dbo].[DK_VW_Habladores]
+    ,[CodigoBarra]
+    ,[PrecioMostras]
+    ,[IdHablador]
+    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
@@ -340,9 +343,9 @@ const modelData = (data) => {
     priceTalkerData.push({
       priceTalkerBrand: item.Marca,
       priceTalkerdescription: item.Nombre,
-      priceTalkerPrice: item.PrecioaMostrar,
+      priceTalkerPrice: item.PrecioMostras,
       priceTalkerSapCode: item.Codigo,
-      priceTalkerBarCode: item.Codigo_Barra,
+      priceTalkerBarCode: item.CodigoBarra,
       priceTalkerWarranty: item.Garantia,
       priceTalkerIdHablador: item.IdHablador,
     });

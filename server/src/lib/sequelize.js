@@ -41,6 +41,7 @@ const sequelize120 = new Sequelize(
       options: {
         // Your tedious options here
         encrypt: false,
+        requestTimeout: 120000 // tiempo de espera de la consulta en milisegundos 1min 60000ms
       },
     },
   }

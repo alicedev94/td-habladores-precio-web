@@ -117,6 +117,7 @@ const fImportXlsx = async (event) => {
         // http://localhost:3001/api/v1/send/sap-code1
         fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, { 
             method: 'POST',
+            timeout: 120000, // espera hasta 30 segundos
             headers: {
                 'Content-Type': 'application/json' // For sending JSON data
             },
