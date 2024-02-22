@@ -29,6 +29,24 @@ const sequelize = new Sequelize(
   }
 );
 
+// const sequelize120 = new Sequelize(
+//   process.env.DB_NAME120,
+//   process.env.DB_USER120,
+//   process.env.DB_PASSWORD120,
+//   {
+//     host: process.env.DB_SERVER120,
+//     dialect:
+//       "mssql" /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */,
+//     dialectOptions: {
+//       options: {
+//         // Your tedious options here
+//         encrypt: false,
+//         requestTimeout: 120000 // tiempo de espera de la consulta en milisegundos 1min 60000ms
+//       },
+//     },
+//   }
+// );
+
 const sequelize120 = new Sequelize(
   process.env.DB_NAME120,
   process.env.DB_USER120,
@@ -46,6 +64,7 @@ const sequelize120 = new Sequelize(
     },
   }
 );
+
 
 setupModels(sequelize);
 //sequelize.sync();

@@ -19,7 +19,7 @@ const testConnectionFrom120 = async () => {
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
-  FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]`);
+  FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]`);
 
   console.log(rta);
 };
@@ -174,7 +174,7 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioMostras]
         ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -188,7 +188,7 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioMostras]
         ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
@@ -202,7 +202,7 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioMostras]
         ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -231,7 +231,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioMostras]
     ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
@@ -245,7 +245,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioMostras]
     ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
@@ -258,7 +258,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioMostras]
     ,[IdHablador]
-    FROM [MDW_ERP].[dbo].[DK_VW_Habladores2]
+    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
