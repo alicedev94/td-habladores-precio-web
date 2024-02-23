@@ -32,6 +32,8 @@ const { uploadImage, upload } = require("../controllers/changeLogo.controller");
 
 const { changeLogo } = require("../controllers/remplaceRoute.controller");
 
+const { buildPdf } = require("../controllers/pdfkit.down.controller");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -89,6 +91,18 @@ router.post("/signin", async (req, res) => {
 //   res.json({ oye: "todo bien"})
 // });
 
+router.get("/download", (req, res) => {
+  const stream = res.writeHead(200, {
+    "Content-Type": "application/pdf",
+    "Content-Disposition": "attachment; filename=alicePdf.pdf",
+  });
+
+  buildPdf(
+    (data) => stream.write(data),
+    () => stream.end()
+  );
+});
+
 router.post("/generate-pdf", async (req, res) => {
   // console.log(req.body);
   try {
@@ -106,7 +120,7 @@ router.post("/generate-pdf", async (req, res) => {
         proData.forEach((obj) => {
           obj.priceTalkerList = list;
         });
-        
+
         const rta = await smallPriceTalker(proData);
         res.json({ value: rta });
       } else if (sizeTalker === "1") {

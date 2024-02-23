@@ -175,6 +175,12 @@ const deleteBtn = () => {
     expoListProduct.value = expoListProduct.value.filter(item => !deleteCode.includes(item.Codigo));
     deleteCode.length = 0
 }
+
+const downloadBtn = () => {
+   axios.get(`http://localhost:3001/api/v1/download`).then((data)=>{
+   console.log(data);
+   })
+}
 </script>
 
 <template>
@@ -196,6 +202,7 @@ const deleteBtn = () => {
         <div display="flex">
             <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">Agregar</v-btn>
             <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
+            <v-btn class="" size="small" variant="outlined" @click="downloadBtn">Download</v-btn>
         </div>
 
         <div>
