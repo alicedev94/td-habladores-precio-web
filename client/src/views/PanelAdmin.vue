@@ -77,30 +77,31 @@ watch(() => {
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        const response = await axios.post(`http://localhost:3001/api/v1/generate-pdf`, {
-            data: filterExpoListProducts.value,
-            list: list.value,
-            sizeTalker: sizeTalker.value
-        });
-        if (response.data.value) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Operación Exitosa!",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            isLoadingPdf.value = false
-        } else {
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Algo salio mal!",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            isLoadingPdf.value = false
-        }
+        let datos = { /* tu JSON grande */ };
+        fetch('http://localhost:3001/api/v1/generate-pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                data: filterExpoListProducts.value,
+                list: list.value,
+                sizeTalker: sizeTalker.value
+            })
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                const fecha = new Date();
+                const fechaFormateada = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}_${fecha.getHours().toString().padStart(2, '0')}-${fecha.getMinutes()}`;
+                const nombreArchivo = `Hablador-Precio${fechaFormateada}.pdf`;
+                a.download = nombreArchivo;
+                a.click();
+            })
+            .catch((error) => console.error(error));
+
     } catch (error) {
         console.error(error);
         isLoadingPdf.value = false
@@ -115,7 +116,7 @@ const fImportXlsx = async (event) => {
         })
 
         // http://localhost:3001/api/v1/send/sap-code1
-        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, { 
+        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
             headers: {
@@ -133,7 +134,7 @@ const fImportXlsx = async (event) => {
             })
             .catch(error => {
                 // Handle errors
-               alert(error)
+                alert(error)
             });
 
         //expoListProduct.value = response.data.data
@@ -176,10 +177,17 @@ const deleteBtn = () => {
     deleteCode.length = 0
 }
 
-const downloadBtn = () => {
-   axios.get(`http://localhost:3001/api/v1/download`).then((data)=>{
-   console.log(data);
-   })
+const downloadBtn = async () => {
+    const rta = await fetch(`http://localhost:3001/api/v1/download`);
+    const blob = await rta.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "alicePdfdasdasdsa.pdf";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
 }
 </script>
 

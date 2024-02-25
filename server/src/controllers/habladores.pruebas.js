@@ -10,7 +10,7 @@
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
-const pathLogo = require("../img/index");
+// const pathLogo = require("../img/index");
 const bwipjs = require("bwip-js");
 const moment = require("moment-timezone");
 
@@ -90,16 +90,12 @@ async function generateBarcode(text) {
   }
 }
 
-const bigPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
-  // console.log(dataCallback);
-  // console.log(priceTalkerData);
+const priceTalkerTest = async (dataCallback, endCallback, priceTalkerData) => {
 
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
-  // doc.on("data", dataCallback);
-  // doc.on("end", endCallback);
 
   // Borra el contenido existente
   for (let i = 0; i < priceTalkerData.length; i++) {
@@ -1547,20 +1543,7 @@ const bigPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
 
   contador = 0;
   doc.end();
-
-  // let horaVenezuela = moment()
-  //   .tz("America/Caracas")
-  //   .format()
-  //   .replace(/:/g, "-")
-  //   .replace(/-/g, "_");
-  // const writeStream = doc.pipe(
-  //   fs.createWriteStream(
-  //     `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}g.pdf`
-  //   )
-  // );
-  // return writeStream;
 };
 
-module.exports = {
-  bigPriceTalker,
-};
+module.exports = { priceTalkerTest };
+

@@ -66,8 +66,11 @@ let boxPositionX3 = boxPositionX2 + boxWith; // + 2 distancia funcional
 // SmallTaalkersBox
 let priceTalkerBrandPositionX3 = priceTalkerBrandPositionX + boxWith + boxWith;
 
-const smallPriceTalker = async (priceTalkerData) => {
+const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
+
+  doc.on("data", dataCallback);
+  doc.on("end", endCallback);
 
   // Borra el contenido existente
   for (let i = 0; i < priceTalkerData.length; i++) {
@@ -4010,17 +4013,17 @@ const smallPriceTalker = async (priceTalkerData) => {
   contador = 0;
   doc.end();
 
-  let horaVenezuela = moment()
-    .tz("America/Caracas")
-    .format()
-    .replace(/:/g, "-")
-    .replace(/-/g, "_");
-  const writeStream = doc.pipe(
-    fs.createWriteStream(
-      `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}p.pdf` // ${horaVenezuela}p
-    )
-  );
-  return writeStream;
+  // let horaVenezuela = moment()
+  //   .tz("America/Caracas")
+  //   .format()
+  //   .replace(/:/g, "-")
+  //   .replace(/-/g, "_");
+  // const writeStream = doc.pipe(
+  //   fs.createWriteStream(
+  //     `${process.env.USERPROFILE}/Documents/Habladores-Precio-Web/${horaVenezuela}p.pdf` // ${horaVenezuela}p
+  //   )
+  // );
+  // return writeStream;
 };
 
 module.exports = {
