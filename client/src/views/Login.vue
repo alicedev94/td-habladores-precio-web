@@ -2,11 +2,13 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import router from '@/router';
 
 const email = ref('')
 const password = ref('')
 const visible = ref(false)
 const isLoading = ref(false)
+
 
 onMounted(() => {
   document.body.classList.add("body-gradiet")
@@ -31,7 +33,10 @@ const login = async () => {
       if (auth) {
         localStorage.setItem('token', JSON.stringify(response.data))
         isLoading.value = false
-        window.location.pathname = "/select-list"
+        // window.location.pathname = "/select-list"
+        // router.push("/select-list")
+        router.push("/select-list")
+        alert("asdjasiodj")
       } else {
         // window.location.href = "/"
         isLoading.value = false
