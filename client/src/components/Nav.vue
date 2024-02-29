@@ -5,6 +5,12 @@ const isMarketing = ref(true)
 const back = ref(false)
 // const rolMarketing = ref(true)
 
+const logout = () => {
+  localStorage.removeItem("token");
+  location.reload();
+}
+
+
 onMounted(() => {
     let rolMarketing = localStorage.getItem("token")
     let { rtaEmail, rtaRol } = JSON.parse(rolMarketing);
@@ -29,6 +35,8 @@ onMounted(() => {
         // RUTA INCORRECTA 
         back.value = false
     }
+
+    console.log("todo bien");
 })
 
 // functions 
@@ -45,11 +53,13 @@ const handleClick = () => {
                 @click="handleClick" />
 
             <v-btn v-if="isMarketing" class="btnRedirectBack" variant="elevated">
-                <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a>
+                <!-- <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a> -->
+                <router-link class="btn-link" to="/marketing/logo-change">CAMBIO DE LOGO</router-link>
             </v-btn>
 
             <v-btn v-if="back" variant="elevated">
-                <a class="btn-link" href="/select-list">VOLVER</a>
+                <!-- <a class="btn-link" href="/select-list">VOLVER</a> -->
+                <router-link class="btn-link" to="/select-list">VOLVER</router-link>
             </v-btn>
 
             <!-- <ul v-if="isMarketing">
@@ -59,7 +69,10 @@ const handleClick = () => {
             </ul> -->
             <v-spacer></v-spacer>
             <!-- <v-spacer></v-spacer> -->
-            <v-btn @click="$emit('logout')" icon>
+            <!-- <v-btn @click="$emit('logout')" icon>
+                <v-icon>mdi-export</v-icon>
+            </v-btn> -->
+            <v-btn @click="logout" icon>
                 <v-icon>mdi-export</v-icon>
             </v-btn>
         </v-toolbar>

@@ -1,57 +1,64 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import router from '@/router';
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import Swal from "sweetalert2";
+// import { useRouter } from "vue-router"; // Importa useRouter
+import router from "../router/index";
 
-const email = ref('')
-const password = ref('')
-const visible = ref(false)
-const isLoading = ref(false)
-
+const email = ref("");
+const password = ref("");
+const visible = ref(false);
+const isLoading = ref(false);
+// const router = useRouter(); // Inicializa router
 
 onMounted(() => {
-  document.body.classList.add("body-gradiet")
-})
+  // agregar tema degradado
+  document.body.classList.add("body-gradiet");
+});
 
 const login = async () => {
-  // replace with your api
-  const api = `${window.location.hostname}`
-  const portApi = 3001 // remplace with source port origin using an enviroment variable
+  // API AND PORT
+  const api = `${window.location.hostname}`;
+  const portApi = 3001;
 
   try {
-    isLoading.value = true
+    isLoading.value = true;
     setTimeout(async () => {
-
-      const response = await axios.post(`http://localhost:${portApi}/api/v1/signin`, {
-        email: email.value,
-        password: password.value,
-      });
+      const response = await axios.post(
+        `http://${api}:${portApi}/api/v1/signin`,
+        {
+          email: email.value,
+          password: password.value,
+        }
+      );
 
       const { auth } = response.data;
 
       if (auth) {
-        localStorage.setItem('token', JSON.stringify(response.data))
-        isLoading.value = false
-        // window.location.pathname = "/select-list"
-        // router.push("/select-list")
-        router.push("/select-list")
-        alert("asdjasiodj")
+        console.log(response.data);
+        localStorage.setItem("token", JSON.stringify(response.data));
+        isLoading.value = false;
+
+        //  location.href = "/select-list"
+        // setTimeout(()=> {
+
+        // })
+        // la ruta no esta esperando a que se cree el token antes de avanzar
+        router.push("/select-list"); // Usa router.push para redireccionar
       } else {
         // window.location.href = "/"
-        isLoading.value = false
+        isLoading.value = false;
         Swal.fire({
           title: "Error",
           text: "Las credenciales proporcionadas no son válidas. Por favor, verifique e intente nuevamente.",
-          icon: "error"
+          icon: "error",
         });
       }
-    }, 1000)
-
+    }, 1000);
   } catch (error) {
     console.error(error);
   }
-}
+};
 </script>
 
 <template>
@@ -87,7 +94,7 @@ const login = async () => {
 
 <style scoped>
 .hablador-precio {
-  font-family: 'Sofia', sans-serif;
+  font-family: "Sofia", sans-serif;
   /* Puedes usar una fuente más elegante aquí */
   font-size: 20px;
   color: #333;

@@ -4,20 +4,24 @@ import SelectListVue from "@/views/SelectList.vue";
 import logoChange from "@/views/logoChange.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-const token = localStorage.getItem("token");
+var token = null;
 
 const isAuthenticate = () => {
-  if (token !== null) {
-    let { rtaEmail, rtaRol } = JSON.parse(token);
-    if(rtaRol === "ADMIN" || rtaRol === "MARKETING") {
+  token = localStorage.getItem("token");
+  if (token != null) {
+    let { rtaRol } = JSON.parse(token);
+    if (rtaRol === "ADMIN" || rtaRol === "MARKETING" || rtaRol === "CLIENT") {
       return async (to, from, next) => {
         return next();
       };
     } else {
+      console.log("NO ES ADMIN O MARKETING O CLIENT");
       router.push("/");
       return false;
     }
   } else {
+    console.log("FALLO AL AUTENTICAR");
+    console.log(token);
     router.push("/");
     return false;
   }
@@ -48,7 +52,7 @@ const router = createRouter({
       name: "logoChange",
       component: logoChange,
       beforeEnter: isAuthenticate,
-    }
+    },
   ],
 });
 

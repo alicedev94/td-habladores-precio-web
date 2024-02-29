@@ -8,7 +8,7 @@ const testConnectionFrom120 = async () => {
     ,[Marca]
     ,[Garantia]
     ,[CodigoBarra]
-    ,[PrecioMostras]
+    ,[PrecioaMostrar]
     ,[PrecioTachado]
     ,[CodigoSucursal]
     ,[Sucursal]
@@ -19,7 +19,7 @@ const testConnectionFrom120 = async () => {
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
-  FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]`);
+  FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]`);
 
   console.log(rta);
 };
@@ -172,9 +172,9 @@ const products = async (list, type, sucur) => {
         ,[Marca]
         ,[Garantia]
         ,[CodigoBarra]
-        ,[PrecioMostras]
+        ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -186,9 +186,9 @@ const products = async (list, type, sucur) => {
         ,[Marca]
         ,[Garantia]
         ,[CodigoBarra]
-        ,[PrecioMostras]
+        ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
@@ -200,9 +200,9 @@ const products = async (list, type, sucur) => {
         ,[Marca]
         ,[Garantia]
         ,[CodigoBarra]
-        ,[PrecioMostras]
+        ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -229,9 +229,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[Marca]
     ,[Garantia]
     ,[CodigoBarra]
-    ,[PrecioMostras]
+    ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
@@ -243,9 +243,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[Marca]
     ,[Garantia]
     ,[CodigoBarra]
-    ,[PrecioMostras]
+    ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
@@ -256,9 +256,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[Marca]
     ,[Garantia]
     ,[CodigoBarra]
-    ,[PrecioMostras]
+    ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [TIENDAS_MELE].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
@@ -343,7 +343,7 @@ const modelData = (data) => {
     priceTalkerData.push({
       priceTalkerBrand: item.Marca,
       priceTalkerdescription: item.Nombre,
-      priceTalkerPrice: item.PrecioMostras,
+      priceTalkerPrice: item.PrecioaMostrar,
       priceTalkerSapCode: item.Codigo,
       priceTalkerBarCode: item.CodigoBarra,
       priceTalkerWarranty: item.Garantia,

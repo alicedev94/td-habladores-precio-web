@@ -7,11 +7,6 @@ import Footer from './components/Footer.vue';
 const isVisible = ref(false);
 const pathname = ref("");
 
-const logout = () => {
-  localStorage.removeItem("token");
-  location.reload();
-}
-
 onMounted(() => {
   pathname.value = location.pathname;
 
@@ -25,10 +20,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="isVisible && pathname !== '/'">
+  <!-- <div v-if="isVisible && pathname !== '/'">
     <Nav @logout="logout" />
     <Footer />
-  </div>
+  </div> -->
 
   <RouterView />
 </template>

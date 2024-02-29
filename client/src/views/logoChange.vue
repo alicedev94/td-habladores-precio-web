@@ -1,9 +1,35 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import Nav from '@/components/Nav.vue';
+import Footer from '@/components/Footer.vue';
 
 const isLoading = ref(false)
+const isAuthenticate = ref(false)
+
+// API AND PORT
+const api = `${window.location.hostname}`;
+const portApi = 3001;
+
+onMounted(() => {
+    // SABER LA RUTA DONDE ESTOY
+    let route = location.pathname
+
+    // Divide la ruta en segmentos
+    let segmentos = route.split('/');
+    console.log(segmentos);
+
+    // console.log(segmentos[1]);
+
+    // Saber si estoy en la rurta que corresponde
+    if (segmentos[1] === "marketing" && segmentos[2] === "logo-change") {
+        isAuthenticate.value = true
+        console.log("dentro de pathnmane");
+    } else {
+        isAuthenticate.value = false
+    }
+})
 
 const form = async () => {
     isLoading.value = true
@@ -12,7 +38,7 @@ const form = async () => {
     formData.append('image', fileInput.files[0]);
 
     try {
-        axios.post(`http://localhost:3001/api/v1/change/logo`, formData, {
+        axios.post(`http://${api}:${portApi}/api/v1/change/logo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -41,6 +67,7 @@ const form = async () => {
 </script>
 
 <template>
+    <Nav v-if="isAuthenticate"></Nav>
     <v-form @submit.prevent="form" class="formulario">
         <span class="form-title">Selecciona tu logo</span>
         <p class="form-paragraph">
@@ -54,6 +81,7 @@ const form = async () => {
         <div class="container-btn-change-logo"><v-btn :loading="isLoading" type="submit"
                 class="formulario-boton">GUARDAR</v-btn></div>
     </v-form>
+    <Footer v-if="isAuthenticate"></Footer>
 </template>
 
 <style>

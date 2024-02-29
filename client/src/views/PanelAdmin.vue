@@ -3,6 +3,8 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
 import Swal from 'sweetalert2'
+import Nav from '@/components/Nav.vue';
+import Footer from '@/components/Footer.vue';
 
 const listProducts = ref([]);
 const listProducts2 = ref([]);
@@ -19,6 +21,8 @@ const isLoading = ref(false)
 const isLoading2 = ref(false)
 const isLoadingPdf = ref(false)
 
+const isAuthenticate = ref(false)
+
 const sapCode = ref([])
 
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
@@ -30,6 +34,10 @@ const sucur = ref("")
 var deleteCode = []
 var existDestintCode = []
 
+// API AND PORT
+var api = `${window.location.hostname}`;
+var portApi = 3001;
+
 // SETTINGS
 const headers = [
     { text: 'Código', value: 'Codigo' },
@@ -37,6 +45,25 @@ const headers = [
 ];
 
 onMounted(async () => {
+    console.log("asjdkjasdj");
+    console.log(location.pathname);
+    // agregar nav en caso de que el usuaurio este autenticado
+    // SABER LA RUTA DONDE ESTOY
+    let route = location.pathname
+
+    // Divide la ruta en segmentos
+    let segmentos = route.split('/');
+
+    // console.log(segmentos[1]);
+
+    // saber si estoy en la ruta correspondiente
+    if (segmentos[1] === "table-data") {
+        isAuthenticate.value = true
+        console.log("dentro de pathnmane");
+    } else {
+        isAuthenticate.value = false
+    }
+
     const ruta = window.location.pathname;
     const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
@@ -47,7 +74,7 @@ onMounted(async () => {
         sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://192.168.21.241:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")
@@ -78,7 +105,7 @@ const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
         let datos = { /* tu JSON grande */ };
-        fetch('http://localhost:3001/api/v1/generate-pdf', {
+        fetch(`http://${api}:${portApi}/api/v1/generate-pdf`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -99,8 +126,9 @@ const fGeneratePdf = async () => {
                 const nombreArchivo = `Hablador-Precio${fechaFormateada}.pdf`;
                 a.download = nombreArchivo;
                 a.click();
+                isLoadingPdf.value = false
             })
-            .catch((error) => console.error(error));
+            .catch((error) => alert(error));
 
     } catch (error) {
         console.error(error);
@@ -115,8 +143,8 @@ const fImportXlsx = async (event) => {
             sapCode.value.push(rows)
         })
 
-        // http://localhost:3001/api/v1/send/sap-code1
-        fetch(`http://localhost:3001/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
+        // http://${api}:${portApi}/api/v1/send/sap-code1
+        fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
             headers: {
@@ -178,7 +206,7 @@ const deleteBtn = () => {
 }
 
 const downloadBtn = async () => {
-    const rta = await fetch(`http://localhost:3001/api/v1/download`);
+    const rta = await fetch(`http://${api}:${portApi}/api/v1/download`);
     const blob = await rta.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -193,6 +221,7 @@ const downloadBtn = async () => {
 
 <template>
     <span v-if="isLoadingPdf" class="loaderPdf"></span>
+    <Nav v-if="isAuthenticate"></Nav>
     <div class="table-container">
 
         <div>
@@ -210,7 +239,7 @@ const downloadBtn = async () => {
         <div display="flex">
             <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">Agregar</v-btn>
             <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
-            <v-btn class="" size="small" variant="outlined" @click="downloadBtn">Download</v-btn>
+
         </div>
 
         <div>
@@ -236,6 +265,7 @@ const downloadBtn = async () => {
 
 
     </div>
+    <Footer v-if="isAuthenticate"></Footer>
 </template>
 
 
