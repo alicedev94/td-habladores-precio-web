@@ -47,6 +47,7 @@ const priceTalkerFontSizePrice = 18;
 
 // -- Contenido estático
 const priceTalkerWidthText = 128; // px 4,5 cm
+const priceTalkerHeightText = 28; // px 1,2 cm
 const priceTalkerFontPath = process.cwd(); // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
 
 // Controlador de flujo para la generación de habladores
@@ -130,6 +131,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -457,6 +459,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -784,6 +787,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -1111,6 +1115,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -1434,6 +1439,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -1758,6 +1764,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -2086,6 +2093,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -2414,6 +2422,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -2742,6 +2751,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -3070,6 +3080,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -3399,6 +3410,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );
@@ -3728,6 +3740,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerDescriptionPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerHeightText,
             align: "center",
           }
         );

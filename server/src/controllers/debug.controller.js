@@ -80,3 +80,20 @@
 //   console.log(positions[contador]);
 //   contador = (contador + 1) % 4;
 // });
+
+// const ajustarCadena = (cadena) => {
+//   let palabras = cadena.split(" ");
+
+//   while (cadena.length > 75) {
+//     // Quita la última palabra
+//     palabras.pop();
+//     // Reconstruye la cadena
+//     cadena = palabras.join(" ");
+//   }
+
+//   return cadena;
+// };
+
+// let descrip = `SOPORTE PLEGABLE DE ELEVACION PCELULARESTABLETS CBLANCO SMSZB04WH SOMOSTEL`;
+// let rta = ajustarCadena(descrip);
+// console.log(rta);

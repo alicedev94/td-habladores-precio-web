@@ -1,8 +1,8 @@
-const { sequelize, sequelize120 } = require("../lib/sequelize");
+const { sequelize } = require("../lib/sequelize"); // sequelize120
 
 // 120 querys
 const testConnectionFrom120 = async () => {
-  const rta = await sequelize120.query(`
+  const rta = await sequelize.query(`
   SELECT TOP (1000) [Codigo]
     ,[Nombre]
     ,[Marca]
@@ -166,7 +166,7 @@ const products = async (list, type, sucur) => {
 
   if (type == "0") {
     // HABLADOR PEQUEÑO
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
@@ -180,7 +180,7 @@ const products = async (list, type, sucur) => {
  `);
   } else if (type == "1") {
     // HABLADOR GRANDE
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
@@ -194,7 +194,7 @@ const products = async (list, type, sucur) => {
  `);
   } else {
     // HABLADOR ESTANDAR
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
         ,[Nombre]
         ,[Marca]
@@ -223,7 +223,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
 
   if (sizeTalker == "0") {
     // HALADOR PEQUEÑO
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]
@@ -237,7 +237,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     `);
   } else if (sizeTalker == "1") {
     // HABLADOR GRANDE
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]
@@ -250,7 +250,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
     // HABLADOR ESTANDAR
-    rta = await sequelize120.query(`
+    rta = await sequelize.query(`
     SELECT DISTINCT [Codigo]
     ,[Nombre]
     ,[Marca]

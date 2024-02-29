@@ -134,7 +134,7 @@ router.post("/generate-pdf", async (req, res) => {
       });
 
       const noData = proData;
-      // console.log(noData);
+      // console.log("PRECIOS GRANDES",noData);
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
@@ -154,7 +154,7 @@ router.post("/generate-pdf", async (req, res) => {
       });
 
       const noData = proData;
-      // console.log(noData);
+      console.log(noData);
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
