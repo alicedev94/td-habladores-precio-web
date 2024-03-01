@@ -48,6 +48,7 @@ const priceTalkerFontSizePrice = 18;
 // -- Contenido estático
 const priceTalkerWidthText = 128; // px 4,5 cm
 const priceTalkerHeightText = 28; // px 1,2 cm
+const priceTalkerbrandHeight = 8; // ni idea
 const priceTalkerFontPath = process.cwd(); // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
 
 // Controlador de flujo para la generación de habladores
@@ -108,6 +109,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -436,6 +438,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -764,6 +767,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -1092,6 +1096,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -1416,6 +1421,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -1741,6 +1747,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -2070,6 +2077,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -2399,6 +2407,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -2728,6 +2737,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -3057,6 +3067,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -3387,6 +3398,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );
@@ -3717,6 +3729,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
+            height: priceTalkerbrandHeight, // 0.25 cm 
             align: "center",
           }
         );

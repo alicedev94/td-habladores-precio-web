@@ -45,8 +45,8 @@ const headers = [
 ];
 
 onMounted(async () => {
-    console.log("asjdkjasdj");
-    console.log(location.pathname);
+    // console.log("asjdkjasdj");
+    // console.log(location.pathname);
     // agregar nav en caso de que el usuaurio este autenticado
     // SABER LA RUTA DONDE ESTOY
     let route = location.pathname
@@ -59,7 +59,7 @@ onMounted(async () => {
     // saber si estoy en la ruta correspondiente
     if (segmentos[1] === "table-data") {
         isAuthenticate.value = true
-        console.log("dentro de pathnmane");
+        // console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }
@@ -157,8 +157,15 @@ const fImportXlsx = async (event) => {
             .then(response => response.json())
             .then(data => {
                 // Handle successful response
-                expoListProduct.value = expoListProduct.value.concat(data) // expoListProduct listProducts2
-                isLoading2.value = false
+                if (data.status != "ok") {
+                    // remplazar por sweet alert
+                    alert(data.descrip)
+                    isLoading2.value = false
+                } else {
+                    expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
+                    isLoading2.value = false
+                }
+
             })
             .catch(error => {
                 // Handle errors
@@ -168,7 +175,7 @@ const fImportXlsx = async (event) => {
         //expoListProduct.value = response.data.data
         //console.log(expoListProduct.value);
     } catch (error) {
-        console.error(error);
+       alert(error)
     }
 }
 
@@ -220,8 +227,8 @@ const downloadBtn = async () => {
 </script>
 
 <template>
-    <span v-if="isLoadingPdf" class="loaderPdf"></span>
     <Nav v-if="isAuthenticate"></Nav>
+    <span v-if="isLoadingPdf" class="loaderPdf"></span>
     <div class="table-container">
 
         <div>

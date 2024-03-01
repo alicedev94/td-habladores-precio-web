@@ -194,9 +194,20 @@ router.post("/generate-pdf", async (req, res) => {
 
 router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
   const { list, sucur, sizeTalker } = req.params;
+  const { sapCode } = req.body;
+  console.log(sapCode[0].length);
 
-  const rta = await processData(req.body, list, sucur, sizeTalker);
-  res.json(rta[0]);
+  if (sapCode[0].length > 5000) {
+    res.json({
+      status: "error",
+      descrip:
+        "El sistema no admite más de 5000 códigos SKU. Por favor, ingrese una cantidad inferior.",
+    });
+  } else {
+    const rta = await processData(req.body, list, sucur, sizeTalker);
+    // console.log("rta",rta[0]);
+    res.json({ status: "ok", data: rta[0] });
+  }
 });
 
 router.post("/send/sap-code1", async (req, res) => {

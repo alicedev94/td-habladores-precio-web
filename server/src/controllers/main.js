@@ -215,8 +215,13 @@ const processData = async (data, list, sucur, sizeTalker) => {
   // OBTENER ALMACEN SEGUN LA LISTA
   let rtaStore = store(list);
   var rta = "";
-  const sku = data.sapCode[0].flat();
+  var sku = data.sapCode[0].flat();
+  sku = sku.filter((element) => element !== null);
 
+  // ESTO BUSCA EL PATRON DE LOS CODIGOS SAP PARA LIMPIAR LA DATA
+  const regex = /^([A-Z]{2})-(\d{8})$/;
+  sku = sku.filter((element) => regex.test(element));
+  
   const modSku = sku.map((elemento) => {
     return `'${elemento}'`;
   });

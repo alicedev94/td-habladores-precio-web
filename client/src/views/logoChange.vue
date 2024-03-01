@@ -18,14 +18,14 @@ onMounted(() => {
 
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
-    console.log(segmentos);
+    // console.log(segmentos);
 
     // console.log(segmentos[1]);
 
     // Saber si estoy en la rurta que corresponde
     if (segmentos[1] === "marketing" && segmentos[2] === "logo-change") {
         isAuthenticate.value = true
-        console.log("dentro de pathnmane");
+        // console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }

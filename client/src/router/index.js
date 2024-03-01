@@ -15,13 +15,13 @@ const isAuthenticate = () => {
         return next();
       };
     } else {
-      console.log("NO ES ADMIN O MARKETING O CLIENT");
+      // console.log("NO ES ADMIN O MARKETING O CLIENT");
       router.push("/");
       return false;
     }
   } else {
-    console.log("FALLO AL AUTENTICAR");
-    console.log(token);
+    // console.log("FALLO AL AUTENTICAR");
+    // console.log(token);
     router.push("/");
     return false;
   }

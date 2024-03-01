@@ -3,17 +3,19 @@ import { ref, onMounted } from 'vue'
 defineEmits(['logout']);
 const isMarketing = ref(true)
 const back = ref(false)
+
+import router from '@/router';
 // const rolMarketing = ref(true)
 
 const logout = () => {
-  localStorage.removeItem("token");
-  location.reload();
+    localStorage.removeItem("token");
+    router.push("/")
+    //location.reload();
 }
-
 
 onMounted(() => {
     let rolMarketing = localStorage.getItem("token")
-    let { rtaEmail, rtaRol } = JSON.parse(rolMarketing);
+    let { rtaRol } = JSON.parse(rolMarketing);
 
     if (rtaRol === "MARKETING") {
         isMarketing.value = true
@@ -36,12 +38,12 @@ onMounted(() => {
         back.value = false
     }
 
-    console.log("todo bien");
+    // console.log("todo bien");
 })
 
-// functions 
+    // functions 
 const handleClick = () => {
-    location.reload()
+    router.push("/");
 }
 
 </script>

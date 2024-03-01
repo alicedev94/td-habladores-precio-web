@@ -35,7 +35,7 @@ const login = async () => {
       const { auth } = response.data;
 
       if (auth) {
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("token", JSON.stringify(response.data));
         isLoading.value = false;
 
