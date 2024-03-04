@@ -20,6 +20,11 @@ const {
 const {
   bigPriceTalker,
 } = require("../controllers/priceTalkerPdfGrande.controller");
+
+const {
+  bigNewPriceTalker,
+} = require("../controllers/priceTalkerPdfNewGrande.controller");
+
 const {
   smallPriceTalker,
 } = require("../controllers/priceTalkerPdfPequeno.controller");
@@ -181,7 +186,13 @@ router.post("/generate-pdf", async (req, res) => {
         "Content-Disposition": "attachment; filename=alicePdf.pdf",
       });
 
-      await bigPriceTalker(
+      // FUNCIONAL
+      // await bigPriceTalker(
+      //   (data) => stream.write(data),
+      //   () => stream.end(),
+      //   noData
+      // );
+      await bigNewPriceTalker(
         (data) => stream.write(data),
         () => stream.end(),
         noData
