@@ -288,8 +288,8 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, 221.1, boxPositionY + 99.21, {
-        fit: [priceTalkerBarCodeWith, priceTalkerBarCodeHeight],
+      doc.image(img, boxPositionX + 190, 105, {
+        fit: [100, 80],
         align: "center",
         valign: "center",
       });
@@ -448,7 +448,7 @@ const bigNewPriceTalker = async (
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product);
-      if (product.priceTalkerService != null) {
+      if (product.priceTalkerService != true) { // null
         doc
           .font(
             path.join(
