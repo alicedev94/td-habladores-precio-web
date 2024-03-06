@@ -130,6 +130,8 @@ router.post("/generate-pdf", async (req, res) => {
   // console.log(req.body);
   const { data, list, sizeTalker } = req.body;
 
+  // console.log(req.body);
+
   try {
     if (sizeTalker === "0") {
       // HABLADOR PEQUEÑO
@@ -159,7 +161,6 @@ router.post("/generate-pdf", async (req, res) => {
       });
 
       const noData = proData;
-      console.log(noData);
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
@@ -173,6 +174,7 @@ router.post("/generate-pdf", async (req, res) => {
       );
     } else if (sizeTalker === "2") {
       // HABLADOR PEQUEÑO
+
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;
@@ -206,7 +208,7 @@ router.post("/generate-pdf", async (req, res) => {
 router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
   const { list, sucur, sizeTalker } = req.params;
   const { sapCode } = req.body;
-  console.log(sapCode[0].length);
+  // console.log(sapCode[0].length);
 
   if (sapCode[0].length > 5000) {
     res.json({

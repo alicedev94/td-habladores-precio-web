@@ -16,10 +16,11 @@ const testConnectionFrom120 = async () => {
     ,[Almacen]
     ,[Lista Precio]
     ,[IdHablador]
+        ,[ServicioAsociado]
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
-  FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]`);
+  FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]`);
 
   console.log(rta);
 };
@@ -174,7 +175,8 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -188,7 +190,8 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
@@ -202,14 +205,36 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
   }
-  //console.log(rta);
+  // console.log("sss",rta);
   return rta;
 };
+
+// const productService = async (sapCode, codeSucur, priceList) => {
+//   const databaseResponde = await sequelize.query(`
+//   SELECT  [Codigo]
+//     ,[PrecioaMostrar]
+//     ,[ServicioAsociado]
+//     FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+//   WHERE 
+//     Codigo = '${sapCode}' AND CodigoSucursal = ${codeSucur} AND [Lista Precio] = ${priceList}`);
+
+//   let { ServicioAsociado, PrecioaMostrar } = databaseResponde[0][0];
+//   if (ServicioAsociado != null) {
+//     PrecioaMostrar = PrecioaMostrar * 1.16;
+//     console.log(PrecioaMostrar);
+//     return PrecioaMostrar
+//   } else {
+//     return 
+//   }
+// };
+
+// productService("LS-00000007", "4", "2")
 
 const processData = async (data, list, sucur, sizeTalker) => {
   // OBTENER ALMACEN SEGUN LA LISTA
@@ -221,7 +246,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
   // ESTO BUSCA EL PATRON DE LOS CODIGOS SAP PARA LIMPIAR LA DATA
   const regex = /^([A-Z]{2})-(\d{8})$/;
   sku = sku.filter((element) => regex.test(element));
-  
+
   const modSku = sku.map((elemento) => {
     return `'${elemento}'`;
   });
@@ -236,7 +261,8 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
@@ -250,7 +276,8 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
@@ -263,7 +290,8 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[ServicioAsociado]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
@@ -353,6 +381,7 @@ const modelData = (data) => {
       priceTalkerBarCode: item.CodigoBarra,
       priceTalkerWarranty: item.Garantia,
       priceTalkerIdHablador: item.IdHablador,
+      priceTalkerService: item.ServicioAsociado,
     });
   });
 
