@@ -109,13 +109,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -178,13 +180,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
           precio = precio - 0.01;
         }
 
@@ -212,12 +228,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
 
         doc
@@ -438,13 +468,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -507,14 +539,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
 
         doc
@@ -541,12 +586,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
 
         doc
@@ -767,13 +826,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -838,14 +899,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -871,12 +945,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1096,13 +1184,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -1165,14 +1255,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1198,12 +1301,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
         doc
@@ -1421,13 +1538,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -1490,14 +1609,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1523,12 +1655,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1747,13 +1893,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -1816,14 +1964,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1849,12 +2010,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2077,13 +2252,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -2096,7 +2273,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         )
         .fontSize(priceTalkerfontSize)
         .text(
-         descrip,
+          descrip,
           priceTalkerDescriptionPositionX,
           priceTalkerDescriptionPositionY + boxHeight + boxHeight,
           {
@@ -2146,14 +2323,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2179,12 +2369,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2407,13 +2611,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -2476,14 +2682,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2509,12 +2728,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2737,13 +2970,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -2806,14 +3041,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -2839,12 +3087,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3067,13 +3329,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -3136,14 +3400,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3169,12 +3446,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3398,13 +3689,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -3467,14 +3760,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3500,12 +3806,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3729,13 +4049,15 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight,
           {
             width: priceTalkerWidthText,
-            height: priceTalkerbrandHeight, // 0.25 cm 
+            height: priceTalkerbrandHeight, // 0.25 cm
             align: "center",
           }
         );
 
       // -- DESCRIPCIÓN --
-      descrip = ajustarCadena(product.priceTalkerdescription.toLocaleUpperCase())
+      descrip = ajustarCadena(
+        product.priceTalkerdescription.toLocaleUpperCase()
+      );
       doc
         .font(
           path.join(
@@ -3798,14 +4120,27 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
-          // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -3831,12 +4166,26 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 

@@ -16,6 +16,7 @@ const moment = require("moment-timezone");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
+const { log } = require("console");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -211,14 +212,28 @@ const bigPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
-          precio = precio - 0.01;
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice);
+            precio = Math.round(precio);
+            precio = precio - 0.01;
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -243,12 +258,26 @@ const bigPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(product.priceTalkerPrice * 1.16);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         } else {
           // LISTA PARA MARGARITA
-          precio = parseFloat(product.priceTalkerPrice);
-          precio = Math.round(precio);
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          if (product.priceTalkerPrice < 1) {
+            // 0 0,1 0,12123 etc
+            precio = parseFloat(product.priceTalkerPrice);
+          } else {
+            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = Math.round(precio);
+          }
+          //
         }
         // FIN DEL BLOQUE DE CODIGO
 

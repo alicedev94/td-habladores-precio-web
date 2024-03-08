@@ -272,7 +272,7 @@ const downloadBtn = async () => {
 
 
     </div>
-    <Footer v-if="isAuthenticate"></Footer>
+      <!--<Footer v-if="isAuthenticate"></Footer>-->
 </template>
 
 
