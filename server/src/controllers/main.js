@@ -16,11 +16,12 @@ const testConnectionFrom120 = async () => {
     ,[Almacen]
     ,[Lista Precio]
     ,[IdHablador]
-        ,[ServicioAsociado]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
-  FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]`);
+  FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]`);
 
   console.log(rta);
 };
@@ -175,8 +176,9 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -190,8 +192,9 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
@@ -205,8 +208,9 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -219,8 +223,9 @@ const products = async (list, type, sucur) => {
 //   const databaseResponde = await sequelize.query(`
 //   SELECT  [Codigo]
 //     ,[PrecioaMostrar]
-//     ,[ServicioAsociado]
-//     FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+//      ,[CodigoServicio]
+      //,[PrecioServicio]
+//     FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
 //   WHERE 
 //     Codigo = '${sapCode}' AND CodigoSucursal = ${codeSucur} AND [Lista Precio] = ${priceList}`);
 
@@ -261,8 +266,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
@@ -276,8 +282,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
@@ -290,8 +297,9 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[CodigoBarra]
     ,[PrecioaMostrar]
     ,[IdHablador]
-        ,[ServicioAsociado]
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_1]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
@@ -381,9 +389,12 @@ const modelData = (data) => {
       priceTalkerBarCode: item.CodigoBarra,
       priceTalkerWarranty: item.Garantia,
       priceTalkerIdHablador: item.IdHablador,
-      priceTalkerService: item.ServicioAsociado,
+      priceTalkerService: item.CodigoServicio,
+      priceTalkerServicePrice: item.PrecioServicio,
     });
   });
+
+  console.log(priceTalkerData);
 
   return priceTalkerData;
 };

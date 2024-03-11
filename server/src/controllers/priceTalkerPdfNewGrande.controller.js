@@ -117,6 +117,7 @@ const bigNewPriceTalker = async (
       contador = 0;
     }
     if (contador == 0) {
+      console.log("primer paso " + contador);
       // box 1
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -493,7 +494,7 @@ const bigNewPriceTalker = async (
           )
           .fontSize(priceTalkerFontSizeService)
           .text(
-            "LS-00000007",
+            product.priceTalkerService,
             boxPositionX + priceTalkerCodeServicePositionX,
             boxPositionY + priceTalkerCodeServicedPositionY, // priceTalkerCodeServicedPositionY
             {
@@ -513,7 +514,7 @@ const bigNewPriceTalker = async (
           )
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
-            "$30,00",
+            `$ ${product.priceTalkerServicePrice},00`,
             boxPositionX + priceTalkerCodeServicePricePositionX,
             boxPositionY + priceTalkerCodeServicePricePositionY,
             {
@@ -535,37 +536,7 @@ const bigNewPriceTalker = async (
           .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
-    } else if (contador == 1) {
-      console.log(contador);
-      // doc
-      // .rect(boxPositionX2, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
-      // // .dash(5, { space: 1 })
-      // .stroke();
-
-      // -- DESCRIPCIÓN --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          product.priceTalkerdescription.toLocaleUpperCase(),
-          boxPositionX + boxWith + priceTalkerDescriptionPositionX, // 1,1 CM
-          boxPositionY + priceTalkerDescriptionPositionY, // 2,5 CM
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-      console.log("termine");
-    }
-    contador++;
+    } 
   }
 
   contador = 0;
