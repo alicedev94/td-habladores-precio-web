@@ -22,7 +22,7 @@ let priceTalkerBrandPositionY = 74.31;
 let priceTalkerPositionPriceX = 32.7;
 let priceTalkerPositionPriceY = 142.68;
 let priceTalkerLogoPositionX = 212.6;
-let priceTalkerLogoPositionY =  42.52;
+let priceTalkerLogoPositionY = 42.52;
 let priceTalkerCodeSapX = 225.91;
 let priceTalkerCodeSapY = 89.12;
 let priceTalkerPositionWarrantyX = 139.7;
@@ -44,8 +44,8 @@ let ajusteMcd = 29.72;
 // Tamaño
 const boxWith = 335.89; // 363
 const boxHeight = 249.69; // 264
-let priceTalkerBarCodeWith = 283.46; // 2.3 cm
-let priceTalkerBarCodeHeight = 10; // 0.5 cm
+let priceTalkerBarCodeWith = 104.04; // 2.3 cm
+let priceTalkerBarCodeHeight = 29.72; // 0.5 cm
 let priceTalkerLogoWith = 48; // 48
 let priceTalkerLogoHeight = 43; // 43
 
@@ -300,7 +300,7 @@ const bigNewPriceTalker = async (
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
       doc.image(img, boxPositionX + priceTalkerBarCodeX, priceTalkerBarCodeY, {
-        fit: [100, 80],
+        fit: [100, 90],
         align: "center",
         valign: "center",
       });
@@ -341,7 +341,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `AZ`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -355,7 +359,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`VD`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `VD`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -369,7 +377,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`NJ`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `NJ`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -383,7 +395,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`MG`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `MG`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -397,7 +413,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`A`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `A`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -411,7 +431,11 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`B`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `B`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -425,11 +449,14 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`C`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `C`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
       }
 
-
-      // -- SERVICIOS DE INSTALACION
+      // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
       if (product.priceTalkerService != null) {
         // null
@@ -453,6 +480,7 @@ const bigNewPriceTalker = async (
               align: "left",
             }
           );
+
         doc
           .font(
             path.join(
@@ -473,6 +501,7 @@ const bigNewPriceTalker = async (
               align: "left",
             }
           );
+
         doc
           .font(
             path.join(
@@ -493,18 +522,13 @@ const bigNewPriceTalker = async (
               align: "left",
             }
           );
-
         // -- recuadro para sercios post venta
-        doc
-          .rect(
-            boxPositionX + priceTalkerReBoxX,
-            boxPositionY + priceTalkerReBoxY,
-            priceTalkerReBoxW,
-            priceTalkerReBoxH
-          ) // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
-          .lineWidth(0.5)
-          .fillOpacity(0)
-          .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+        doc.rect(
+          boxPositionX + priceTalkerReBoxX,
+          boxPositionY + priceTalkerReBoxY,
+          priceTalkerReBoxW,
+          priceTalkerReBoxH
+        ); // X, Y , ALTO Y ANCHO
       }
       // --
     } else if (contador == 1) {
@@ -683,11 +707,16 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, boxPositionX + priceTalkerBarCodeX  + boxWith, priceTalkerBarCodeY, {
-        fit: [100, 80],
-        align: "center",
-        valign: "center",
-      });
+      doc.image(
+        img,
+        boxPositionX + priceTalkerBarCodeX + boxWith,
+        priceTalkerBarCodeY,
+        {
+          fit: [100, 90],
+          align: "center",
+          valign: "center",
+        }
+      );
 
       // -- TIEMPO DE GARANTÍA --
       doc
@@ -837,6 +866,7 @@ const bigNewPriceTalker = async (
               align: "left",
             }
           );
+
         doc
           .font(
             path.join(
@@ -879,16 +909,15 @@ const bigNewPriceTalker = async (
           );
 
         // -- recuadro para sercios post venta
-        doc
-          .rect(
-            boxPositionX + priceTalkerReBoxX + boxWith,
-            boxPositionY + priceTalkerReBoxY,
-            priceTalkerReBoxW,
-            priceTalkerReBoxH
-          ) // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
-          .lineWidth(0.5)
-          .fillOpacity(0)
-          .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+        doc.rect(
+          boxPositionX + priceTalkerReBoxX + boxWith,
+          boxPositionY + priceTalkerReBoxY,
+          priceTalkerReBoxW,
+          priceTalkerReBoxH
+        ); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+        // .lineWidth(0.5)
+        // .fillOpacity(0)
+        // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
     } else if (contador == 2) {
@@ -961,7 +990,7 @@ const bigNewPriceTalker = async (
       doc.image(
         `${dirnameLogo}/${logoName}`,
         boxPositionX + priceTalkerLogoPositionX,
-        boxPositionY + priceTalkerLogoPositionY +  boxHeight, // priceTalkerLogoPositionY
+        boxPositionY + priceTalkerLogoPositionY + boxHeight, // priceTalkerLogoPositionY
         {
           // pathLogo
           fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
@@ -1009,7 +1038,7 @@ const bigNewPriceTalker = async (
           .text(
             `$ ${precio}`,
             boxPositionX + priceTalkerPositionPriceX, // 1,1 CM
-            boxPositionY + priceTalkerPositionPriceY  + boxHeight// 5 CM
+            boxPositionY + priceTalkerPositionPriceY + boxHeight // 5 CM
           );
       } else {
         // ENTERO
@@ -1067,11 +1096,16 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, boxPositionX + priceTalkerBarCodeX, priceTalkerBarCodeY + boxHeight, {
-        fit: [100, 80],
-        align: "center",
-        valign: "center",
-      });
+      doc.image(
+        img,
+        boxPositionX + priceTalkerBarCodeX,
+        priceTalkerBarCodeY + boxHeight,
+        {
+          fit: [100, 90], // cordenadas
+          align: "center",
+          valign: "center",
+        }
+      );
 
       // -- TIEMPO DE GARANTÍA --
       doc
@@ -1196,7 +1230,6 @@ const bigNewPriceTalker = async (
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
       }
 
-
       // -- SERVICIOS DE INSTALACION
       // console.log(product);
       if (product.priceTalkerService != null) {
@@ -1263,22 +1296,26 @@ const bigNewPriceTalker = async (
           );
 
         // -- recuadro para sercios post venta
-        doc
-          .rect(
-            boxPositionX + priceTalkerReBoxX,
-            boxPositionY + priceTalkerReBoxY + boxHeight,
-            priceTalkerReBoxW,
-            priceTalkerReBoxH
-          ) // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
-          .lineWidth(0.5)
-          .fillOpacity(0)
-          .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+        doc.rect(
+          boxPositionX + priceTalkerReBoxX,
+          boxPositionY + priceTalkerReBoxY + boxHeight,
+          priceTalkerReBoxW,
+          priceTalkerReBoxH
+        ); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+        // .lineWidth(0.5)
+        // .fillOpacity(0)
+        // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
     } else if (contador == 3) {
       // box 1
       doc
-        .rect(boxPositionX + boxWith, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
+        .rect(
+          boxPositionX + boxWith,
+          boxPositionY + boxHeight,
+          boxWith,
+          boxHeight
+        ) // X, Y , ALTO Y ANCHO
         // .dash(5, { space: 1 })
         .stroke();
 
@@ -1345,7 +1382,7 @@ const bigNewPriceTalker = async (
       doc.image(
         `${dirnameLogo}/${logoName}`,
         boxPositionX + priceTalkerLogoPositionX + boxWith,
-        boxPositionY + priceTalkerLogoPositionY +  boxHeight, // priceTalkerLogoPositionY
+        boxPositionY + priceTalkerLogoPositionY + boxHeight, // priceTalkerLogoPositionY
         {
           // pathLogo
           fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
@@ -1393,7 +1430,7 @@ const bigNewPriceTalker = async (
           .text(
             `$ ${precio}`,
             boxPositionX + priceTalkerPositionPriceX + boxWith, // 1,1 CM
-            boxPositionY + priceTalkerPositionPriceY  + boxHeight// 5 CM
+            boxPositionY + priceTalkerPositionPriceY + boxHeight // 5 CM
           );
       } else {
         // ENTERO
@@ -1451,11 +1488,16 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, boxPositionX + priceTalkerBarCodeX  + boxWith, priceTalkerBarCodeY + boxHeight, {
-        fit: [100, 80],
-        align: "center",
-        valign: "center",
-      });
+      doc.image(
+        img,
+        boxPositionX + priceTalkerBarCodeX + boxWith,
+        priceTalkerBarCodeY + boxHeight,
+        {
+          fit: [100, 90],
+          align: "center",
+          valign: "center",
+        }
+      );
 
       // -- TIEMPO DE GARANTÍA --
       doc
@@ -1580,8 +1622,83 @@ const bigNewPriceTalker = async (
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
       }
 
+      // -- SERVICIOS DE INSTALACION #ASJDADHKAS
+      // console.log(product);
+      if (product.priceTalkerService != null) {
+        console.log("aqui");
 
+        // null
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            "Solicita tu Servicio de Instalación",
+            boxPositionX + priceTalkerServiceX + boxWith, // 154.57
+            boxPositionY + priceTalkerServiceY + boxHeight, // priceTalkerServiceY = 184.29 priceTalkerServiceX = 154.57
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
 
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            product.priceTalkerService,
+            boxPositionX + priceTalkerCodeServicePositionX + boxWith,
+            boxPositionY + priceTalkerCodeServicedPositionY + boxHeight, // priceTalkerCodeServicedPositionY
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeServicePrice)
+          .text(
+            `$${product.priceTalkerServicePrice},00`,
+            boxPositionX + priceTalkerCodeServicePricePositionX + boxWith,
+            boxPositionY + priceTalkerCodeServicePricePositionY + boxHeight,
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+        doc.rect(
+          boxPositionX,
+          boxPositionY,
+          priceTalkerReBoxW,
+          priceTalkerReBoxH
+        );
+      }
+      console.log("asdka");
+      // --
     }
     contador++;
   }
