@@ -11,7 +11,6 @@ var logoName = "PRUEBA.png";
 
 // GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
 var precio = 0;
-var service = true; // null
 
 // Posición
 let boxPositionX = 70;
@@ -22,14 +21,14 @@ let priceTalkerBrandPositionX = 32.7;
 let priceTalkerBrandPositionY = 74.31;
 let priceTalkerPositionPriceX = 32.7;
 let priceTalkerPositionPriceY = 142.68;
-let priceTalkerLogoPositionX = 339;
-let priceTalkerLogoPositionY = 84;
+let priceTalkerLogoPositionX = 212.6;
+let priceTalkerLogoPositionY =  42.52;
 let priceTalkerCodeSapX = 225.91;
 let priceTalkerCodeSapY = 89.12;
 let priceTalkerPositionWarrantyX = 139.7;
 let priceTalkerPositionWarrantyY = 148.62;
-let priceTalkerBarCodeX = 270;
-let priceTalkerBarCodeY = 180;
+let priceTalkerBarCodeX = 190;
+let priceTalkerBarCodeY = 105;
 let priceTalkerReBoxX = 148.62;
 let priceTalkerReBoxY = 181.32;
 let priceTalkerReBoxW = 154.57;
@@ -40,6 +39,7 @@ let priceTalkerCodeServicePositionX = 196.18;
 let priceTalkerCodeServicedPositionY = 196.18;
 let priceTalkerCodeServicePricePositionX = 258.6;
 let priceTalkerCodeServicePricePositionY = 196.18;
+let ajusteMcd = 29.72;
 
 // Tamaño
 const boxWith = 335.89; // 363
@@ -56,7 +56,7 @@ const priceTalkerFontSizeService = 9;
 const priceTalkerFontSizeServicePrice = 14;
 
 // -- Contenido estático
-const priceTalkerWidthText = 159.45; // 221 4,7 cm  159.45 = 5cm a 81 dpi o ppi
+const priceTalkerWidthText = 148.62; // 5 cm en 75.5 dpi
 const priceTalkerFontPath = process.cwd();
 
 // Controlador de flujo para la generación de habladores
@@ -192,8 +192,8 @@ const bigNewPriceTalker = async (
 
       doc.image(
         `${dirnameLogo}/${logoName}`,
-        boxPositionX + 212.6,
-        boxPositionY + 42.52, // priceTalkerLogoPositionY
+        boxPositionX + priceTalkerLogoPositionX,
+        boxPositionY + priceTalkerLogoPositionY, // priceTalkerLogoPositionY
         {
           // pathLogo
           fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
@@ -299,7 +299,7 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
-      doc.image(img, boxPositionX + 190, 105, {
+      doc.image(img, boxPositionX + priceTalkerBarCodeX, priceTalkerBarCodeY, {
         fit: [100, 80],
         align: "center",
         valign: "center",
@@ -320,6 +320,390 @@ const bigNewPriceTalker = async (
         .text(
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
           boxPositionX + priceTalkerPositionWarrantyX, // 4,7 CM
+          boxPositionY + priceTalkerPositionWarrantyY, //
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`,  priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+      }
+
+
+      // -- SERVICIOS DE INSTALACION
+      // console.log(product);
+      if (product.priceTalkerService != null) {
+        // null
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            "Solicita tu Servicio de Instalación",
+            boxPositionX + priceTalkerServiceX, // 154.57
+            boxPositionY + priceTalkerServiceY, // priceTalkerServiceY = 184.29 priceTalkerServiceX = 154.57
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            product.priceTalkerService,
+            boxPositionX + priceTalkerCodeServicePositionX,
+            boxPositionY + priceTalkerCodeServicedPositionY, // priceTalkerCodeServicedPositionY
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeServicePrice)
+          .text(
+            `$${product.priceTalkerServicePrice},00`,
+            boxPositionX + priceTalkerCodeServicePricePositionX,
+            boxPositionY + priceTalkerCodeServicePricePositionY,
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+
+        // -- recuadro para sercios post venta
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX,
+            boxPositionY + priceTalkerReBoxY,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          ) // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+          .lineWidth(0.5)
+          .fillOpacity(0)
+          .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+      }
+      // --
+    } else if (contador == 1) {
+      // box 1
+      doc
+        .rect(boxPositionX + boxWith, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
+        // .dash(5, { space: 1 })
+        .stroke();
+
+      // -- MARCA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial-bold",
+            "Arial Bold.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerBrand.toLocaleUpperCase(),
+          boxPositionX + priceTalkerBrandPositionX + boxWith, // 1,1 CM
+          boxPositionY + priceTalkerBrandPositionY, // 2,9 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- DESCRIPCIÓN --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerdescription.toLocaleUpperCase(),
+          boxPositionX + priceTalkerDescriptionPositionX + boxWith, // 1,1 CM
+          boxPositionY + priceTalkerDescriptionPositionY, // 2,5 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- LOGO --
+      // TYPES PROMOTION
+      /*
+            1 PROMO ACTUAL
+            2 SE FELIZ .99
+            3 SE FELIZ CON ENTERO
+            4 POR APLICAR
+          */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      doc.image(
+        `${dirnameLogo}/${logoName}`,
+        boxPositionX + priceTalkerLogoPositionX + boxWith,
+        boxPositionY + priceTalkerLogoPositionY, // priceTalkerLogoPositionY
+        {
+          // pathLogo
+          fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
+          align: "center",
+          valign: "center",
+        }
+      );
+
+      // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != "3") {
+        // CON .99
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            boxPositionX + priceTalkerPositionPriceX + boxWith, // 1,1 CM
+            boxPositionY + priceTalkerPositionPriceY // 5 CM
+          );
+      } else {
+        // ENTERO
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            boxPositionX + priceTalkerPositionPriceX + boxWith,
+            boxPositionY + priceTalkerPositionPriceY
+          );
+      }
+
+      // -- CÓDIGO SAP
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerSapCode.toLocaleUpperCase(),
+          priceTalkerCodeSapX + boxWith,
+          boxPositionY + priceTalkerCodeSapY,
+          {
+            width: priceTalkerWidthText,
+            align: "center",
+          }
+        );
+
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, boxPositionX + priceTalkerBarCodeX  + boxWith, priceTalkerBarCodeY, {
+        fit: [100, 80],
+        align: "center",
+        valign: "center",
+      });
+
+      // -- TIEMPO DE GARANTÍA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(10)
+        .text(
+          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
+          boxPositionX + priceTalkerPositionWarrantyX + boxWith, // 4,7 CM
           boxPositionY + priceTalkerPositionWarrantyY, //
           {
             width: priceTalkerWidthText,
@@ -427,40 +811,12 @@ const bigNewPriceTalker = async (
           .fontSize(20)
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
       }
-      // -- 15022024
-      if (
-        product.priceTalkerList === "3" ||
-        product.priceTalkerList === "4" ||
-        product.priceTalkerList === "6" ||
-        product.priceTalkerList === "7" ||
-        product.priceTalkerList === "8" ||
-        product.priceTalkerList === "9" ||
-        product.priceTalkerList === "10"
-      ) {
-        // FRASE MERCANCIA ESPECIAL
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(15)
-          .text(
-            `MERCANCÍA ESPECIAL`,
-            priceTalkerPositionPriceX,
-            priceTalkerPositionPriceY + 32
-          );
-      }
-      // -- FIN DEL BLOQUE DE CODIGO
 
       // -- SERVICIOS DE INSTALACION
-      // console.log(product);
+      // console.log(product.priceTalkerService);
       if (product.priceTalkerService != null) {
-        // null
+        // is not null
+        // console.log("Entramos", product.priceTalkerService);
         doc
           .font(
             path.join(
@@ -474,7 +830,7 @@ const bigNewPriceTalker = async (
           .fontSize(priceTalkerFontSizeService)
           .text(
             "Solicita tu Servicio de Instalación",
-            boxPositionX + priceTalkerServiceX, // 154.57
+            boxPositionX + priceTalkerServiceX + boxWith, // 154.57
             boxPositionY + priceTalkerServiceY, // priceTalkerServiceY = 184.29 priceTalkerServiceX = 154.57
             {
               width: priceTalkerWidthText,
@@ -494,7 +850,7 @@ const bigNewPriceTalker = async (
           .fontSize(priceTalkerFontSizeService)
           .text(
             product.priceTalkerService,
-            boxPositionX + priceTalkerCodeServicePositionX,
+            boxPositionX + priceTalkerCodeServicePositionX + boxWith,
             boxPositionY + priceTalkerCodeServicedPositionY, // priceTalkerCodeServicedPositionY
             {
               width: priceTalkerWidthText,
@@ -513,8 +869,8 @@ const bigNewPriceTalker = async (
           )
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
-            `$ ${product.priceTalkerServicePrice},00`,
-            boxPositionX + priceTalkerCodeServicePricePositionX,
+            `$${product.priceTalkerServicePrice},00`,
+            boxPositionX + priceTalkerCodeServicePricePositionX + boxWith,
             boxPositionY + priceTalkerCodeServicePricePositionY,
             {
               width: priceTalkerWidthText,
@@ -525,7 +881,7 @@ const bigNewPriceTalker = async (
         // -- recuadro para sercios post venta
         doc
           .rect(
-            boxPositionX + priceTalkerReBoxX,
+            boxPositionX + priceTalkerReBoxX + boxWith,
             boxPositionY + priceTalkerReBoxY,
             priceTalkerReBoxW,
             priceTalkerReBoxH
@@ -535,12 +891,396 @@ const bigNewPriceTalker = async (
           .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
-    } else if (contador == 1) {
-      // CUBO
+    } else if (contador == 2) {
+      // box 1
       doc
-      .rect(boxPositionX + boxWith, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
-      // .dash(5, { space: 1 })
-      .stroke();
+        .rect(boxPositionX, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
+        // .dash(5, { space: 1 })
+        .stroke();
+
+      // -- MARCA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial-bold",
+            "Arial Bold.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerBrand.toLocaleUpperCase(),
+          boxPositionX + priceTalkerBrandPositionX, // 1,1 CM
+          boxPositionY + priceTalkerBrandPositionY + boxHeight, // 2,9 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- DESCRIPCIÓN --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerdescription.toLocaleUpperCase(),
+          boxPositionX + priceTalkerDescriptionPositionX, // 1,1 CM
+          boxPositionY + priceTalkerDescriptionPositionY + boxHeight, // 2,5 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- LOGO --
+      // TYPES PROMOTION
+      /*
+            1 PROMO ACTUAL
+            2 SE FELIZ .99
+            3 SE FELIZ CON ENTERO
+            4 POR APLICAR
+          */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      doc.image(
+        `${dirnameLogo}/${logoName}`,
+        boxPositionX + priceTalkerLogoPositionX,
+        boxPositionY + priceTalkerLogoPositionY +  boxHeight, // priceTalkerLogoPositionY
+        {
+          // pathLogo
+          fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
+          align: "center",
+          valign: "center",
+        }
+      );
+
+      // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != "3") {
+        // CON .99
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            boxPositionX + priceTalkerPositionPriceX, // 1,1 CM
+            boxPositionY + priceTalkerPositionPriceY  + boxHeight// 5 CM
+          );
+      } else {
+        // ENTERO
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            boxPositionX + priceTalkerPositionPriceX,
+            boxPositionY + priceTalkerPositionPriceY + boxHeight
+          );
+      }
+
+      // -- CÓDIGO SAP
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerSapCode.toLocaleUpperCase(),
+          priceTalkerCodeSapX,
+          boxPositionY + priceTalkerCodeSapY + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "center",
+          }
+        );
+
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, boxPositionX + priceTalkerBarCodeX, priceTalkerBarCodeY + boxHeight, {
+        fit: [100, 80],
+        align: "center",
+        valign: "center",
+      });
+
+      // -- TIEMPO DE GARANTÍA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(10)
+        .text(
+          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
+          boxPositionX + priceTalkerPositionWarrantyX, // 4,7 CM
+          boxPositionY + priceTalkerPositionWarrantyY + boxHeight, //
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      }
+
+
+      // -- SERVICIOS DE INSTALACION
+      // console.log(product);
+      if (product.priceTalkerService != null) {
+        // null
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            "Solicita tu Servicio de Instalación",
+            boxPositionX + priceTalkerServiceX, // 154.57
+            boxPositionY + priceTalkerServiceY + boxHeight, // priceTalkerServiceY = 184.29 priceTalkerServiceX = 154.57
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeService)
+          .text(
+            product.priceTalkerService,
+            boxPositionX + priceTalkerCodeServicePositionX,
+            boxPositionY + priceTalkerCodeServicedPositionY + boxHeight, // priceTalkerCodeServicedPositionY
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizeServicePrice)
+          .text(
+            `$${product.priceTalkerServicePrice},00`,
+            boxPositionX + priceTalkerCodeServicePricePositionX,
+            boxPositionY + priceTalkerCodeServicePricePositionY + boxHeight,
+            {
+              width: priceTalkerWidthText,
+              align: "left",
+            }
+          );
+
+        // -- recuadro para sercios post venta
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX,
+            boxPositionY + priceTalkerReBoxY + boxHeight,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          ) // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+          .lineWidth(0.5)
+          .fillOpacity(0)
+          .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+      }
+      // --
+    } else if (contador == 3) {
+      // box 1
+      doc
+        .rect(boxPositionX + boxWith, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
+        // .dash(5, { space: 1 })
+        .stroke();
 
       // -- MARCA --
       doc
@@ -557,12 +1297,291 @@ const bigNewPriceTalker = async (
         .text(
           product.priceTalkerBrand.toLocaleUpperCase(),
           boxPositionX + priceTalkerBrandPositionX + boxWith, // 1,1 CM
-          boxPositionY + priceTalkerBrandPositionY, // 2,9 CM
+          boxPositionY + priceTalkerBrandPositionY + boxHeight, // 2,9 CM
           {
             width: priceTalkerWidthText,
             align: "left",
           }
         );
+
+      // -- DESCRIPCIÓN --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerdescription.toLocaleUpperCase(),
+          boxPositionX + priceTalkerDescriptionPositionX + boxWith, // 1,1 CM
+          boxPositionY + priceTalkerDescriptionPositionY + boxHeight, // 2,5 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- LOGO --
+      // TYPES PROMOTION
+      /*
+            1 PROMO ACTUAL
+            2 SE FELIZ .99
+            3 SE FELIZ CON ENTERO
+            4 POR APLICAR
+          */
+      if (product.priceTalkerIdHablador != 1) {
+        // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
+        logoName = "LOGO_DAKA_SE_FELIZ.png";
+      } else {
+        // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
+        logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
+      }
+
+      doc.image(
+        `${dirnameLogo}/${logoName}`,
+        boxPositionX + priceTalkerLogoPositionX + boxWith,
+        boxPositionY + priceTalkerLogoPositionY +  boxHeight, // priceTalkerLogoPositionY
+        {
+          // pathLogo
+          fit: [priceTalkerLogoWith, priceTalkerLogoHeight],
+          align: "center",
+          valign: "center",
+        }
+      );
+
+      // -- PRECIO --
+      // TYPES PROMOTION
+      /*
+          1 PROMO ACTUAL
+          2 SE FELIZ .99
+          3 SE FELIZ CON ENTERO
+          4 POR APLICAR
+        */
+      if (product.priceTalkerIdHablador != "3") {
+        // CON .99
+
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio}`,
+            boxPositionX + priceTalkerPositionPriceX + boxWith, // 1,1 CM
+            boxPositionY + priceTalkerPositionPriceY  + boxHeight// 5 CM
+          );
+      } else {
+        // ENTERO
+        // SI LA LISTA ES MARGARITA NO LLEVA IVA
+        if (product.priceTalkerList != "1") {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(product.priceTalkerPrice * 1.16);
+          precio = Math.round(precio);
+        } else {
+          // LISTA PARA MARGARITA
+          precio = parseFloat(product.priceTalkerPrice);
+          precio = Math.round(precio);
+        }
+        // FIN DEL BLOQUE DE CODIGO
+
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerFontSizePrice)
+          .text(
+            `$ ${precio},00`,
+            boxPositionX + priceTalkerPositionPriceX + boxWith,
+            boxPositionY + priceTalkerPositionPriceY + boxHeight
+          );
+      }
+
+      // -- CÓDIGO SAP
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerSapCode.toLocaleUpperCase(),
+          priceTalkerCodeSapX + boxWith,
+          boxPositionY + priceTalkerCodeSapY + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "center",
+          }
+        );
+
+      // -- CÓDIGO DE BARRAS
+      const img = await generateBarcode(product.priceTalkerBarCode);
+      doc.image(img, boxPositionX + priceTalkerBarCodeX  + boxWith, priceTalkerBarCodeY + boxHeight, {
+        fit: [100, 80],
+        align: "center",
+        valign: "center",
+      });
+
+      // -- TIEMPO DE GARANTÍA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(10)
+        .text(
+          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
+          boxPositionX + priceTalkerPositionWarrantyX + boxWith, // 4,7 CM
+          boxPositionY + priceTalkerPositionWarrantyY + boxHeight, //
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+      }
+
+
+
     }
     contador++;
   }

@@ -394,7 +394,7 @@ const modelData = (data) => {
     });
   });
 
-  console.log(priceTalkerData);
+  // console.log(priceTalkerData);
 
   return priceTalkerData;
 };
