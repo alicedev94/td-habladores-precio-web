@@ -117,7 +117,6 @@ const bigNewPriceTalker = async (
       contador = 0;
     }
     if (contador == 0) {
-      console.log("primer paso " + contador);
       // box 1
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -460,7 +459,7 @@ const bigNewPriceTalker = async (
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product);
-      if (product.priceTalkerService != true) {
+      if (product.priceTalkerService != null) {
         // null
         doc
           .font(
@@ -536,7 +535,36 @@ const bigNewPriceTalker = async (
           .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
-    } 
+    } else if (contador == 1) {
+      // CUBO
+      doc
+      .rect(boxPositionX + boxWith, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
+      // .dash(5, { space: 1 })
+      .stroke();
+
+      // -- MARCA --
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial-bold",
+            "Arial Bold.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          product.priceTalkerBrand.toLocaleUpperCase(),
+          boxPositionX + priceTalkerBrandPositionX + boxWith, // 1,1 CM
+          boxPositionY + priceTalkerBrandPositionY, // 2,9 CM
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+    }
+    contador++;
   }
 
   contador = 0;
