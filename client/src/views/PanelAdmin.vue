@@ -74,7 +74,7 @@ onMounted(async () => {
         sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://192.168.21.241:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")
@@ -139,9 +139,12 @@ const fGeneratePdf = async () => {
 const fImportXlsx = async (event) => {
     isLoading2.value = true
     try {
+        sapCode.value = []
         await readXlsxFile(event.target.files[0]).then((rows) => {
             sapCode.value.push(rows)
         })
+
+        // console.log(sapCode.value);
 
         // http://${api}:${portApi}/api/v1/send/sap-code1
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
@@ -162,6 +165,8 @@ const fImportXlsx = async (event) => {
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
+                    // console.log("aqui");
+                    // console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }

@@ -167,14 +167,14 @@ router.post("/generate-pdf", async (req, res) => {
         "Content-Disposition": "attachment; filename=alicePdf.pdf",
       });
 
-      await bigPriceTalker(
+      await bigNewPriceTalker( // bigPriceTalker 
         (data) => stream.write(data),
         () => stream.end(),
         noData
       );
     } else if (sizeTalker === "2") {
       // HABLADOR PEQUEÑO
-
+      
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;

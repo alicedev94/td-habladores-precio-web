@@ -40,6 +40,7 @@ let priceTalkerCodeServicedPositionY = 196.18;
 let priceTalkerCodeServicePricePositionX = 258.6;
 let priceTalkerCodeServicePricePositionY = 196.18;
 let ajusteMcd = 29.72;
+let mcdColor = false;
 
 // Tamaño
 const boxWith = 335.89; // 363
@@ -346,6 +347,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -364,6 +369,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -382,6 +391,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -400,6 +413,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -418,6 +435,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -436,6 +457,10 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -454,12 +479,16 @@ const bigNewPriceTalker = async (
             priceTalkerLogoPositionX + ajusteMcd,
             boxPositionY + priceTalkerLogoPositionY
           );
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGOF
       }
 
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
-      if (product.priceTalkerService != null) {
-        // null
+      if (product.priceTalkerService != null && mcdColor === false) {
+        // is not null
         doc
           .font(
             path.join(
@@ -523,14 +552,20 @@ const bigNewPriceTalker = async (
             }
           );
         // -- recuadro para sercios post venta
-        doc.rect(
-          boxPositionX + priceTalkerReBoxX,
-          boxPositionY + priceTalkerReBoxY,
-          priceTalkerReBoxW,
-          priceTalkerReBoxH
-        ); // X, Y , ALTO Y ANCHO
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX,
+            boxPositionY + priceTalkerReBoxY,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          )
+          .stroke(); // X, Y , ALTO Y ANCHO
       }
       // --
+
+      // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
+      mcdColor = false;
+      // FIN DEL CODIGO
     } else if (contador == 1) {
       // box 1
       doc
@@ -755,6 +790,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -769,6 +808,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -783,6 +826,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -797,6 +844,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -811,6 +862,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -825,6 +880,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -839,11 +898,15 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       }
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product.priceTalkerService);
-      if (product.priceTalkerService != null) {
+      if (product.priceTalkerService != null && mcdColor === false) {
         // is not null
         // console.log("Entramos", product.priceTalkerService);
         doc
@@ -909,17 +972,23 @@ const bigNewPriceTalker = async (
           );
 
         // -- recuadro para sercios post venta
-        doc.rect(
-          boxPositionX + priceTalkerReBoxX + boxWith,
-          boxPositionY + priceTalkerReBoxY,
-          priceTalkerReBoxW,
-          priceTalkerReBoxH
-        ); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX + boxWith,
+            boxPositionY + priceTalkerReBoxY,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          )
+          .stroke(); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
         // .lineWidth(0.5)
         // .fillOpacity(0)
         // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
+
+      // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
+      mcdColor = false;
+      // FIN DEL CODIGO
     } else if (contador == 2) {
       // box 1
       doc
@@ -1144,6 +1213,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -1158,6 +1231,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -1172,6 +1249,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -1186,6 +1267,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -1200,6 +1285,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -1214,6 +1303,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -1228,11 +1321,15 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       }
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product);
-      if (product.priceTalkerService != null) {
+      if (product.priceTalkerService != null && mcdColor === false) {
         // null
         doc
           .font(
@@ -1296,17 +1393,23 @@ const bigNewPriceTalker = async (
           );
 
         // -- recuadro para sercios post venta
-        doc.rect(
-          boxPositionX + priceTalkerReBoxX,
-          boxPositionY + priceTalkerReBoxY + boxHeight,
-          priceTalkerReBoxW,
-          priceTalkerReBoxH
-        ); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX,
+            boxPositionY + priceTalkerReBoxY + boxHeight,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          )
+          .stroke(); // x y w h priceTalkerReBoxX =  148.62 priceTalkerReBoxY =  181.32 priceTalkerReBoxW=154.57 priceTalkerReBoxH=29.72
         // .lineWidth(0.5)
         // .fillOpacity(0)
         // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
       }
       // --
+
+      // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
+      mcdColor = false;
+      // FIN DEL CODIGO
     } else if (contador == 3) {
       // box 1
       doc
@@ -1536,6 +1639,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -1550,6 +1657,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -1564,6 +1675,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -1578,6 +1693,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
         // ALMACEN VERDE
         doc
@@ -1592,6 +1711,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -1606,6 +1729,10 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -1620,11 +1747,15 @@ const bigNewPriceTalker = async (
           )
           .fontSize(20)
           .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
       }
 
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
-      if (product.priceTalkerService != null) {
+      if (product.priceTalkerService != null && mcdColor === false) {
         console.log("aqui");
 
         // null
@@ -1690,15 +1821,21 @@ const bigNewPriceTalker = async (
               align: "left",
             }
           );
-        doc.rect(
-          boxPositionX,
-          boxPositionY,
-          priceTalkerReBoxW,
-          priceTalkerReBoxH
-        );
+        doc
+          .rect(
+            boxPositionX + priceTalkerReBoxX + boxWith,
+            boxPositionY + priceTalkerReBoxY + boxHeight,
+            priceTalkerReBoxW,
+            priceTalkerReBoxH
+          )
+          .stroke();
       }
-      console.log("asdka");
+      // console.log("asdka");
       // --
+
+      // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
+      mcdColor = false;
+      // FIN DEL CODIGO
     }
     contador++;
   }
