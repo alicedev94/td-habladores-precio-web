@@ -220,11 +220,13 @@ const bigNewPriceTalker = async (
           precio = parseFloat(product.priceTalkerPrice * 1.16);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         } else {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -662,11 +664,13 @@ const bigNewPriceTalker = async (
           precio = parseFloat(product.priceTalkerPrice * 1.16);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         } else {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1085,11 +1089,13 @@ const bigNewPriceTalker = async (
           precio = parseFloat(product.priceTalkerPrice * 1.16);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         } else {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1511,11 +1517,13 @@ const bigNewPriceTalker = async (
           precio = parseFloat(product.priceTalkerPrice * 1.16);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         } else {
           // LISTA PARA MARGARITA
           precio = parseFloat(product.priceTalkerPrice);
           precio = Math.round(precio);
           precio = precio - 0.01;
+          precio = precio.toString().replace('.', ',');
         }
         // FIN DEL BLOQUE DE CODIGO
 
@@ -1756,8 +1764,7 @@ const bigNewPriceTalker = async (
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
       if (product.priceTalkerService != null && mcdColor === false) {
-        console.log("aqui");
-
+       
         // null
         doc
           .font(

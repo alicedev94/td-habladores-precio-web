@@ -188,6 +188,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
+            
           }
           //
         } else {
@@ -202,6 +204,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
           //
           precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
         }
 
         doc
@@ -547,6 +550,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -558,6 +562,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -907,6 +912,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -918,6 +924,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -1263,6 +1270,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -1274,6 +1282,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -1617,6 +1626,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -1628,6 +1638,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -1972,6 +1983,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -1983,6 +1995,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -2331,6 +2344,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -2342,6 +2356,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -2690,6 +2705,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -2701,6 +2717,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -3049,6 +3066,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -3060,6 +3078,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -3408,6 +3427,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -3419,6 +3439,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -3768,6 +3789,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -3779,6 +3801,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
@@ -4128,6 +4151,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         } else {
@@ -4139,6 +4163,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
+            precio = precio.toString().replace('.', ',');
           }
           //
         }
