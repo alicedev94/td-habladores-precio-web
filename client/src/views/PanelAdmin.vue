@@ -97,6 +97,8 @@ watch(() => {
         isDisabled.value = true
     }
 
+    // los archivos seleccionados de la tabla numero 1 
+    // console.log(selectedProducts.value);
     //expoListProduct.value = dataprueba
 })
 
@@ -206,6 +208,9 @@ const rightBtn = () => {
 
     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+
+    // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
+    selectedProducts.value = []
 }
 
 const deleteBtn = () => {
