@@ -256,10 +256,9 @@ const downloadBtn = async () => {
             </v-card>
         </div>
 
-        <div display="flex">
+        <div>
             <v-btn class="rightBtn" size="small" variant="outlined" @click="rightBtn">Agregar</v-btn>
             <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
-
         </div>
 
         <div>
@@ -287,6 +286,14 @@ const downloadBtn = async () => {
     </div>
       <!--<Footer v-if="isAuthenticate"></Footer>-->
 </template>
+
+<style scoped>
+.rightBtn,
+.deleteBtn {
+  display: block; /* Asegura que los botones ocupen todo el ancho disponible */
+  margin-bottom: 10px; /* Espacio entre los botones */
+}
+</style>
 
 
 

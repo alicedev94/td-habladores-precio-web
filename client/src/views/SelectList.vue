@@ -86,5 +86,5 @@ const btnSend = () => {
             </v-card-actions>
         </v-card-item>
     </v-card>
-    <Footer v-if="isAuthenticate"></Footer>
+    <!--Footer v-if="isAuthenticate"></Footer-->
 </template>
