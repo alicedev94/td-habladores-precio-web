@@ -85,6 +85,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
       contador = 0;
     }
     if (contador == 0) {
+      
       // POSITION 01
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO +3 para que aprezca pegado a la
@@ -183,13 +184,14 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
+           
             precio = parseFloat(product.priceTalkerPrice);
           } else {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
             precio = precio.toString().replace('.', ',');
-            
+           
           }
           //
         } else {
