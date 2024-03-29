@@ -41,6 +41,8 @@ let priceTalkerCodeServicePricePositionX = 258.6;
 let priceTalkerCodeServicePricePositionY = 196.18;
 let ajusteMcd = 29.72;
 let mcdColor = false;
+let abc = false;
+
 
 // Tamaño
 const boxWith = 335.89; // 363
@@ -70,6 +72,8 @@ let boxPositionX2 = boxPositionX + boxWith + 2;
 // Box3
 let boxPositionY3 = boxPositionY + boxHeight + 2;
 // Box4
+
+let primerosDosCaracteres = "";
 
 // Script options
 const optionsBarCode = {
@@ -118,6 +122,7 @@ const bigNewPriceTalker = async (
       contador = 0;
     }
     if (contador == 0) {
+
       // box 1
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -213,27 +218,31 @@ const bigNewPriceTalker = async (
         */
       if (product.priceTalkerIdHablador != "3") {
         // CON .99
-
+        
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          console.log("ss");
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
             precio = precio.toString().replace(".", ",");
+            precio = Math.round(precio);
           } else {
             // CUALQUIER OTRA LISTA
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
             precio = precio.toString().replace(".", ",");
+            console.log(precio);
           }
           //
           //
         } else {
+          precio = Math.round(precio);
           // LISTA PARA MARGARITA
-                // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -327,28 +336,6 @@ const bigNewPriceTalker = async (
         valign: "center",
       });
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(10)
-        .text(
-          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
-          boxPositionX + priceTalkerPositionWarrantyX, // 4,7 CM
-          boxPositionY + priceTalkerPositionWarrantyY, //
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -439,7 +426,7 @@ const bigNewPriceTalker = async (
         mcdColor = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
-        // ALMACEN VERDE
+        // ALMACEN A
         doc
           .font(
             path.join(
@@ -459,9 +446,10 @@ const bigNewPriceTalker = async (
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
-        // ALMACEN VERDE
+        // ALMACEN B
         doc
           .font(
             path.join(
@@ -481,9 +469,10 @@ const bigNewPriceTalker = async (
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
-        // ALMACEN VERDE
+        // ALMACEN C
         doc
           .font(
             path.join(
@@ -503,8 +492,45 @@ const bigNewPriceTalker = async (
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGOF
       }
+
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(10)
+        .text(
+          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
+          boxPositionX + priceTalkerPositionWarrantyX, // 4,7 CM
+          boxPositionY + priceTalkerPositionWarrantyY, //
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
 
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
@@ -586,6 +612,7 @@ const bigNewPriceTalker = async (
 
       // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
       mcdColor = false;
+      abc = false;
       // FIN DEL CODIGO
     } else if (contador == 1) {
       // box 1
@@ -680,7 +707,7 @@ const bigNewPriceTalker = async (
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -695,7 +722,7 @@ const bigNewPriceTalker = async (
           //
         } else {
           // LISTA PARA MARGARITA
-                // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -794,28 +821,6 @@ const bigNewPriceTalker = async (
         }
       );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(10)
-        .text(
-          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
-          boxPositionX + priceTalkerPositionWarrantyX + boxWith, // 4,7 CM
-          boxPositionY + priceTalkerPositionWarrantyY, //
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -830,7 +835,7 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`AZ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -848,7 +853,7 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`VD`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -866,7 +871,7 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`NJ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -890,7 +895,7 @@ const bigNewPriceTalker = async (
         mcdColor = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "8") {
-        // ALMACEN VERDE
+        // ALMACEN A
         doc
           .font(
             path.join(
@@ -902,13 +907,14 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`A`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "9") {
-        // ALMACEN VERDE
+        // ALMACEN B
         doc
           .font(
             path.join(
@@ -920,13 +926,14 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`B`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "10") {
-        // ALMACEN VERDE
+        // ALMACEN C
         doc
           .font(
             path.join(
@@ -938,12 +945,49 @@ const bigNewPriceTalker = async (
             )
           )
           .fontSize(20)
-          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
+          .text(`C`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
+        abc = true;
         // FIN DEL BLOQUE DE CODIGO
       }
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(10)
+        .text(
+          `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
+          boxPositionX + priceTalkerPositionWarrantyX + boxWith, // 4,7 CM
+          boxPositionY + priceTalkerPositionWarrantyY, //
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product.priceTalkerService);
@@ -1029,6 +1073,7 @@ const bigNewPriceTalker = async (
 
       // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
       mcdColor = false;
+      abc = false;
       // FIN DEL CODIGO
     } else if (contador == 2) {
       // box 1
@@ -1123,7 +1168,7 @@ const bigNewPriceTalker = async (
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -1138,7 +1183,7 @@ const bigNewPriceTalker = async (
           //
         } else {
           // LISTA PARA MARGARITA
-                // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -1237,7 +1282,154 @@ const bigNewPriceTalker = async (
         }
       );
 
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      }
+
       // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+
       doc
         .font(
           path.join(
@@ -1258,135 +1450,6 @@ const bigNewPriceTalker = async (
             align: "left",
           }
         );
-
-      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
-      if (product.priceTalkerList === "3") {
-        // ALMACEN AZUL
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "6") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "4") {
-        // ALMACEN NARANJA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "7") {
-        // ALMACEN MAGENTA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "8") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "9") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "10") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      }
 
       // -- SERVICIOS DE INSTALACION
       // console.log(product);
@@ -1470,6 +1533,7 @@ const bigNewPriceTalker = async (
 
       // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
       mcdColor = false;
+      abc = false;
       // FIN DEL CODIGO
     } else if (contador == 3) {
       // box 1
@@ -1569,7 +1633,7 @@ const bigNewPriceTalker = async (
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -1584,7 +1648,7 @@ const bigNewPriceTalker = async (
           //
         } else {
           // LISTA PARA MARGARITA
-                // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+          // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
@@ -1683,7 +1747,156 @@ const bigNewPriceTalker = async (
         }
       );
 
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`AZ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`VD`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`NJ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`MG`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`A`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`B`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(20)
+          .text(`C`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+
+        // EN CASO DE TNER ALMACEN DE COLOR
+        mcdColor = true;
+        abc = true;
+        // FIN DEL BLOQUE DE CODIGO
+      }
+
       // -- TIEMPO DE GARANTÍA --
+
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+
       doc
         .font(
           path.join(
@@ -1705,139 +1918,9 @@ const bigNewPriceTalker = async (
           }
         );
 
-      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
-      if (product.priceTalkerList === "3") {
-        // ALMACEN AZUL
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "6") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`VD`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "4") {
-        // ALMACEN NARANJA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`NJ`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "7") {
-        // ALMACEN MAGENTA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "8") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`A`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "9") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`B`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      } else if (product.priceTalkerList === "10") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(20)
-          .text(`C`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
-
-        // EN CASO DE TNER ALMACEN DE COLOR
-        mcdColor = true;
-        // FIN DEL BLOQUE DE CODIGO
-      }
-
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
       // console.log(product);
       if (product.priceTalkerService != null && mcdColor === false) {
-       
         // null
         doc
           .font(
@@ -1915,6 +1998,7 @@ const bigNewPriceTalker = async (
 
       // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL
       mcdColor = false;
+      abc = false;
       // FIN DEL CODIGO
     }
     contador++;

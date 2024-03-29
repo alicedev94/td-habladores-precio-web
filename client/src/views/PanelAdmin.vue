@@ -33,6 +33,9 @@ const sucur = ref("")
 // STATIC VARIBLES
 var deleteCode = []
 var existDestintCode = []
+// var local_server = "localhost" // local
+var local_server = "192.168.151.38" // local
+// var local_server = "192.168.21.241" // product
 
 // API AND PORT
 var api = `${window.location.hostname}`;
@@ -74,7 +77,7 @@ onMounted(async () => {
         sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://localhost:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://${local_server}:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")

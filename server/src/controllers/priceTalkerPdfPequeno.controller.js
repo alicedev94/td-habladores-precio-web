@@ -50,6 +50,8 @@ const priceTalkerWidthText = 128; // px 4,5 cm
 const priceTalkerHeightText = 28; // px 1,2 cm
 const priceTalkerbrandHeight = 8; // ni idea
 const priceTalkerFontPath = process.cwd(); // "c:/Users/d.marcano/Desktop/td-habladores-precio-web/server"
+let abc = false;
+let mcdColor = false;
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
@@ -65,7 +67,7 @@ let boxPositionY3 = boxPositionY + boxHeight; // + 2 distancia funcional
 // Box3 smallPriceTalker
 let boxPositionX3 = boxPositionX2 + boxWith; // + 2 distancia funcional
 
-// SmallTaalkersBox
+// SmallTAlkersBox
 let priceTalkerBrandPositionX3 = priceTalkerBrandPositionX + boxWith + boxWith;
 
 const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
@@ -85,7 +87,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
       contador = 0;
     }
     if (contador == 0) {
-      
       // POSITION 01
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO +3 para que aprezca pegado a la
@@ -184,14 +185,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
-           
+
             precio = parseFloat(product.priceTalkerPrice);
           } else {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
-           
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -206,7 +206,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
           //
           precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+          precio = precio.toString().replace(".", ",");
         }
 
         doc
@@ -297,7 +297,163 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
+      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
+      if (product.priceTalkerList === "3") {
+        // ALMACEN AZUL
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `AZ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+        mcdColor = true;
+      } else if (product.priceTalkerList === "6") {
+        // ALMACEN VERDE
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `VD`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+        mcdColor = true;
+      } else if (product.priceTalkerList === "4") {
+        // ALMACEN NARANJA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `NJ`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+        mcdColor = true;
+      } else if (product.priceTalkerList === "7") {
+        // ALMACEN MAGENTA
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `MG`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+      } else if (product.priceTalkerList === "8") {
+        // ALMACEN A
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize)
+          .text(
+            `A`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+
+        abc = true;
+        mcdColor = true;
+      } else if (product.priceTalkerList === "9") {
+        // ALMACEN B
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `B`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+
+        abc = true;
+        mcdColor = true;
+      } else if (product.priceTalkerList === "10") {
+        // ALMACEN C
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "node_modules",
+              "@canvas-fonts",
+              "arial-bold",
+              "Arial Bold.ttf"
+            )
+          )
+          .fontSize(priceTalkerfontSize + 2)
+          .text(
+            `C`,
+            priceTalkerBrandPositionX + 120,
+            priceTalkerBrandPositionY
+          );
+
+        abc = true;
+        mcdColor = true;
+      }
+      // -- 15022024
+
       // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
       doc
         .font(
           path.join(
@@ -319,135 +475,9 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // NUEVO CAMPO LETRA SEGUN EL ALMACEN
-      if (product.priceTalkerList === "3") {
-        // ALMACEN AZUL
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `AZ`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "6") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `VD`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "4") {
-        // ALMACEN NARANJA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `NJ`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "7") {
-        // ALMACEN MAGENTA
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `MG`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "8") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize)
-          .text(
-            `A`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "9") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `B`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      } else if (product.priceTalkerList === "10") {
-        // ALMACEN VERDE
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
-          .fontSize(priceTalkerfontSize + 2)
-          .text(
-            `C`,
-            priceTalkerBrandPositionX + 120,
-            priceTalkerBrandPositionY
-          );
-      }
-      // -- 15022024
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 1) {
       // POSITION 02
       doc
@@ -552,7 +582,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -564,7 +594,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -657,28 +687,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith,
-          priceTalkerPositionWarrantyY,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -698,6 +706,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -716,6 +725,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -734,6 +744,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -766,10 +777,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -788,6 +802,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -806,8 +822,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith,
+          priceTalkerPositionWarrantyY,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 2) {
       // POSITION 03
       doc
@@ -914,7 +972,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -926,7 +984,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -1017,28 +1075,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith + boxWith,
-          priceTalkerPositionWarrantyY,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -1058,6 +1094,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -1073,9 +1110,10 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           .fontSize(priceTalkerfontSize + 2)
           .text(
             `VD`,
-            priceTalkerBrandPositionX + boxWith + 120,
+            priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -1094,6 +1132,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -1126,10 +1165,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
@@ -1148,6 +1190,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
@@ -1166,8 +1210,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith + boxWith,
+          priceTalkerPositionWarrantyY,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 3) {
       // POSITION 04
       doc
@@ -1272,7 +1358,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -1284,7 +1370,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -1374,28 +1460,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX,
-          priceTalkerPositionWarrantyY + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -1415,6 +1479,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -1433,6 +1498,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -1451,6 +1517,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -1487,6 +1554,9 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -1505,6 +1575,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -1523,8 +1595,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX,
+          priceTalkerPositionWarrantyY + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR VALORES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 4) {
       doc
         .rect(boxPositionX2, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -1628,7 +1742,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -1640,7 +1754,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -1731,28 +1845,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -1772,6 +1864,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -1790,6 +1883,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -1808,6 +1902,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -1840,10 +1935,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -1862,6 +1960,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -1880,8 +1980,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 5) {
       doc
         .rect(boxPositionX3, boxPositionY + boxHeight, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -1985,7 +2127,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -1997,7 +2139,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -2088,27 +2230,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -2128,6 +2249,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -2146,6 +2268,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -2164,6 +2287,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -2196,10 +2320,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
@@ -2218,6 +2345,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
@@ -2236,8 +2365,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // -- REINICIAR VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 6) {
       doc
         .rect(
@@ -2346,7 +2517,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -2358,7 +2529,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -2449,27 +2620,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -2489,6 +2639,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -2507,6 +2658,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -2525,6 +2677,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -2561,6 +2714,9 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -2579,6 +2735,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -2599,6 +2757,46 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           );
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 7) {
       doc
         .rect(
@@ -2707,7 +2905,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -2719,7 +2917,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -2810,27 +3008,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -2850,6 +3027,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -2868,6 +3046,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -2886,6 +3065,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -2918,10 +3098,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -2940,6 +3123,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -2958,8 +3143,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 8) {
       doc
         .rect(
@@ -3068,7 +3295,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -3080,7 +3307,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -3171,27 +3398,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -3211,6 +3417,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -3229,6 +3436,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -3247,6 +3455,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -3279,10 +3488,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
@@ -3301,6 +3513,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
@@ -3319,8 +3533,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 9) {
       doc
         .rect(
@@ -3429,7 +3685,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -3441,7 +3697,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -3532,28 +3788,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -3573,6 +3807,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -3591,6 +3826,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -3609,6 +3845,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -3645,6 +3882,9 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -3663,6 +3903,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -3681,8 +3923,49 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 10) {
       doc
         .rect(
@@ -3791,7 +4074,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -3803,7 +4086,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -3894,28 +4177,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -3935,6 +4196,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -3953,6 +4215,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -3971,6 +4234,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -4003,10 +4267,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN VERDE
         doc
@@ -4025,6 +4292,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN VERDE
         doc
@@ -4043,8 +4312,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     } else if (contador == 11) {
       doc
         .rect(
@@ -4153,7 +4464,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice * 1.16);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         } else {
@@ -4165,7 +4476,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
             precio = precio - 0.01;
-            precio = precio.toString().replace('.', ',');
+            precio = precio.toString().replace(".", ",");
           }
           //
         }
@@ -4256,28 +4567,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           }
         );
 
-      // -- TIEMPO DE GARANTÍA --
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
-        .fontSize(priceTalkerfontSize)
-        .text(
-          `Garantía ${product.priceTalkerWarranty} días`,
-          priceTalkerPositionWarrantyX + boxWith + boxWith,
-          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
-          {
-            width: priceTalkerWidthText,
-            align: "left",
-          }
-        );
-
       // NUEVO CAMPO LETRA SEGUN EL ALMACEN
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
@@ -4297,6 +4586,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
@@ -4315,6 +4605,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
@@ -4333,6 +4624,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        mcdColor = true;
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
@@ -4365,10 +4657,13 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
           )
           .fontSize(priceTalkerfontSize + 2)
           .text(
-            `AA`,
+            `A`,
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
@@ -4387,6 +4682,8 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
@@ -4405,8 +4702,50 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             priceTalkerBrandPositionX + boxWith + boxWith + 120,
             priceTalkerBrandPositionY + boxHeight + boxHeight + boxHeight
           );
+        abc = true;
+        mcdColor = true;
       }
       // -- 15022024
+
+      // -- TIEMPO DE GARANTÍA --
+      if (mcdColor && abc == false) {
+        // -- TIEMPO DE GARANTÍA -- DEBO EXCLUIR A B C
+        // 2. En los articulos disponibles en las ubicaciones Verde, azul y naranja esta mostrando la garantia full y no la correspondiente, la que debe mostrar es:
+        // 3 meses (90 dias) para las lineas Blanca y Marron
+        // 1 mes para el resto de las lineas
+        primerosDosCaracteres = product.priceTalkerSapCode.substring(0, 2);
+        if (primerosDosCaracteres == "LB" || primerosDosCaracteres == "LM") {
+          product.priceTalkerWarranty = "90";
+        } else {
+          product.priceTalkerWarranty = "30";
+        }
+        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+        // FIN DEL BLOQUE
+      }
+      doc
+        .font(
+          path.join(
+            priceTalkerFontPath,
+            "node_modules",
+            "@canvas-fonts",
+            "arial",
+            "Arial.ttf"
+          )
+        )
+        .fontSize(priceTalkerfontSize)
+        .text(
+          `Garantía ${product.priceTalkerWarranty} días`,
+          priceTalkerPositionWarrantyX + boxWith + boxWith,
+          priceTalkerPositionWarrantyY + boxHeight + boxHeight + boxHeight,
+          {
+            width: priceTalkerWidthText,
+            align: "left",
+          }
+        );
+
+      // REINICIAR LAS VARIABLES
+      abc = false;
+      mcdColor = false;
     }
 
     contador++;
