@@ -33,8 +33,8 @@ const sucur = ref("")
 // STATIC VARIBLES
 var deleteCode = []
 var existDestintCode = []
-// var local_server = "localhost" // local
-var local_server = "192.168.151.38" // local
+var local_server = "localhost" // local
+// var local_server = "192.168.161.38" // local
 // var local_server = "192.168.21.241" // product
 
 // API AND PORT

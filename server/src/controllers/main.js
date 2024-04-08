@@ -48,6 +48,8 @@ const newUser = async (data) => {
   return rta;
 };
 
+// newUser ({email: "sucursalvalera@tiendasdaka.com", password: "Daka34valera", rol: "ADMIN", idSucursal: "34"})
+
 const newSucur = async (sucur) => {
   const rta = await sequelize.models.Sucurs.bulkCreate(sucur);
   return rta;

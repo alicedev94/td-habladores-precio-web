@@ -43,7 +43,6 @@ let ajusteMcd = 29.72;
 let mcdColor = false;
 let abc = false;
 
-
 // Tamaño
 const boxWith = 335.89; // 363
 const boxHeight = 249.69; // 264
