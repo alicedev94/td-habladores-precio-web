@@ -245,10 +245,10 @@ const downloadBtn = async () => {
     <div class="table-container">
 
         <div>
-            <v-text-field v-model="searchTable1" variant="outlined"
+            <v-text-field v-model="searchTable1" variant="solo-filled"
                 style="width: 600px; height: 20px; margin-left: 0%; margin-bottom: 30px"
                 label="Buscar por código o descripción"></v-text-field>
-            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="outlined" elevation="8">
+            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled" elevation="8">
                 <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
                     :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
@@ -262,11 +262,11 @@ const downloadBtn = async () => {
         </div>
 
         <div>
-            <v-text-field v-model="searchTable2" variant="outlined"
+            <v-text-field v-model="searchTable2" variant="solo-filled"
                 style="width: 600px; height: 20px; margin-left: 0px; margin-bottom: 30px"
                 label="Buscar por código o descripción"></v-text-field>
 
-            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="outlined" elevation="8">
+            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled" elevation="8">
                 <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
                     :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"

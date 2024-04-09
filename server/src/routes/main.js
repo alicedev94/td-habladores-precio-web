@@ -13,7 +13,7 @@ const {
   stateData,
   modelData,
   findByEmail,
-  priceList,
+  priceList
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -56,6 +56,13 @@ router.get("/products/:list/:type/:sucur", async (req, res) => {
 router.get("/priceList", async (req, res) => {
   const rta = await priceList();
   res.json(rta);
+});
+
+// EN PROCESO DE VALIDACIÓN
+router.get(`/gene-supermarket/:list/size/sucur`, async (req, res) => {
+  const { list, type, sucur } = req.params;
+  const rta = await products(list, type, sucur);
+  res.json(rta[0]); 
 });
 
 // POST
@@ -167,14 +174,15 @@ router.post("/generate-pdf", async (req, res) => {
         "Content-Disposition": "attachment; filename=alicePdf.pdf",
       });
 
-      await bigNewPriceTalker( // bigPriceTalker 
+      await bigNewPriceTalker(
+        // bigPriceTalker
         (data) => stream.write(data),
         () => stream.end(),
         noData
       );
     } else if (sizeTalker === "2") {
       // HABLADOR PEQUEÑO
-      
+
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;

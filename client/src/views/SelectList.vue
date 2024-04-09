@@ -4,12 +4,13 @@ import { ref, onMounted } from 'vue'
 import Nav from '@/components/Nav.vue';
 import Footer from '@/components/Footer.vue';
 import router from '@/router';
+import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 
 const items = ref([])
 
 const isLoading = ref(false)
 const isAuthenticate = ref(false)
-const selectData = ref({ typeList: ' ', sizeTalker: '' })
+const selectData = ref({ typeList: '', sizeTalker: '' })
 
 const userSucursal = ref("")
 
@@ -19,10 +20,11 @@ const portApi = 3001;
 
 onMounted(async () => {
     // quitar tema degradado
-    document.body.classList.remove("body-gradiet");
+    document.body.classList.remove("body-gradiet")
+    document.body.classList.add("body-white")
 
     // agregar nav en caso de que el usuaurio este autenticado
-    if(location.pathname === "/select-list") {
+    if (location.pathname === "/select-list") {
         isAuthenticate.value = true
     } else {
         isAuthenticate.value = false
@@ -40,6 +42,14 @@ onMounted(async () => {
 
 // })
 
+// SISTEMA PARA EL TABS
+const tab = ref(null);
+const tabOptions = {
+    one: 'estandar',
+    two: 'supermercado',
+    // three: 'cdd',
+};
+
 const btnSend = () => {
     // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)
     isLoading.value = true
@@ -53,38 +63,83 @@ const btnSend = () => {
 
 <template>
     <Nav v-if="isAuthenticate"></Nav>
-    <v-card class="mx-auto card-select-list" width="600" height="465" color="#000" variant="outlined" elevation="8">
-        <v-card-item>
-            <div>
-                <div class="text-overline mb-3">
-                    HABLADOR DE PRECIO WEB
+
+    <v-tabs v-model="tab" align-tabs="center" color="deep-purple-accent-4"> <!--color="deep-purple-accent-4" -->
+        <v-tab class="estandar" value="estandar">Estandar</v-tab>
+        <v-tab value="supermercado">Supermercado</v-tab>
+        <!-- <v-tab value="cdd">CDD</v-tab> -->
+    </v-tabs>
+
+    <v-card-text>
+        <v-window v-model="tab">
+            <v-window-item :value="tabOptions.one" class="display">
+                <v-card class="card-select-list" width="600" height="400" color="#000" variant="text" elevation="8">
+                    <v-card-item>
+                        <div>
+                            <!-- <div class="text-overline mb-3">
+                                HABLADOR DE PRECIO WEB
+                                </div> -->
+                            <div class="text-h10 mb-1">
+                                Seleccione lista de precio y tipo de hablador.
+                            </div>
+                            <div class="text-caption separador">Paso 1:</div>
+                        </div>
+                        <v-autocomplete class="combo-select-list separador-text" label="Listas de precios"
+                            :items="items" v-model="selectData.typeList" variant="outlined"></v-autocomplete>
+
+                        <div class="text-caption">Paso 2:</div>
+                        <v-radio-group v-model="selectData.sizeTalker" :disabled="selectData.typeList === ''">
+                            <v-radio label="Hablador Pequeño" value="0"></v-radio>
+                            <v-radio label="Hablador Grande" value="1"></v-radio>
+                            <v-radio label="Hablador Estandar" value="2"></v-radio>
+                            <!-- <v-radio label="Radio Three" value="three"></v-radio> -->
+                        </v-radio-group>
+
+                        <input hidden v-model="userSucursal" />
+
+                        <div class="text-caption">Paso 3:</div>
+                        <v-card-actions>
+                            <v-btn variant="elevated" color="#d0fdd7" :loading="isLoading"
+                                v-bind:disabled="selectData.sizeTalker === ''" @click="btnSend">
+                                ACEPTAR
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card-item>
+                </v-card>
+                <div>
+                    <!-- <div class="text-subtitle-2">HABLADOR ESTANNDAR</div> -->
+                    <v-img :aspect-ratio="1" class="bg-white img-price" src="/hablador_estandar.png" height="254"
+                        width="340" cover></v-img>
+                    <!-- https://cdn.vuetifyjs.com/images/parallax/material.jpg -->
                 </div>
-                <div class="text-h6 mb-3">
-                    Seleccione lista de precio y tipo de hablador.
-                </div>
-                <div class="text-caption separador">Paso 1:</div>
-            </div>
-            <v-autocomplete class="combo-select-list separador-text" label="Listas de precios" :items="items"
-                v-model="selectData.typeList" variant="outlined"></v-autocomplete>
 
-            <div class="text-caption">Paso 2:</div>
-            <v-radio-group v-model="selectData.sizeTalker" v-bind:disabled="selectData.typeList === ' '">
-                <v-radio label="Hablador Pequeño" value="0"></v-radio>
-                <v-radio label="Hablador Grande" value="1"></v-radio>
-                <v-radio label="Hablador Estandar" value="2"></v-radio>
-                <!-- <v-radio label="Radio Three" value="three"></v-radio> -->
-            </v-radio-group>
+            </v-window-item>
+            <v-window-item :value="tabOptions.two">
+                <PanelSuperMercado />
+            </v-window-item>
+            <!-- <v-window-item :value="tabOptions.three">
+        <Card />
+      </v-window-item> -->
+        </v-window>
+    </v-card-text>
 
-            <input hidden v-model="userSucursal" />
-
-            <div class="text-caption">Paso 3:</div>
-            <v-card-actions>
-                <v-btn variant="elevated" color="#d0fdd7" :loading="isLoading"
-                    v-bind:disabled="selectData.sizeTalker === ''" @click="btnSend">
-                    ACEPTAR
-                </v-btn>
-            </v-card-actions>
-        </v-card-item>
-    </v-card>
     <!--Footer v-if="isAuthenticate"></Footer-->
 </template>
+
+<style scoped>
+.card-select-list {
+    margin: 0px;
+    margin-left: 30%;
+    background-color: white;
+}
+
+.display {
+    margin-right: 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.img-price {
+    margin-left: 33%;
+}
+</style>

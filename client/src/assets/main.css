@@ -14,8 +14,12 @@ body {
   );
 }
 .body-white {
-  background: #fff;
+  background: #EEEE;
 }
+.body-red {
+  background: red;
+}
+
 
 h2 {
   text-align: center;

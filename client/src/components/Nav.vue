@@ -9,8 +9,8 @@ import router from '@/router';
 
 const logout = () => {
     localStorage.removeItem("token");
-    router.push("/")
-    //location.reload();
+    // router.push("/")
+    location.reload();
 }
 
 onMounted(() => {
@@ -81,7 +81,7 @@ const handleClick = () => {
     </div>
 </template>
 
-<style>
+<style scoped>
 ul {
     list-style-type: none;
     margin: 0;

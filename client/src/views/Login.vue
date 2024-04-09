@@ -11,6 +11,11 @@ const visible = ref(false);
 const isLoading = ref(false);
 // const router = useRouter(); // Inicializa router
 
+// funciones 
+const toggleVisibility = () => {
+  visible.value = !visible.value
+}
+
 onMounted(() => {
   // agregar tema degradado
   document.body.classList.add("body-gradiet");
@@ -79,9 +84,9 @@ const login = async () => {
         border="solid 1px #ccc" rounded="lg"></v-text-field>
 
       <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-        :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresa tu contraseña"
-        prepend-inner-icon="mdi-lock-outline" color="primary" background-color="rgba(255, 255, 255, 0.1)"
-        border="solid 1px #ccc" rounded="lg"></v-text-field>
+        :type="visible ? 'text' : 'password'" @click:append-inner="toggleVisibility" density="compact"
+        placeholder="Ingresa tu contraseña" prepend-inner-icon="mdi-lock-outline" color="primary"
+        background-color="rgba(255, 255, 255, 0.1)" border="solid 1px #ccc" rounded="lg"></v-text-field>
 
       <v-btn type="submit" block class="mb-8" color="#0047ab" size="large" rounded="lg" elevation="10">
         Iniciar sesión
