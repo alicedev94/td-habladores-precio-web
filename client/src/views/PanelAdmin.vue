@@ -270,7 +270,7 @@ const downloadBtn = async () => {
                 <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
                     :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
-                    loading-text="Cargando..." />
+                    loading-text="Cargando..."   />
             </v-card>
 
             <div class="file-select" id="src-file1">

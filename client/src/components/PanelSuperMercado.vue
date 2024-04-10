@@ -23,11 +23,10 @@ onMounted(async () => {
 // watch(selectData.value,()=>{
 //     console.log(selectData.value);
 // })
-
 </script>
 
 <template>
-    <v-card class="mx-auto card-select-list" width="600" height="400" color="#000" variant="outlined" elevation="8">
+    <v-card class="card-select-list" width="600" height="400" color="#000" variant="text">
         <v-card-item>
             <div>
                 <!-- <div class="text-overline mb-3">
@@ -53,7 +52,6 @@ onMounted(async () => {
                 <v-radio label="Promo Daka" value="0"></v-radio>
                 <v-radio label="Ultimas Existencias" value="1"></v-radio>
             </v-radio-group>
-
             <!-- <input hidden v-model="userSucursal" /> -->
 
             <div class="text-caption">Paso 4:</div>

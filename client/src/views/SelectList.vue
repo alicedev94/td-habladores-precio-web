@@ -5,6 +5,8 @@ import Nav from '@/components/Nav.vue';
 import Footer from '@/components/Footer.vue';
 import router from '@/router';
 import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
+import Image from '@/components/Image.vue';
+
 
 const items = ref([])
 
@@ -106,16 +108,16 @@ const btnSend = () => {
                         </v-card-actions>
                     </v-card-item>
                 </v-card>
-                <div>
-                    <!-- <div class="text-subtitle-2">HABLADOR ESTANNDAR</div> -->
-                    <v-img :aspect-ratio="1" class="bg-white img-price" src="/hablador_estandar.png" height="254"
-                        width="340" cover></v-img>
-                    <!-- https://cdn.vuetifyjs.com/images/parallax/material.jpg -->
-                </div>
 
+                <!-- IMAGE -->
+                <Image imagen="/hablador_estandar.png" />
             </v-window-item>
-            <v-window-item :value="tabOptions.two">
-                <PanelSuperMercado />
+            <v-window-item :value="tabOptions.two" class="display">
+                <PanelSuperMercado class="card-select-list" />
+                <Image 
+                imagen="/hablador_supermercado.png"
+                />
+                
             </v-window-item>
             <!-- <v-window-item :value="tabOptions.three">
         <Card />
@@ -132,14 +134,9 @@ const btnSend = () => {
     margin-left: 30%;
     background-color: white;
 }
-
 .display {
     margin-right: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
-
-.img-price {
-    margin-left: 33%;
 }
 </style>
