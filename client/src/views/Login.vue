@@ -29,12 +29,14 @@ const login = async () => {
   try {
     isLoading.value = true;
     setTimeout(async () => {
+      // alert("aqui")
       const response = await axios.post(
         `http://${api}:${portApi}/api/v1/signin`,
         {
           email: email.value,
           password: password.value,
-        }
+        },
+        { timeout: 5000 }  // Tiempo límite de 5 segundos
       );
 
       const { auth } = response.data;
@@ -61,7 +63,11 @@ const login = async () => {
       }
     }, 1000);
   } catch (error) {
-    console.error(error);
+    alert("aqui3")
+    if (error.code === 'ECONNABORTED') {
+      alert.error('Error: La solicitud tardó demasiado tiempo y fue abortada');
+    }
+    // Manejar otros tipos de errores aquí
   }
 };
 </script>

@@ -24,4 +24,4 @@ app.use("/api/v1", router);
 const server = app.listen(port, () => {
   console.log(`run on port ${port}`);
 });
-server.timeout = 30000; // 30 segundos
+server.timeout = 15000; // 30 segundos

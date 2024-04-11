@@ -13,7 +13,8 @@ const {
   stateData,
   modelData,
   findByEmail,
-  priceList
+  priceList,
+  productsSupermarket
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -59,9 +60,9 @@ router.get("/priceList", async (req, res) => {
 });
 
 // EN PROCESO DE VALIDACIÓN
-router.get(`/gene-supermarket/:list/size/sucur`, async (req, res) => {
-  const { list, type, sucur } = req.params;
-  const rta = await products(list, type, sucur);
+router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
+  const { list, size, type, sucur } = req.params;
+  const rta = await productsSupermarket(list, size, type, sucur);
   res.json(rta[0]); 
 });
 

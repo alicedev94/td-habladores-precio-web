@@ -7,7 +7,6 @@ import router from '@/router';
 import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 import Image from '@/components/Image.vue';
 
-
 const items = ref([])
 
 const isLoading = ref(false)
@@ -66,9 +65,9 @@ const btnSend = () => {
 <template>
     <Nav v-if="isAuthenticate"></Nav>
 
-    <v-tabs v-model="tab" align-tabs="center" color="deep-purple-accent-4"> <!--color="deep-purple-accent-4" -->
-        <v-tab class="estandar" value="estandar">Estandar</v-tab>
-        <v-tab value="supermercado">Supermercado</v-tab>
+    <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
+        <v-tab value="estandar" color="#50C878">  <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
+        <v-tab value="supermercado" color="#50C878">Supermercado</v-tab>
         <!-- <v-tab value="cdd">CDD</v-tab> -->
     </v-tabs>
 
@@ -113,11 +112,12 @@ const btnSend = () => {
                 <Image imagen="/hablador_estandar.png" />
             </v-window-item>
             <v-window-item :value="tabOptions.two" class="display">
-                <PanelSuperMercado class="card-select-list" />
+                <PanelSuperMercado class="card-select-list"
+                v-model:sucursal="userSucursal"
+                />
                 <Image 
                 imagen="/hablador_supermercado.png"
                 />
-                
             </v-window-item>
             <!-- <v-window-item :value="tabOptions.three">
         <Card />
@@ -138,5 +138,15 @@ const btnSend = () => {
     margin-right: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+.v-tab:focus-within {
+    text-decoration: underline;
+    text-decoration-color: #50C878; /* Color esmeralda */
+    text-decoration-thickness: 2px; /* Grosor de la línea */
+    /* Color del texto  color: #50C878;*/
+}
+.v-tab {
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    font-weight: bold;
 }
 </style>

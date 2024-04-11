@@ -221,27 +221,28 @@ const products = async (list, type, sucur) => {
   return rta;
 };
 
-// const productService = async (sapCode, codeSucur, priceList) => {
-//   const databaseResponde = await sequelize.query(`
-//   SELECT  [Codigo]
-//     ,[PrecioaMostrar]
-//      ,[CodigoServicio]
-      //,[PrecioServicio]
-//     FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
-//   WHERE 
-//     Codigo = '${sapCode}' AND CodigoSucursal = ${codeSucur} AND [Lista Precio] = ${priceList}`);
+const productsSupermarket = async (list, size, type, sucur) => {
+  // OBTENER ALMACEN SEGUN LA LISTA
+  let rtaStore = store(list);
 
-//   let { ServicioAsociado, PrecioaMostrar } = databaseResponde[0][0];
-//   if (ServicioAsociado != null) {
-//     PrecioaMostrar = PrecioaMostrar * 1.16;
-//     console.log(PrecioaMostrar);
-//     return PrecioaMostrar
-//   } else {
-//     return 
-//   }
-// };
+  // HABLADOR ESTANDAR
+  const response = await sequelize.query(`
+    SELECT DISTINCT [Codigo]
+        ,[Nombre]
+        ,[Marca]
+        ,[Garantia]
+        ,[CodigoBarra]
+        ,[PrecioaMostrar]
+        ,[IdHablador]
+         ,[CodigoServicio]
+      ,[PrecioServicio]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
+    AND [IdAlmacen] IN (${rtaStore})
+ `);
 
-// productService("LS-00000007", "4", "2")
+  return response;
+};
 
 const processData = async (data, list, sucur, sizeTalker) => {
   // OBTENER ALMACEN SEGUN LA LISTA
@@ -440,4 +441,5 @@ module.exports = {
   findByEmail,
   priceList,
   ajustarCadena,
+  productsSupermarket
 };

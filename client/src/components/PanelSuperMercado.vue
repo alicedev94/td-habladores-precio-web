@@ -1,6 +1,13 @@
 <script setup>
-import { ref, watch , onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
+
+const props = defineProps({
+    sucursal: {
+        type: String,
+        required: true
+    }
+})
 
 // API AND PORT
 const api = `${window.location.hostname}`;
@@ -11,8 +18,9 @@ const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
 
 // Functions
 const generarSupermercado = async () => {
-    const rta = await axios.post(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}`); // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}
-    console.log(rta);
+    const response = await axios.get(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`);
+    // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
+    console.log(response);
 }
 
 onMounted(async () => {
@@ -26,7 +34,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <v-card class="card-select-list" width="600" height="400" color="#000" variant="text">
+    <v-card class="card-select-list" width="600" height="400" color="#000" variant="text" elevation="8">
         <v-card-item>
             <div>
                 <!-- <div class="text-overline mb-3">
@@ -38,9 +46,10 @@ onMounted(async () => {
                 <div class="text-caption separador">Paso 1:</div>
             </div>
 
-            <v-autocomplete class="combo-select-list separador-text" label="Listas de precios" :items="items" v-model="selectData.typeList" variant="outlined"></v-autocomplete>
-          
+            <v-autocomplete class="combo-select-list separador-text" label="Listas de precios" :items="items"
+                v-model="selectData.typeList" variant="outlined"></v-autocomplete>
             <div class="text-caption">Paso 2:</div>
+
             <v-radio-group v-model="selectData.sizeTalker" :disabled="selectData.typeList === ''" inline>
                 <v-radio label="Pequeño" value="0"></v-radio>
                 <v-radio label="Mediano" value="1"></v-radio>
@@ -52,11 +61,13 @@ onMounted(async () => {
                 <v-radio label="Promo Daka" value="0"></v-radio>
                 <v-radio label="Ultimas Existencias" value="1"></v-radio>
             </v-radio-group>
-            <!-- <input hidden v-model="userSucursal" /> -->
+
+            <!-- <input hidden :value="sucursal" /> -->
 
             <div class="text-caption">Paso 4:</div>
             <v-card-actions>
-                <v-btn variant="elevated" color="#d0fdd7" :loading="false" :disabled="selectData.typeTalker === ''" @click="generarSupermercado" >
+                <v-btn variant="elevated" color="#d0fdd7" :loading="false" :disabled="selectData.typeTalker === ''"
+                    @click="generarSupermercado">
                     ACEPTAR
                 </v-btn>
             </v-card-actions>
