@@ -191,24 +191,6 @@ const fImportXlsx = async (event) => {
 
 var filterListProducts = []
 const rightBtn = () => {
-    // if (expoListProduct.value.length != 0) {
-    //     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    //     // console.log(expoListProduct.value);
-    //     // // GENERRAR ARREGLO DE PRODUCTOS EXISTENTES EN NUESTRA TABLA DESTINO
-    //     expoListProduct.value.map((item) => {
-    //         existDestintCode.push(item.Codigo)
-    //     })
-    //     // console.log(existDestintCode);
-    //     filterListProducts = filterListProducts.filter(item => !existDestintCode.includes(item.Codigo))
-    //     console.log(filterListProducts);
-    //     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
-    // } else {
-    //     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    //     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
-    //     filterListProducts.length = 0
-    // }
-    // filterListProducts.length = 0
-
     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
 

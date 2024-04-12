@@ -21,6 +21,7 @@
   "dependencies": {
     "@canvas-fonts/arial": "^1.0.4",
     "@canvas-fonts/arial-bold": "^1.0.4",
+    "axios": "^1.6.8",
     "bwip-js": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

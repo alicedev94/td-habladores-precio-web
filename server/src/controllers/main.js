@@ -1,4 +1,5 @@
 const { sequelize } = require("../lib/sequelize"); // sequelize120
+const axios = require("axios");
 
 // 120 querys
 const testConnectionFrom120 = async () => {
@@ -423,9 +424,13 @@ const ajustarCadena = (cadena) => {
 };
 
 const fakeapi = async () => {
-  const response = await axios.get('https://fakestoreapi.com/products/1');
-  return response;
-}
+  const response = await axios.get("https://fakestoreapi.com/products/1");
+  const { data } = response;
+  data.dev = "alice_dev";
+  return data;
+};
+
+fakeapi();
 
 // let list =
 // {
@@ -447,5 +452,5 @@ module.exports = {
   priceList,
   ajustarCadena,
   productsSupermarket,
-  fakeapi
+  fakeapi,
 };

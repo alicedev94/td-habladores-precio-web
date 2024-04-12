@@ -2,6 +2,7 @@ import Login from "@/views/Login.vue";
 import PanelAdmin from "@/views/PanelAdmin.vue";
 import SelectListVue from "@/views/SelectList.vue";
 import logoChange from "@/views/logoChange.vue";
+import AdminSupermarket from "@/components/AdminSupermarket.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 var token = null;
@@ -45,6 +46,12 @@ const router = createRouter({
       path: "/table-data/:list/:type/:sucursal",
       name: "PanelAdmin",
       component: PanelAdmin,
+      beforeEnter: isAuthenticate,
+    },
+    {
+      path: "/table-data-supermarket/:list/:type/:sucursal",
+      name: "AdminSupermarket",
+      component: AdminSupermarket,
       beforeEnter: isAuthenticate,
     },
     {
