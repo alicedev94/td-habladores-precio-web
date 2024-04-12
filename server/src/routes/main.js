@@ -14,7 +14,8 @@ const {
   modelData,
   findByEmail,
   priceList,
-  productsSupermarket
+  productsSupermarket,
+  fakeapi
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -63,7 +64,7 @@ router.get("/priceList", async (req, res) => {
 router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   const { list, size, type, sucur } = req.params;
   const rta = await productsSupermarket(list, size, type, sucur);
-  res.json(rta[0]); 
+  res.json(rta[0]);
 });
 
 // POST
@@ -273,4 +274,9 @@ router.delete("/deleteUser/:id", async (req, res) => {
   res.json({ deleted_records: rta });
 });
 
+// fakeapi debug
+router.get("/fakeapi", (req, res) => {
+  const fakeapi = fakeapi();
+  return fakeapi;
+});
 module.exports = router;

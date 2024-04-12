@@ -422,6 +422,11 @@ const ajustarCadena = (cadena) => {
   return cadena;
 };
 
+const fakeapi = async () => {
+  const response = await axios.get('https://fakestoreapi.com/products/1');
+  return response;
+}
+
 // let list =
 // {
 //   title: "Lista Margarita",
@@ -441,5 +446,6 @@ module.exports = {
   findByEmail,
   priceList,
   ajustarCadena,
-  productsSupermarket
+  productsSupermarket,
+  fakeapi
 };
