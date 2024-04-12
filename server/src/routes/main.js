@@ -275,8 +275,8 @@ router.delete("/deleteUser/:id", async (req, res) => {
 });
 
 // fakeapi debug
-router.get("/fakeapi", (req, res) => {
-  const fakeapi = fakeapi();
+router.get("/fakeapi", async (req, res) => {
+  const fakeapi = await fakeapi();
   return fakeapi;
 });
 module.exports = router;
