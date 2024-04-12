@@ -276,7 +276,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
 
 // fakeapi debug
 router.get("/fakeapi", async (req, res) => {
-  const fakeapi = await fakeapi();
-  res.json(JSON.parse(fakeapi));
+  // const fakeapi = await fakeapi();
+  res.json({data: "alicedev94 in ubuntu"});
 });
 module.exports = router;
