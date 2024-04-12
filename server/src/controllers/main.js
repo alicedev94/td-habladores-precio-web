@@ -427,7 +427,7 @@ const fakeapi = async () => {
   const response = await axios.get("https://fakestoreapi.com/products/1");
   // const { data } = response;
   // data.dev = "alice_dev";
-  return data;
+  return response; // data
 };
 
 fakeapi();
