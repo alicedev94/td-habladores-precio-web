@@ -12,6 +12,7 @@ const items = ref([])
 const isLoading = ref(false)
 const isAuthenticate = ref(false)
 const selectData = ref({ typeList: '', sizeTalker: '' })
+const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
 
 const userSucursal = ref("")
 
@@ -58,6 +59,16 @@ const btnSend = () => {
         isLoading.value = false
         // location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`
         router.push(`/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`)
+    }, 1000)
+}
+
+const btnSend_2 = () => {
+    // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)
+    isLoading.value = true
+    setTimeout(() => {
+        isLoading.value = false
+        // location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`
+        router.push(`/table-data-supermarket/${selectDataSuperMarket.value.typeList}/${selectDataSuperMarket.value.sizeTalker}/${userSucursal.value}`)
     }, 1000)
 }
 </script>
@@ -113,7 +124,10 @@ const btnSend = () => {
             </v-window-item>
             <v-window-item :value="tabOptions.two" class="display">
                 <PanelSuperMercado class="card-select-list"
+                v-model:typeList="selectDataSuperMarket.typeList"
+                v-model:sizeTalker="selectDataSuperMarket.typeList"
                 v-model:sucursal="userSucursal"
+                @send-form="btnSend_2"
                 />
                 <Image 
                 imagen="/hablador_supermercado.png"

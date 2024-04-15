@@ -49,7 +49,8 @@ const router = createRouter({
       beforeEnter: isAuthenticate,
     },
     {
-      path: "/table-data-supermarket/:list/:type/:sucursal",
+      path: "/table-data-supermarket/:list/:size/:type/:sucursal",
+       // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
       name: "AdminSupermarket",
       component: AdminSupermarket,
       beforeEnter: isAuthenticate,

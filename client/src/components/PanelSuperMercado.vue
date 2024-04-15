@@ -1,13 +1,20 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
+import router from '@/router';
 
 const props = defineProps({
+    typeList: {
+        typeList: String,
+        required: true
+    },
     sucursal: {
         type: String,
         required: true
     }
 })
+
+const emit = defineEmits(['update:typeList', 'update:sizeTalker', 'update:typeTalker', 'send-form'])
 
 // API AND PORT
 const api = `${window.location.hostname}`;
@@ -18,9 +25,11 @@ const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
 
 // Functions
 const generarSupermercado = async () => {
-    const response = await axios.get(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`);
+    // const response = await axios.get(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`);
     // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
-    console.log(response);
+    setTimeout(() => {
+        router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
+    }, 1000)
 }
 
 onMounted(async () => {
@@ -48,6 +57,7 @@ onMounted(async () => {
 
             <v-autocomplete class="combo-select-list separador-text" label="Listas de precios" :items="items"
                 v-model="selectData.typeList" variant="outlined"></v-autocomplete>
+
             <div class="text-caption">Paso 2:</div>
 
             <v-radio-group v-model="selectData.sizeTalker" :disabled="selectData.typeList === ''" inline>
