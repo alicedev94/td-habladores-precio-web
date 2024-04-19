@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
+
 import readXlsxFile from 'read-excel-file'
 import Swal from 'sweetalert2'
 import Nav from '@/components/Nav.vue';
@@ -20,6 +21,7 @@ const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
 const isLoadingPdf = ref(false)
+const pruebas = ref("hola desde vue js")
 
 const isAuthenticate = ref(false)
 
@@ -85,6 +87,8 @@ onMounted(async () => {
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
+
+    console.log(expoListProduct.value);
 })
 
 watch(() => {
@@ -104,6 +108,7 @@ watch(() => {
     // console.log(selectedProducts.value);
     //expoListProduct.value = dataprueba
 })
+
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
@@ -185,7 +190,7 @@ const fImportXlsx = async (event) => {
         //expoListProduct.value = response.data.data
         //console.log(expoListProduct.value);
     } catch (error) {
-       alert(error)
+        alert(error)
     }
 }
 
@@ -225,14 +230,14 @@ const downloadBtn = async () => {
     <Nav v-if="isAuthenticate"></Nav>
     <span v-if="isLoadingPdf" class="loaderPdf"></span>
     <div class="table-container">
-
         <div>
             <v-text-field v-model="searchTable1" variant="solo-filled"
                 style="width: 600px; height: 20px; margin-left: 0%; margin-bottom: 30px"
                 label="Buscar por código o descripción"></v-text-field>
-            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled" elevation="8">
-                <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" :search="searchTable1"
-                    :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
+            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
+                elevation="8">
+                <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers"
+                    :search="searchTable1" :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
                     loading-text="Cargando..." />
             </v-card>
@@ -248,11 +253,12 @@ const downloadBtn = async () => {
                 style="width: 600px; height: 20px; margin-left: 0px; margin-bottom: 30px"
                 label="Buscar por código o descripción"></v-text-field>
 
-            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled" elevation="8">
+            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
+                elevation="8">
                 <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
                     :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
-                    loading-text="Cargando..."   />
+                    loading-text="Cargando..." />
             </v-card>
 
             <div class="file-select" id="src-file1">
@@ -266,17 +272,15 @@ const downloadBtn = async () => {
 
 
     </div>
-      <!--<Footer v-if="isAuthenticate"></Footer>-->
+    <!--<Footer v-if="isAuthenticate"></Footer>-->
 </template>
 
 <style scoped>
 .rightBtn,
 .deleteBtn {
-  display: block; /* Asegura que los botones ocupen todo el ancho disponible */
-  margin-bottom: 10px; /* Espacio entre los botones */
+    display: block;
+    /* Asegura que los botones ocupen todo el ancho disponible */
+    margin-bottom: 10px;
+    /* Espacio entre los botones */
 }
 </style>
-
-
-
-

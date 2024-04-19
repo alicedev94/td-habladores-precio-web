@@ -1,5 +1,6 @@
 const { sequelize } = require("../lib/sequelize"); // sequelize120
 const axios = require("axios");
+const { comboDaka } = require("../controllers/main.super.market");
 
 // 120 querys
 const testConnectionFrom120 = async () => {
@@ -440,6 +441,8 @@ fakeapi();
 //   value: 1
 // }
 // newList(list)
+
+comboDaka();
 
 module.exports = {
   findAll,
