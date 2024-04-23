@@ -15,7 +15,7 @@ const {
   findByEmail,
   priceList,
   productsSupermarket,
-  fakeapi
+  fakeapi,
 } = require("../controllers/main");
 
 // const { proccessData } = require('../controllers/debug.controller');
@@ -42,6 +42,9 @@ const { changeLogo } = require("../controllers/remplaceRoute.controller");
 const { buildPdf } = require("../controllers/pdfkit.down.controller");
 
 const { priceTalkerTest } = require("../controllers/habladores.pruebas");
+const { priceTalkerSuperMarket } = require("../controllers/priceTalkerSuperMar.ct");
+
+
 
 // GET
 router.get("/", async (req, res) => {
@@ -58,13 +61,6 @@ router.get("/products/:list/:type/:sucur", async (req, res) => {
 router.get("/priceList", async (req, res) => {
   const rta = await priceList();
   res.json(rta);
-});
-
-// EN PROCESO DE VALIDACIÓN
-router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
-  const { list, size, type, sucur } = req.params;
-  const rta = await productsSupermarket(list, size, type, sucur);
-  res.json(rta[0]);
 });
 
 // POST
@@ -215,6 +211,97 @@ router.post("/generate-pdf", async (req, res) => {
   } catch (error) {}
 });
 
+router.post("/generate-super-pdf", async (req, res) => {
+  console.log("super-mercado");
+  // console.log(req.body);
+  const { data, list, sizeTalker } = req.body;
+
+  // console.log(req.body);
+
+  try {
+    if (sizeTalker === "0") {
+      // HABLADOR PEQUEÑO
+      const proData = modelData(data);
+      proData.forEach((obj) => {
+        obj.priceTalkerList = list;
+      });
+
+      const noData = proData;
+      // console.log("PRECIOS GRANDES",noData);
+
+      const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=alicePdf.pdf",
+      });
+
+      await priceTalkerSuperMarket(
+        (data) => stream.write(data),
+        () => stream.end(),
+        noData
+      );
+    } else if (sizeTalker === "1") {
+      // HABLADOR PEQUEÑO
+      const proData = modelData(data);
+      proData.forEach((obj) => {
+        obj.priceTalkerList = list;
+      });
+
+      const noData = proData;
+
+      const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=alicePdf.pdf",
+      });
+
+      await priceTalkerSuperMarket(
+        // bigPriceTalker
+        (data) => stream.write(data),
+        () => stream.end(),
+        noData
+      );
+    } else if (sizeTalker === "2") {
+      // HABLADOR PEQUEÑO
+
+      const proData = modelData(data);
+      proData.forEach((obj) => {
+        obj.priceTalkerList = list;
+      });
+
+      const noData = proData;
+      // console.log(noData);
+
+      const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=alicePdf.pdf",
+      });
+
+      // FUNCIONAL
+      // await bigPriceTalker(
+      //   (data) => stream.write(data),
+      //   () => stream.end(),
+      //   noData
+      // );
+
+      await priceTalkerSuperMarket(
+        (data) => stream.write(data),
+        () => stream.end(),
+        noData
+      );
+    } else {
+      console.error("DATO NO CONTEMPLADO");
+    }
+  } catch (error) {}
+});
+
+
+// EN PROCESO DE VALIDACIÓN
+router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
+  // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
+  const { list, size, type, sucur } = req.params;
+  const rta = await productsSupermarket(list, size, type, sucur);
+  res.json(rta[0]);
+});
+
 router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
   const { list, sucur, sizeTalker } = req.params;
   const { sapCode } = req.body;
@@ -277,6 +364,6 @@ router.delete("/deleteUser/:id", async (req, res) => {
 // fakeapi debug
 router.get("/fakeapi", async (req, res) => {
   // const fakeapi = await fakeapi();
-  res.json({data: "alicedev94 in ubuntu"});
+  res.json({ data: "alicedev94 in ubuntu" });
 });
 module.exports = router;

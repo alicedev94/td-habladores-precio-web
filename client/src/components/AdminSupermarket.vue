@@ -99,8 +99,8 @@ const deleteBtn = () => {
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        let datos = { /* tu JSON grande */ };
-        fetch(`http://${api}:${portApi}/api/v1/generate-pdf`, {
+        let datos = { /* BIG JSON */ };
+        fetch(`http://${api}:${portApi}/api/v1/generate-super-pdf`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ const fGeneratePdf = async () => {
                 a.href = url;
                 const fecha = new Date();
                 const fechaFormateada = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}_${fecha.getHours().toString().padStart(2, '0')}-${fecha.getMinutes()}`;
-                const nombreArchivo = `Hablador-Precio${fechaFormateada}.pdf`;
+                const nombreArchivo = `Hablador-Super-Mercado${fechaFormateada}.pdf`;
                 a.download = nombreArchivo;
                 a.click();
                 isLoadingPdf.value = false
