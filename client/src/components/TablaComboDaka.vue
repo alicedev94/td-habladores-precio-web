@@ -51,7 +51,7 @@ const busquedaIncial = async () => {
     // console.log(segmentos[1]);
 
     //saber si estoy en la ruta correspondiente
-    if (segmentos[1] === "table-data-supermarket") {
+    if (segmentos[1] === "table-data-supermarke-combot") {
         isAuthenticate.value = true
         //console.log("dentro de pathnmane");
     } else {
@@ -59,7 +59,7 @@ const busquedaIncial = async () => {
     }
 
     const ruta = window.location.pathname;
-    const regex = /\/table-data-supermarket\/(\d+)\/(\d+)\/(\d+)\/(\d+)*/;
+    const regex = /\/table-data-supermarket-combo\/(\d+)\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
 
     if (match) {
@@ -80,8 +80,10 @@ const busquedaIncial = async () => {
 
 var filterListProducts = []
 const rightBtn = () => {
-    filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+    console.log();
+
+    // filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    // expoListProduct.value = expoListProduct.value.concat(filterListProducts);
 
     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
     selectedProducts.value = []
@@ -139,6 +141,7 @@ const fImportXlsx = async (event) => {
         await readXlsxFile(event.target.files[0]).then((rows) => {
             sapCode.value.push(rows)
         })
+
         // console.log(sapCode.value);
 
         // http://${api}:${portApi}/api/v1/send/sap-code1
@@ -165,6 +168,7 @@ const fImportXlsx = async (event) => {
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
+
             })
             .catch(error => {
                 // Handle errors
@@ -191,12 +195,14 @@ watch(() => {
         isDisabled.value = true
     }
 })
+
+
 </script>
 
 <template>
     <Nav></Nav> <!--v-if="isAuthenticate" -->
     <span v-if="isLoadingPdf" class="loaderPdf"></span>
-    <h1>ÚLTIMAS EXISTENCIAS</h1>
+    <h1>PROMO DAKA</h1>
     <div class="table-container">
         <div>
             <v-text-field v-model="searchTable1" variant="solo-filled"

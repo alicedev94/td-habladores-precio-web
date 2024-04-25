@@ -1,6 +1,7 @@
 const { sequelize } = require("../lib/sequelize"); // sequelize120
 
 const comboDaka = async (products) => {
+  var data = [];
   const productos_seleccionados =
     await sequelize.query(`SELECT TOP (1000) [Codigo]
   ,[Nombre]
@@ -27,15 +28,15 @@ const comboDaka = async (products) => {
   FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_supermercado])`);
 
   productos_seleccionados[0].map((obj) => {
-    armaCombo(obj.Codigo_relacion);
+    data += armaCombo(obj.Codigo_relacion);
   });
   //   const { Codigo_relacion, Codigo_suma_resta } = producto_seleccionado[0][0];
 
   //   const data = { data: response[0], Codigo_suma_resta: Codigo_suma_resta };
 
-  //   // ESTO RETORNA UN JSON DEPENDIENDO DE LA CANTIDAD DE ARTICULOS Y SI SUMA O RESTA
-  //   console.log(data);
-  //   return data;
+  // ESTO RETORNA UN JSON DEPENDIENDO DE LA CANTIDAD DE ARTICULOS Y SI SUMA O RESTA
+  console.log(data);
+  return data;
 };
 
 const armaCombo = async (lista_codigo_relacion) => {
@@ -66,7 +67,7 @@ const armaCombo = async (lista_codigo_relacion) => {
       and [FecCrea] = (SELECT MAX(FecCrea)
       FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_supermercado])`);
 
-      console.log(combo);
+  console.log(combo);
 };
 
 module.exports = { comboDaka };

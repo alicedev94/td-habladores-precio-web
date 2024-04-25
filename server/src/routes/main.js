@@ -42,9 +42,9 @@ const { changeLogo } = require("../controllers/remplaceRoute.controller");
 const { buildPdf } = require("../controllers/pdfkit.down.controller");
 
 const { priceTalkerTest } = require("../controllers/habladores.pruebas");
-const { priceTalkerSuperMarket } = require("../controllers/priceTalkerSuperMar.ct");
-
-
+const {
+  habladorUltimasExistenciasG,
+} = require("../controllers/habladorUltimasExistenciasG");
 
 // GET
 router.get("/", async (req, res) => {
@@ -212,87 +212,83 @@ router.post("/generate-pdf", async (req, res) => {
 });
 
 router.post("/generate-super-pdf", async (req, res) => {
-  console.log("super-mercado");
-  // console.log(req.body);
-  const { data, list, sizeTalker } = req.body;
-
-  // console.log(req.body);
+  // SUPER MERCADO
+  const { data, list, sizeTalker, typeTalker } = req.body;
 
   try {
-    if (sizeTalker === "0") {
-      // HABLADOR PEQUEÑO
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
+    if (typeTalker === "0") {
+      // PROMO DAKA (COMBOS)
+      console.log(typeTalker, "DE MOMENTO EN DESAROLLO");
+    } else if (typeTalker === "1") {
+      // ULTIMAS EXISTENCIAS
+      if (sizeTalker === "0") {
+        // HABLADOR PEQUEÑO
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
 
-      const noData = proData;
-      // console.log("PRECIOS GRANDES",noData);
+        const noData = proData;
+        // console.log("PRECIOS GRANDES",noData);
 
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
 
-      await priceTalkerSuperMarket(
-        (data) => stream.write(data),
-        () => stream.end(),
-        noData
-      );
-    } else if (sizeTalker === "1") {
-      // HABLADOR PEQUEÑO
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
+        await priceTalkerSuperMarket(
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else if (sizeTalker === "1") {
+        // HABLADOR MEDIANO
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
 
-      const noData = proData;
+        const noData = proData;
 
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
 
-      await priceTalkerSuperMarket(
-        // bigPriceTalker
-        (data) => stream.write(data),
-        () => stream.end(),
-        noData
-      );
-    } else if (sizeTalker === "2") {
-      // HABLADOR PEQUEÑO
+        await priceTalkerSuperMarket(
+          // bigPriceTalker
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else if (sizeTalker === "2") {
+        // HABLADOR GRANDE
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
 
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
+        const noData = proData;
 
-      const noData = proData;
-      // console.log(noData);
-
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
-
-      // FUNCIONAL
-      // await bigPriceTalker(
-      //   (data) => stream.write(data),
-      //   () => stream.end(),
-      //   noData
-      // );
-
-      await priceTalkerSuperMarket(
-        (data) => stream.write(data),
-        () => stream.end(),
-        noData
-      );
-    } else {
-      console.error("DATO NO CONTEMPLADO");
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+        
+        await habladorUltimasExistenciasG(
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else {
+        console.error("DATO NO CONTEMPLADO");
+      }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("ERROR: ", error);
+    return error;
+  }
 });
-
 
 // EN PROCESO DE VALIDACIÓN
 router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {

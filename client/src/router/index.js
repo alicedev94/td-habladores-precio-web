@@ -3,7 +3,9 @@ import PanelAdmin from "@/views/PanelAdmin.vue";
 import SelectListVue from "@/views/SelectList.vue";
 import logoChange from "@/views/logoChange.vue";
 import AdminSupermarket from "@/components/AdminSupermarket.vue";
+import TablaComboDaka from "@/components/TablaComboDaka.vue";
 import { createRouter, createWebHistory } from "vue-router";
+
 
 var token = null;
 
@@ -53,6 +55,13 @@ const router = createRouter({
        // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
       name: "AdminSupermarket",
       component: AdminSupermarket,
+      beforeEnter: isAuthenticate,
+    },
+    {
+      path: "/table-data-supermarket-combo/:list/:size/:type/:sucursal",
+       // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
+      name: "TablaComboDaka",
+      component: TablaComboDaka,
       beforeEnter: isAuthenticate,
     },
     {
