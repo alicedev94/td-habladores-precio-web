@@ -68,15 +68,23 @@ const busquedaIncial = async () => {
         typeTalker.value = match[3];
         sucur.value = match[4];
 
-        isLoading.value = true
-        const response = await axios.get(`http://${local_server}:3001/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
-        listProducts.value = response.data
-        isLoading.value = false
-        document.body.classList.add("body-white")
+
+
+        // REDIRECCIONAR A ULTIMAS EXISTENCIAS SEGUN EL TIPO DE HABLADOR
+        if (typeTalker.value === "0") {
+            // ESTO ES PROMO DAKA
+            location.href = `/table-data-supermarket-combo/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`;
+        } else {
+            isLoading.value = true
+            const response = await axios.get(`http://${local_server}:3001/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
+            listProducts.value = response.data
+            isLoading.value = false
+            document.body.classList.add("body-white")
+        }
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
-}                                                                                                                        
+}
 
 var filterListProducts = []
 const rightBtn = () => {
@@ -174,7 +182,7 @@ const fImportXlsx = async (event) => {
         //expoListProduct.value = response.data.data
         //console.log(expoListProduct.value);
     } catch (error) {
-       alert(error)
+        alert(error)
     }
 }
 
