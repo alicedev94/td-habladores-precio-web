@@ -46,6 +46,8 @@ const {
   habladorUltimasExistenciasG,
 } = require("../controllers/habladorUltimasExistenciasG");
 
+const { armaCombo } = require("../controllers/main.super.market");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -274,7 +276,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           "Content-Type": "application/pdf",
           "Content-Disposition": "attachment; filename=alicePdf.pdf",
         });
-        
+
         await habladorUltimasExistenciasG(
           (data) => stream.write(data),
           () => stream.end(),
@@ -295,6 +297,13 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
   const { list, size, type, sucur } = req.params;
   const rta = await productsSupermarket(list, size, type, sucur);
+  res.json(rta[0]);
+});
+
+router.post(`/arma-combo`, async (req, res) => {
+  // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
+  const { codigo_relaclion } = req.body;
+  const rta = await armaCombo(codigo_relaclion);
   res.json(rta[0]);
 });
 

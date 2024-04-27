@@ -39,7 +39,7 @@ const comboDaka = async (products) => {
   return data;
 };
 
-const armaCombo = async (lista_codigo_relacion) => {
+const armaCombo = async (codigo_relacion) => {
   // ESTO SE TIENE QUE EJECUTAR DE MANERA INDIVIDUAL POR COMPO, DE ESA MANERA PUEDO RELACIONAR DE FORMA SEPARADA
   const combo = await sequelize.query(` 
      SELECT TOP (1000) [Codigo]
@@ -63,11 +63,12 @@ const armaCombo = async (lista_codigo_relacion) => {
       ,[Codigo_relacion]
       ,[Codigo_suma_resta]
       FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_supermercado]
-      where Codigo_relacion like '%${lista_codigo_relacion}.1%'
+      where Codigo_relacion like '%${codigo_relacion}.1%'
       and [FecCrea] = (SELECT MAX(FecCrea)
       FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_supermercado])`);
 
-  console.log(combo);
+      return combo;
+  // console.log(combo);
 };
 
-module.exports = { comboDaka };
+module.exports = { comboDaka, armaCombo};

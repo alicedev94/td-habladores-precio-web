@@ -18,6 +18,7 @@ const isLoading2 = ref(false)
 const isLoadingPdf = ref(false)
 const isAuthenticate = ref(false)
 const sapCode = ref([])
+const armaCombo = ref([])
 
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
 const list = ref("")
@@ -76,17 +77,62 @@ const busquedaIncial = async () => {
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
-}                                                                                                                        
+}
 
 var filterListProducts = []
-const rightBtn = () => {
-    console.log();
+const rightBtn = async () => {
+    // lista de todos los articulos 
+    // console.log(listProducts.value);
 
-    // filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    // proceso para obtener solo lo seleccionado antes de darle siguiente 
+    filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+
+    // lista depurada con lo seleccionado
+
+    // NOTA: En este evento el app tiene que buscar en la misma tabla los que tengan relacion 1 con 1.1
+    // 1 ACA LA DATA DE LA CABECERA POR CODIGO INDIVIDUAL (CABECERA) # PAN_DULCE
+    // console.log(filterListProducts); // ESTO ME GENERA UN ARRAY DE OBJETOS CON TODOS LOS CAMPOS NECESARIOS
+
+    filterListProducts.map(async (obj) => {
+        // console.log(obj.Codigo_relacion);
+        // codigo_relacion.push(obj.Codigo_relacion)
+       let {data} = await axios.post(`http://${local_server}:3001/api/v1/arma-combo`, {
+            codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
+
+        });
+        armaCombo.value.push(data)
+    })
+
+    // DETALLE UNIFICADO
+    console.log(armaCombo.value)
+
+
+    // codigos de relacin ya filtrados 
+    // console.log(codigo_relacion);
+
+    // FIN DE LA SENTENCIA --
+
+
+    // 2 ACA LA DATA DEL DETALLE POR CODIGO INDIVIDUAL (DETALLE) # PAN_DULCE
+    // console.log(armaCombo.data);
+
+    // // ARMA EL COMBO
+    // let COMBO_PROMO_DAKA = [{
+    //     cabecera: filterListProducts,
+    //     detalle: armaCombo.data
+    // }]
+
+    // PRIMER COMBO
+    // console.log(COMBO_PROMO_DAKA[0].cabecera[0]);
+    // llendo del array que alimenta la segunda tabla para generar los pdf del hablador
+    // ORIGINAL
     // expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+    // NUEVA IMPLEMENTACION
+    // expoListProduct.value = expoListProduct.value.concat(COMBO_PROMO_DAKA);
 
     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
     selectedProducts.value = []
+    // codigo_relacion = []
 }
 
 const deleteBtn = () => {
@@ -178,7 +224,7 @@ const fImportXlsx = async (event) => {
         //expoListProduct.value = response.data.data
         //console.log(expoListProduct.value);
     } catch (error) {
-       alert(error)
+        alert(error)
     }
 }
 
