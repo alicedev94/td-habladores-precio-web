@@ -93,28 +93,39 @@ const rightBtn = async () => {
     // 1 ACA LA DATA DE LA CABECERA POR CODIGO INDIVIDUAL (CABECERA) # PAN_DULCE
     // console.log(filterListProducts); // ESTO ME GENERA UN ARRAY DE OBJETOS CON TODOS LOS CAMPOS NECESARIOS
 
-    filterListProducts.map(async (obj) => {
-        // console.log(obj.Codigo_relacion);
-        // codigo_relacion.push(obj.Codigo_relacion)
-       let {data} = await axios.post(`http://${local_server}:3001/api/v1/arma-combo`, {
+    let promises = filterListProducts.map(async (obj) => {
+
+        let data = await axios.post(`http://${local_server}:3001/api/v1/arma-combo`, {
             codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
 
         });
-        armaCombo.value.push(data)
+        data.data.Cabecera = obj.Codigo
+        armaCombo.value.push(data.data);
     })
 
-    // DETALLE UNIFICADO
-    console.log(armaCombo.value)
+    Promise.all(promises).then(() => {
+        // NUEVA IMPLEMENTACION
+        let master = []
+        armaCombo.value.forEach((element, index) => {
+            let data = {}
+            data.product = armaCombo.value[index].Cabecera
+            data.details = armaCombo.value[index];
+            master.push(data)
+            //expoListProduct.value = expoListProduct.value.concat(armaCombo.value[index]);
+        });
 
+        console.log(master);
+        master = []
+        armaCombo.value = []
+    })
 
     // codigos de relacin ya filtrados 
     // console.log(codigo_relacion);
 
     // FIN DE LA SENTENCIA --
 
-
     // 2 ACA LA DATA DEL DETALLE POR CODIGO INDIVIDUAL (DETALLE) # PAN_DULCE
-    // console.log(armaCombo.data);
+    // console.log(armaCombo.value[2]);
 
     // // ARMA EL COMBO
     // let COMBO_PROMO_DAKA = [{
@@ -128,11 +139,11 @@ const rightBtn = async () => {
     // ORIGINAL
     // expoListProduct.value = expoListProduct.value.concat(filterListProducts);
     // NUEVA IMPLEMENTACION
-    // expoListProduct.value = expoListProduct.value.concat(COMBO_PROMO_DAKA);
+    // expoListProduct.value = expoListProduct.value.concat(armaCombo.value);
 
     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
     selectedProducts.value = []
-    // codigo_relacion = []
+    // armaCombo.value = []
 }
 
 const deleteBtn = () => {
@@ -241,8 +252,6 @@ watch(() => {
         isDisabled.value = true
     }
 })
-
-
 </script>
 
 <template>

@@ -2,6 +2,7 @@ const { sequelize } = require("../lib/sequelize"); // sequelize120
 
 const comboDaka = async (products) => {
   var data = [];
+  
   const productos_seleccionados =
     await sequelize.query(`SELECT TOP (1000) [Codigo]
   ,[Nombre]

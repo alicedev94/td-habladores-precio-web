@@ -81,14 +81,15 @@ onMounted(async () => {
         isLoading.value = true
         const response = await axios.get(`http://${local_server}:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
+        // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
+        console.log(listProducts.value);
         isLoading.value = false
         document.body.classList.add("body-white")
-
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
 
-    console.log(expoListProduct.value);
+    // console.log(expoListProduct.value);
 })
 
 watch(() => {
