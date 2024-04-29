@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
 import Nav from './Nav.vue';
@@ -115,6 +115,7 @@ const rightBtn = async () => {
         });
 
         console.log(master);
+        items.value = master
         master = []
         armaCombo.value = []
     })
@@ -252,6 +253,40 @@ watch(() => {
         isDisabled.value = true
     }
 })
+
+// data pa la nueva tabla
+const headers2 = ref([
+    { text: 'Producto', value: 'product' },
+    { text: 'Detalles', value: 'details' },
+  ])
+
+  const items = ref([
+    // {
+    //   product: 'lb-0001 RELOJ ROLEX',
+    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
+    // },
+    // {
+    //   product: 'lm-0001 RELOJ ROLEX',
+    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
+    // },
+    // {
+    //   product: 'lx-0001 RELOJ ROLEX',
+    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
+    // },
+    // Agrega más productos aquí
+  ])
+
+  const search = ref('')
+
+  const filteredItems = computed(() => {
+    if (!search.value) {
+      return items.value
+    }
+    return items.value.filter(item =>
+      item.product.toLowerCase().includes(search.value.toLowerCase())
+    )
+  })
+// s 
 </script>
 
 <template>
@@ -300,6 +335,20 @@ watch(() => {
         </div>
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
+
+    <!-- nuevo template de pruebas para la segunda tabla -->
+    <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
+    <v-data-table :headers="headers2" :items="filteredItems">
+        <template v-slot:item.details="{ item }">
+            <v-list>
+                <v-list-item v-for="(detail, i) in item.details" :key="i">
+                    <v-list-item-content> {{ detail }} </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </template>
+    </v-data-table>
+    <!-- s -->
+
 </template>
 
 <style scoped>
