@@ -48,6 +48,8 @@ const {
 
 const { armaCombo } = require("../controllers/main.super.market");
 
+const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -220,7 +222,16 @@ router.post("/generate-super-pdf", async (req, res) => {
   try {
     if (typeTalker === "0") {
       // PROMO DAKA (COMBOS)
-      console.log(typeTalker, "DE MOMENTO EN DESAROLLO");
+      const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=alicePdf.pdf",
+      });
+
+      await habladorPromoG(
+        (data) => stream.write(data),
+        () => stream.end(),
+        data
+      );
     } else if (typeTalker === "1") {
       // ULTIMAS EXISTENCIAS
       if (sizeTalker === "0") {

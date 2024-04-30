@@ -396,6 +396,28 @@ const modelData = (data) => {
   return priceTalkerData;
 };
 
+const modelData_2 = (data) => {
+  priceTalkerData = [];
+
+  data.map((item) => {
+    priceTalkerData.push({
+      priceTalkerBrand: item.Marca,
+      priceTalkerdescription: item.Nombre,
+      priceTalkerPrice: item.PrecioaMostrar,
+      priceTalkerSapCode: item.Codigo,
+      priceTalkerBarCode: item.CodigoBarra,
+      priceTalkerWarranty: item.Garantia,
+      priceTalkerIdHablador: item.IdHablador,
+      priceTalkerService: item.CodigoServicio,
+      priceTalkerServicePrice: item.PrecioServicio,
+    });
+  });
+
+  // console.log(priceTalkerData);
+
+  return priceTalkerData;
+};
+
 const priceList = async () => {
   const rta = await sequelize.models.List.findAll({
     order: [["title", "ASC"]],

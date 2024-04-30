@@ -99,22 +99,26 @@ const rightBtn = async () => {
             codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
 
         });
-        data.data.Cabecera = obj.Codigo
+        // AGREGAR DATOS COMO EL PRECIO 
+        data.data.Cabecera = obj; // `${obj.Codigo} ${obj.Nombre}`
         armaCombo.value.push(data.data);
     })
     Promise.all(promises).then(() => {
         // NUEVA IMPLEMENTACION
         let master = []
+
         armaCombo.value.forEach((element, index) => {
             let data = {}
+            console.log(armaCombo.value[index]);
             data.product = armaCombo.value[index].Cabecera
             data.details = armaCombo.value[index];
             master.push(data)
             //expoListProduct.value = expoListProduct.value.concat(armaCombo.value[index]);
         });
 
-        console.log(master);
+        // console.log(master);
         items.value = master
+        // console.log(items.value);
         master = []
         armaCombo.value = []
     })
@@ -165,7 +169,7 @@ const fGeneratePdf = async () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                data: filterExpoListProducts.value,
+                data: items.value, // filterExpoListProducts.value
                 list: list.value,
                 sizeTalker: sizeTalker.value,
                 typeTalker: typeTalker.value
@@ -184,7 +188,6 @@ const fGeneratePdf = async () => {
                 isLoadingPdf.value = false
             })
             .catch((error) => alert(error));
-
     } catch (error) {
         console.error(error);
         isLoadingPdf.value = false
@@ -257,9 +260,9 @@ watch(() => {
 const headers2 = ref([
     { text: 'Producto', value: 'product' },
     { text: 'Detalles', value: 'details' },
-  ])
+])
 
-  const items = ref([
+const items = ref([
     // {
     //   product: 'lb-0001 RELOJ ROLEX',
     //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
@@ -273,18 +276,18 @@ const headers2 = ref([
     //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
     // },
     // Agrega más productos aquí
-  ])
+])
 
-  const search = ref('')
+const search = ref('')
 
-  const filteredItems = computed(() => {
+const filteredItems = computed(() => {
     if (!search.value) {
-      return items.value
+        return items.value
     }
     return items.value.filter(item =>
-      item.product.toLowerCase().includes(search.value.toLowerCase())
+        item.product.toLowerCase().includes(search.value.toLowerCase())
     )
-  })
+})
 // s 
 </script>
 
@@ -311,42 +314,29 @@ const headers2 = ref([
             <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
         </div>
 
-        <div>
-            <v-text-field v-model="searchTable2" variant="solo-filled"
-                style="width: 600px; height: 20px; margin-left: 0px; margin-bottom: 30px"
-                label="Buscar por código o descripción"></v-text-field>
 
-            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
-                elevation="8">
-                <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
-                    :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
-                    no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
-                    loading-text="Cargando..." />
-            </v-card>
-
-            <div class="file-select" id="src-file1">
-                <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
-            </div>
-            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
+        <div> <!-- nuevo template de pruebas para la segunda tabla -->
+            <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
+            <v-data-table :headers="headers2" :items="filteredItems">
+                <template v-slot:item.details="{ item }">
+                    <v-list>
+                        <v-list-item v-for="(detail, i) in item.details" :key="i">
+                            <v-list-item-content> {{ detail.Codigo }} </v-list-item-content>
+                            <v-list-item-content> {{ ' ' + detail.Nombre }} </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </template>
+            </v-data-table>
+            <v-btn size="small" class="btn-generate-pdf" append-icon="mdi-download" color="red"
                 width="160" @click="fGeneratePdf">
                 Generar .PDF
             </v-btn>
+            <!-- s -->
         </div>
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
 
-    <!-- nuevo template de pruebas para la segunda tabla -->
-    <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
-    <v-data-table :headers="headers2" :items="filteredItems">
-        <template v-slot:item.details="{ item }">
-            <v-list>
-                <v-list-item v-for="(detail, i) in item.details" :key="i">
-                    <v-list-item-content> {{ detail }} </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </template>
-    </v-data-table>
-    <!-- s -->
+
 
 </template>
 
