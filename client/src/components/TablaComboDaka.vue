@@ -102,7 +102,6 @@ const rightBtn = async () => {
         data.data.Cabecera = obj.Codigo
         armaCombo.value.push(data.data);
     })
-
     Promise.all(promises).then(() => {
         // NUEVA IMPLEMENTACION
         let master = []
