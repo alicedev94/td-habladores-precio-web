@@ -111,7 +111,6 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         );
       yOffset += 150; // Incrementamos el desplazamiento para el siguiente detalle
     });
-
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
