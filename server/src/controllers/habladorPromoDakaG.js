@@ -62,14 +62,15 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
   // Recorres cada dato
   priceTalkerData.forEach((dato) => {
     // CABECERA DEL PRODUCTO (PRODUCTO A IMPULSAR)
+
     // CODIGO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(20)
+      .fontSize(18)
       .text(
         `${dato.product.Codigo}`,
-        priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY + 10,
+        priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
+        priceTalkerPositionPriceY + 10 - 18.90,
         {
           width: 283.46,
           align: "center",
@@ -79,15 +80,46 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
     // DESCRIPCION
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(20)
+      .fontSize(18)
       .text(
         `${dato.product.Nombre}`,
-        priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY + 30 + 10,
+        priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
+        priceTalkerPositionPriceY + 30 + 10 - 18.90,
         {
           width: 283.46,
           align: "center",
         }
+      );
+
+    // DETALLE DEL PRODUCTO (PRODUCTO RELACIONADO)
+
+    // CODIGO DEL DETALLE
+    let yOffset = 0; // Este será nuestro desplazamiento en el eje y
+    dato.details.forEach((detail, index) => {
+      console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(18)
+        .text(
+          `${detail.Codigo}/`,
+          priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46+ yOffset,
+          priceTalkerPositionPriceY + 110 + 10 -  18.90,
+          {
+            width: 283.46,
+            align: "left",
+          }
+        );
+      yOffset += 150; // Incrementamos el desplazamiento para el siguiente detalle
+    });
+
+    // PRECIO TACHADO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerFontSizePrice)
+      .text(
+        `$${dato.product.PrecioTachado}`, 
+        priceTalkerPositionPriceX,
+        priceTalkerPositionPriceY + 11.34 + 37.80
       );
 
     // PRECIO
@@ -97,27 +129,8 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
       .text(
         `$${dato.product.PrecioaMostrar}`,
         priceTalkerPositionPriceX + 113.39,
-        priceTalkerPositionPriceY + 75.59 + 60
+        priceTalkerPositionPriceY + 75.59 + 60 
       );
-    // DETALLE DEL PRODUCTO (PRODUCTO RELACIONADO)
-    let yOffset = 0; // Este será nuestro desplazamiento en el eje y
-
-    dato.details.forEach((detail, index) => {
-      console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
-      doc
-        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-        .fontSize(20)
-        .text(
-          `${detail.Codigo}/`,
-          priceTalkerPositionPriceX + 113.39 + 151.18 + yOffset,
-          priceTalkerPositionPriceY + 110 + 10,
-          {
-            width: 283.46,
-            align: "left",
-          }
-        );
-      yOffset += 150; // Incrementamos el desplazamiento para el siguiente detalle
-    });
   });
 
   doc.end();

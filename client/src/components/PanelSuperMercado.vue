@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import router from '@/router';
-
+    
 const props = defineProps({
     typeList: {
         typeList: String,

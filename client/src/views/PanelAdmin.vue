@@ -265,6 +265,7 @@ const downloadBtn = async () => {
             <div class="file-select" id="src-file1">
                 <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
             </div>
+            
             <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
                 width="160" @click="fGeneratePdf">
                 Generar .PDF

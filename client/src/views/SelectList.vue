@@ -49,7 +49,7 @@ const tab = ref(null);
 const tabOptions = {
     one: 'estandar',
     two: 'supermercado',
-    // three: 'cdd',
+    three: 'cdd',
 };
 
 const btnSend = () => {
@@ -77,9 +77,9 @@ const btnSend_2 = () => {
     <Nav v-if="isAuthenticate"></Nav>
 
     <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
-        <v-tab value="estandar" color="#50C878">  <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
+        <v-tab value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
         <v-tab value="supermercado" color="#50C878">Supermercado</v-tab>
-        <!-- <v-tab value="cdd">CDD</v-tab> -->
+        <v-tab value="cdd" color="#50C878">CDD</v-tab>
     </v-tabs>
 
     <v-card-text>
@@ -123,19 +123,17 @@ const btnSend_2 = () => {
                 <Image imagen="/hablador_estandar.png" />
             </v-window-item>
             <v-window-item :value="tabOptions.two" class="display">
-                <PanelSuperMercado class="card-select-list"
-                v-model:typeList="selectDataSuperMarket.typeList"
-                v-model:sizeTalker="selectDataSuperMarket.typeList"
-                v-model:sucursal="userSucursal"
-                @send-form="btnSend_2"
-                />
-                <Image 
-                imagen="/hablador_supermercado.png"
-                />
+                <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
+                    v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
+                    @send-form="btnSend_2" />
+                <Image imagen="/hablador_supermercado.png" />
             </v-window-item>
-            <!-- <v-window-item :value="tabOptions.three">
-        <Card />
-      </v-window-item> -->
+            <v-window-item :value="tabOptions.three" class="display">
+                <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
+                    v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
+                    @send-form="btnSend_2" />
+                <Image imagen="/habladorCDD.png" />
+            </v-window-item>
         </v-window>
     </v-card-text>
 
@@ -148,17 +146,22 @@ const btnSend_2 = () => {
     margin-left: 30%;
     background-color: white;
 }
+
 .display {
     margin-right: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .v-tab:focus-within {
     text-decoration: underline;
-    text-decoration-color: #50C878; /* Color esmeralda */
-    text-decoration-thickness: 2px; /* Grosor de la línea */
+    text-decoration-color: #50C878;
+    /* Color esmeralda */
+    text-decoration-thickness: 2px;
+    /* Grosor de la línea */
     /* Color del texto  color: #50C878;*/
 }
+
 .v-tab {
     transition: color 0.3s ease, text-decoration-color 0.3s ease;
     font-weight: bold;
