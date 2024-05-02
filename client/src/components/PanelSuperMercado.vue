@@ -35,6 +35,7 @@ const generarSupermercado = async () => {
 onMounted(async () => {
     const response = await axios.get(`http://${api}:${portApi}/api/v1/priceList`)
     items.value = response.data
+    console.log(items.value);
 })
 
 // watch(selectData.value,()=>{

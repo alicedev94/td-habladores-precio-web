@@ -70,21 +70,36 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
       .text(
         `${dato.product.Codigo}`,
         priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
-        priceTalkerPositionPriceY + 10 - 18.90,
+        priceTalkerPositionPriceY + 10 - 18.9,
         {
           width: 283.46,
           align: "center",
         }
       );
 
-    // DESCRIPCION
+    // DESCRIPCION PRIMER ARTICULO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(18)
       .text(
         `${dato.product.Nombre}`,
         priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
-        priceTalkerPositionPriceY + 30 + 10 - 18.90,
+        priceTalkerPositionPriceY + 30 + 10 - 18.9,
+        {
+          width: 283.46,
+          height: 70,
+          align: "center",
+        }
+      );
+
+    // SIMBOLO DE SEPARACION (+)
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(18)
+      .text(
+        "+",
+        priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
+        priceTalkerPositionPriceY + 30 + 10 - 18.9 + 15.12 + 15.12 + 15.12,
         {
           width: 283.46,
           align: "center",
@@ -95,15 +110,36 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
 
     // CODIGO DEL DETALLE
     let yOffset = 0; // Este será nuestro desplazamiento en el eje y
+    let vuelta = 0;
     dato.details.forEach((detail, index) => {
       console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
+      // DESCRIPCION SEGUNDO ARTICULO
+      if (vuelta === 0) {
+        doc
+          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+          .fontSize(18)
+          .text(
+            `${detail.Nombre}`,
+            priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
+            priceTalkerPositionPriceY + 30 + 10 - 18.9 + 30.24 + 30.24,
+            {
+              width: 283.46,
+              height: 70,
+              align: "center",
+            }
+          );
+        vuelta++;
+      } else {
+        console.log("solo tomammos el primer articulo..");
+      }
+      // CODIGOS RELACIONADOS
       doc
         .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
         .fontSize(18)
         .text(
           `${detail.Codigo}/`,
-          priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46+ yOffset,
-          priceTalkerPositionPriceY + 110 + 10 -  18.90,
+          priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46 + yOffset,
+          priceTalkerPositionPriceY + 110 + 10 - 18.9 + 30.24,
           {
             width: 283.46,
             align: "left",
@@ -111,27 +147,95 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         );
       yOffset += 150; // Incrementamos el desplazamiento para el siguiente detalle
     });
+
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
       .text(
-        `$${dato.product.PrecioTachado}`, 
+        `$${dato.product.PrecioTachado}`,
         priceTalkerPositionPriceX,
-        priceTalkerPositionPriceY + 11.34 + 37.80
+        priceTalkerPositionPriceY + 11.34 + 37.8
       );
 
+    console.log(dato.product);
     // PRECIO
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(100)
-      .text(
-        `$${dato.product.PrecioaMostrar}`,
-        priceTalkerPositionPriceX + 113.39,
-        priceTalkerPositionPriceY + 75.59 + 60 
-      );
+    if (dato.product["Lista Precio"] != "3") {
+      // CON .99
+
+      // SI LA LISTA ES MARGARITA NO LLEVA IVA
+      if (dato.product["Lista Precio"] != "1") {
+        // CUALQUIER OTRA LISTA
+        // console.log("ss");
+        // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+        if (dato.product.PrecioaMostrar < 1) {
+          // 0 0,1 0,12123 etc
+          precio = parseFloat(dato.product.PrecioaMostrar);
+          precio = precio.toString().replace(".", ",");
+          precio = Math.round(precio);
+        } else {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(dato.product.PrecioaMostrar * 1.16);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+          precio = precio.toString().replace(".", ",");
+          // console.log(precio);
+        }
+        //
+        //
+      } else {
+        precio = Math.round(precio);
+        // LISTA PARA MARGARITA
+        // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+        if (dato.product.PrecioaMostrar < 1) {
+          // 0 0,1 0,12123 etc
+          precio = parseFloat(dato.product.PrecioaMostrar);
+          precio = precio.toString().replace(".", ",");
+        } else {
+          // CUALQUIER OTRA LISTA
+          precio = parseFloat(dato.product.PrecioaMostrar);
+          precio = Math.round(precio);
+          precio = precio - 0.01;
+          precio = precio.toString().replace(".", ",");
+        }
+        //
+      }
+      // FIN DEL BLOQUE DE CODIGO
+
+      // PRECIO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(100)
+        .text(
+          `$${precio}`,
+          priceTalkerPositionPriceX + 113.39,
+          priceTalkerPositionPriceY + 75.59 + 60
+        );
+    } else {
+      // ENTERO
+      // SI LA LISTA ES MARGARITA NO LLEVA IVA
+      if (product.priceTalkerList != "1") {
+        // CUALQUIER OTRA LISTA
+        precio = parseFloat(dato.product.PrecioaMostrar * 1.16);
+        precio = Math.round(precio);
+      } else {
+        // LISTA PARA MARGARITA
+        precio = parseFloat(dato.product.PrecioaMostrar);
+        precio = Math.round(precio);
+      }
+      // FIN DEL BLOQUE DE CODIGO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(100)
+        .text(
+          `$${precio}`,
+          priceTalkerPositionPriceX + 113.39,
+          priceTalkerPositionPriceY + 75.59 + 60
+        );
+    }
   });
 
+  vuelta = 0;
   doc.end();
 };
 

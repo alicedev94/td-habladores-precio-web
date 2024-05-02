@@ -54,7 +54,7 @@ const armaCombo = async (codigo_relacion) => {
       ,[Sucursal]
       ,[IdAlmacen]
       ,[Almacen]
-      ,[Lista Precio]
+      ,[Lista Precio] ListaPrecio
       ,[IdHablador]
       ,[Hablador]
       ,[IdMotivo]
