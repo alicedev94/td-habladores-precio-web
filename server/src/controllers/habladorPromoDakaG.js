@@ -59,9 +59,34 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
 
-  // Recorres cada dato
+  // EN ESTE PASO ES EECESARIO DETECTAR SI LOS PRECIOS SE SUMAN O SE COLOCA EL PIRMER VALOR, PARA EL SCRIPT QUE ARMA
+  // LA DATA ESTO ES INDIFERENTE
   priceTalkerData.forEach((dato) => {
-    // CABECERA DEL PRODUCTO (PRODUCTO A IMPULSAR)
+    // CABECERA
+    // console.log(dato.product.Codigo_suma_resta);
+    // if (dato.product.Codigo_suma_resta == 1) {
+    //   console.log("suma");
+    //   dato.details.forEach((detail, index) => {
+    //     // DETALLE
+    //     if(detail.Codigo_suma_resta == 1) {
+    //       console.log("detalle suma" + index);
+    //       detail.PrecioaMostrar 
+    //     }
+
+    //   });
+    // } else {
+    //   console.log("resta");
+    // }
+  });
+  // FIN DEL BLOQUE
+
+  // Recorres cada dato
+  priceTalkerData.forEach((dato, index) => {
+    // CREAR UNA NUEVA PAGINA CADA VEZ QUE TENGAMOS UN NUEVO GRUPO DE ARTICULOS
+    if (index > 0) {
+      // CABECERA DEL PRODUCTO (PRODUCTO A IMPULSAR)
+      doc.addPage({ size: "A4", layout: "landscape" });
+    }
 
     // CODIGO
     doc
@@ -112,14 +137,14 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
     let yOffset = 0; // Este será nuestro desplazamiento en el eje y
     let vuelta = 0;
     dato.details.forEach((detail, index) => {
-      console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
+      // console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
       // DESCRIPCION SEGUNDO ARTICULO
       if (vuelta === 0) {
         doc
           .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
           .fontSize(18)
           .text(
-            `${detail.Nombre}`,
+            `${detail.Codigo} ${detail.Nombre}`,
             priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46,
             priceTalkerPositionPriceY + 30 + 10 - 18.9 + 30.24 + 30.24,
             {
@@ -158,11 +183,10 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         priceTalkerPositionPriceY + 11.34 + 37.8
       );
 
-    console.log(dato.product);
     // PRECIO
     if (dato.product["Lista Precio"] != "3") {
+      // SCRIPT
       // CON .99
-
       // SI LA LISTA ES MARGARITA NO LLEVA IVA
       if (dato.product["Lista Precio"] != "1") {
         // CUALQUIER OTRA LISTA
@@ -184,9 +208,9 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         //
         //
       } else {
-        precio = Math.round(precio);
         // LISTA PARA MARGARITA
         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
+        precio = Math.round(precio);
         if (dato.product.PrecioaMostrar < 1) {
           // 0 0,1 0,12123 etc
           precio = parseFloat(dato.product.PrecioaMostrar);
@@ -200,9 +224,10 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         }
         //
       }
+
       // FIN DEL BLOQUE DE CODIGO
 
-      // PRECIO
+      // TEMPLATE
       doc
         .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
         .fontSize(100)
@@ -212,6 +237,7 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerPositionPriceY + 75.59 + 60
         );
     } else {
+      // SCRIPT
       // ENTERO
       // SI LA LISTA ES MARGARITA NO LLEVA IVA
       if (product.priceTalkerList != "1") {
@@ -224,6 +250,8 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         precio = Math.round(precio);
       }
       // FIN DEL BLOQUE DE CODIGO
+
+      // TEMPLATE
       doc
         .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
         .fontSize(100)
