@@ -70,9 +70,8 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
     //     // DETALLE
     //     if(detail.Codigo_suma_resta == 1) {
     //       console.log("detalle suma" + index);
-    //       detail.PrecioaMostrar 
+    //       detail.PrecioaMostrar
     //     }
-
     //   });
     // } else {
     //   console.log("resta");
@@ -137,7 +136,16 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
     let yOffset = 0; // Este será nuestro desplazamiento en el eje y
     let vuelta = 0;
     dato.details.forEach((detail, index) => {
-      // console.log(`Detalle ${index + 1}: ${detail.Codigo}`);
+      // ESTO NO DEBERIA ESTAR ACA
+      // if (detail.Codigo_relacion == 1) {
+        
+      //   console.log("sasas");
+      // }
+      console.log(precio);
+      console.log(detail.PrecioaMostrar);
+      precio += detail.PrecioaMostrar;
+      console.log("ss", precio);
+
       // DESCRIPCION SEGUNDO ARTICULO
       if (vuelta === 0) {
         doc
