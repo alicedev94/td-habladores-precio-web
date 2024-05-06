@@ -15,6 +15,7 @@ var logoName = "PRUEBA.png";
 
 // GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
 var precio = 0;
+var precioDetalle = 0;
 
 // Posición
 let boxPositionX = 0;
@@ -137,14 +138,15 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
     let vuelta = 0;
     dato.details.forEach((detail, index) => {
       // ESTO NO DEBERIA ESTAR ACA
-      // if (detail.Codigo_relacion == 1) {
-        
-      //   console.log("sasas");
-      // }
-      console.log(precio);
-      console.log(detail.PrecioaMostrar);
-      precio += detail.PrecioaMostrar;
-      console.log("ss", precio);
+      console.log(detail.Codigo_suma_resta);
+      if (detail.Codigo_suma_resta == 1) {
+        console.log(precio);
+        console.log(detail.PrecioaMostrar);
+        precioDetalle += detail.PrecioaMostrar;
+      }
+
+      // precio += detail.PrecioaMostrar;
+      console.log("PRECIO A MOSTRAR DETALLE:", precioDetalle);
 
       // DESCRIPCION SEGUNDO ARTICULO
       if (vuelta === 0) {
@@ -191,7 +193,12 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         priceTalkerPositionPriceY + 11.34 + 37.8
       );
 
+
+
+
     // PRECIO
+    dato.product.PrecioaMostrar = dato.product.PrecioaMostrar + precioDetalle;
+
     if (dato.product["Lista Precio"] != "3") {
       // SCRIPT
       // CON .99
@@ -207,7 +214,8 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
           precio = Math.round(precio);
         } else {
           // CUALQUIER OTRA LISTA
-          precio = parseFloat(dato.product.PrecioaMostrar * 1.16);
+          console.log("CUALQUIER OTRA LISTA", precioDetalle);
+          precio = parseFloat(dato.product.PrecioaMostrar * 1.16); // dato.product.PrecioaMostrar
           precio = Math.round(precio);
           precio = precio - 0.01;
           precio = precio.toString().replace(".", ",");
@@ -272,6 +280,7 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
   });
 
   vuelta = 0;
+  precioDetalle = 0;
   doc.end();
 };
 
