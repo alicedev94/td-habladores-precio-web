@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import Nav from '@/components/Nav.vue';
 import Footer from '@/components/Footer.vue';
 import router from '@/router';
@@ -40,9 +40,9 @@ onMounted(async () => {
     userSucursal.value = idSucursal
 })
 
-// watch(() => {
-
-// })
+watch(selectDataSuperMarket.typeList,() => {
+    console.log(selectDataSuperMarket.typeList);
+})
 
 // SISTEMA PARA EL TABS
 const tab = ref(null);

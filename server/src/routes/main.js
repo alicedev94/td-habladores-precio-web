@@ -50,6 +50,10 @@ const { armaCombo } = require("../controllers/main.super.market");
 
 const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
 
+const {
+  habladorUltimasM,
+} = require("../controllers/ultimasExistenciasMediano");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -222,38 +226,38 @@ router.post("/generate-super-pdf", async (req, res) => {
   try {
     if (typeTalker === "0") {
       // PROMO DAKA (COMBOS)
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
-
-      await habladorPromoG(
-        (data) => stream.write(data),
-        () => stream.end(),
-        data
-      );
-    } else if (typeTalker === "1") {
-      // ULTIMAS EXISTENCIAS
-      if (sizeTalker === "0") {
-        // HABLADOR PEQUEÑO
-        const proData = modelData(data);
-        proData.forEach((obj) => {
-          obj.priceTalkerList = list;
-        });
-
-        const noData = proData;
-        // console.log("PRECIOS GRANDES",noData);
-
+      // TAMAÑO DEL HABLADOR
+      if (sizeTalker === "1") {
+        // PROMO MEDIANO
+        console.log("esto es un hablador mediano");
         const stream = res.writeHead(200, {
           "Content-Type": "application/pdf",
           "Content-Disposition": "attachment; filename=alicePdf.pdf",
         });
 
-        await priceTalkerSuperMarket(
+        await habladorUltomasM(
           (data) => stream.write(data),
           () => stream.end(),
-          noData
+          data
         );
+      } else {
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+
+        await habladorPromoG(
+          (data) => stream.write(data),
+          () => stream.end(),
+          data
+        );
+      }
+      // --
+    } else if (typeTalker === "1") {
+      // ULTIMAS EXISTENCIAS
+      if (sizeTalker === "0") {
+        // HABLADOR PEQUEÑO
+        console.log("EN DESARROLLO: ULTIMAS EXISTENCIAS, PEQUEÑO");
       } else if (sizeTalker === "1") {
         // HABLADOR MEDIANO
         const proData = modelData(data);
@@ -268,8 +272,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           "Content-Disposition": "attachment; filename=alicePdf.pdf",
         });
 
-        await priceTalkerSuperMarket(
-          // bigPriceTalker
+        await habladorUltimasM(
           (data) => stream.write(data),
           () => stream.end(),
           noData

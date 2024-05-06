@@ -192,10 +192,7 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
         priceTalkerPositionPriceX,
         priceTalkerPositionPriceY + 11.34 + 37.8
       );
-
-
-
-
+      
     // PRECIO
     dato.product.PrecioaMostrar = dato.product.PrecioaMostrar + precioDetalle;
 

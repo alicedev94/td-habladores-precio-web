@@ -38,9 +38,9 @@ onMounted(async () => {
     console.log(items.value);
 })
 
-// watch(selectData.value,()=>{
-//     console.log(selectData.value);
-// })
+watch(selectData.value.typeTalker, ()=> {
+    console.log(selectData.value.typeTalker);
+})
 </script>
 
 <template>
