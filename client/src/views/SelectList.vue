@@ -6,6 +6,8 @@ import Footer from '@/components/Footer.vue';
 import router from '@/router';
 import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 import Image from '@/components/Image.vue';
+import SelectCDD from '@/components/selectCDD.vue';
+
 
 const items = ref([])
 
@@ -129,10 +131,12 @@ const btnSend_2 = () => {
                 <Image imagen="/hablador_supermercado.png" />
             </v-window-item>
             <v-window-item :value="tabOptions.three" class="display">
-                <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
+                <SelectCDD></SelectCDD>
+                <Image imagen="/habladorCDD.png" />
+                <!-- <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
                     v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
                     @send-form="btnSend_2" />
-                <Image imagen="/habladorCDD.png" />
+                <Image imagen="/habladorCDD.png" /> -->
             </v-window-item>
         </v-window>
     </v-card-text>
