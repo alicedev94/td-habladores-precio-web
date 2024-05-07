@@ -20,45 +20,42 @@ var precio = 0;
 let boxPositionX = 0;
 let boxPositionY = 0;
 let priceTalkerDescriptionPositionX = 0;
-let priceTalkerDescriptionPositionY = 98;
-let priceTalkerBrandPositionX = 103;
-let priceTalkerBrandPositionY = 81;
-let priceTalkerPositionPriceX = 264.57 - 37.8;
-let priceTalkerPositionPriceY = 226.77 - 18.9;
-let priceTalkerLogoPositionX = 339;
-let priceTalkerLogoPositionY = 84;
-let priceTalkerCodeSapX = 212;
-let priceTalkerCodeSapY = 163;
-let priceTalkerPositionWarrantyX = 98;
-let priceTalkerPositionWarrantyY = 234;
-let priceTalkerBarCodeX = 270;
-let priceTalkerBarCodeY = 180;
+let priceTalkerDescriptionPositionY = 49; // Ajustado
+let priceTalkerBrandPositionX = 51.5; // Ajustado
+let priceTalkerBrandPositionY = 40.5; // Ajustado
+let priceTalkerPositionPriceX = 132.285 - 18.9; // Ajustado
+let priceTalkerPositionPriceY = 113.385 - 9.45; // Ajustado
+let priceTalkerLogoPositionX = 169.5; // Ajustado
+let priceTalkerLogoPositionY = 42; // Ajustado
+let priceTalkerCodeSapX = 106; // Ajustado
+let priceTalkerCodeSapY = 81.5; // Ajustado
+let priceTalkerPositionWarrantyX = 49; // Ajustado
+let priceTalkerPositionWarrantyY = 117; // Ajustado
+let priceTalkerBarCodeX = 135; // Ajustado
+let priceTalkerBarCodeY = 90; // Ajustado
 
 // Tamaño
-const boxWith = 1056.0;
-const boxHeight = 816.38;
-let priceTalkerBarCodeWith = 99;
-let priceTalkerBarCodeHeight = 28;
-let priceTalkerLogoWith = 48;
-let priceTalkerLogoHeight = 43;
+const boxWith = 1056.0 / 2; // Ajustado
+const boxHeight = 816.38 / 2; // Ajustado
+let priceTalkerBarCodeWith = 49.5; // Ajustado
+let priceTalkerBarCodeHeight = 14; // Ajustado
+let priceTalkerLogoWith = 24; // Ajustado
+let priceTalkerLogoHeight = 21.5; // Ajustado
 
 // Fuente
-const priceTalkerfontSize = 12;
-const priceTalkerFontSizePrice = 72;
+const priceTalkerfontSize = 20; // Ajustado
+const priceTalkerFontSizePrice = 50; // Ajustado
+const priceTalkerFontSizePriceNew = 80; // Ajustado
 
 // -- Contenido estático
-const priceTalkerWidthText = 221;
+const priceTalkerWidthText = 110.5; // Ajustado
 const priceTalkerFontPath = process.cwd();
 
 // Controlador de flujo para la generación de habladores
 let contador = 0;
 
-const habladorUltimasM = async (
-  dataCallback,
-  endCallback,
-  priceTalkerData
-) => {
-  const doc = new PDFDocument({ size: "A4", layout: "landscape" });
+const habladorUltimasM = async (dataCallback, endCallback, priceTalkerData) => {
+  const doc = new PDFDocument({ size: "A4", layout: "portrait" }); // Ajustado
 
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
@@ -81,49 +78,49 @@ const habladorUltimasM = async (
       .fontSize(priceTalkerFontSizePrice)
       .text(
         `$${precioTachado}`,
-        priceTalkerPositionPriceX,
-        priceTalkerPositionPriceY + 11.34
+        priceTalkerPositionPriceX + 18.90,
+        priceTalkerPositionPriceY + 5.67 + 75.59 - 18.90 // Ajustado
       );
     // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(100)
+      .fontSize(priceTalkerFontSizePriceNew) // Ajustado
       .text(
         `$${precio}`,
-        priceTalkerPositionPriceX + 113.39,
-        priceTalkerPositionPriceY + 75.59
+        priceTalkerPositionPriceX + 56.695 + 37.80, // Ajustado fala 1cm
+        priceTalkerPositionPriceY + 37.795 + 75.59 // Ajustado + 4cm
       );
     // CODIGO SAP
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(20)
-      .text(
-        `${product.priceTalkerSapCode}`,
-        priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY - 18.90,
-        {
-          width: 283.46,
-          align: "center",
-        }
-      );
+    // doc
+    //   .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+    //   .fontSize(priceTalkerfontSize) // Ajustado
+    //   .text(
+    //     `${product.priceTalkerSapCode}`,
+    //     priceTalkerPositionPriceX + 56.695 + 75.59, // Ajustado
+    //     priceTalkerPositionPriceY - 9.45, // Ajustado
+    //     {
+    //       width: 141.73, // Ajustado
+    //       align: "center",
+    //     }
+    //   );
     // DESCRIPCION DEL ARTICULO
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(20)
-      .text(
-        `${product.priceTalkerdescription}`,
-        priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY + 30.24 - 18.90,
-        {
-          width: 283.46,
-          align: "center",
-        }
-      );
+    // doc
+    //   .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+    //   .fontSize(priceTalkerfontSize) // Ajustado
+    //   .text(
+    //     `${product.priceTalkerdescription}`,
+    //     priceTalkerPositionPriceX + 56.695 + 75.59, // Ajustado
+    //     priceTalkerPositionPriceY + 15.12 - 9.45, // Ajustado
+    //     {
+    //       width: 141.73, // Ajustado
+    //       align: "center",
+    //     }
+    //   );
   }
 
   doc.end();
 };
 
 module.exports = {
-    habladorUltimasM,
+  habladorUltimasM,
 };

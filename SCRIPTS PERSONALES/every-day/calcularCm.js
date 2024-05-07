@@ -1,5 +1,5 @@
 let px = 0 // pixel
-let cm =  0.4 // centimetro
+let cm =  1// centimetro
 let dpi = 96 // decidad de pixel
 const cxp = 2.54 // centimetro por pulgada 
 
