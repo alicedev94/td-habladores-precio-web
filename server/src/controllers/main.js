@@ -213,7 +213,7 @@ const products = async (list, type, sucur) => {
         ,[PrecioaMostrar]
         ,[IdHablador]
          ,[CodigoServicio]
-      ,[PrecioServicio]
+      [PrecioServicio]
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})

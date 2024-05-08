@@ -1,7 +1,7 @@
+
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
-
 import readXlsxFile from 'read-excel-file'
 import Swal from 'sweetalert2'
 import Nav from '@/components/Nav.vue';
@@ -45,59 +45,20 @@ var portApi = 3001;
 
 // SETTINGS
 const headers = [
-    { text: 'Código', value: 'Codigo' },
-    { text: 'Descripción', value: 'Nombre' }
+    { text: 'ItemCode', value: 'ItemCode' },
+    { text: 'descripcion', value: 'descripcion' }
 ];
 
 onMounted(async () => {
-    // console.log("asjdkjasdj");
-    // console.log(location.pathname);
-    // agregar nav en caso de que el usuaurio este autenticado
-    // SABER LA RUTA DONDE ESTOY
-    let route = location.pathname
-
-    // Divide la ruta en segmentos
-    let segmentos = route.split('/');
-
-    // console.log(segmentos[1]);
-
-    // saber si estoy en la ruta correspondiente
-    if (segmentos[1] === "table-data") {
-        isAuthenticate.value = true
-        // console.log("dentro de pathnmane");
-    } else {
-        isAuthenticate.value = false
+    try {
+        const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+        listProducts.value = data;
+    } catch (error) {
+        alert(error);
     }
-
-    const ruta = window.location.pathname;
-    const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
-    const match = ruta.match(regex);
-
-    if (match) {
-        list.value = match[1];
-        sizeTalker.value = match[2];
-        sucur.value = match[3];
-
-        isLoading.value = true
-        const response = await axios.get(`http://${local_server}:3001/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
-        listProducts.value = response.data
-        console.log(response.data);
-        // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
-        console.log(listProducts.value);
-        isLoading.value = false
-        document.body.classList.add("body-white")
-    } else {
-        console.error("La ruta no coincide con el patrón esperado.");
-    }
-
-    // console.log(expoListProduct.value);
 })
 
 watch(() => {
-    // FISRT PRODUCT TABLE
-    // const filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    // expoListProduct.value = filterListProducts
-
     // SECOND PRODUCT TABLE
     filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
     if (filterExpoListProducts.value.length > 0) {
@@ -105,19 +66,14 @@ watch(() => {
     } else {
         isDisabled.value = true
     }
-
-    // los archivos seleccionados de la tabla numero 1 
-    // console.log(selectedProducts.value);
-    //expoListProduct.value = dataprueba
 })
-
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
         let datos = { /* tu JSON grande */ };
-        fetch(`http://${api}:${portApi}/api/v1/generate-pdf`, {
+        fetch(`http://${api}:${portApi}/api/v1/gene-cdd`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -229,8 +185,6 @@ const downloadBtn = async () => {
 </script>
 
 <template>
-    <Nav v-if="isAuthenticate"></Nav>
-    <span v-if="isLoadingPdf" class="loaderPdf"></span>
     <div class="table-container">
         <div>
             <v-text-field v-model="searchTable1" variant="solo-filled"
@@ -266,24 +220,11 @@ const downloadBtn = async () => {
             <div class="file-select" id="src-file1">
                 <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
             </div>
-            
+
             <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
                 width="160" @click="fGeneratePdf">
                 Generar .PDF
             </v-btn>
         </div>
-
-
     </div>
-    <!--<Footer v-if="isAuthenticate"></Footer>-->
 </template>
-
-<style scoped>
-.rightBtn,
-.deleteBtn {
-    display: block;
-    /* Asegura que los botones ocupen todo el ancho disponible */
-    margin-bottom: 10px;
-    /* Espacio entre los botones */
-}
-</style>

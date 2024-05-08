@@ -5,7 +5,7 @@ import logoChange from "@/views/logoChange.vue";
 import AdminSupermarket from "@/components/AdminSupermarket.vue";
 import TablaComboDaka from "@/components/TablaComboDaka.vue";
 import { createRouter, createWebHistory } from "vue-router";
-
+import TableDataCdd from "@/components/TableDataCdd.vue";
 
 var token = null;
 
@@ -70,6 +70,12 @@ const router = createRouter({
       component: logoChange,
       beforeEnter: isAuthenticate,
     },
+    {
+      path: "/table-data-cdd",
+      name: "TableDataCdd",
+      component: TableDataCdd,
+      beforeEnter: isAuthenticate,
+    }
   ],
 });
 

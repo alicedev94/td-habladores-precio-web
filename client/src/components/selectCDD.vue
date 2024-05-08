@@ -8,7 +8,7 @@
             </v-radio-group>
 
             <v-card-actions>
-                <v-btn variant="elevated" color="#d0fdd7" :loading="false" @click="">
+                <v-btn variant="elevated" color="#d0fdd7" :loading=false @click="btnAceptar">
                     ACEPTAR
                 </v-btn>
             </v-card-actions>
@@ -17,5 +17,10 @@
 </template>
 
 <script setup>
+import router from '@/router';
+
+const btnAceptar = () => { 
+    router.push(`/table-data-cdd/`)
+}
 </script>
 <style></style>

@@ -22,13 +22,16 @@ const portApi = 3001;
 
 const items = ref([])
 const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
+const loading = ref(false)
 
 // Functions
 const generarSupermercado = async () => {
     // const response = await axios.get(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`);
     // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
     setTimeout(() => {
+        loading.value = true
         router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
+        loading.value = false
     }, 1000)
 }
 
@@ -77,7 +80,7 @@ watch(selectData.value.typeTalker, ()=> {
 
             <div class="text-caption">Paso 4:</div>
             <v-card-actions>
-                <v-btn variant="elevated" color="#d0fdd7" :loading="false" :disabled="selectData.typeTalker === ''"
+                <v-btn variant="elevated" color="#d0fdd7" :loading="loading" :disabled="selectData.typeTalker === ''"
                     @click="generarSupermercado">
                     ACEPTAR
                 </v-btn>

@@ -54,6 +54,9 @@ const {
   habladorUltimasM,
 } = require("../controllers/ultimasExistenciasMediano");
 
+// Logica del cdd
+const { dataCdd, geneCdd } = require("../controllers/cdd.controller");
+
 // GET
 router.get("/", async (req, res) => {
   const rta = await findAll();
@@ -106,45 +109,12 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-// router.post("/generate-pdf", async (req, res) => {
-//   console.log(req.body);
-//   res.json({ oye: "todo bien"})
-// });
-
-// router.get("/download", (req, res) => {
-//   const stream = res.writeHead(200, {
-//     "Content-Type": "application/pdf",
-//     "Content-Disposition": "attachment; filename=alicePdf.pdf",
-//   });
-
-//   buildPdf(
-//     (data) => stream.write(data),
-//     () => stream.end()
-//   );
-// });
-
-// router.get("/download", (req, res) => {
-//   let noData = data;
-//   // console.log(noData);
-
-//   // const stream = res.writeHead(200, {
-//   //   "Content-Type": "application/pdf",
-//   //   "Content-Disposition": "attachment; filename=alicePdf.pdf",
-//   // });
-
-//   // buildPdf(
-//   //   (data) => stream.write(data),
-//   //   () => stream.end(),
-//   //   noData
-//   // );
-// });
 
 router.post("/generate-pdf", async (req, res) => {
   // console.log(req.body);
   const { data, list, sizeTalker } = req.body;
 
   // console.log(req.body);
-
   try {
     if (sizeTalker === "0") {
       // HABLADOR PEQUEÑO
@@ -306,12 +276,40 @@ router.post("/generate-super-pdf", async (req, res) => {
   }
 });
 
+
+
 // EN PROCESO DE VALIDACIÓN
 router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
   const { list, size, type, sucur } = req.params;
   const rta = await productsSupermarket(list, size, type, sucur);
   res.json(rta[0]);
+});
+
+// EN PROCESO DE VALIDACION 2 
+router.post(`/gene-cdd`, async(req, res) => {
+  const { data, list, sizeTalker } = req.body;
+
+  const proData = modelData(data);
+  proData.forEach((obj) => {
+    obj.priceTalkerList = list;
+  });
+
+  const noData = proData;
+
+  console.log("DATA EN EL CDD", noData);
+
+  const stream = res.writeHead(200, {
+    "Content-Type": "application/pdf",
+    "Content-Disposition": "attachment; filename=alicePdf.pdf",
+  });
+
+  await smallPriceTalker(  // hasta este punto es totalmente funcional [smallPriceTalker]
+    (data) => stream.write(data),
+    () => stream.end(),
+    noData
+  );
+  // GENERAR EL HABLADOR DEL CDD
 });
 
 router.post(`/arma-combo`, async (req, res) => {
@@ -385,4 +383,11 @@ router.get("/fakeapi", async (req, res) => {
   // const fakeapi = await fakeapi();
   res.json({ data: "alicedev94 in ubuntu" });
 });
+
+// nuevas rutas 
+router.get("/tabla-data-cdd", async (req, res)=> {
+  const response = await dataCdd();
+  res.json(response[0]);
+});
+
 module.exports = router;

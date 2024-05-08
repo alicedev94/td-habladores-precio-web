@@ -131,7 +131,7 @@ const btnSend_2 = () => {
                 <Image imagen="/hablador_supermercado.png" />
             </v-window-item>
             <v-window-item :value="tabOptions.three" class="display">
-                <SelectCDD></SelectCDD>
+                <SelectCDD />
                 <Image imagen="/habladorCDD.png" />
                 <!-- <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
                     v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
