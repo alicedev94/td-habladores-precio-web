@@ -4,6 +4,25 @@ const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
+// DATOS DE PRUEBAS PARA EL CDD
+let datos_cdd_prueba = [
+  {
+    codigo_prueba: "00_1",
+    nombre_prueba: "phone",
+    precio_prueba: 700,
+  },
+  {
+    codigo_prueba: "00_2",
+    nombre_prueba: "tablet",
+    precio_prueba: 673,
+  },
+  {
+    codigo_prueba: "00_3",
+    nombre_prueba: "headphones",
+    precio_prueba: 120,
+  },
+];
+
 // VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 let n1cm = 37.8;
 let divisor = 0;
@@ -56,75 +75,100 @@ const geneCdd = async (inicio, fin, datos) => {
     valign: "center",
   });
 
-  for (let index = 0; index < campos.length; index++) {
-    // RE-CUADRO DEL TITULO
-    doc
-      .roundedRect(
-        reCuadroTitulo.x - n1cm / 2,
-        reCuadroTitulo.y + divisor,
-        reCuadroTitulo.with,
-        reCuadroTitulo.height,
-        reCuadroTitulo.radio
-      )
-      .stroke();
-
-    // TITULO
-    doc
-      .font(
-        path.join(
-          priceTalkerFontPath,
-          "fonts",
-          "SpecifyPersonalCondensedBlack-Eg2g.ttf"
-        )
-      )
-      .fontSize(fontSize)
-      .text(
-        `${campos[index].toLocaleUpperCase()}:`,
-        reCuadroTitulo.x,
-        reCuadroTitulo.y + divisor,
-        {
-          align: "left",
-        }
-      ),
-      // RECUADRO VALOR
-      doc
-        .roundedRect(
-          reCuadroTitulo.x + n1cm * 8.1,
-          reCuadroTitulo.y + divisor,
-          n1cm * 10,
-          reCuadroTitulo.height,
-          reCuadroTitulo.radio
-        )
-        .stroke();
-    // CONTROLA LA DISTASNCIA DE CADA RECUADRO POR VUELTA
-    if (index == 3) {
-      // SI ES EL CAMPO CANTIDAD LLEVA OTRO FORMATO
-      reCuadroTitulo.height += reCuadroTitulo.height * 1.5;
-
-      // SUBTITULO EN EL ULTIMO CAMPO
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "fonts",
-            "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+  // PARA EL DISEÑO DE HABLADORES POR DATO
+  datos_cdd_prueba.forEach((producto, index) => {
+    // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
+    if (index == 0) {
+      for (let index = 0; index < campos.length; index++) {
+        // RE-CUADRO DEL TITULO
+        doc
+          .roundedRect(
+            reCuadroTitulo.x - n1cm / 2,
+            reCuadroTitulo.y + divisor,
+            reCuadroTitulo.with,
+            reCuadroTitulo.height,
+            reCuadroTitulo.radio
           )
-        )
-        .fontSize(fontSize)
-        .text(
-          "UNIDADES",
-          reCuadroTitulo.x + n1cm * 14.5,
-          reCuadroTitulo.y + n1cm * 3.7 + divisor,
-          {
-            align: "left",
-          }
-        ),
-        // SEGUIR CON EL CURSO DE LA APP
-        (divisor += n1cm * 2);
-    } else {
-      divisor += n1cm * 2;
+          .stroke();
+
+        // TITULO
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "fonts",
+              "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+            )
+          )
+          .fontSize(fontSize)
+          .text(
+            `${campos[index].toLocaleUpperCase()}:`,
+            reCuadroTitulo.x,
+            reCuadroTitulo.y + divisor,
+            {
+              align: "left",
+            }
+          ),
+          // RECUADRO VALOR
+          doc
+            .roundedRect(
+              reCuadroTitulo.x + n1cm * 8.1,
+              reCuadroTitulo.y + divisor,
+              n1cm * 10,
+              reCuadroTitulo.height,
+              reCuadroTitulo.radio
+            )
+            .stroke();
+        // PRODUCTOS VALOR
+        doc
+          .font(
+            path.join(
+              priceTalkerFontPath,
+              "fonts",
+              "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+            )
+          )
+          .fontSize(fontSize)
+          .text(
+            `${producto.nombre_prueba.toLocaleUpperCase()}`,
+            reCuadroTitulo.x + n1cm * 8.1,
+            reCuadroTitulo.y + divisor,
+            {
+              align: "left",
+            }
+          );
+
+        // CONTROLA LA DISTASNCIA DE CADA RECUADRO POR VUELTA
+        if (index == 3) {
+          // SI ES EL CAMPO CANTIDAD LLEVA OTRO FORMATO
+          reCuadroTitulo.height += reCuadroTitulo.height * 1.5;
+
+          // SUBTITULO EN EL ULTIMO CAMPO
+          doc
+            .font(
+              path.join(
+                priceTalkerFontPath,
+                "fonts",
+                "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+              )
+            )
+            .fontSize(fontSize)
+            .text(
+              "UNIDADES",
+              reCuadroTitulo.x + n1cm * 14.5,
+              reCuadroTitulo.y + n1cm * 3.7 + divisor,
+              {
+                align: "left",
+              }
+            ),
+            // SEGUIR CON EL CURSO DE LA APP
+            (divisor += n1cm * 2);
+        } else {
+          divisor += n1cm * 2;
+        }
+      }
     }
-  }
+  });
 
   // REINICIAR VARIABLES DESPUES DE USO
   reCuadroTitulo.X = n1cm * 2;

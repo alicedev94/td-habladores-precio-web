@@ -54,7 +54,7 @@ const priceTalkerfontSize = 12;
 const priceTalkerFontSizePrice = 30;
 
 // -- Contenido estático
-const priceTalkerWidthText = 221;
+const priceTalkerWidthText = 300;
 const priceTalkerFontPath = process.cwd();
 
 // Controlador de flujo para la generación de habladores

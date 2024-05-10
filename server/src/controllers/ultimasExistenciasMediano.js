@@ -8,7 +8,6 @@ const moment = require("moment-timezone");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
-const { log } = require("console");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -48,7 +47,7 @@ const priceTalkerFontSizePrice = 50; // Ajustado
 const priceTalkerFontSizePriceNew = 80; // Ajustado
 
 // -- Contenido estático
-const priceTalkerWidthText = 110.5; // Ajustado
+const priceTalkerWidthText = 37.80 * 6; // Ajustado
 const priceTalkerFontPath = process.cwd();
 
 // Controlador de flujo para la generación de habladores
@@ -78,8 +77,8 @@ const habladorUltimasM = async (dataCallback, endCallback, priceTalkerData) => {
       .fontSize(priceTalkerFontSizePrice)
       .text(
         `$${precioTachado}`,
-        priceTalkerPositionPriceX + 18.90,
-        priceTalkerPositionPriceY + 5.67 + 75.59 - 18.90 // Ajustado
+        priceTalkerPositionPriceX + 18.9 + 37.80,
+        priceTalkerPositionPriceY + 5.67 + 75.59 - 37.80 // Ajustado
       );
     // PRECIO
     doc
@@ -87,35 +86,35 @@ const habladorUltimasM = async (dataCallback, endCallback, priceTalkerData) => {
       .fontSize(priceTalkerFontSizePriceNew) // Ajustado
       .text(
         `$${precio}`,
-        priceTalkerPositionPriceX + 56.695 + 37.80, // Ajustado fala 1cm
+        priceTalkerPositionPriceX + 56.695 + 37.8, // Ajustado fala 1cm
         priceTalkerPositionPriceY + 37.795 + 75.59 // Ajustado + 4cm
       );
     // CODIGO SAP
-    // doc
-    //   .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-    //   .fontSize(priceTalkerfontSize) // Ajustado
-    //   .text(
-    //     `${product.priceTalkerSapCode}`,
-    //     priceTalkerPositionPriceX + 56.695 + 75.59, // Ajustado
-    //     priceTalkerPositionPriceY - 9.45, // Ajustado
-    //     {
-    //       width: 141.73, // Ajustado
-    //       align: "center",
-    //     }
-    //   );
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerfontSize) // Ajustado
+      .text(
+        `${product.priceTalkerSapCode}`,
+        priceTalkerPositionPriceX + 56.695 + 75.59 + 37.80 + 37.80, // Ajustado
+        priceTalkerPositionPriceY - 9.45, // Ajustado
+        {
+          width: priceTalkerWidthText, // Ajustado
+          align: "center",
+        }
+      );
     // DESCRIPCION DEL ARTICULO
-    // doc
-    //   .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-    //   .fontSize(priceTalkerfontSize) // Ajustado
-    //   .text(
-    //     `${product.priceTalkerdescription}`,
-    //     priceTalkerPositionPriceX + 56.695 + 75.59, // Ajustado
-    //     priceTalkerPositionPriceY + 15.12 - 9.45, // Ajustado
-    //     {
-    //       width: 141.73, // Ajustado
-    //       align: "center",
-    //     }
-    //   );
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerfontSize) // Ajustado
+      .text(
+        `${product.priceTalkerdescription}`,
+        priceTalkerPositionPriceX + 56.695 + 75.59 + 37.80 + 37.80, // Ajustado
+        priceTalkerPositionPriceY + 15.12, // Ajustado
+        {
+          width: priceTalkerWidthText, // Ajustado
+          align: "center",
+        }
+      );
   }
 
   doc.end();
