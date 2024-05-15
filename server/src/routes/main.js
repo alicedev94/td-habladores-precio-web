@@ -48,14 +48,18 @@ const {
 
 const { armaCombo } = require("../controllers/main.super.market");
 
-const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
-
 const {
   habladorUltimasM,
 } = require("../controllers/ultimasExistenciasMediano");
 
-// Logica del cdd
+// RUTRAS PARA EL NUEVO LAYOUT 
+// RUTAS PARA EL CDD ACA LOS DATOS Y EL PDF DEL HABLADOR PARA CDD 
 const { dataCdd, geneCdd } = require("../controllers/cdd.controller");
+
+// RUTA PARA LA GENERACION DE PROMO
+const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
+const { PromoDakaM } = require("../controllers/habladorPromoDakaM");
+
 
 // GET
 router.get("/", async (req, res) => {
@@ -199,13 +203,12 @@ router.post("/generate-super-pdf", async (req, res) => {
       // TAMAÑO DEL HABLADOR
       if (sizeTalker === "1") {
         // PROMO MEDIANO
-        console.log("esto es un hablador mediano");
         const stream = res.writeHead(200, {
           "Content-Type": "application/pdf",
           "Content-Disposition": "attachment; filename=alicePdf.pdf",
         });
 
-        await habladorUltomasM(
+        await PromoDakaM(
           (data) => stream.write(data),
           () => stream.end(),
           data
