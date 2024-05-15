@@ -109,14 +109,14 @@ const rightBtn = async () => {
 
         armaCombo.value.forEach((element, index) => {
             let data = {}
-            console.log(armaCombo.value[index]);
             data.product = armaCombo.value[index].Cabecera
             data.details = armaCombo.value[index];
             master.push(data)
             //expoListProduct.value = expoListProduct.value.concat(armaCombo.value[index]);
         });
 
-        // console.log(master);
+        // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
+        console.log(master);
         items.value = master
         // console.log(items.value);
         master = []
@@ -314,25 +314,23 @@ const filteredItems = computed(() => {
             <v-btn class="deleteBtn" size="small" variant="outlined" @click="deleteBtn">Eliminar</v-btn>
         </div>
 
+    <!-- nuevo template de pruebas para la segunda tabla -->
+    <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
+    <v-data-table :headers="headers2" :items="filteredItems">
+        <template v-slot:item.details="{ item }">
+            <v-list>
+                <v-list-item v-for="(detail, i) in item.details" :key="i">
+                    <v-list-item-content> {{ detail }} </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </template>
+    </v-data-table>
+    <!-- s -->
+        <v-btn size="small" class="btn-generate-pdf" append-icon="mdi-download" color="red" width="160"
+            @click="fGeneratePdf">
+            Generar .PDF
+        </v-btn>
 
-        <div> <!-- nuevo template de pruebas para la segunda tabla -->
-            <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
-            <v-data-table :headers="headers2" :items="filteredItems">
-                <template v-slot:item.details="{ item }">
-                    <v-list>
-                        <v-list-item v-for="(detail, i) in item.details" :key="i">
-                            <v-list-item-content> {{ detail.Codigo }} </v-list-item-content>
-                            <v-list-item-content> {{ ' ' + detail.Nombre }} </v-list-item-content>
-                        </v-list-item>
-                    </v-list>
-                </template>
-            </v-data-table>
-            <v-btn size="small" class="btn-generate-pdf" append-icon="mdi-download" color="red"
-                width="160" @click="fGeneratePdf">
-                Generar .PDF
-            </v-btn>
-            <!-- s -->
-        </div>
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
 

@@ -77,10 +77,12 @@ const geneCdd = async (inicio, fin, datos) => {
 
   // PARA EL DISEÑO DE HABLADORES POR DATO
   datos_cdd_prueba.forEach((producto, index) => {
+    console.log("hablador por dato,", producto);
     // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
     if (index == 0) {
       for (let index = 0; index < campos.length; index++) {
         // RE-CUADRO DEL TITULO
+        console.log("hablador por titulo,", producto);
         doc
           .roundedRect(
             reCuadroTitulo.x - n1cm / 2,
@@ -102,7 +104,7 @@ const geneCdd = async (inicio, fin, datos) => {
           )
           .fontSize(fontSize)
           .text(
-            `${campos[index].toLocaleUpperCase()}:`,
+            `${producto[index]}:`, // .toLocaleUpperCase()
             reCuadroTitulo.x,
             reCuadroTitulo.y + divisor,
             {
@@ -120,23 +122,26 @@ const geneCdd = async (inicio, fin, datos) => {
             )
             .stroke();
         // PRODUCTOS VALOR
-        doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "fonts",
-              "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+        let propiedad_producto = Object.keys(producto);
+        for (let i = 0; i < propiedad_producto.length; i++) {
+          doc
+            .font(
+              path.join(
+                priceTalkerFontPath,
+                "fonts",
+                "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+              )
             )
-          )
-          .fontSize(fontSize)
-          .text(
-            `${producto.nombre_prueba.toLocaleUpperCase()}`,
-            reCuadroTitulo.x + n1cm * 8.1,
-            reCuadroTitulo.y + divisor,
-            {
-              align: "left",
-            }
-          );
+            .fontSize(fontSize)
+            .text(
+              `${propiedad_producto[i].toLocaleUpperCase()}`,
+              reCuadroTitulo.x + n1cm * 8.1,
+              reCuadroTitulo.y + divisor,
+              {
+                align: "left",
+              }
+            );
+        }
 
         // CONTROLA LA DISTASNCIA DE CADA RECUADRO POR VUELTA
         if (index == 3) {
