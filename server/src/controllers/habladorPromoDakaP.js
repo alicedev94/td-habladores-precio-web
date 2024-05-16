@@ -26,7 +26,7 @@ const priceTalkerFontSizePriceNew = 80;
 const priceTalkerWidthText = n1cm * 7;
 const priceTalkerFontPath = process.cwd();
 
-const PromoDakaM = async (dataCallback, endCallback, datos) => {
+const PromoDakaP = async (dataCallback, endCallback, datos) => {
   datos.forEach((dato, index) => {
     if (index != 0) {
       // CUALQUIER HABLADOR DE SUPERMERCADO SE PUEDE SACAR SOLO (1) UNO A A LA VEZ.
@@ -91,5 +91,5 @@ const PromoDakaM = async (dataCallback, endCallback, datos) => {
 };
 
 module.exports = {
-  PromoDakaM,
+  PromoDakaP,
 };
