@@ -1,6 +1,4 @@
 const { Router } = require("express");
-const path = require("path");
-const fs = require("fs");
 
 const router = Router();
 const {
@@ -15,13 +13,7 @@ const {
   findByEmail,
   priceList,
   productsSupermarket,
-  fakeapi,
 } = require("../controllers/main");
-
-// const { proccessData } = require('../controllers/debug.controller');
-const {
-  bigPriceTalker,
-} = require("../controllers/priceTalkerPdfGrande.controller");
 
 const {
   bigNewPriceTalker,
@@ -31,17 +23,10 @@ const {
   smallPriceTalker,
 } = require("../controllers/priceTalkerPdfPequeno.controller");
 
-const { createFolder } = require("../controllers/createFolder.controller");
-
-const { calculateIva } = require("../controllers/calculate.controller");
-
 const { uploadImage, upload } = require("../controllers/changeLogo.controller");
 
 const { changeLogo } = require("../controllers/remplaceRoute.controller");
 
-const { buildPdf } = require("../controllers/pdfkit.down.controller");
-
-const { priceTalkerTest } = require("../controllers/habladores.pruebas");
 const {
   habladorUltimasExistenciasG,
 } = require("../controllers/habladorUltimasExistenciasG");
@@ -52,14 +37,14 @@ const {
   habladorUltimasM,
 } = require("../controllers/ultimasExistenciasMediano");
 
-// RUTRAS PARA EL NUEVO LAYOUT 
-// RUTAS PARA EL CDD ACA LOS DATOS Y EL PDF DEL HABLADOR PARA CDD 
+// RUTRAS PARA EL NUEVO LAYOUT
+// RUTAS PARA EL CDD ACA LOS DATOS Y EL PDF DEL HABLADOR PARA CDD
 const { dataCdd, geneCdd } = require("../controllers/cdd.controller");
 
 // RUTA PARA LA GENERACION DE PROMO
 const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
 const { PromoDakaM } = require("../controllers/habladorPromoDakaM");
-
+const { PromoDakaP } = require("../controllers/habladorPromoDakaP");
 
 // GET
 router.get("/", async (req, res) => {
@@ -113,12 +98,9 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-
 router.post("/generate-pdf", async (req, res) => {
-  // console.log(req.body);
   const { data, list, sizeTalker } = req.body;
 
-  // console.log(req.body);
   try {
     if (sizeTalker === "0") {
       // HABLADOR PEQUEÑO
@@ -201,7 +183,19 @@ router.post("/generate-super-pdf", async (req, res) => {
     if (typeTalker === "0") {
       // PROMO DAKA (COMBOS)
       // TAMAÑO DEL HABLADOR
-      if (sizeTalker === "1") {
+      if (sizeTalker === "0") {
+        // PROMO MEDIANO
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+
+        await PromoDakaP(
+          (data) => stream.write(data),
+          () => stream.end(),
+          data
+        );
+      } else if (sizeTalker === "1") {
         // PROMO MEDIANO
         const stream = res.writeHead(200, {
           "Content-Type": "application/pdf",
@@ -279,8 +273,6 @@ router.post("/generate-super-pdf", async (req, res) => {
   }
 });
 
-
-
 // EN PROCESO DE VALIDACIÓN
 router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
@@ -289,8 +281,8 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   res.json(rta[0]);
 });
 
-// EN PROCESO DE VALIDACION 2 
-router.post(`/gene-cdd`, async(req, res) => {
+// EN PROCESO DE VALIDACION 2
+router.post(`/gene-cdd`, async (req, res) => {
   const { data, list, sizeTalker } = req.body;
 
   const proData = modelData(data);
@@ -307,7 +299,8 @@ router.post(`/gene-cdd`, async(req, res) => {
     "Content-Disposition": "attachment; filename=alicePdf.pdf",
   });
 
-  await geneCdd(  // hasta este punto es totalmente funcional [smallPriceTalker]
+  await geneCdd(
+    // hasta este punto es totalmente funcional [smallPriceTalker]
     (data) => stream.write(data),
     () => stream.end(),
     noData
@@ -325,7 +318,6 @@ router.post(`/arma-combo`, async (req, res) => {
 router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
   const { list, sucur, sizeTalker } = req.params;
   const { sapCode } = req.body;
-  // console.log(sapCode[0].length);
 
   if (sapCode[0].length > 5000) {
     res.json({
@@ -387,8 +379,8 @@ router.get("/fakeapi", async (req, res) => {
   res.json({ data: "alicedev94 in ubuntu" });
 });
 
-// nuevas rutas 
-router.get("/tabla-data-cdd", async (req, res)=> {
+// nuevas rutas
+router.get("/tabla-data-cdd", async (req, res) => {
   const response = await dataCdd();
   res.json(response[0]);
 });
