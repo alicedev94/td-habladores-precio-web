@@ -42,7 +42,7 @@ onMounted(async () => {
     userSucursal.value = idSucursal
 })
 
-watch(selectDataSuperMarket.typeList,() => {
+watch(selectDataSuperMarket, () => {
     console.log(selectDataSuperMarket.typeList);
 })
 

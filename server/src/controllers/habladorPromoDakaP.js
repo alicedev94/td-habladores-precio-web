@@ -10,11 +10,12 @@ const { generarPrecio } = require("../controllers/funciones.hablador");
 LA FRASE POSICIÓN */
 const n1cm = 37.8; // REPRESENTACION APROXIMADA DE 1CM CUADRADO EN EL PDF
 
-let precioTachadoP = { x: (n1cm * 4.49), y: (n1cm * 4.39)/1.5};
-let precioFullP = { X: (n1cm * 5.9), Y: (n1cm * 5.9)/1.5};
-let codigoSap = { x: (n1cm * 8.4), y: (n1cm * 3.9)/1.5};
-let descripcion = { x: (n1cm * 8.4), y: (n1cm * 4.6)/1.5};
-let garantiaP = { x: (n1cm * 8.4), y: (n1cm * 5.8)/1.5};
+let precioTachadoP = { x: (n1cm * 13.5), y: (n1cm * 7.9)};
+let codigoSap = { x: (n1cm * 16.8), y: (n1cm * 7.4)};
+let descripcion = { x: (n1cm * 16.8), y: (n1cm * 7.8)};
+let garantiaP = { x: (n1cm * 16.8), y: (n1cm * 8.4)};
+let precioFullP = { X: (n1cm * 14.5), Y: (n1cm * 8.8)};
+
 let altura = n1cm * 1.5;
 
 // Fuente
@@ -36,7 +37,7 @@ const PromoDakaP = async (dataCallback, endCallback, datos) => {
       let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
         dato.product;
 
-      const doc = new PDFDocument({ size: "A4", layout: "portrait" });
+      const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
       doc.on("data", dataCallback);
       doc.on("end", endCallback);
