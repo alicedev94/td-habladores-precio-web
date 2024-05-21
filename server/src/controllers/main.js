@@ -229,20 +229,17 @@ const productsSupermarket = async (list, size, type, sucur) => {
 
   // HABLADOR ESTANDAR
   const response = await sequelize.query(`
-    SELECT DISTINCT [Codigo]
-    ,[Nombre]
-    ,[Marca]
-    ,[Garantia]
-    ,[CodigoBarra]
-    ,[PrecioaMostrar]
-    ,[IdHablador]
-     ,[CodigoServicio]
-  [PrecioServicio]
-    FROM  [dbo].[HabladoresTiendas]
+  SELECT DISTINCT [Codigo]
+      ,[Nombre]
+      ,[Marca]
+      ,[Garantia]
+      ,[CodigoBarra]
+      ,[PrecioaMostrar]
+      ,[PrecioTachado]
+  FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
-
   return response;
 };
 
@@ -396,7 +393,7 @@ const modelData = (data) => {
       priceTalkerIdHablador: item.IdHablador,
       priceTalkerService: item.CodigoServicio,
       priceTalkerServicePrice: item.PrecioServicio,
-      precioTachado: item.PrecioTachado,
+      precioTachado: item.PrecioTachado
     });
   });
 
