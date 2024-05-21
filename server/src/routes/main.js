@@ -178,7 +178,7 @@ router.post("/generate-pdf", async (req, res) => {
 router.post("/generate-super-pdf", async (req, res) => {
   // SUPER MERCADO
   const { data, list, sizeTalker, typeTalker } = req.body;
-
+ 
   try {
     if (typeTalker === "0") {
       // PROMO DAKA (COMBOS)

@@ -231,7 +231,7 @@ const productsSupermarket = async (list, size, type, sucur) => {
   const response = await sequelize.query(`
     SELECT DISTINCT *
    ,[Lista Precio] 'ListaPrecio'
-    FROM  [dbo].[HabladoresTiendas_supermercado]
+    FROM  [dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);

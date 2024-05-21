@@ -34,4 +34,12 @@ const generarPrecio = (precio, listaPrecio) => {
   // FIN DEL BLOQUE DE CODIGO
 };
 
-module.exports = { generarPrecio };
+const validarTachado = (tachado, precio) => {
+  // 0 ES UN ERROR Y 1 SIGMNIFICA QUE PROCEDE
+  return (tachado <= precio - 5) ? 1 : 0;
+}
+
+const response = validarTachado(150, 110);
+console.log(response);
+
+module.exports = { generarPrecio, validarTachado };
