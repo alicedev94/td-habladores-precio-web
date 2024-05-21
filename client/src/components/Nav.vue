@@ -29,19 +29,33 @@ onMounted(() => {
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
 
+    // Conjunto de rutas permitidas
+    const allowedRoutes = [
+        'table-data',
+        'marketing',
+        'table-data-supermarket',
+        'table-data-supermarket-combo',
+        'table-data-cdd'
+    ];
+
     // Comprueba si estás en la ruta correcta
-    if ((segmentos[1] === 'table-data' && segmentos.length === 5) || (segmentos[1] === 'marketing' && segmentos[2] === 'logo-change')) {
-        // RUTA CORRECTA 
-        back.value = true
+    if (allowedRoutes.includes(segmentos[1])) {
+        if (segmentos[1] === 'table-data' && segmentos.length !== 5) {
+            back.value = false; // RUTA INCORRECTA
+        } else if (segmentos[1] === 'marketing' && segmentos[2] !== 'logo-change') {
+            back.value = false; // RUTA INCORRECTA
+        } else {
+            back.value = true; // RUTA CORRECTA
+        }
     } else {
-        // RUTA INCORRECTA 
-        back.value = false
+        back.value = false; // RUTA INCORRECTA
     }
+
 
     // console.log("todo bien");
 })
 
-    // functions 
+// functions 
 const handleClick = () => {
     router.push("/");
 }
@@ -51,8 +65,8 @@ const handleClick = () => {
 <template>
     <div class="nav-container">
         <v-toolbar class="nav" dark prominent color="#00308F">
-            <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150" align-self="start"
-                @click="handleClick" />
+            <v-img class="img-logo" src="/logo_daka.png" alt="Logo de la empresa" contain max-width="150"
+                align-self="start" @click="handleClick" />
 
             <v-btn v-if="isMarketing" class="btnRedirectBack" variant="elevated">
                 <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a>

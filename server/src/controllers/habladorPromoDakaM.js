@@ -3,7 +3,10 @@ const PDFDocument = require("pdfkit");
 const path = require("path");
 
 // FUNCIONES
-const { generarPrecio } = require("../controllers/funciones.hablador");
+const {
+  generarPrecio,
+  validarTachado,
+} = require("../controllers/funciones.hablador");
 
 // NUEVAS VARIABLES PARA EL LAYOUT DE HABLADORES
 /* NOTA: LA LETRA (P) AL FINAL DEL CADA VARIABLE INDICA EN ESPAÑOL 
@@ -27,67 +30,84 @@ const priceTalkerWidthText = n1cm * 7;
 const priceTalkerFontPath = process.cwd();
 
 const PromoDakaM = async (dataCallback, endCallback, datos) => {
+  // GENERADO Y DESCARGA DEL FORMATO PDF
+  const doc = new PDFDocument({ size: "A4", layout: "portrait" });
+
+  doc.on("data", dataCallback);
+  doc.on("end", endCallback);
+
   datos.forEach((dato, index) => {
+    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
+      dato.product;
+
     if (index != 0) {
-      // CUALQUIER HABLADOR DE SUPERMERCADO SE PUEDE SACAR SOLO (1) UNO A A LA VEZ.
-      return;
-    } else {
-      // GENERADO Y DESCARGA DEL FORMATO PDF
-      let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
-        dato.product;
-
-      const doc = new PDFDocument({ size: "A4", layout: "portrait" });
-
-      doc.on("data", dataCallback);
-      doc.on("end", endCallback);
-
-      for (let i = 0; i < datos.length; i++) {
-        const precio = generarPrecio(
-          PrecioaMostrar,
-          dato.product["Lista Precio"]
-        );
-
-        // PRECIO TACHADO
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(priceTalkerFontSizePrice)
-          .text(`$${PrecioTachado}`, precioTachadoP.x, precioTachadoP.y);
-        // PRECIO
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(priceTalkerFontSizePriceNew)
-          .text(`$${precio}`, precioFullP.X, precioFullP.Y);
-        // CODIGO SAP
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(priceTalkerfontSize)
-          .text(`${Codigo}`, codigoSap.x, codigoSap.y, {
-            width: priceTalkerWidthText,
-            align: "center",
-          });
-        // DESCRIPCION DEL ARTICULO
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(priceTalkerfontSize)
-          .text(`${Nombre}`, descripcion.x, descripcion.y, {
-            width: priceTalkerWidthText,
-            height: altura,
-            align: "center",
-          });
-        // GARANTIA
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(priceTalkerfontSize)
-          .text(`Tiempo de Garantía de ${Garantia} Días`, garantiaP.x, garantiaP.y, {
-            width: priceTalkerWidthText,
-            height: altura,
-            align: "center",
-          });
-      }
-
-      doc.end();
+      // Agrega una nueva página para cada producto después del primero
+      doc.addPage();
     }
+
+    var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
+
+    const precio = generarPrecio(PrecioaMostrar, dato.product["Lista Precio"]);
+
+    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
+    if (rtaPrecio != 0) {
+      // ERROR PRECIO TACHADO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(7.5)
+        .fillColor("red")
+        .text(
+          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          precioTachadoP.x,
+          precioTachadoP.y - n1cm
+        );
+    }
+
+    // PRECIO TACHADO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerFontSizePrice)
+      .fillColor("black")
+      .text(`$${PrecioTachado}`, precioTachadoP.x, precioTachadoP.y);
+    // PRECIO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerFontSizePriceNew)
+      .text(`$${precio}`, precioFullP.X, precioFullP.Y);
+    // CODIGO SAP
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerfontSize)
+      .text(`${Codigo}`, codigoSap.x, codigoSap.y, {
+        width: priceTalkerWidthText,
+        align: "center",
+      });
+    // DESCRIPCION DEL ARTICULO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerfontSize)
+      .text(`${Nombre}`, descripcion.x, descripcion.y, {
+        width: priceTalkerWidthText,
+        height: altura,
+        align: "center",
+      });
+    // GARANTIA
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerfontSize)
+      .text(
+        `Tiempo de Garantía de ${Garantia} Días`,
+        garantiaP.x,
+        garantiaP.y,
+        {
+          width: priceTalkerWidthText,
+          height: altura,
+          align: "center",
+        }
+      );
   });
+
+  doc.end();
 };
 
 module.exports = {

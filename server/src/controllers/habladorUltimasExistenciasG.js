@@ -49,7 +49,7 @@ const habladorUltimasExistenciasG = async (
         .text(
           "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
           priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY + 11.34
+          priceTalkerPositionPriceY - 37.80
         );
     }
 
