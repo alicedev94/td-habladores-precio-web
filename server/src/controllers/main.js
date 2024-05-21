@@ -229,8 +229,15 @@ const productsSupermarket = async (list, size, type, sucur) => {
 
   // HABLADOR ESTANDAR
   const response = await sequelize.query(`
-    SELECT DISTINCT *
-   ,[Lista Precio] 'ListaPrecio'
+    SELECT DISTINCT [Codigo]
+    ,[Nombre]
+    ,[Marca]
+    ,[Garantia]
+    ,[CodigoBarra]
+    ,[PrecioaMostrar]
+    ,[IdHablador]
+     ,[CodigoServicio]
+  [PrecioServicio]
     FROM  [dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
@@ -389,6 +396,7 @@ const modelData = (data) => {
       priceTalkerIdHablador: item.IdHablador,
       priceTalkerService: item.CodigoServicio,
       priceTalkerServicePrice: item.PrecioServicio,
+      precioTachado: item.PrecioTachado,
     });
   });
 

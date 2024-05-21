@@ -35,7 +35,7 @@ const generarPrecio = (precio, listaPrecio) => {
 };
 
 const validarTachado = (tachado, precio) => {
-  // 0 ES UN ERROR Y 1 SIGMNIFICA QUE PROCEDE
+  // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
   return (tachado <= precio - 5) ? 1 : 0;
 }
 

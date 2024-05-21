@@ -1,46 +1,11 @@
 // -- LIBRERÍAS --
 const PDFDocument = require("pdfkit");
-const fs = require("fs");
 const path = require("path");
-const pathLogo = require("../img/index");
-const bwipjs = require("bwip-js");
-const moment = require("moment-timezone");
-
-// LOGO DIRECCION DE LOGO DINAMICO
-const dirnameLogo = require("../routes/uploads/index");
-const { log } = require("console");
-var logoName = "PRUEBA.png";
-
-// -- VARIABLES --
-
-// GLOBAL PRECIO PARA EL CALCULO DE PRECIO SEGUN CADA HALADOR
-var precio = 0;
+const { generarPrecio ,validarTachado } = require("../controllers/funciones.hablador");
 
 // Posición
-let boxPositionX = 0;
-let boxPositionY = 0;
-let priceTalkerDescriptionPositionX = 0;
-let priceTalkerDescriptionPositionY = 98;
-let priceTalkerBrandPositionX = 103;
-let priceTalkerBrandPositionY = 81;
 let priceTalkerPositionPriceX = 264.57 - 37.8;
 let priceTalkerPositionPriceY = 226.77 - 18.9;
-let priceTalkerLogoPositionX = 339;
-let priceTalkerLogoPositionY = 84;
-let priceTalkerCodeSapX = 212;
-let priceTalkerCodeSapY = 163;
-let priceTalkerPositionWarrantyX = 98;
-let priceTalkerPositionWarrantyY = 234;
-let priceTalkerBarCodeX = 270;
-let priceTalkerBarCodeY = 180;
-
-// Tamaño
-const boxWith = 1056.0;
-const boxHeight = 816.38;
-let priceTalkerBarCodeWith = 99;
-let priceTalkerBarCodeHeight = 28;
-let priceTalkerLogoWith = 48;
-let priceTalkerLogoHeight = 43;
 
 // Fuente
 const priceTalkerfontSize = 12;
@@ -50,8 +15,7 @@ const priceTalkerFontSizePrice = 72;
 const priceTalkerWidthText = 221;
 const priceTalkerFontPath = process.cwd();
 
-// Controlador de flujo para la generación de habladores
-let contador = 0;
+var contador = 0;
 
 const habladorUltimasExistenciasG = async (
   dataCallback,
@@ -66,24 +30,44 @@ const habladorUltimasExistenciasG = async (
   for (let i = 0; i < priceTalkerData.length; i++) {
     const product = priceTalkerData[i];
 
-    let precio = parseFloat(product.priceTalkerPrice);
-    let precioTachado;
-    precioTachado = Math.trunc(precio);
-    // AJUSTAR EL TACHADO YA QUE ESTE PRECIO VIENE EN 0
-    precio = Math.round(precio - 5) - 0.01;
-    const stringPrecio = precio.toString();
-    const regexPunto = /\./g;
-    precio = stringPrecio.replace(regexPunto, ",");
+    let { precioTachado, priceTalkerPrice, priceTalkerList } = product;
+    var rtaPrecio = validarTachado(precioTachado, priceTalkerPrice);
+    
+    // AÑADIR NUEVAS PAGINA
+    if (contador > 0) {
+      doc.addPage({ size: "A4", layout: "landscape" });
+      contador = 0;
+    }
+
+    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
+    if (rtaPrecio != 0) {
+      // ERROR PRECIO TACHADO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(7.5)
+        .fillColor('red')
+        .text(
+          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          priceTalkerPositionPriceX,
+          priceTalkerPositionPriceY + 11.34
+        );
+    }
 
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
+      .fillColor('black')
       .text(
-        `$${precioTachado}`,
+        `$${product.precioTachado}`, // ${precioTachado}
         priceTalkerPositionPriceX,
         priceTalkerPositionPriceY + 11.34
       );
+
+    // LOGICA DE PRECIO
+    let precio = generarPrecio(priceTalkerPrice, priceTalkerList);
+    // FIN DE LA LOGICA DE PRECIO
+
     // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
@@ -100,7 +84,7 @@ const habladorUltimasExistenciasG = async (
       .text(
         `${product.priceTalkerSapCode}`,
         priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY - 18.90,
+        priceTalkerPositionPriceY - 18.9,
         {
           width: 283.46,
           align: "center",
@@ -113,15 +97,21 @@ const habladorUltimasExistenciasG = async (
       .text(
         `${product.priceTalkerdescription}`,
         priceTalkerPositionPriceX + 113.39 + 151.18,
-        priceTalkerPositionPriceY + 30.24 - 18.90,
+        priceTalkerPositionPriceY + 30.24 - 18.9,
         {
           width: 283.46,
           align: "center",
         }
       );
+      contador++;
   }
 
+  contador = 0;
   doc.end();
+  if (rtaPrecio != 0) {
+    rtaPrecio = 0;
+    return "Algunos de los artículos seleccionados presentan un precio tachado que supera el precio de venta.";
+  }
 };
 
 module.exports = {

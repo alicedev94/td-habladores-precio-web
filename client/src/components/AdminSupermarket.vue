@@ -107,8 +107,7 @@ const deleteBtn = () => {
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        let datos = { /* BIG JSON */ };
-        fetch(`http://${api}:${portApi}/api/v1/generate-super-pdf`, {
+        const estadoServidor = await fetch(`http://${api}:${portApi}/api/v1/generate-super-pdf`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -134,6 +133,7 @@ const fGeneratePdf = async () => {
             })
             .catch((error) => alert(error));
 
+            // alert(estadoServidor)
     } catch (error) {
         console.error(error);
         isLoadingPdf.value = false
