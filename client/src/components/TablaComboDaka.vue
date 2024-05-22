@@ -105,6 +105,7 @@ const rightBtn = async () => {
         data.data.Cabecera = obj; // `${obj.Codigo} ${obj.Nombre}`
      
         armaCombo.value.push(data.data);
+        // console.log("aramaCombo", data.data);
     })
     Promise.all(promises).then(() => {
         // NUEVA IMPLEMENTACION
@@ -115,12 +116,15 @@ const rightBtn = async () => {
             data.product = armaCombo.value[index].Cabecera
             data.details = armaCombo.value[index];
             master.push(data)
+            // console.log("master", master);
             //expoListProduct.value = expoListProduct.value.concat(armaCombo.value[index]);
         });
 
         // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
+        console.log(master);
         items.value = master
  
+        console.log("items", items.value);
         master = []
         armaCombo.value = []
     })
@@ -158,6 +162,7 @@ const fGeneratePdf = async () => {
             },
             body: JSON.stringify({
                 data: expoListProduct.value, // filterExpoListProducts.value  // items.value para combos
+                datosRelacionados: items.value,
                 list: list.value,
                 sizeTalker: sizeTalker.value,
                 typeTalker: typeTalker.value

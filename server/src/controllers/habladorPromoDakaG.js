@@ -47,6 +47,12 @@ let priceTalkerLogoHeight = 43;
 const priceTalkerfontSize = 12;
 const priceTalkerFontSizePrice = 72;
 
+// FUNCIONES
+const {
+  generarPrecio,
+  validarTachado,
+} = require("../controllers/funciones.hablador");
+
 // -- Contenido estático
 const priceTalkerWidthText = 221;
 const priceTalkerFontPath = process.cwd();
@@ -54,17 +60,18 @@ const priceTalkerFontPath = process.cwd();
 // Controlador de flujo para la generación de habladores
 let contador = 0;
 
-const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
-  console.log(priceTalkerData);
-
+const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
+  // RECIBIR LOS DARTOS DEL SERVIDOR CLIENTE (CABECERA)
+  // console.log(datos);
+  console.log("datosRelacionados", datosRelacionados);
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
-  doc.on("data", dataCallback);
-  doc.on("end", endCallback);
+  doc.on("data", inicio);
+  doc.on("end", fin);
 
   // EN ESTE PASO ES EECESARIO DETECTAR SI LOS PRECIOS SE SUMAN O SE COLOCA EL PIRMER VALOR, PARA EL SCRIPT QUE ARMA
   // LA DATA ESTO ES INDIFERENTE
-  priceTalkerData.forEach((dato) => {
+  datosRelacionados.forEach((dato) => {
     // CABECERA
     // console.log(dato.product.Codigo_suma_resta);
     // if (dato.product.Codigo_suma_resta == 1) {
@@ -83,7 +90,7 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
   // FIN DEL BLOQUE
 
   // Recorres cada dato
-  priceTalkerData.forEach((dato, index) => {
+  datosRelacionados.forEach((dato, index) => {
     // CREAR UNA NUEVA PAGINA CADA VEZ QUE TENGAMOS UN NUEVO GRUPO DE ARTICULOS
     if (index > 0) {
       // CABECERA DEL PRODUCTO (PRODUCTO A IMPULSAR)
@@ -185,16 +192,6 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
       yOffset += 150; // Incrementamos el desplazamiento para el siguiente detalle
     });
 
-    // PRECIO TACHADO
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-      .fontSize(priceTalkerFontSizePrice)
-      .text(
-        `$${dato.product.PrecioTachado}`,
-        priceTalkerPositionPriceX,
-        priceTalkerPositionPriceY + 11.34 + 37.8
-      );
-      
     // PRECIO
     dato.product.PrecioaMostrar = dato.product.PrecioaMostrar + precioDetalle;
 
@@ -276,6 +273,34 @@ const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
           priceTalkerPositionPriceY + 75.59 + 60
         );
     }
+
+    var rtaPrecio = validarTachado(dato.product.PrecioTachado, precio);
+    console.log("rtaPrecio",rtaPrecio);
+
+    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
+    if (rtaPrecio != 0) {
+      // ERROR PRECIO TACHADO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+        .fontSize(11)
+        .fillColor("red")
+        .text(
+          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          priceTalkerPositionPriceX,
+          priceTalkerPositionPriceY
+        );
+    }
+
+    // PRECIO TACHADO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      .fontSize(priceTalkerFontSizePrice)
+      .fillColor("black")
+      .text(
+        `$${dato.product.PrecioTachado}`,
+        priceTalkerPositionPriceX,
+        priceTalkerPositionPriceY + 11.34 + 37.8
+      );
   });
 
   vuelta = 0;

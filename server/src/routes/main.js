@@ -177,7 +177,7 @@ router.post("/generate-pdf", async (req, res) => {
 
 router.post("/generate-super-pdf", async (req, res) => {
   // SUPER MERCADO
-  const { data, list, sizeTalker, typeTalker } = req.body;
+  const { data, list, sizeTalker, typeTalker, datosRelacionados } = req.body;
  
   try {
     if (typeTalker === "0") {
@@ -216,7 +216,9 @@ router.post("/generate-super-pdf", async (req, res) => {
         await habladorPromoG(
           (data) => stream.write(data),
           () => stream.end(),
-          data
+          data,
+          list,
+          datosRelacionados
         );
       }
       // --

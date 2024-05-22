@@ -41,6 +41,7 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
       dato;
 
     var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
+    console.log("rtaPrecio",rtaPrecio);
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
