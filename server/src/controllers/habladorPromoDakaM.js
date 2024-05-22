@@ -63,7 +63,7 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
         .fontSize(7.5)
         .fillColor("red")
         .text(
-          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
           precioTachadoP.x,
           precioTachadoP.y - n1cm
         );

@@ -47,7 +47,7 @@ const habladorUltimasExistenciasG = async (
         .fontSize(7.5)
         .fillColor('red')
         .text(
-          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY - 37.80
         );

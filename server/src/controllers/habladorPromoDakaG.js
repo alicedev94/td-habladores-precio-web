@@ -8,7 +8,7 @@ const moment = require("moment-timezone");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
-const { log } = require("console");
+
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -63,7 +63,7 @@ let contador = 0;
 const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
   // RECIBIR LOS DARTOS DEL SERVIDOR CLIENTE (CABECERA)
   // console.log(datos);
-  console.log("datosRelacionados", datosRelacionados);
+
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", inicio);
@@ -147,15 +147,12 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
     let vuelta = 0;
     dato.details.forEach((detail, index) => {
       // ESTO NO DEBERIA ESTAR ACA
-      console.log(detail.Codigo_suma_resta);
+
       if (detail.Codigo_suma_resta == 1) {
-        console.log(precio);
-        console.log(detail.PrecioaMostrar);
         precioDetalle += detail.PrecioaMostrar;
       }
 
       // precio += detail.PrecioaMostrar;
-      console.log("PRECIO A MOSTRAR DETALLE:", precioDetalle);
 
       // DESCRIPCION SEGUNDO ARTICULO
       if (vuelta === 0) {
@@ -210,7 +207,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
           precio = Math.round(precio);
         } else {
           // CUALQUIER OTRA LISTA
-          console.log("CUALQUIER OTRA LISTA", precioDetalle);
+
           precio = parseFloat(dato.product.PrecioaMostrar * 1.16); // dato.product.PrecioaMostrar
           precio = Math.round(precio);
           precio = precio - 0.01;
@@ -274,10 +271,12 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         );
     }
 
-    var rtaPrecio = validarTachado(dato.product.PrecioTachado, precio);
-    console.log("rtaPrecio",rtaPrecio);
+    var rtaPrecio = validarTachado(
+      dato.product.PrecioTachado,
+      dato.product.PrecioaMostrar
+    );
 
-    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
+    // 1 ES UN EL TACHADO ES MENOR Y ESO ESTA MAL Y 0 SIGMNIFICA QUE PROCEDE
     if (rtaPrecio != 0) {
       // ERROR PRECIO TACHADO
       doc
@@ -285,7 +284,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         .fontSize(11)
         .fillColor("red")
         .text(
-          "El precio tachado no es, al menos, $5 menor que el precio de venta.", // ${precioTachado}
+          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
           priceTalkerPositionPriceX,
           priceTalkerPositionPriceY
         );
