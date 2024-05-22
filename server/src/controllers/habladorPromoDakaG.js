@@ -55,6 +55,8 @@ const priceTalkerFontPath = process.cwd();
 let contador = 0;
 
 const habladorPromoG = async (dataCallback, endCallback, priceTalkerData) => {
+  console.log(priceTalkerData);
+
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);
