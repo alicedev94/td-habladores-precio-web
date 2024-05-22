@@ -8,13 +8,15 @@ import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 import Image from '@/components/Image.vue';
 import SelectCDD from '@/components/selectCDD.vue';
 
-
 const items = ref([])
 
 const isLoading = ref(false)
 const isAuthenticate = ref(false)
 const selectData = ref({ typeList: '', sizeTalker: '' })
 const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
+
+// ESTO ES PARA EL HABLADOR DEL CDD
+const cdd = ref(false)
 
 const userSucursal = ref("")
 
@@ -42,7 +44,7 @@ onMounted(async () => {
     userSucursal.value = idSucursal
 })
 
-watch(selectDataSuperMarket, () => {
+watch(() => {
     console.log(selectDataSuperMarket.typeList);
 })
 
@@ -81,7 +83,7 @@ const btnSend_2 = () => {
     <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
         <v-tab value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
         <v-tab value="supermercado" color="#50C878">Supermercado</v-tab>
-        <v-tab value="cdd" color="#50C878">CDD</v-tab>
+        <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
     </v-tabs>
 
     <v-card-text>
@@ -130,7 +132,7 @@ const btnSend_2 = () => {
                     @send-form="btnSend_2" />
                 <Image imagen="/hablador_supermercado.png" />
             </v-window-item>
-            <v-window-item :value="tabOptions.three" class="display">
+            <v-window-item v-if="cdd" :value="tabOptions.three" class="display">
                 <SelectCDD />
                 <Image imagen="/habladorCDD.png" />
                 <!-- <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"

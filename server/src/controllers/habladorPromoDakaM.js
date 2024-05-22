@@ -73,7 +73,9 @@ const PromoDakaM = async (dataCallback, endCallback, datos) => {
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePriceNew)
-      .text(`$${precio}`, precioFullP.X, precioFullP.Y);
+      .text(`$${precio}`, precioFullP.X, precioFullP.Y, {
+        width: priceTalkerWidthText + (n1cm * 5),
+      });
     // CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))

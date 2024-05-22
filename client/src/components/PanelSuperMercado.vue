@@ -2,7 +2,10 @@
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import router from '@/router';
-    
+
+const disPromo = ref(true)
+const disUlti = ref(true)
+
 const props = defineProps({
     typeList: {
         typeList: String,
@@ -38,11 +41,31 @@ const generarSupermercado = async () => {
 onMounted(async () => {
     const response = await axios.get(`http://${api}:${portApi}/api/v1/priceList`)
     items.value = response.data
-    console.log(items.value);
+    // console.log(items.value);
 })
 
-watch(selectData.value.typeTalker, ()=> {
-    console.log(selectData.value.typeTalker);
+watch(selectData.value, () => {
+    // DEFINIR LOGICA DEL PROCESO ANTES DE PASARLO A CODIGO
+    // TIPO DE HABLADOR typeTalker
+    // TAMANO DE HABLADOR sizeTalker
+
+    let { typeTalker, sizeTalker } = selectData.value;
+
+    // TAMANO GRANDE
+    if (sizeTalker === '2') {
+        disPromo.value = false
+        disUlti.value = false
+    }
+    // TAMANAO MEDIANO
+    else if (sizeTalker === '1') {
+        disPromo.value = false
+        disUlti.value = true
+    }
+    // TAMANO PEQUENO
+    else if (sizeTalker === '0') {
+        disPromo.value = false
+        disUlti.value = true
+    }
 })
 </script>
 
@@ -72,10 +95,11 @@ watch(selectData.value.typeTalker, ()=> {
 
             <div class="text-caption">Paso 3:</div>
             <v-radio-group v-model="selectData.typeTalker" :disabled="selectData.sizeTalker === ''" inline>
-                <v-radio label="Promo Daka" value="0"></v-radio>
-                <v-radio label="Ultimas Existencias" value="1"></v-radio>
+                <v-radio :disabled="disPromo" label="Promo Daka" value="0"></v-radio>
+                <v-radio :disabled="disUlti" label="Ultimas Existencias" value="1"></v-radio>
             </v-radio-group>
 
+            <!-- :disabled="selectData.sizeTalker === ''" -->
             <!-- <input hidden :value="sucursal" /> -->
 
             <div class="text-caption">Paso 4:</div>

@@ -103,7 +103,6 @@ const bigNewPriceTalker = async (
 ) => {
 
   // // console.log(priceTalkerData);
-
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);

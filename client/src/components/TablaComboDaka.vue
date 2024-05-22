@@ -80,13 +80,14 @@ const busquedaIncial = async () => {
     }
 }
 
-var filterListProducts = []
+const filterListProducts = ref([])
 const rightBtn = async () => {
     // lista de todos los articulos 
     // console.log(listProducts.value);
 
     // proceso para obtener solo lo seleccionado antes de darle siguiente 
-    filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    filterListProducts.value = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+    expoListProduct.value = expoListProduct.value.concat(filterListProducts.value);
 
     // lista depurada con lo seleccionado
 
@@ -94,7 +95,7 @@ const rightBtn = async () => {
     // 1 ACA LA DATA DE LA CABECERA POR CODIGO INDIVIDUAL (CABECERA) # PAN_DULCE
     // console.log(filterListProducts); // ESTO ME GENERA UN ARRAY DE OBJETOS CON TODOS LOS CAMPOS NECESARIOS
 
-    let promises = filterListProducts.map(async (obj) => {
+    let promises = filterListProducts.value.map(async (obj) => {
 
         let data = await axios.post(`http://${local_server}:3001/api/v1/arma-combo`, {
             codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
@@ -102,6 +103,7 @@ const rightBtn = async () => {
         });
         // AGREGAR DATOS COMO EL PRECIO 
         data.data.Cabecera = obj; // `${obj.Codigo} ${obj.Nombre}`
+     
         armaCombo.value.push(data.data);
     })
     Promise.all(promises).then(() => {
@@ -118,7 +120,7 @@ const rightBtn = async () => {
 
         // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
         items.value = master
-        console.log(items.value);
+ 
         master = []
         armaCombo.value = []
     })
@@ -155,7 +157,7 @@ const fGeneratePdf = async () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                data: items.value, // filterExpoListProducts.value  // items.value para combos
+                data: expoListProduct.value, // filterExpoListProducts.value  // items.value para combos
                 list: list.value,
                 sizeTalker: sizeTalker.value,
                 typeTalker: typeTalker.value
@@ -252,7 +254,6 @@ const headers2 = ref([
     { text: 'Detalles', value: 'details' },
 ])
 
-
 const search = ref('')
 
 const filteredItems = computed(() => {
@@ -298,7 +299,7 @@ const filteredItems = computed(() => {
             <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
                 elevation="8">
                 <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
-                    :headers="headers" :items="items" :loading="isLoading2" item-value="Codigo" show-select
+                    :headers="headers" :items="expoListProduct" :loading="isLoading2" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
                     loading-text="Cargando..." />
             </v-card>
@@ -307,15 +308,13 @@ const filteredItems = computed(() => {
                 <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
             </div>
             
-            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
+            <v-btn size="small" class="btn-generate-pdf"  append-icon="mdi-download" color="red"
                 width="160" @click="fGeneratePdf">
                 Generar .PDF
             </v-btn>
         </div>
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
-
-
     <!-- <GreenjsTable /> -->
 
 </template>

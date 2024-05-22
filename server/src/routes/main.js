@@ -193,7 +193,7 @@ router.post("/generate-super-pdf", async (req, res) => {
         await PromoDakaP(
           (data) => stream.write(data),
           () => stream.end(),
-          data
+          data, list
         );
       } else if (sizeTalker === "1") {
         // PROMO MEDIANO
