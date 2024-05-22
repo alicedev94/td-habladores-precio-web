@@ -193,6 +193,7 @@ const fImportXlsx = async (event) => {
         // console.log(sapCode.value);
 
         // http://${api}:${portApi}/api/v1/send/sap-code1
+        console.log(list.value);
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
@@ -211,12 +212,10 @@ const fImportXlsx = async (event) => {
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    // console.log("aqui");
-                    // console.log(data.data);
+                    console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
-
             })
             .catch(error => {
                 // Handle errors

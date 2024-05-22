@@ -205,7 +205,7 @@ router.post("/generate-super-pdf", async (req, res) => {
         await PromoDakaM(
           (data) => stream.write(data),
           () => stream.end(),
-          data
+          data, list
         );
       } else {
         const stream = res.writeHead(200, {

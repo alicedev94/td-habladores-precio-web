@@ -47,7 +47,14 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
       doc.addPage();
     }
 
-    const precio = generarPrecio(PrecioaMostrar, list);
+    if (PrecioaMostrar < 1) {
+      rtaPrecio = 1;
+      var precio = PrecioaMostrar;
+      precio = precio.toString();
+      precio = precio.replace('.', ',');
+    } else {
+      var precio = generarPrecio(PrecioaMostrar, list);
+    }
 
     // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
     if (rtaPrecio != 0) {

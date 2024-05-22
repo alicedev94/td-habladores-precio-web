@@ -29,7 +29,7 @@ const priceTalkerFontSizePriceNew = 80;
 const priceTalkerWidthText = n1cm * 7;
 const priceTalkerFontPath = process.cwd();
 
-const PromoDakaM = async (dataCallback, endCallback, datos) => {
+const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
   // GENERADO Y DESCARGA DEL FORMATO PDF
   const doc = new PDFDocument({ size: "A4", layout: "portrait" });
 
@@ -38,7 +38,7 @@ const PromoDakaM = async (dataCallback, endCallback, datos) => {
 
   datos.forEach((dato, index) => {
     let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
-      dato.product;
+      dato;
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
@@ -47,8 +47,14 @@ const PromoDakaM = async (dataCallback, endCallback, datos) => {
 
     var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
 
-    const precio = generarPrecio(PrecioaMostrar, dato.product["Lista Precio"]);
-
+    if (PrecioaMostrar < 1) {
+      rtaPrecio = 1;
+      var precio = PrecioaMostrar;
+      precio = precio.toString();
+      precio = precio.replace('.', ',');
+    } else {
+      var precio = generarPrecio(PrecioaMostrar, list);
+    }
     // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
     if (rtaPrecio != 0) {
       // ERROR PRECIO TACHADO

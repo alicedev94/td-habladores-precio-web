@@ -23,6 +23,7 @@ const testConnectionFrom120 = async () => {
     ,[Hablador]
     ,[IdMotivo]
     ,[FecCrea]
+    ,PrecioTachado
   FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]`);
 
   console.log(rta);
@@ -182,6 +183,7 @@ const products = async (list, type, sucur) => {
         ,[IdHablador]
          ,[CodigoServicio]
       ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
@@ -198,6 +200,7 @@ const products = async (list, type, sucur) => {
         ,[IdHablador]
          ,[CodigoServicio]
       ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
@@ -213,7 +216,8 @@ const products = async (list, type, sucur) => {
         ,[PrecioaMostrar]
         ,[IdHablador]
          ,[CodigoServicio]
-      [PrecioServicio]
+      ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
@@ -270,6 +274,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[IdHablador]
          ,[CodigoServicio]
       ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
@@ -286,6 +291,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[IdHablador]
          ,[CodigoServicio]
       ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
@@ -301,6 +307,7 @@ const processData = async (data, list, sucur, sizeTalker) => {
     ,[IdHablador]
          ,[CodigoServicio]
       ,[PrecioServicio]
+      ,PrecioTachado
     FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
