@@ -3,6 +3,7 @@ import { ref, watch, onMounted, computed } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
 import Nav from './Nav.vue';
+import GreenjsTable from './GreenjsTable.vue';
 
 const listProducts = ref([])
 const listProducts2 = ref([])
@@ -116,39 +117,25 @@ const rightBtn = async () => {
         });
 
         // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
-        console.log(master);
         items.value = master
-        // console.log(items.value);
+        console.log(items.value);
         master = []
         armaCombo.value = []
     })
 
-    // codigos de relacin ya filtrados 
-    // console.log(codigo_relacion);
-
-    // FIN DE LA SENTENCIA --
-
-    // 2 ACA LA DATA DEL DETALLE POR CODIGO INDIVIDUAL (DETALLE) # PAN_DULCE
-    // console.log(armaCombo.value[2]);
-
-    // // ARMA EL COMBO
-    // let COMBO_PROMO_DAKA = [{
-    //     cabecera: filterListProducts,
-    //     detalle: armaCombo.data
-    // }]
-
-    // PRIMER COMBO
-    // console.log(COMBO_PROMO_DAKA[0].cabecera[0]);
-    // llendo del array que alimenta la segunda tabla para generar los pdf del hablador
-    // ORIGINAL
-    // expoListProduct.value = expoListProduct.value.concat(filterListProducts);
-    // NUEVA IMPLEMENTACION
-    // expoListProduct.value = expoListProduct.value.concat(armaCombo.value);
-
-    // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
+   
     selectedProducts.value = []
     // armaCombo.value = []
 }
+
+// ASI FUNCIONA NORMALMENTE 
+// const rightBtn = () => {
+//     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
+//     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
+
+//     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
+//     selectedProducts.value = []
+// }
 
 const deleteBtn = () => {
     const filterListProducts2 = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
@@ -162,14 +149,13 @@ const deleteBtn = () => {
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        let datos = { /* BIG JSON */ };
         fetch(`http://${api}:${portApi}/api/v1/generate-super-pdf`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                data: items.value, // filterExpoListProducts.value
+                data: items.value, // filterExpoListProducts.value  // items.value para combos
                 list: list.value,
                 sizeTalker: sizeTalker.value,
                 typeTalker: typeTalker.value
@@ -246,6 +232,10 @@ onMounted(() => {
     busquedaIncial()
 })
 
+const items = ref([
+])
+
+
 watch(() => {
     // SECOND PRODUCT TABLE
     filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
@@ -262,21 +252,6 @@ const headers2 = ref([
     { text: 'Detalles', value: 'details' },
 ])
 
-const items = ref([
-    // {
-    //   product: 'lb-0001 RELOJ ROLEX',
-    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
-    // },
-    // {
-    //   product: 'lm-0001 RELOJ ROLEX',
-    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
-    // },
-    // {
-    //   product: 'lx-0001 RELOJ ROLEX',
-    //   details: ['lb-0010 CORREA RELOJ ROJA', 'lb-0012 CORREA RELOJ AZUL'],
-    // },
-    // Agrega más productos aquí
-])
 
 const search = ref('')
 
@@ -315,26 +290,33 @@ const filteredItems = computed(() => {
         </div>
 
     <!-- nuevo template de pruebas para la segunda tabla -->
-    <v-text-field v-model="search" label="Buscar" class="mb-2"></v-text-field>
-    <v-data-table :headers="headers2" :items="filteredItems">
-        <template v-slot:item.details="{ item }">
-            <v-list>
-                <v-list-item v-for="(detail, i) in item.details" :key="i">
-                    <v-list-item-content> {{ detail }} </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </template>
-    </v-data-table>
-    <!-- s -->
-        <v-btn size="small" class="btn-generate-pdf" append-icon="mdi-download" color="red" width="160"
-            @click="fGeneratePdf">
-            Generar .PDF
-        </v-btn>
+    <div>
+            <v-text-field v-model="searchTable2" variant="solo-filled"
+                style="width: 600px; height: 20px; margin-left: 0px; margin-bottom: 30px"
+                label="Buscar por código o descripción"></v-text-field>
 
+            <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
+                elevation="8">
+                <v-data-table width="400" height="300" v-model="selectedExpoProducts" :search="searchTable2"
+                    :headers="headers" :items="items" :loading="isLoading2" item-value="Codigo" show-select
+                    no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
+                    loading-text="Cargando..." />
+            </v-card>
+
+            <div class="file-select" id="src-file1">
+                <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
+            </div>
+            
+            <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
+                width="160" @click="fGeneratePdf">
+                Generar .PDF
+            </v-btn>
+        </div>
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
 
 
+    <!-- <GreenjsTable /> -->
 
 </template>
 
