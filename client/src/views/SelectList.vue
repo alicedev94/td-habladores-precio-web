@@ -16,7 +16,7 @@ const selectData = ref({ typeList: '', sizeTalker: '' })
 const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
 
 // ESTO ES PARA EL HABLADOR DEL CDD
-const cdd = ref(false)
+const cdd = ref(true)
 
 const userSucursal = ref("")
 
