@@ -120,7 +120,7 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
     divisor += n1cm * 2;
   });
 
-  // IMAGEN EL PARTE CENTRAL
+  // IMAGEN EL PARTE CENTRALl
   doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
     fit: [logo.with, logo.height],
     align: "center",
