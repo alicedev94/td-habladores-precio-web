@@ -286,8 +286,9 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
 });
 
 // EN PROCESO DE VALIDACION 2
-router.post(`/gene-cdd`, async (req, res) => {
+router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
   const { data, list, sizeTalker } = req.body;
+  const { rack, galpon } = req.params;
 
   const proData = modelData(data);
   proData.forEach((obj) => {
@@ -295,8 +296,6 @@ router.post(`/gene-cdd`, async (req, res) => {
   });
 
   const noData = proData;
-
-  // console.log("DATA EN EL CDD", noData);
 
   const stream = res.writeHead(200, {
     "Content-Type": "application/pdf",
@@ -307,7 +306,9 @@ router.post(`/gene-cdd`, async (req, res) => {
     // hasta este punto es totalmente funcional [smallPriceTalker]
     (data) => stream.write(data),
     () => stream.end(),
-    noData
+    noData,
+    rack,
+    galpon
   );
   // GENERAR EL HABLADOR DEL CDD
 });

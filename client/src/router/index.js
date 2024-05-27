@@ -71,7 +71,7 @@ const router = createRouter({
       beforeEnter: isAuthenticate,
     },
     {
-      path: "/table-data-cdd",
+      path: "/table-data-cdd/:ra/:ga",
       name: "TableDataCdd",
       component: TableDataCdd,
       beforeEnter: isAuthenticate,

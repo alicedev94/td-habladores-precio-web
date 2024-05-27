@@ -9,7 +9,7 @@ let datos_cdd_prueba = [
   {
     codigo: "ld-00000599",
     descripcion: "playstation 5 slim",
-    grupo: "ld"
+    grupo: "ld",
   },
 ];
 
@@ -51,9 +51,9 @@ const dataCdd = async () => {
   return response;
 };
 
-const doc = new PDFDocument({ size: "A4", layout: "landscape" });
+const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
+  const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
-const geneCdd = async (inicio, fin, datos) => {
   // CREACIÓN DEL NUEVO DOCUMENTO
   doc.on("data", inicio);
   doc.on("end", fin);
@@ -74,18 +74,12 @@ const geneCdd = async (inicio, fin, datos) => {
 
     // TITULO
     doc
-      .font(
-        path.join(
-          priceTalkerFontPath,
-          "fonts",
-          tipoLetra
-        )
-      )
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
         `${campos[index]}:`, // .toLocaleUpperCase()
         reCuadroTitulo.x,
-        reCuadroTitulo.y + n1cm / 2  + divisor,
+        reCuadroTitulo.y + n1cm / 2 + divisor,
         {
           align: "left",
         }
@@ -102,33 +96,28 @@ const geneCdd = async (inicio, fin, datos) => {
         .stroke();
 
     // CONTROLA LA DISTASNCIA DE CADA RECUADRO POR VUELTA
-    if (index == 3) {
-      // SI ES EL CAMPO CANTIDAD LLEVA OTRO FORMATO
-      reCuadroTitulo.height += reCuadroTitulo.height * 1.5;
+    // if (index == 3) {
+    //   // SI ES EL CAMPO CANTIDAD LLEVA OTRO FORMATO
+    //   reCuadroTitulo.height += reCuadroTitulo.height * 1.5;
 
-      // SUBTITULO EN EL ULTIMO CAMPO
-      doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "fonts",
-            tipoLetra
-          )
-        )
-        .fontSize(fontSize)
-        .text(
-          "UNIDADES",
-          reCuadroTitulo.x + n1cm * 14.5,
-          reCuadroTitulo.y + n1cm * 3.7 + divisor,
-          {
-            align: "left",
-          }
-        ),
-        // SEGUIR CON EL CURSO DE LA APP
-        (divisor += n1cm * 2);
-    } else {
-      divisor += n1cm * 2;
-    }
+    //   // SUBTITULO EN EL ULTIMO CAMPO
+    //   doc
+    //     .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+    //     .fontSize(fontSize)
+    //     .text(
+    //       "UNIDADES",
+    //       reCuadroTitulo.x + n1cm * 14.5,
+    //       reCuadroTitulo.y + n1cm * 3.7 + divisor,
+    //       {
+    //         align: "left",
+    //       }
+    //     ),
+    //     // SEGUIR CON EL CURSO DE LA APP
+    //     (divisor += n1cm * 2);
+    // } else {
+    //   divisor += n1cm * 2;
+    // }
+    divisor += n1cm * 2;
   });
 
   // IMAGEN EL PARTE CENTRAL
@@ -143,19 +132,15 @@ const geneCdd = async (inicio, fin, datos) => {
   divisor = 0;
 
   // DATA
-  datos_cdd_prueba.forEach((dato, index) => {
+  datos.forEach((dato, index) => {
+    console.log(dato);
+
     // VALOR CODIGO SAP
     doc
-      .font(
-        path.join(
-          priceTalkerFontPath,
-          "fonts",
-           tipoLetra
-        )
-      )
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `${dato.codigo}`, // .toLocaleUpperCase()
+        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
         reCuadroTitulo.y + n1cm / 2,
         {
@@ -165,42 +150,56 @@ const geneCdd = async (inicio, fin, datos) => {
 
     // VALOR DESCRIPCION
     doc
-      .font(
-        path.join(
-          priceTalkerFontPath,
-          "fonts",
-          tipoLetra
-        )
-      )
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `${dato.descripcion}`, // .toLocaleUpperCase()
+        `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 2 + n1cm / 2,
+        reCuadroTitulo.y + n1cm * 2,
+        {
+          height: n1cm * 2,
+          align: "left",
+        }
+      );
+
+    // VALOR GRUPO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
         {
           align: "left",
         }
       );
 
-      // VALOR GRUPO
-         // VALOR DESCRIPCION
+    // VALOR UBICACION
     doc
-    .font(
-      path.join(
-        priceTalkerFontPath,
-        "fonts",
-        tipoLetra
-      )
-    )
-    .fontSize(fontSize)
-    .text(
-      `${dato.grupo}`, // .toLocaleUpperCase()
-      reCuadroTitulo.x + n1cm * 9.1,
-      reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
-      {
-        align: "left",
-      }
-    );
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR CANTIDAD
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `Cantidad (${cantidad}) en unidades`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
   });
   // FIN DEL DOCUMENTO
   doc.end();

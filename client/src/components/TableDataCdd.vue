@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
@@ -32,6 +31,10 @@ const list = ref("")
 const sizeTalker = ref("")
 const sucur = ref("")
 
+// cdd 
+const rack = ref('')
+const galpon = ref('')
+
 // STATIC VARIBLES
 var deleteCode = []
 var existDestintCode = []
@@ -53,11 +56,12 @@ const headers = [
 onMounted(async () => {
     try {
         const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
-        console.log(data);
         listProducts.value = data;
+        busquedaIncial()
     } catch (error) {
         alert(error);
     }
+
 })
 
 watch(() => {
@@ -70,12 +74,41 @@ watch(() => {
     }
 })
 
+const busquedaIncial = async () => {
+    // SABER LA RUTA DONDE ESTOY
+    let route = location.pathname
+
+    // Divide la ruta en segmentos
+    let segmentos = route.split('/');
+
+    // console.log(segmentos[1]);
+
+    //saber si estoy en la ruta correspondiente
+    if (segmentos[1] === "table-data-cdd") {
+        isAuthenticate.value = true
+        //console.log("dentro de pathnmane");
+    } else {
+        isAuthenticate.value = false
+    }
+
+    const ruta = window.location.pathname;
+    const regex = /\/table-data-cdd\/(\d+)\/(\d+)*/;
+    const match = ruta.match(regex);
+
+    if (match) {
+        rack.value = match[1];
+        galpon.value = match[2];
+    } else {
+        console.error("La ruta no coincide con el patrón esperado.");
+    }
+}
+
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
         let datos = { /* tu JSON grande */ };
-        fetch(`http://${api}:${portApi}/api/v1/gene-cdd`, {
+        fetch(`http://${api}:${portApi}/api/v1/gene-cdd/${rack.value}/${galpon.value}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -187,6 +220,8 @@ const downloadBtn = async () => {
 </script>
 
 <template>
+    <Nav></Nav>
+
     <div class="table-container">
         <div>
             <v-text-field v-model="searchTable1" variant="solo-filled"
