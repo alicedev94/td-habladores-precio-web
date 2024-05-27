@@ -38,6 +38,8 @@ let logo = {
   with: 125,
   height: 125,
 };
+
+const tipoLetra = "OMEGLE.ttf";
 // FIN DE VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 
 // LOGO DIRECCION DE LOGO DINAMICO
@@ -76,14 +78,14 @@ const geneCdd = async (inicio, fin, datos) => {
         path.join(
           priceTalkerFontPath,
           "fonts",
-          "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+          tipoLetra
         )
       )
       .fontSize(fontSize)
       .text(
         `${campos[index]}:`, // .toLocaleUpperCase()
         reCuadroTitulo.x,
-        reCuadroTitulo.y + divisor,
+        reCuadroTitulo.y + n1cm / 2  + divisor,
         {
           align: "left",
         }
@@ -110,7 +112,7 @@ const geneCdd = async (inicio, fin, datos) => {
           path.join(
             priceTalkerFontPath,
             "fonts",
-            "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+            tipoLetra
           )
         )
         .fontSize(fontSize)
@@ -142,21 +144,20 @@ const geneCdd = async (inicio, fin, datos) => {
 
   // DATA
   datos_cdd_prueba.forEach((dato, index) => {
-    console.log(dato.codigo_prueba);
     // VALOR CODIGO SAP
     doc
       .font(
         path.join(
           priceTalkerFontPath,
           "fonts",
-          "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+           tipoLetra
         )
       )
       .fontSize(fontSize)
       .text(
-        `${dato.codigo}:`, // .toLocaleUpperCase()
+        `${dato.codigo}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y,
+        reCuadroTitulo.y + n1cm / 2,
         {
           align: "left",
         }
@@ -168,14 +169,14 @@ const geneCdd = async (inicio, fin, datos) => {
         path.join(
           priceTalkerFontPath,
           "fonts",
-          "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+          tipoLetra
         )
       )
       .fontSize(fontSize)
       .text(
-        `${dato.descripcion}:`, // .toLocaleUpperCase()
+        `${dato.descripcion}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 2,
+        reCuadroTitulo.y + n1cm * 2 + n1cm / 2,
         {
           align: "left",
         }
@@ -188,14 +189,14 @@ const geneCdd = async (inicio, fin, datos) => {
       path.join(
         priceTalkerFontPath,
         "fonts",
-        "SpecifyPersonalCondensedBlack-Eg2g.ttf"
+        tipoLetra
       )
     )
     .fontSize(fontSize)
     .text(
-      `${dato.grupo}:`, // .toLocaleUpperCase()
+      `${dato.grupo}`, // .toLocaleUpperCase()
       reCuadroTitulo.x + n1cm * 9.1,
-      reCuadroTitulo.y + n1cm * 4,
+      reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
       {
         align: "left",
       }

@@ -43,15 +43,17 @@ var local_server = "localhost" // local
 var api = `${window.location.hostname}`;
 var portApi = 3001;
 
+
 // SETTINGS
 const headers = [
-    { text: 'ItemCode', value: 'ItemCode' },
-    { text: 'descripcion', value: 'descripcion' }
+    { text: 'Código', value: 'Codigo' },
+    { text: 'Descripción', value: 'Nombre' }
 ];
 
 onMounted(async () => {
     try {
         const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+        console.log(data);
         listProducts.value = data;
     } catch (error) {
         alert(error);
