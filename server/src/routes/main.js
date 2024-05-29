@@ -302,6 +302,8 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
     "Content-Disposition": "attachment; filename=alicePdf.pdf",
   });
 
+  console.log(data, noData);
+
   await geneCdd(
     // hasta este punto es totalmente funcional [smallPriceTalker]
     (data) => stream.write(data),

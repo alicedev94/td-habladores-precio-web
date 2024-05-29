@@ -265,3 +265,13 @@ const downloadBtn = async () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.rightBtn,
+.deleteBtn {
+    display: block;
+    /* Asegura que los botones ocupen todo el ancho disponible */
+    margin-bottom: 10px;
+    /* Espacio entre los botones */
+}
+</style>

@@ -52,6 +52,8 @@ const dataCdd = async () => {
 };
 
 const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
+  console.log(datos);
+
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   // CREACIÓN DEL NUEVO DOCUMENTO
@@ -60,6 +62,9 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
 
   // ESTRUCTURA
   campos.forEach((dato, index) => {
+
+
+
     // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
     // RE-CUADRO DEL TITULO
     doc
@@ -133,8 +138,10 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
 
   // DATA
   datos.forEach((dato, index) => {
-    console.log(dato);
-
+    if (index != 0) {
+      // Agrega una nueva página para cada producto después del primero
+      doc.addPage();
+    }
     // VALOR CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
@@ -167,7 +174,7 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
+        `${dato.linea}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
         reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
         {
@@ -193,7 +200,7 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `Cantidad (${cantidad}) en unidades`, // .toLocaleUpperCase()
+        `${cantidad} UNIDADES`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
         reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
         {

@@ -81,14 +81,14 @@ const btnSend_2 = () => {
     <Nav v-if="isAuthenticate"></Nav>
 
     <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
-        <!-- <v-tab value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
-        <v-tab value="supermercado" color="#50C878">Supermercado</v-tab> -->
+        <v-tab value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
+        <v-tab value="supermercado" color="#50C878">Supermercado</v-tab> 
         <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
     </v-tabs>
 
     <v-card-text>
         <v-window v-model="tab">
-            <!-- <v-window-item :value="tabOptions.one" class="display">
+            <v-window-item :value="tabOptions.one" class="display">
                 <v-card class="card-select-list" width="600" height="400" color="#000" variant="text" elevation="8">
                     <v-card-item>
                         <div>
@@ -121,13 +121,13 @@ const btnSend_2 = () => {
                     </v-card-item>
                 </v-card>
                 <Image imagen="/hablador_estandar.png" />
-            </v-window-item> -->
-            <!-- <v-window-item :value="tabOptions.two" class="display">
+            </v-window-item> 
+            <v-window-item :value="tabOptions.two" class="display">
                 <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
                     v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
                     @send-form="btnSend_2" />
                 <Image imagen="/hablador_supermercado.png" />
-            </v-window-item> -->
+            </v-window-item>
             <v-window-item v-if="cdd" :value="tabOptions.three" class="display">
                 <SelectCDD />
                 <Image imagen="/habladorCDD.png" />

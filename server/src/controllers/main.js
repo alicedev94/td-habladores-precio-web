@@ -408,7 +408,8 @@ const modelData = (data) => {
       priceTalkerIdHablador: item.IdHablador,
       priceTalkerService: item.CodigoServicio,
       priceTalkerServicePrice: item.PrecioServicio,
-      precioTachado: item.PrecioTachado
+      precioTachado: item.PrecioTachado,
+      linea: item.grupo
     });
   });
 

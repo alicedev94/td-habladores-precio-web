@@ -1,5 +1,5 @@
 const catalogo_productos_cdd = 
-`SELECT TOP 1
+`SELECT 
 [ItemCode] AS Codigo,
 [descripcion] AS Nombre,
 [cod_marca],

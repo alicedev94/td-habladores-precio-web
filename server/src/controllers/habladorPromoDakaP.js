@@ -3,7 +3,10 @@ const PDFDocument = require("pdfkit");
 const path = require("path");
 
 // FUNCIONES
-const { generarPrecio, validarTachado } = require("../controllers/funciones.hablador");
+const {
+  generarPrecio,
+  validarTachado,
+} = require("../controllers/funciones.hablador");
 
 // NUEVAS VARIABLES PARA EL LAYOUT DE HABLADORES
 /* NOTA: LA LETRA (P) AL FINAL DEL CADA VARIABLE INDICA EN ESPAÑOL 
@@ -37,11 +40,10 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
   // console.log("datos", datos);
 
   datos.forEach((dato, index) => {
-    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
-      dato;
+    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } = dato;
 
     var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
-    console.log("rtaPrecio",rtaPrecio);
+    // console.log("rtaPrecio", rtaPrecio);
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
@@ -52,11 +54,10 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
       rtaPrecio = 1;
       var precio = PrecioaMostrar;
       precio = precio.toString();
-      precio = precio.replace('.', ',');
+      precio = precio.replace(".", ",");
     } else {
       var precio = generarPrecio(PrecioaMostrar, list);
     }
-
     // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
     if (rtaPrecio != 0) {
       // ERROR PRECIO TACHADO
@@ -76,7 +77,6 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
       .fontSize(priceTalkerFontSizePrice)
       .fillColor("black")
       .text(`$${PrecioTachado}`, precioTachadoP.x, precioTachadoP.y);
-
     // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
