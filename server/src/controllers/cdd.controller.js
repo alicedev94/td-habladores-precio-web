@@ -42,6 +42,59 @@ const dataCdd = async () => {
   return response;
 };
 
+function estructuraCdd (doc) {
+    // ESTRUCTURA
+    campos.forEach((dato, index) => {
+      // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
+      // RE-CUADRO DEL TITULO
+      doc
+        .roundedRect(
+          reCuadroTitulo.x - n1cm / 2,
+          reCuadroTitulo.y + divisor,
+          reCuadroTitulo.with,
+          reCuadroTitulo.height,
+          reCuadroTitulo.radio
+        )
+        .stroke();
+  
+      // TITULO
+      doc
+        .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+        .fontSize(fontSize)
+        .text(
+          `${campos[index]}:`, // .toLocaleUpperCase()
+          reCuadroTitulo.x,
+          reCuadroTitulo.y + n1cm / 2 + divisor,
+          {
+            align: "left",
+          }
+        ),
+        // RECUADRO VALOR
+        doc
+          .roundedRect(
+            reCuadroTitulo.x + n1cm * 8.1,
+            reCuadroTitulo.y + divisor,
+            n1cm * 10,
+            reCuadroTitulo.height,
+            reCuadroTitulo.radio
+          )
+          .stroke();
+      divisor += n1cm * 2;
+    });
+  
+    // IMAGEN EL PARTE CENTRALl
+    doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
+      fit: [logo.with, logo.height],
+      align: "center",
+      valign: "center",
+    });
+  
+    // REINICIAR VARIABLES DESPUES DE USO
+    reCuadroTitulo.X = n1cm * 2;
+    divisor = 0;
+    
+}
+
 const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
   console.log(datos);
 
@@ -51,61 +104,14 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  // ESTRUCTURA
-  campos.forEach((dato, index) => {
-    // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
-    // RE-CUADRO DEL TITULO
-    doc
-      .roundedRect(
-        reCuadroTitulo.x - n1cm / 2,
-        reCuadroTitulo.y + divisor,
-        reCuadroTitulo.with,
-        reCuadroTitulo.height,
-        reCuadroTitulo.radio
-      )
-      .stroke();
-
-    // TITULO
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `${campos[index]}:`, // .toLocaleUpperCase()
-        reCuadroTitulo.x,
-        reCuadroTitulo.y + n1cm / 2 + divisor,
-        {
-          align: "left",
-        }
-      ),
-      // RECUADRO VALOR
-      doc
-        .roundedRect(
-          reCuadroTitulo.x + n1cm * 8.1,
-          reCuadroTitulo.y + divisor,
-          n1cm * 10,
-          reCuadroTitulo.height,
-          reCuadroTitulo.radio
-        )
-        .stroke();
-    divisor += n1cm * 2;
-  });
-
-  // IMAGEN EL PARTE CENTRALl
-  doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
-    fit: [logo.with, logo.height],
-    align: "center",
-    valign: "center",
-  });
-
-  // REINICIAR VARIABLES DESPUES DE USO
-  reCuadroTitulo.X = n1cm * 2;
-  divisor = 0;
+  estructuraCdd(doc);
 
   // DATA
   datos.forEach((dato, index) => {
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
+      estructuraCdd(doc);
     }
     // VALOR CODIGO SAP
     doc
