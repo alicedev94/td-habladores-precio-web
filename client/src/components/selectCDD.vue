@@ -54,7 +54,6 @@ function validarCampos() {
     </v-card>
 </template>
 
-
 <style scoped>
 .contenedor-tarjeta {
     padding: 3rem;

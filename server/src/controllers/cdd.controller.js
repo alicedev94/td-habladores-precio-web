@@ -4,15 +4,6 @@ const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
-// DATOS DE PRUEBAS PARA EL CDD
-let datos_cdd_prueba = [
-  {
-    codigo: "ld-00000599",
-    descripcion: "playstation 5 slim",
-    grupo: "ld",
-  },
-];
-
 // VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 let n1cm = 37.8;
 let divisor = 0;
@@ -62,9 +53,6 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
 
   // ESTRUCTURA
   campos.forEach((dato, index) => {
-
-
-
     // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
     // RE-CUADRO DEL TITULO
     doc
@@ -99,29 +87,6 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
           reCuadroTitulo.radio
         )
         .stroke();
-
-    // CONTROLA LA DISTASNCIA DE CADA RECUADRO POR VUELTA
-    // if (index == 3) {
-    //   // SI ES EL CAMPO CANTIDAD LLEVA OTRO FORMATO
-    //   reCuadroTitulo.height += reCuadroTitulo.height * 1.5;
-
-    //   // SUBTITULO EN EL ULTIMO CAMPO
-    //   doc
-    //     .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-    //     .fontSize(fontSize)
-    //     .text(
-    //       "UNIDADES",
-    //       reCuadroTitulo.x + n1cm * 14.5,
-    //       reCuadroTitulo.y + n1cm * 3.7 + divisor,
-    //       {
-    //         align: "left",
-    //       }
-    //     ),
-    //     // SEGUIR CON EL CURSO DE LA APP
-    //     (divisor += n1cm * 2);
-    // } else {
-    //   divisor += n1cm * 2;
-    // }
     divisor += n1cm * 2;
   });
 
