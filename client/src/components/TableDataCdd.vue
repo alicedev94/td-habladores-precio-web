@@ -66,8 +66,8 @@ onMounted(async () => {
 
 watch(() => {
     // SECOND PRODUCT TABLE
-    filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
-    if (filterExpoListProducts.value.length > 0) {
+    filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo)); if (filterExpoListProducts.value.length > 0) {
+
         isDisabled.value = false
     } else {
         isDisabled.value = true
@@ -147,10 +147,9 @@ const fImportXlsx = async (event) => {
             sapCode.value.push(rows)
         })
 
-        // console.log(sapCode.value);
+        console.log(sapCode.value);
 
-        // http://${api}:${portApi}/api/v1/send/sap-code1
-        fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
+        fetch(`http://${api}:${portApi}/api/v1/send/sap-code-cdd`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
             headers: {
@@ -162,26 +161,21 @@ const fImportXlsx = async (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                // Handle successful response
                 if (data.status != "ok") {
-                    // remplazar por sweet alert
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    // console.log("aqui");
-                    // console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
 
             })
             .catch(error => {
-                // Handle errors
                 alert(error)
             });
 
-        //expoListProduct.value = response.data.data
-        //console.log(expoListProduct.value);
+        // expoListProduct.value = response.data.data
+        // console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }
