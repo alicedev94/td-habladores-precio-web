@@ -116,4 +116,3 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion, sizeHablador) =>
 };
 
 module.exports = { dataCdd, geneCdd, estructuraCdd };
-module.exports
