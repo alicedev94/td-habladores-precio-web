@@ -309,7 +309,8 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
     () => stream.end(),
     noData,
     rack,
-    galpon
+    galpon,
+    sizeTalker
   );
   // GENERAR EL HABLADOR DEL CDD
 });

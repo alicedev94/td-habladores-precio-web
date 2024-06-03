@@ -4,6 +4,8 @@ const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
+const { habladorG } = require("../controllers/habladoresCdd"); // habladorM, habladorP 
+
 // VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 let n1cm = 37.8;
 let divisor = 0;
@@ -42,7 +44,7 @@ const dataCdd = async () => {
   return response;
 };
 
-function estructuraCdd (doc) {
+const estructuraCdd = (doc) => {
     // ESTRUCTURA
     campos.forEach((dato, index) => {
       // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
@@ -95,92 +97,13 @@ function estructuraCdd (doc) {
     
 }
 
-const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
+const geneCdd = async (inicio, fin, datos, cantidad, ubicacion, sizeHablador) => {
 
-  console.log(datos);
+  console.log(sizeHablador);
+
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
-
-  // CREACIÓN DEL NUEVO DOCUMENTO
-  doc.on("data", inicio);
-  doc.on("end", fin);
-
-  estructuraCdd(doc);
-
-  // DATA
-  datos.forEach((dato, index) => {
-    if (index != 0) {
-      // Agrega una nueva página para cada producto después del primero
-      doc.addPage();
-      estructuraCdd(doc);
-    }
-    // VALOR CODIGO SAP
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm / 2,
-        {
-          align: "left",
-        }
-      );
-
-    // VALOR DESCRIPCION
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 2,
-        {
-          height: n1cm * 2,
-          align: "left",
-        }
-      );
-
-    // VALOR GRUPO
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `${dato.linea}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
-        {
-          align: "left",
-        }
-      );
-
-    // VALOR UBICACION
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
-        {
-          align: "left",
-        }
-      );
-
-    // VALOR CANTIDAD
-    doc
-      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
-      .text(
-        `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
-        {
-          align: "left",
-        }
-      );
-  });
-  // FIN DEL DOCUMENTO
-  doc.end();
+  habladorG(inicio, fin, datos, cantidad, ubicacion, doc);
 };
 
-module.exports = { dataCdd, geneCdd };
+module.exports = { dataCdd, geneCdd, estructuraCdd };
+module.exports

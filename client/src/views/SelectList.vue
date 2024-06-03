@@ -1,8 +1,7 @@
 <script setup>
 import axios from 'axios';
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import Nav from '@/components/Nav.vue';
-import Footer from '@/components/Footer.vue';
 import router from '@/router';
 import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 import Image from '@/components/Image.vue';
@@ -15,7 +14,8 @@ const isAuthenticate = ref(false)
 const selectData = ref({ typeList: '', sizeTalker: '' })
 const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
 
-// ESTO ES PARA EL HABLADOR DEL CDD
+// PARA LA MUESTRA DE CONTENIDO EN EL SELECT LIST
+const tienda = ref(true)
 const cdd = ref(true)
 
 const userSucursal = ref("")
@@ -25,6 +25,16 @@ const api = `${window.location.hostname}`;
 const portApi = 3001;
 
 onMounted(async () => {
+    // comprobar rol de usuario.
+    let rol = await obtnerRolUsuario();
+    if (rol === 'CDD') {
+        cdd.value = true
+        tienda.value = false
+    } else {
+        cdd.value = false
+        tienda.value = true
+    }
+
     // quitar tema degradado
     document.body.classList.remove("body-gradiet")
     document.body.classList.add("body-white")
@@ -44,9 +54,12 @@ onMounted(async () => {
     userSucursal.value = idSucursal
 })
 
-watch(() => {
-    console.log(selectDataSuperMarket.typeList);
-})
+// COMPROBAR ROL DE USUARIO.
+const obtnerRolUsuario = async () => {
+    let rol = await localStorage.getItem("token")
+    const { rtaRol } = JSON.parse(rol)
+    return rtaRol
+}
 
 // SISTEMA PARA EL TABS
 const tab = ref(null);
@@ -81,14 +94,14 @@ const btnSend_2 = () => {
     <Nav v-if="isAuthenticate"></Nav>
 
     <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
-        <v-tab value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
-        <v-tab value="supermercado" color="#50C878">Supermercado</v-tab> 
+        <v-tab v-if="tienda" value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
+        <v-tab v-if="tienda" value="supermercado" color="#50C878">Supermercado</v-tab> 
         <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
     </v-tabs>
 
     <v-card-text>
         <v-window v-model="tab">
-            <v-window-item :value="tabOptions.one" class="display">
+            <v-window-item v-if="tienda" :value="tabOptions.one" class="display">
                 <v-card class="card-select-list" width="600" height="400" color="#000" variant="text" elevation="8">
                     <v-card-item>
                         <div>
@@ -122,7 +135,7 @@ const btnSend_2 = () => {
                 </v-card>
                 <Image imagen="/hablador_estandar.png" />
             </v-window-item> 
-            <v-window-item :value="tabOptions.two" class="display">
+            <v-window-item v-if="tienda" :value="tabOptions.two" class="display">
                 <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
                     v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
                     @send-form="btnSend_2" />

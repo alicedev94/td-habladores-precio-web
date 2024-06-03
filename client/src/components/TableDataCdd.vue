@@ -29,11 +29,11 @@ const sapCode = ref([])
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
 const list = ref("")
 const sizeTalker = ref("")
-const sucur = ref("")
 
 // cdd 
 const rack = ref('')
 const galpon = ref('')
+
 
 // STATIC VARIBLES
 var deleteCode = []
@@ -97,12 +97,13 @@ const busquedaIncial = async () => {
     }
 
     const ruta = window.location.pathname;
-    const regex = /\/table-data-cdd\/(\d+)\/(\d+)*/;
+    const regex = /\/table-data-cdd\/(\d+)\/(\d+)\/(\d+)*/;
     const match = ruta.match(regex);
 
     if (match) {
         rack.value = match[1];
         galpon.value = match[2];
+        sizeTalker.value = match[3];
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
@@ -136,7 +137,6 @@ const fGeneratePdf = async () => {
                 isLoadingPdf.value = false
             })
             .catch((error) => alert(error));
-
     } catch (error) {
         console.error(error);
         isLoadingPdf.value = false

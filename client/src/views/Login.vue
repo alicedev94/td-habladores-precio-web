@@ -2,14 +2,12 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import { useRouter } from "vue-router"; // Importa useRouter
 import router from "../router/index";
 
 const email = ref("");
 const password = ref("");
 const visible = ref(false);
 const isLoading = ref(false);
-// const router = useRouter(); // Inicializa router
 
 // funciones 
 const toggleVisibility = () => {

@@ -7,24 +7,15 @@ const vSeleccion = ref('');
 const galpones = ref(['1', '2', '3', '4']);
 const btnBlock = ref(true)
 
+const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
+
 const btnAceptar = () => {
-    router.push(`/table-data-cdd/${numero.value}/${vSeleccion.value}`); // NUMERO - GALPON
+    router.push(`/table-data-cdd/${numero.value}/${vSeleccion.value}/${selectData.value.sizeTalker}`); // NUMERO - GALPON
 };
 
 watch(() => {
     validarCampos();
 });
-
-function validarInput(value) {
-    const num = parseInt(value);
-    if (value.trim() === '') {
-        return 'Campo obligatorio'; // No error for empty input
-    }
-    if (isNaN(num) || num < 1 || num > 9) {
-        return 'Solo se permiten números del 1 al 9.';
-    }
-    return true;
-}
 
 function validarCampos() {
     if (!numero.value || !vSeleccion.value) {
@@ -40,10 +31,17 @@ function validarCampos() {
         <v-card-item>
             <div class="text-caption">SELECCIONAR DATA PARA EL CDD</div>
             <div class="contenedor-tarjeta">
-                <label for="numero">UNIDADES</label>
-                <v-text-field type="number" v-model="numero"></v-text-field>
-                <v-autocomplete class="selector-combo" :items="galpones" v-model="vSeleccion" label="Galpón"
+                <v-text-field type="number" placeholder="Unidades" v-model="numero"></v-text-field>
+
+                <v-autocomplete class="selector-combo" :items="galpones" v-model="vSeleccion" :disabled="numero === ''" label="Galpón"
                     variant="outlined"></v-autocomplete>
+
+                <v-radio-group v-model="selectData.sizeTalker" :disabled="vSeleccion === ''" inline>
+                    <v-radio label="Pequeño" value="0"></v-radio>
+                    <v-radio label="Mediano" value="1"></v-radio>
+                    <v-radio label="Grande" value="2"></v-radio>
+                </v-radio-group>
+
                 <v-card-actions>
                     <v-btn variant="elevated" color="#d0fdd7" :loading="false" :disabled=btnBlock @click="btnAceptar">
                         ACEPTAR
