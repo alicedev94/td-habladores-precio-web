@@ -1,6 +1,3 @@
-const { sequelize } = require("../lib/sequelize");
-const PDFDocument = require("pdfkit");
-const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
@@ -10,11 +7,11 @@ let divisor = 0;
 let fontSize = 30;
 
 let campos = [
-  "Código sap",
-  "Descripción",
-  "Grupo artículo",
-  "Ubicación",
-  "Cantidad",
+  "CODIGO SAP",
+  "DESCRIPCION",
+  "GRUPO ARTICULO",
+  "UBICACION",
+  "CANTIDAD",
 ];
 
 let reCuadroTitulo = {
@@ -37,29 +34,29 @@ const tipoLetra = "OMEGLE.ttf";
 const dirnameLogo = require("../routes/uploads/index");
 var logoName = "LOGO_DAKA_SE_FELIZ.png";
 
-const estructuraCdd = (doc) => {
+const estructuraCdd = (doc, fontSizeH, tEstructura) => {
   // ESTRUCTURA
   campos.forEach((dato, index) => {
     // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
     // RE-CUADRO DEL TITULO
     doc
       .roundedRect(
-        reCuadroTitulo.x - n1cm / 2,
-        reCuadroTitulo.y + divisor,
-        reCuadroTitulo.with,
-        reCuadroTitulo.height,
-        reCuadroTitulo.radio
+        reCuadroTitulo.x - n1cm / 2 /tEstructura,
+        reCuadroTitulo.y + divisor / tEstructura,
+        reCuadroTitulo.with / tEstructura,
+        reCuadroTitulo.height / tEstructura,
+        reCuadroTitulo.radio / tEstructura
       )
       .stroke();
 
     // TITULO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeH)
       .text(
         `${campos[index]}:`, // .toLocaleUpperCase()
-        reCuadroTitulo.x,
-        reCuadroTitulo.y + n1cm / 2 + divisor,
+        reCuadroTitulo.x + (n1cm/2) /  tEstructura,
+        reCuadroTitulo.y + n1cm / 2 + divisor / tEstructura,
         {
           align: "left",
         }
@@ -67,19 +64,19 @@ const estructuraCdd = (doc) => {
       // RECUADRO VALOR
       doc
         .roundedRect(
-          reCuadroTitulo.x + n1cm * 8.1,
-          reCuadroTitulo.y + divisor,
-          n1cm * 10,
-          reCuadroTitulo.height,
-          reCuadroTitulo.radio
+          reCuadroTitulo.x + n1cm * 8.1 / tEstructura,
+          reCuadroTitulo.y + divisor / tEstructura,
+          n1cm * 10 / tEstructura,
+          reCuadroTitulo.height / tEstructura,
+          reCuadroTitulo.radio / tEstructura
         )
         .stroke();
     divisor += n1cm * 2;
   });
 
   // IMAGEN EL PARTE CENTRALl
-  doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
-    fit: [logo.with, logo.height],
+  doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9 / tEstructura, -10 / tEstructura, {
+    fit: [logo.with / tEstructura, logo.height / tEstructura],
     align: "center",
     valign: "center",
   });
@@ -94,7 +91,7 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  estructuraCdd(doc);
+  estructuraCdd(doc, fontSize);
 
   // DATA
   datos.forEach((dato, index) => {
@@ -173,28 +170,31 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.end();
 }
 
+let fontSizeM = fontSize / 1.45;
+
 function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
   // CREACIÓN DEL NUEVO DOCUMENTO
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  estructuraCdd(doc);
+  let valorM = 1.5;
+  estructuraCdd(doc, fontSizeM, valorM);
 
   // DATA
   datos.forEach((dato, index) => {
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(doc);
+      estructuraCdd(doc, fontSizeM);
     }
     // VALOR CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeM)
       .text(
-        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm / 2,
+        `${dato.priceTalkerSapCode}`.toLocaleUpperCase(), // .toLocaleUpperCase()
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y + (n1cm / 2) / valorM,
         {
           align: "left",
         }
@@ -203,13 +203,14 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR DESCRIPCION
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeM)
       .text(
-        `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 2,
+        `${dato.priceTalkerdescription}`.toLocaleUpperCase(), // .toLocaleUpperCase()
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y + (n1cm * 2) / valorM,
         {
-          height: n1cm * 2,
+          height: (n1cm * 2) / valorM,
+          width: n1cm * 5,
           align: "left",
         }
       );
@@ -217,11 +218,11 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR GRUPO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeM)
       .text(
-        `${dato.linea}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
+        `${dato.linea}`.toLocaleUpperCase(), // 
+        reCuadroTitulo.x + n1cm * 9.1 / valorM,
+        reCuadroTitulo.y + n1cm * 4 / valorM,
         {
           align: "left",
         }
@@ -230,11 +231,11 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR UBICACION
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeM)
       .text(
-        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
+        `Galpón: ${ubicacion}`.toLocaleUpperCase(), // 
+        reCuadroTitulo.x + n1cm * 9.1 / valorM,
+        reCuadroTitulo.y + n1cm * 6 / valorM,
         {
           align: "left",
         }
@@ -243,11 +244,11 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR CANTIDAD
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(fontSizeM)
       .text(
         `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
+        reCuadroTitulo.x + n1cm * 9.1 / valorM,
+        reCuadroTitulo.y + n1cm * 8 / valorM,
         {
           align: "left",
         }
@@ -343,6 +344,6 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
 
 module.exports = {
   habladorG,
-    habladorM,
-    habladorP,
+  habladorM,
+  habladorP,
 };

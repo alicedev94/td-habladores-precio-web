@@ -103,8 +103,7 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion, sizeHablador) =>
     console.log("hablador pequeno en construcciuon");
     // habladorP(inicio, fin, datos, cantidad, ubicacion, doc); // hablador pequeño
   } else if (sizeHablador === '1') {
-    console.log("hablador medianp en construccionn");
-    // habladorM(inicio, fin, datos, cantidad, ubicacion, doc); // hablador mediano
+    habladorM(inicio, fin, datos, cantidad, ubicacion, doc); // hablador mediano
   } else if (sizeHablador === '2') {
 
     habladorG(inicio, fin, datos, cantidad, ubicacion, doc); // hablador grande
