@@ -4,7 +4,7 @@ const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
-const { habladorG } = require("../controllers/habladoresCdd"); // habladorM, habladorP 
+const { habladorG, habladorM, habladorP } = require("../controllers/habladoresCdd"); // habladorM, habladorP 
 
 // VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 let n1cm = 37.8;
@@ -98,11 +98,21 @@ const estructuraCdd = (doc) => {
 }
 
 const geneCdd = async (inicio, fin, datos, cantidad, ubicacion, sizeHablador) => {
-
-  console.log(sizeHablador);
-
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
-  habladorG(inicio, fin, datos, cantidad, ubicacion, doc);
+  if (sizeHablador === '0') {
+    console.log("hablador pequeno en construcciuon");
+    // habladorP(inicio, fin, datos, cantidad, ubicacion, doc); // hablador pequeño
+  } else if (sizeHablador === '1') {
+    console.log("hablador medianp en construccionn");
+    // habladorM(inicio, fin, datos, cantidad, ubicacion, doc); // hablador mediano
+  } else if (sizeHablador === '2') {
+
+    habladorG(inicio, fin, datos, cantidad, ubicacion, doc); // hablador grande
+  } else {
+    let valor = 'posición del hablador no contenplado.';
+    console.log(valor);
+    return valor; // dato no contemplado.
+  } 
 };
 
 module.exports = { dataCdd, geneCdd, estructuraCdd };

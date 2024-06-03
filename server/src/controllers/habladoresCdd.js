@@ -173,8 +173,176 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.end();
 }
 
+function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
+  // CREACIÓN DEL NUEVO DOCUMENTO
+  doc.on("data", inicio);
+  doc.on("end", fin);
+
+  estructuraCdd(doc);
+
+  // DATA
+  datos.forEach((dato, index) => {
+    if (index != 0) {
+      // Agrega una nueva página para cada producto después del primero
+      doc.addPage();
+      estructuraCdd(doc);
+    }
+    // VALOR CODIGO SAP
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR DESCRIPCION
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 2,
+        {
+          height: n1cm * 2,
+          align: "left",
+        }
+      );
+
+    // VALOR GRUPO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.linea}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR UBICACION
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR CANTIDAD
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+  });
+  // FIN DEL DOCUMENTO
+  doc.end();
+}
+
+function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
+  // CREACIÓN DEL NUEVO DOCUMENTO
+  doc.on("data", inicio);
+  doc.on("end", fin);
+
+  estructuraCdd(doc);
+
+  // DATA
+  datos.forEach((dato, index) => {
+    if (index != 0) {
+      // Agrega una nueva página para cada producto después del primero
+      doc.addPage();
+      estructuraCdd(doc);
+    }
+    // VALOR CODIGO SAP
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR DESCRIPCION
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 2,
+        {
+          height: n1cm * 2,
+          align: "left",
+        }
+      );
+
+    // VALOR GRUPO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.linea}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 4 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR UBICACION
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+
+    // VALOR CANTIDAD
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm * 9.1,
+        reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
+        {
+          align: "left",
+        }
+      );
+  });
+  // FIN DEL DOCUMENTO
+  doc.end();
+}
+
 module.exports = {
   habladorG,
-  //   habladorM,
-  //   habladorP,
+    habladorM,
+    habladorP,
 };
