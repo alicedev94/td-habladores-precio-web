@@ -42,14 +42,9 @@ const login = async () => {
       const { auth } = response.data;
 
       if (auth) {
-        // console.log(response.data);
         localStorage.setItem("token", JSON.stringify(response.data));
         isLoading.value = false;
 
-        //  location.href = "/select-list"
-        // setTimeout(()=> {
-
-        // })
         // la ruta no esta esperando a que se cree el token antes de avanzar
         router.push("/select-list"); // Usa router.push para redireccionar
       } else {

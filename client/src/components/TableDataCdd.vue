@@ -55,13 +55,18 @@ const headers = [
 
 onMounted(async () => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
-        listProducts.value = data;
         busquedaIncial()
+        const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+
+        // -
+        for (const obj of data) {
+            obj.Cantidad = rack.value;
+        }// AGREGAMOS LA CANTIDAD SELECCIONADA EN EL INPUT EN CASO DE QUE SEA MANUAL.
+
+        listProducts.value = data;
     } catch (error) {
         alert(error);
     }
-
 })
 
 watch(() => {
@@ -107,7 +112,6 @@ const busquedaIncial = async () => {
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        let datos = { /* tu JSON grande */ };
         fetch(`http://${api}:${portApi}/api/v1/gene-cdd/${rack.value}/${galpon.value}`, {
             method: 'POST',
             headers: {
@@ -146,8 +150,6 @@ const fImportXlsx = async (event) => {
         await readXlsxFile(event.target.files[0]).then((rows) => {
             sapCode.value.push(rows)
         })
-
-        console.log(sapCode.value);
 
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code-cdd`, {
             method: 'POST',

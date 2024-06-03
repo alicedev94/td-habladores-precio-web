@@ -10,11 +10,11 @@ let divisor = 0;
 let fontSize = 30;
 
 let campos = [
-  "código sap",
-  "descripción",
-  "grupo artículo",
-  "ubicación",
-  "cantidad",
+  "Código sap",
+  "Descripción",
+  "Grupo artículo",
+  "Ubicación",
+  "Cantidad",
 ];
 
 let reCuadroTitulo = {
@@ -96,8 +96,8 @@ function estructuraCdd (doc) {
 }
 
 const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
-  console.log(datos);
 
+  console.log(datos);
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   // CREACIÓN DEL NUEVO DOCUMENTO
@@ -171,7 +171,7 @@ const geneCdd = async (inicio, fin, datos, cantidad, ubicacion) => {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `${cantidad} UNIDADES`, // .toLocaleUpperCase()
+        `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
         reCuadroTitulo.y + n1cm * 8 + n1cm / 2,
         {

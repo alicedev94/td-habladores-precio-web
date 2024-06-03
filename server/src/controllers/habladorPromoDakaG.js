@@ -207,12 +207,10 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
           precio = Math.round(precio);
         } else {
           // CUALQUIER OTRA LISTA
-
           precio = parseFloat(dato.product.PrecioaMostrar * 1.16); // dato.product.PrecioaMostrar
           precio = Math.round(precio);
           precio = precio - 0.01;
           precio = precio.toString().replace(".", ",");
-          // console.log(precio);
         }
         //
         //

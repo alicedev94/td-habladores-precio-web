@@ -8,6 +8,7 @@ const {
   deleteUser,
   products,
   processData,
+  processDataCdd,
   stateData,
   modelData,
   findByEmail,
@@ -302,8 +303,6 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
     "Content-Disposition": "attachment; filename=alicePdf.pdf",
   });
 
-  console.log(data, noData);
-
   await geneCdd(
     // hasta este punto es totalmente funcional [smallPriceTalker]
     (data) => stream.write(data),
@@ -339,6 +338,21 @@ router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
   }
 });
 
+router.post("/send/sap-code-cdd", async (req, res) => {
+  const { sapCode } = req.body;
+
+  if (sapCode[0].length > 5000) {
+    res.json({
+      status: "error",
+      descrip:
+        "El sistema no admite más de 5000 códigos SKU. Por favor, ingrese una cantidad inferior.",
+    });
+  } else {
+    const rta = await processDataCdd(req.body);
+    res.json({ status: "ok", data: rta});
+  }
+});
+
 router.post("/send/sap-code1", async (req, res) => {
   const rta = await stateData();
   //let rtaJson = JSON.stringify(rta)
@@ -369,7 +383,6 @@ router.post("/change/logo", async (req, res) => {
 // PUT
 router.put("/updateUser/:id", async (req, res) => {
   const name = req.body.name;
-  // console.log(name);
   await updateUser(req.params["id"], name);
   res.json({ update_records: name });
 });
