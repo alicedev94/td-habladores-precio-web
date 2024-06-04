@@ -91,14 +91,15 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  estructuraCdd(doc, fontSize);
+  let valorM = 1;
+  estructuraCdd(doc, fontSize, valorM);
 
   // DATA
   datos.forEach((dato, index) => {
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(doc);
+      estructuraCdd(doc, fontSize, valorM);
     }
     // VALOR CODIGO SAP
     doc
@@ -170,14 +171,13 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.end();
 }
 
-let fontSizeM = fontSize / 1.45;
-
 function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
   // CREACIÓN DEL NUEVO DOCUMENTO
   doc.on("data", inicio);
   doc.on("end", fin);
 
   let valorM = 1.5;
+  let fontSizeM = fontSize / 1.45;
   estructuraCdd(doc, fontSizeM, valorM);
 
   // DATA

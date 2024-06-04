@@ -18,7 +18,7 @@ watch(() => {
 });
 
 function validarCampos() {
-    if (!numero.value || !vSeleccion.value) {
+    if (!numero.value || !vSeleccion.value) { 
         btnBlock.value = true
     } else {
         btnBlock.value = false
