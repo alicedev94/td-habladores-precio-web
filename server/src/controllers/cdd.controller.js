@@ -4,7 +4,11 @@ const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const path = require("path");
 const priceTalkerFontPath = process.cwd();
 
-const { habladorG, habladorM, habladorP } = require("../controllers/habladoresCdd"); // habladorM, habladorP 
+const {
+  habladorG,
+  habladorM,
+  habladorP,
+} = require("../controllers/habladoresCdd"); // habladorM, habladorP
 
 // VARIBLES PARA LA PLANTILLA GRANDE DEL HABLADOR DE CDD
 let n1cm = 37.8;
@@ -45,73 +49,77 @@ const dataCdd = async () => {
 };
 
 const estructuraCdd = (doc) => {
-    // ESTRUCTURA
-    campos.forEach((dato, index) => {
-      // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
-      // RE-CUADRO DEL TITULO
+  // ESTRUCTURA
+  campos.forEach((dato, index) => {
+    // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
+    // RE-CUADRO DEL TITULO
+    doc
+      .roundedRect(
+        reCuadroTitulo.x - n1cm / 2,
+        reCuadroTitulo.y + divisor,
+        reCuadroTitulo.with,
+        reCuadroTitulo.height,
+        reCuadroTitulo.radio
+      )
+      .stroke();
+
+    // TITULO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSize)
+      .text(
+        `${campos[index]}:`, // .toLocaleUpperCase()
+        reCuadroTitulo.x,
+        reCuadroTitulo.y + n1cm / 2 + divisor,
+        {
+          align: "left",
+        }
+      ),
+      // RECUADRO VALOR
       doc
         .roundedRect(
-          reCuadroTitulo.x - n1cm / 2,
+          reCuadroTitulo.x + n1cm * 8.1,
           reCuadroTitulo.y + divisor,
-          reCuadroTitulo.with,
+          n1cm * 10,
           reCuadroTitulo.height,
           reCuadroTitulo.radio
         )
         .stroke();
-  
-      // TITULO
-      doc
-        .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-        .fontSize(fontSize)
-        .text(
-          `${campos[index]}:`, // .toLocaleUpperCase()
-          reCuadroTitulo.x,
-          reCuadroTitulo.y + n1cm / 2 + divisor,
-          {
-            align: "left",
-          }
-        ),
-        // RECUADRO VALOR
-        doc
-          .roundedRect(
-            reCuadroTitulo.x + n1cm * 8.1,
-            reCuadroTitulo.y + divisor,
-            n1cm * 10,
-            reCuadroTitulo.height,
-            reCuadroTitulo.radio
-          )
-          .stroke();
-      divisor += n1cm * 2;
-    });
-  
-    // IMAGEN EL PARTE CENTRALl
-    doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
-      fit: [logo.with, logo.height],
-      align: "center",
-      valign: "center",
-    });
-  
-    // REINICIAR VARIABLES DESPUES DE USO
-    reCuadroTitulo.X = n1cm * 2;
-    divisor = 0;
-    
-}
+    divisor += n1cm * 2;
+  });
 
-const geneCdd = async (inicio, fin, datos, cantidad, ubicacion, sizeHablador) => {
+  // IMAGEN EL PARTE CENTRALl
+  doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9, -10, {
+    fit: [logo.with, logo.height],
+    align: "center",
+    valign: "center",
+  });
+
+  // REINICIAR VARIABLES DESPUES DE USO
+  reCuadroTitulo.X = n1cm * 2;
+  divisor = 0;
+};
+
+const geneCdd = async (
+  inicio,
+  fin,
+  datos,
+  cantidad,
+  ubicacion,
+  sizeHablador
+) => {
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
-  if (sizeHablador === '0') {
-    console.log("hablador pequeno en construcciuon");
-    // habladorP(inicio, fin, datos, cantidad, ubicacion, doc); // hablador pequeño
-  } else if (sizeHablador === '1') {
+  if (sizeHablador === "0") {
+    habladorP(inicio, fin, datos, cantidad, ubicacion, doc); // hablador pequeño
+  } else if (sizeHablador === "1") {
     habladorM(inicio, fin, datos, cantidad, ubicacion, doc); // hablador mediano
-  } else if (sizeHablador === '2') {
-
+  } else if (sizeHablador === "2") {
     habladorG(inicio, fin, datos, cantidad, ubicacion, doc); // hablador grande
   } else {
-    let valor = 'posición del hablador no contenplado.';
+    let valor = "posición del hablador no contenplado.";
     console.log(valor);
     return valor; // dato no contemplado.
-  } 
-};
+  }
+}; // Genera el pdf para los habladores del cdd.
 
 module.exports = { dataCdd, geneCdd, estructuraCdd };
