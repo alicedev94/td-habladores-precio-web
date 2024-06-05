@@ -62,32 +62,10 @@ let contador = 0;
 
 const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
   // RECIBIR LOS DARTOS DEL SERVIDOR CLIENTE (CABECERA)
-  // console.log(datos);
-
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", inicio);
   doc.on("end", fin);
-
-  // EN ESTE PASO ES EECESARIO DETECTAR SI LOS PRECIOS SE SUMAN O SE COLOCA EL PIRMER VALOR, PARA EL SCRIPT QUE ARMA
-  // LA DATA ESTO ES INDIFERENTE
-  datosRelacionados.forEach((dato) => {
-    // CABECERA
-    // console.log(dato.product.Codigo_suma_resta);
-    // if (dato.product.Codigo_suma_resta == 1) {
-    //   console.log("suma");
-    //   dato.details.forEach((detail, index) => {
-    //     // DETALLE
-    //     if(detail.Codigo_suma_resta == 1) {
-    //       console.log("detalle suma" + index);
-    //       detail.PrecioaMostrar
-    //     }
-    //   });
-    // } else {
-    //   console.log("resta");
-    // }
-  });
-  // FIN DEL BLOQUE
 
   // Recorres cada dato
   datosRelacionados.forEach((dato, index) => {
@@ -198,7 +176,6 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       // SI LA LISTA ES MARGARITA NO LLEVA IVA
       if (dato.product["Lista Precio"] != "1") {
         // CUALQUIER OTRA LISTA
-        // console.log("ss");
         // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
         if (dato.product.PrecioaMostrar < 1) {
           // 0 0,1 0,12123 etc

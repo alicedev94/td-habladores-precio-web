@@ -121,10 +121,10 @@ const rightBtn = async () => {
         });
 
         // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
-        console.log(master);
+        // console.log(master);
         items.value = master
  
-        console.log("items", items.value);
+        // console.log("items", items.value);
         master = []
         armaCombo.value = []
     })
@@ -133,15 +133,6 @@ const rightBtn = async () => {
     selectedProducts.value = []
     // armaCombo.value = []
 }
-
-// ASI FUNCIONA NORMALMENTE 
-// const rightBtn = () => {
-//     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-//     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
-
-//     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
-//     selectedProducts.value = []
-// }
 
 const deleteBtn = () => {
     const filterListProducts2 = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
@@ -320,7 +311,6 @@ const filteredItems = computed(() => {
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
     <!-- <GreenjsTable /> -->
-
 </template>
 
 <style scoped>

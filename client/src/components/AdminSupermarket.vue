@@ -68,8 +68,6 @@ const busquedaIncial = async () => {
         typeTalker.value = match[3];
         sucur.value = match[4];
 
-
-
         // REDIRECCIONAR A ULTIMAS EXISTENCIAS SEGUN EL TIPO DE HABLADOR
         if (typeTalker.value === "0") {
             // ESTO ES PROMO DAKA

@@ -179,6 +179,8 @@ router.post("/generate-pdf", async (req, res) => {
 router.post("/generate-super-pdf", async (req, res) => {
   // SUPER MERCADO
   const { data, list, sizeTalker, typeTalker, datosRelacionados } = req.body;
+
+  console.log(data);
  
   try {
     if (typeTalker === "0") {
