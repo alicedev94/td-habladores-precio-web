@@ -5,6 +5,7 @@ const priceTalkerFontPath = process.cwd();
 let n1cm = 37.8;
 let divisor = 0;
 let fontSize = 30;
+let segundaPosicionM = 0;
 
 let campos = [
   "CODIGO SAP",
@@ -34,15 +35,25 @@ const tipoLetra = "OMEGLE.ttf";
 const dirnameLogo = require("../routes/uploads/index");
 var logoName = "LOGO_DAKA_SE_FELIZ.png";
 
-const estructuraCdd = (doc, fontSizeH, tEstructura, ajusteT, medidaGlobal) => {
+const estructuraCdd = (
+  doc,
+  fontSizeH,
+  tEstructura,
+  ajusteT,
+  medidaGlobal,
+  segundaPosicionM
+) => {
   // ESTRUCTURA
   campos.forEach((dato, index) => {
     // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
     // RE-CUADRO DEL TITULO
     doc
       .roundedRect(
-        reCuadroTitulo.x - n1cm / 2 /tEstructura,
-        reCuadroTitulo.y + divisor / tEstructura - medidaGlobal,
+        reCuadroTitulo.x - n1cm / 2 / tEstructura,
+        reCuadroTitulo.y +
+          divisor / tEstructura -
+          medidaGlobal +
+          segundaPosicionM,
         reCuadroTitulo.with / tEstructura,
         reCuadroTitulo.height / tEstructura,
         reCuadroTitulo.radio / tEstructura
@@ -55,8 +66,13 @@ const estructuraCdd = (doc, fontSizeH, tEstructura, ajusteT, medidaGlobal) => {
       .fontSize(fontSizeH)
       .text(
         `${campos[index]}:`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + (n1cm/2) /  tEstructura,
-        reCuadroTitulo.y + n1cm / 2 + divisor / tEstructura - ajusteT - medidaGlobal,
+        reCuadroTitulo.x + n1cm / 2 / tEstructura,
+        reCuadroTitulo.y +
+          n1cm / 2 +
+          divisor / tEstructura -
+          ajusteT -
+          medidaGlobal +
+          segundaPosicionM,
         {
           align: "left",
         }
@@ -64,9 +80,12 @@ const estructuraCdd = (doc, fontSizeH, tEstructura, ajusteT, medidaGlobal) => {
       // RECUADRO VALOR
       doc
         .roundedRect(
-          reCuadroTitulo.x + n1cm * 8.1 / tEstructura,
-          reCuadroTitulo.y + divisor / tEstructura - medidaGlobal,
-          n1cm * 10 / tEstructura,
+          reCuadroTitulo.x + (n1cm * 8.1) / tEstructura,
+          reCuadroTitulo.y +
+            divisor / tEstructura -
+            medidaGlobal +
+            segundaPosicionM,
+          (n1cm * 10) / tEstructura,
           reCuadroTitulo.height / tEstructura,
           reCuadroTitulo.radio / tEstructura
         )
@@ -75,11 +94,16 @@ const estructuraCdd = (doc, fontSizeH, tEstructura, ajusteT, medidaGlobal) => {
   });
 
   // IMAGEN EL PARTE CENTRALl
-  doc.image(`${dirnameLogo}/${logoName}`, n1cm * 9 / tEstructura, -10 / tEstructura, {
-    fit: [logo.with / tEstructura, logo.height / tEstructura],
-    align: "center",
-    valign: "center",
-  });
+  doc.image(
+    `${dirnameLogo}/${logoName}`,
+    (n1cm * 9) / tEstructura,
+    -10 / tEstructura + segundaPosicionM,
+    {
+      fit: [logo.with / tEstructura, logo.height / tEstructura],
+      align: "center",
+      valign: "center",
+    }
+  );
 
   // REINICIAR VARIABLES DESPUES DE USO
   reCuadroTitulo.X = n1cm * 2;
@@ -94,15 +118,16 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   let valorM = 1;
   let valorNeutro = 0;
   let medidaGlobal = 0;
-  estructuraCdd(doc, fontSize, valorM, valorNeutro, medidaGlobal);
+  estructuraCdd(doc, fontSize, valorM, valorNeutro, medidaGlobal, 0);
 
   // DATA
   datos.forEach((dato, index) => {
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(doc, fontSize, valorM, valorNeutro, medidaGlobal);
+      estructuraCdd(doc, fontSize, valorM, valorNeutro, medidaGlobal, 0);
     }
+
     // VALOR CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
@@ -183,15 +208,44 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
   let ajusteM = fontSizeM / 2;
   let medidaGlobal = 20;
 
-  estructuraCdd(doc, fontSizeM, valorM, ajusteM, medidaGlobal);
+  estructuraCdd(
+    doc,
+    fontSizeM,
+    valorM,
+    ajusteM,
+    medidaGlobal,
+    segundaPosicionM
+  );
 
   // DATA
   datos.forEach((dato, index) => {
-    if (index != 0) {
+    if (index > 1) {
+      // != (Esto deberia generar dos habladores por pagina)
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(doc, fontSizeM, valorM, ajusteM, medidaGlobal);
+      estructuraCdd(
+        doc,
+        fontSizeM,
+        valorM,
+        ajusteM,
+        medidaGlobal,
+        segundaPosicionM
+      );
     }
+
+    // Controlar la posicion del segundo layout
+    if (index == 1) {
+      segundaPosicionM = n1cm * 10;
+      estructuraCdd(
+        doc,
+        fontSizeM,
+        valorM,
+        ajusteM,
+        medidaGlobal,
+        segundaPosicionM
+      );
+    } 
+
     // VALOR CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
@@ -199,7 +253,7 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .text(
         `${dato.priceTalkerSapCode}`.toLocaleUpperCase(), // .toLocaleUpperCase()
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
-        reCuadroTitulo.y + (n1cm / 2) / valorM - medidaGlobal,
+        reCuadroTitulo.y + n1cm / 2 / valorM - medidaGlobal + segundaPosicionM,
         {
           align: "left",
         }
@@ -212,7 +266,10 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .text(
         `${dato.priceTalkerdescription}`.toLocaleUpperCase(), // .toLocaleUpperCase()
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
-        reCuadroTitulo.y + (n1cm * 2) / valorM - medidaGlobal,
+        reCuadroTitulo.y +
+          (n1cm * 2) / valorM -
+          medidaGlobal +
+          segundaPosicionM,
         {
           height: (n1cm * 2) / valorM,
           width: n1cm * 5,
@@ -225,9 +282,13 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `${dato.linea}`.toLocaleUpperCase(), // 
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 4 / valorM + ajusteM - medidaGlobal,
+        `${dato.linea}`.toLocaleUpperCase(), //
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y +
+          (n1cm * 4) / valorM +
+          ajusteM -
+          medidaGlobal +
+          segundaPosicionM,
         {
           align: "left",
         }
@@ -238,9 +299,13 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `Galpón: ${ubicacion}`.toLocaleUpperCase(), // 
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 6 / valorM + ajusteM - medidaGlobal,
+        `Galpón: ${ubicacion}`.toLocaleUpperCase(), //
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y +
+          (n1cm * 6) / valorM +
+          ajusteM -
+          medidaGlobal +
+          segundaPosicionM,
         {
           align: "left",
         }
@@ -252,12 +317,19 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .fontSize(fontSizeM)
       .text(
         `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 8 / valorM + ajusteM - medidaGlobal,
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y +
+          (n1cm * 8) / valorM +
+          ajusteM -
+          medidaGlobal +
+          segundaPosicionM,
         {
           align: "left",
         }
       );
+
+      // Reiniciar valores
+      segundaPosicionM = 0;
   });
   // FIN DEL DOCUMENTO
   doc.end();
@@ -288,7 +360,7 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
       .text(
         `${dato.priceTalkerSapCode}`.toLocaleUpperCase(), // .toLocaleUpperCase()
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
-        reCuadroTitulo.y + (n1cm / 2) / valorM - medidaGlobal,
+        reCuadroTitulo.y + n1cm / 2 / valorM - medidaGlobal,
         {
           align: "left",
         }
@@ -314,9 +386,9 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `${dato.linea}`.toLocaleUpperCase(), // 
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 4 / valorM + ajusteP - medidaGlobal, 
+        `${dato.linea}`.toLocaleUpperCase(), //
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y + (n1cm * 4) / valorM + ajusteP - medidaGlobal,
         {
           align: "left",
         }
@@ -327,9 +399,9 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `Galpón: ${ubicacion}`.toLocaleUpperCase(), // 
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 6 / valorM + ajusteP - medidaGlobal,
+        `Galpón: ${ubicacion}`.toLocaleUpperCase(), //
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y + (n1cm * 6) / valorM + ajusteP - medidaGlobal,
         {
           align: "left",
         }
@@ -341,8 +413,8 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
       .fontSize(fontSizeM)
       .text(
         `${dato.cantidad} UNIDADES`, // .toLocaleUpperCase()
-        reCuadroTitulo.x + n1cm * 9.1 / valorM,
-        reCuadroTitulo.y + n1cm * 8 / valorM + ajusteP - medidaGlobal,
+        reCuadroTitulo.x + (n1cm * 9.1) / valorM,
+        reCuadroTitulo.y + (n1cm * 8) / valorM + ajusteP - medidaGlobal,
         {
           align: "left",
         }

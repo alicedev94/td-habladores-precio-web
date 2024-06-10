@@ -158,6 +158,7 @@ const productsSupermarket = async (list, size, type, sucur) => {
      ,[FecCrea]
      ,[Codigo_relacion]
      ,[Codigo_suma_resta]
+     ,[OldPrice]
      FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresCombos]
  `);
   return response;
