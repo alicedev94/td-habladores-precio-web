@@ -173,7 +173,7 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSize)
       .text(
-        `Galpón: ${ubicacion}`, // .toLocaleUpperCase()
+        `Galpón: ${dato.galpon}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
         reCuadroTitulo.y + n1cm * 6 + n1cm / 2,
         {
@@ -299,7 +299,7 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `Galpón: ${ubicacion}`.toLocaleUpperCase(), //
+        `Galpón: ${dato.cantidad}`.toLocaleUpperCase(), //
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
         reCuadroTitulo.y +
           (n1cm * 6) / valorM +
@@ -399,7 +399,7 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
       .fontSize(fontSizeM)
       .text(
-        `Galpón: ${ubicacion}`.toLocaleUpperCase(), //
+        `Galpón: ${dato.cantidad}`.toLocaleUpperCase(), //
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
         reCuadroTitulo.y + (n1cm * 6) / valorM + ajusteP - medidaGlobal,
         {

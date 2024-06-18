@@ -2,9 +2,9 @@
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
-import Swal from 'sweetalert2'
 import Nav from '@/components/Nav.vue';
-import Footer from '@/components/Footer.vue';
+
+
 
 const listProducts = ref([]);
 const listProducts2 = ref([]);
@@ -56,10 +56,12 @@ onMounted(async () => {
     try {
         busquedaIncial()
         const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+        console.log(data); 
 
         // -
         for (const obj of data) {
             obj.Cantidad = rack.value;
+            obj.galpon = galpon.value;
         }// AGREGAMOS LA CANTIDAD SELECCIONADA EN EL INPUT EN CASO DE QUE SEA MANUAL.
 
         listProducts.value = data;
@@ -110,6 +112,8 @@ const busquedaIncial = async () => {
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
+    console.log("filter", filterExpoListProducts.value);
+
     isLoadingPdf.value = true
     try {
         fetch(`http://${api}:${portApi}/api/v1/gene-cdd/${rack.value}/${galpon.value}`, {

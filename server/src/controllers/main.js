@@ -270,7 +270,7 @@ const datosCdd = async (data) => {
 const processDataCdd = async (data) => {
   const datos = data.sapCode;
   // Convertir los datos en un objeto de datos
-  const data1 = datos[0].map(([codigo, cantidad]) => ({ codigo, cantidad }));
+  const data1 = datos[0].map(([codigo, cantidad, galpon]) => ({ codigo, cantidad, galpon }));
 
   const data2 = await datosCdd(data);
 
@@ -285,7 +285,8 @@ const processDataCdd = async (data) => {
         Nombre: item2.descripcion,
         Marca: item2.marca,
         Cantidad: item1.cantidad,
-        grupo: item2.grupo
+        grupo: item2.grupo,
+        galpon: item1.galpon
       };
     } catch (error) {
       console.log(error);
@@ -314,6 +315,7 @@ const modelData = (data) => {
       precioTachado: item.PrecioTachado,
       linea: item.grupo,
       cantidad: item.Cantidad,
+      galpon: item.galpon
     });
   });
 

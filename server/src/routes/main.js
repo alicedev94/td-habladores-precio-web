@@ -293,6 +293,8 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
   const { data, list, sizeTalker } = req.body;
   const { rack, galpon } = req.params;
 
+  console.log("modelData" ,data); 
+  
   const proData = modelData(data);
   proData.forEach((obj) => {
     obj.priceTalkerList = list;
