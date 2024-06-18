@@ -33,7 +33,7 @@ const tipoLetra = "OMEGLE.ttf";
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
-var logoName = "LOGO_DAKA_SE_FELIZ.png";
+var logoName = "LODO_DAKA_REDONDO.png";
 
 const estructuraCdd = (
   doc,
