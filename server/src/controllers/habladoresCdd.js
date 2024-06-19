@@ -110,6 +110,91 @@ const estructuraCdd = (
   divisor = 0;
 };
 
+const estructuraCddM = (
+  doc,
+  fontSizeH,
+  tEstructura,
+  ajusteT,
+  medidaGlobal,
+  segundaPosicionM,
+  posicion
+) => {
+  let margenImagen = 0;
+  
+  if (posicion == 1) {
+    margenImagen = 5;
+  }
+
+  // ESTRUCTURA
+  campos.forEach((dato, index) => {
+    // PARA EL DISEÑO DE LOS HABLADORES POR CAMPO
+    // RE-CUADRO DEL TITULO
+    doc
+      .roundedRect(
+        reCuadroTitulo.x - n1cm / 2 / tEstructura,
+        reCuadroTitulo.y +
+          divisor / tEstructura -
+          medidaGlobal +
+          segundaPosicionM + margenImagen,
+        reCuadroTitulo.with / tEstructura,
+        reCuadroTitulo.height / tEstructura + 15,
+        reCuadroTitulo.radio / tEstructura
+      )
+      .stroke();
+
+    // TITULO
+    doc
+      .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
+      .fontSize(fontSizeH)
+      .text(
+        `${campos[index]}:`, // .toLocaleUpperCase()
+        reCuadroTitulo.x + n1cm / 2 / tEstructura,
+        reCuadroTitulo.y +
+          n1cm / 2 +
+          divisor / tEstructura -
+          ajusteT -
+          medidaGlobal +
+          segundaPosicionM +
+          10 + margenImagen,
+        {
+          align: "left",
+        }
+      ),
+      // RECUADRO VALOR
+      doc
+        .roundedRect(
+          reCuadroTitulo.x + (n1cm * 8.1) / tEstructura,
+          reCuadroTitulo.y +
+            divisor / tEstructura -
+            medidaGlobal +
+            segundaPosicionM + margenImagen,
+          (n1cm * 10) / tEstructura + 20,
+          reCuadroTitulo.height / tEstructura + 15,
+          reCuadroTitulo.radio / tEstructura
+        )
+        .stroke();
+    divisor += n1cm * 2.5;
+  });
+
+    // IMAGEN EL PARTE CENTRALl
+    doc.image(
+      `${dirnameLogo}/${logoName}`,
+      (n1cm * 9) / tEstructura + 10,
+      -10 / tEstructura + segundaPosicionM + margenImagen + 30,
+      {
+        fit: [logo.with / 2, logo.height / 2],
+        align: "center",
+        valign: "center",
+      }
+    );
+
+
+  // REINICIAR VARIABLES DESPUES DE USO
+  reCuadroTitulo.X = n1cm * 2;
+  divisor = 0;
+  margenImagen = 0;
+};
+
 function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
   // CREACIÓN DEL NUEVO DOCUMENTO
   doc.on("data", inicio);
@@ -204,47 +289,53 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
   doc.on("end", fin);
 
   let valorM = 1.5;
-  let fontSizeM = fontSize / 1.45;
-  let ajusteM = fontSizeM / 2;
+  let fontSizeM = fontSize / 1.3; // Tamaño de la letra entre mayor es el numero mas pqueña la letra.
+  let ajusteM = fontSizeM / 2; // ANTES DE CAGARLA
+  let reCuadroTituloM = -10;
   let medidaGlobal = 20;
+  let contador = 0;
 
-  estructuraCdd(
+  estructuraCddM(
     doc,
     fontSizeM,
     valorM,
     ajusteM,
     medidaGlobal,
-    segundaPosicionM
+    segundaPosicionM,
+    0
   );
 
   // DATA
   datos.forEach((dato, index) => {
-    if (index > 1) {
+    if (contador > 1) {
       // != (Esto deberia generar dos habladores por pagina)
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(
+      estructuraCddM(
         doc,
         fontSizeM,
         valorM,
         ajusteM,
         medidaGlobal,
-        segundaPosicionM
+        segundaPosicionM,
+        0
       );
+      contador = 0;
     }
 
     // Controlar la posicion del segundo layout
-    if (index == 1) {
+    if (contador == 1) {
       segundaPosicionM = n1cm * 10;
-      estructuraCdd(
+      estructuraCddM(
         doc,
         fontSizeM,
         valorM,
         ajusteM,
         medidaGlobal,
-        segundaPosicionM
+        segundaPosicionM,
+        1
       );
-    } 
+    }
 
     // VALOR CODIGO SAP
     doc
@@ -253,7 +344,11 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
       .text(
         `${dato.priceTalkerSapCode}`.toLocaleUpperCase(), // .toLocaleUpperCase()
         reCuadroTitulo.x + (n1cm * 9.1) / valorM,
-        reCuadroTitulo.y + n1cm / 2 / valorM - medidaGlobal + segundaPosicionM,
+        reCuadroTitulo.y +
+          n1cm / 2 / valorM -
+          medidaGlobal +
+          segundaPosicionM +
+          5,
         {
           align: "left",
         }
@@ -269,7 +364,8 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
         reCuadroTitulo.y +
           (n1cm * 2) / valorM -
           medidaGlobal +
-          segundaPosicionM,
+          segundaPosicionM +
+          20,
         {
           height: (n1cm * 2) / valorM,
           width: n1cm * 5,
@@ -288,7 +384,8 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
           (n1cm * 4) / valorM +
           ajusteM -
           medidaGlobal +
-          segundaPosicionM,
+          segundaPosicionM +
+          30,
         {
           align: "left",
         }
@@ -305,7 +402,8 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
           (n1cm * 6) / valorM +
           ajusteM -
           medidaGlobal +
-          segundaPosicionM,
+          segundaPosicionM +
+          45,
         {
           align: "left",
         }
@@ -322,14 +420,24 @@ function habladorM(inicio, fin, datos, cantidad, ubicacion, doc) {
           (n1cm * 8) / valorM +
           ajusteM -
           medidaGlobal +
-          segundaPosicionM,
+          segundaPosicionM +
+          60,
         {
           align: "left",
         }
       );
 
-      // Reiniciar valores
-      segundaPosicionM = 0;
+    // Reiniciar valores
+    segundaPosicionM = 0;
+
+    // Terminado el proceso aumentamos una vuelta
+    contador++;
+
+    // // que ya posse mas de dos habladorees en la pagina
+    // if(contador > 1) {
+    //   // reinicimaos su valor para que cree una nueva pagina y coloque nuevos habladores
+    //   contador = 0;
+    // }
   });
   // FIN DEL DOCUMENTO
   doc.end();
@@ -344,14 +452,14 @@ function habladorP(inicio, fin, datos, cantidad, ubicacion, doc) {
   let fontSizeM = fontSize / 2;
   let ajusteP = fontSizeM / 2;
   let medidaGlobal = 50;
-  estructuraCdd(doc, fontSizeM, valorM, ajusteP, medidaGlobal);
+  estructuraCdd(doc, fontSizeM, valorM, ajusteP, medidaGlobal, 0);
 
   // DATA
   datos.forEach((dato, index) => {
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
-      estructuraCdd(doc, fontSizeM, valorM, ajusteP, medidaGlobal);
+      estructuraCdd(doc, fontSizeM, valorM, ajusteP, medidaGlobal, 0);
     }
     // VALOR CODIGO SAP
     doc
@@ -428,4 +536,5 @@ module.exports = {
   habladorG,
   habladorM,
   habladorP,
+  estructuraCdd,
 };
