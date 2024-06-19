@@ -56,7 +56,6 @@ onMounted(async () => {
     try {
         busquedaIncial()
         const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
-        console.log(data); 
 
         // -
         for (const obj of data) {
@@ -112,7 +111,7 @@ const busquedaIncial = async () => {
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
-    console.log("filter", filterExpoListProducts.value);
+
 
     isLoadingPdf.value = true
     try {
