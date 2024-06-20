@@ -2,6 +2,7 @@ const { sequelize } = require("../lib/sequelize");
 const PDFDocument = require("pdfkit");
 const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const { habladorG, habladorP, habladorM } = require("../controllers/habladoresCdd");
+const { habladorP2 } = require("../controllers/small.pdf.js");
 
 // Nuevos Modulos
 // const { habladorM } = require("../controllers/habladorCddMediano");
@@ -30,10 +31,12 @@ const geneCdd = async (
 ) => {
   let doc;
   try {
-    switch (sizeHablador) {
+     switch  (sizeHablador) {
       case SIZE_SMALL:
         doc = new PDFDocument({ size: "A4", layout: "landscape" });
-        habladorP(inicio, fin, datos, cantidad, ubicacion, doc);
+        // habladorP(inicio, fin, datos, cantidad, ubicacion, doc);
+        const rta = await habladorP2(inicio, fin, datos, cantidad, ubicacion, doc);
+        console.log(rta);
         break;
       case SIZE_MEDIUM:
         doc = new PDFDocument({ size: "A4", layout: "portrait" });
