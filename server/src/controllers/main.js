@@ -5,6 +5,7 @@ const findAll = async () => {
   return rta;
 };
 
+
 const findByEmail = async (email) => {
   const rta = await sequelize.models.Users.findOne({
     where: {
@@ -18,6 +19,9 @@ const newUser = async (data) => {
   const rta = await sequelize.models.Users.create(data);
   return rta;
 };
+
+
+// newUser ({email: "limpia@tiendasdaka.com", password: "Daka38", rol: "ADMIN", idSucursal: "38"})
 
 const updateUser = async (id, data) => {
   const rta = await sequelize.models.Users.update(

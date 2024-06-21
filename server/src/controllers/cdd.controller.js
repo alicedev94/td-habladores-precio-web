@@ -33,10 +33,9 @@ const geneCdd = async (
   try {
      switch  (sizeHablador) {
       case SIZE_SMALL:
-        doc = new PDFDocument({ size: "A4", layout: "landscape" });
+        doc = new PDFDocument({ size: "A4", layout: "portrait" });
         // habladorP(inicio, fin, datos, cantidad, ubicacion, doc);
         const rta = await habladorP2(inicio, fin, datos, cantidad, ubicacion, doc);
-        console.log(rta);
         break;
       case SIZE_MEDIUM:
         doc = new PDFDocument({ size: "A4", layout: "portrait" });
