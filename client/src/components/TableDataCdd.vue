@@ -4,8 +4,6 @@ import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
 import Nav from '@/components/Nav.vue';
 
-
-
 const listProducts = ref([]);
 const listProducts2 = ref([]);
 const expoListProduct = ref([]);
