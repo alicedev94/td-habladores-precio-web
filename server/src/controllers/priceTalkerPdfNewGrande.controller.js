@@ -16,17 +16,17 @@ var precio = 0;
 let boxPositionX = 70;
 let boxPositionY = 30;
 let priceTalkerDescriptionPositionX = 32.7;
-let priceTalkerDescriptionPositionY = 86.2;
+let priceTalkerDescriptionPositionY = 66.2;
 let priceTalkerBrandPositionX = 32.7;
-let priceTalkerBrandPositionY = 74.31;
+let priceTalkerBrandPositionY = 54.31; // 74.31
 let priceTalkerPositionPriceX = 32.7;
-let priceTalkerPositionPriceY = 142.68;
+let priceTalkerPositionPriceY = 142.68 + 10; // 142.68
 let priceTalkerLogoPositionX = 212.6;
 let priceTalkerLogoPositionY = 42.52;
 let priceTalkerCodeSapX = 225.91;
 let priceTalkerCodeSapY = 89.12;
 let priceTalkerPositionWarrantyX = 139.7;
-let priceTalkerPositionWarrantyY = 148.62;
+let priceTalkerPositionWarrantyY = 148.62 +10; // 148.62
 let priceTalkerBarCodeX = 190;
 let priceTalkerBarCodeY = 105;
 let priceTalkerReBoxX = 148.62;
@@ -84,6 +84,30 @@ const optionsBarCode = {
   textxalign: "center", // Always good to set this
 };
 
+const fuente = path.join(
+  priceTalkerFontPath,
+  "node_modules",
+  "@canvas-fonts",
+  "arial",
+  "Arial.ttf"
+);
+const fuenteBold = path.join(
+  priceTalkerFontPath,
+  "node_modules",
+  "@canvas-fonts",
+  "arial-bold",
+  "Arial Bold.ttf"
+);
+
+// COMPONETES
+const label = async (doc, contenido, fontSize, x, y, fuente) => {
+  doc.font(fuente).fontSize(fontSize).text(contenido, x, y, {
+    width: priceTalkerWidthText,
+    align: "left",
+  });
+};
+//
+
 // Functions
 async function generateBarcode(text) {
   optionsBarCode.text = text;
@@ -101,14 +125,11 @@ const bigNewPriceTalker = async (
   endCallback,
   priceTalkerData
 ) => {
-
   // // console.log(priceTalkerData);
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
-  // doc.on("data", dataCallback);
-  // doc.on("end", endCallback);
 
   // Borra el contenido existente
   for (let i = 0; i < priceTalkerData.length; i++) {
@@ -120,7 +141,6 @@ const bigNewPriceTalker = async (
       contador = 0;
     }
     if (contador == 0) {
-
       // box 1
       doc
         .rect(boxPositionX, boxPositionY, boxWith, boxHeight) // X, Y , ALTO Y ANCHO
@@ -129,15 +149,7 @@ const bigNewPriceTalker = async (
 
       // -- MARCA --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
+        .font(fuenteBold)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerBrand.toLocaleUpperCase(),
@@ -151,15 +163,7 @@ const bigNewPriceTalker = async (
 
       // -- DESCRIPCIÓN --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerdescription.toLocaleUpperCase(),
@@ -167,9 +171,21 @@ const bigNewPriceTalker = async (
           boxPositionY + priceTalkerDescriptionPositionY, // 2,5 CM
           {
             width: priceTalkerWidthText,
+            height: 40,
             align: "left",
           }
         );
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      console.log("X", boxPositionX + priceTalkerDescriptionPositionX);
+      console.log("Y", boxPositionY + priceTalkerDescriptionPositionY);
+
+      // label (fontSize, contenido, x, y)
+      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
+      label(doc, "Ancho:", 8, 103, 135+10, fuente);
+      label(doc, "Alto:", 8, 103, 135+20, fuente);
+      label(doc, "Profundidad:", 8, 103, 135+30, fuente);
+      // --
 
       // -- LOGO --
       // TYPES PROMOTION
@@ -216,7 +232,7 @@ const bigNewPriceTalker = async (
         */
       if (product.priceTalkerIdHablador != "3") {
         // CON .99
-        
+
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
@@ -257,15 +273,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio}`,
@@ -287,15 +295,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio},00`,
@@ -306,15 +306,7 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO SAP
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerSapCode.toLocaleUpperCase(),
@@ -338,15 +330,7 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `AZ`,
@@ -360,15 +344,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `VD`,
@@ -382,15 +358,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `NJ`,
@@ -404,15 +372,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `MG`,
@@ -426,15 +386,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "8") {
         // ALMACEN A
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `A`,
@@ -449,15 +401,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `B`,
@@ -472,15 +416,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(
             `C`,
@@ -510,15 +446,7 @@ const bigNewPriceTalker = async (
       }
 
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(10)
         .text(
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
@@ -535,15 +463,7 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerService != null && mcdColor === false) {
         // is not null
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             "Solicita tu Servicio de Instalación",
@@ -556,15 +476,7 @@ const bigNewPriceTalker = async (
           );
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             product.priceTalkerService,
@@ -577,15 +489,7 @@ const bigNewPriceTalker = async (
           );
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
             `$${product.priceTalkerServicePrice},00`,
@@ -621,15 +525,7 @@ const bigNewPriceTalker = async (
 
       // -- MARCA --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
+        .font(fuenteBold)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerBrand.toLocaleUpperCase(),
@@ -643,15 +539,7 @@ const bigNewPriceTalker = async (
 
       // -- DESCRIPCIÓN --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerdescription.toLocaleUpperCase(),
@@ -737,15 +625,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio}`,
@@ -767,15 +647,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio},00`,
@@ -786,15 +658,7 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO SAP
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerSapCode.toLocaleUpperCase(),
@@ -823,17 +687,13 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`AZ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `AZ`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -841,17 +701,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`VD`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `VD`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -859,17 +715,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`NJ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `NJ`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -877,15 +729,7 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
           .text(`MG`, priceTalkerLogoPositionX - 32, priceTalkerLogoPositionY);
 
@@ -895,17 +739,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "8") {
         // ALMACEN A
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`A`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `A`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -914,17 +754,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`B`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `B`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -933,17 +769,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`C`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `C`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -967,15 +799,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE
       }
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(10)
         .text(
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
@@ -993,15 +817,7 @@ const bigNewPriceTalker = async (
         // is not null
         // console.log("Entramos", product.priceTalkerService);
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             "Solicita tu Servicio de Instalación",
@@ -1014,15 +830,7 @@ const bigNewPriceTalker = async (
           );
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             product.priceTalkerService,
@@ -1034,15 +842,7 @@ const bigNewPriceTalker = async (
             }
           );
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
             `$${product.priceTalkerServicePrice},00`,
@@ -1082,15 +882,7 @@ const bigNewPriceTalker = async (
 
       // -- MARCA --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
+        .font(fuenteBold)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerBrand.toLocaleUpperCase(),
@@ -1104,15 +896,7 @@ const bigNewPriceTalker = async (
 
       // -- DESCRIPCIÓN --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerdescription.toLocaleUpperCase(),
@@ -1198,15 +982,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio}`,
@@ -1228,15 +1004,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio},00`,
@@ -1247,15 +1015,7 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO SAP
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerSapCode.toLocaleUpperCase(),
@@ -1284,17 +1044,13 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`AZ`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `AZ`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1302,17 +1058,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`VD`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `VD`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1320,17 +1072,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`NJ`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `NJ`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1338,17 +1086,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`MG`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `MG`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1356,17 +1100,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "8") {
         // ALMACEN A
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`A`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `A`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1375,17 +1115,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`B`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `B`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1394,17 +1130,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`C`, priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `C`,
+            priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1429,15 +1161,7 @@ const bigNewPriceTalker = async (
       }
 
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(10)
         .text(
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
@@ -1454,15 +1178,7 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerService != null && mcdColor === false) {
         // null
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             "Solicita tu Servicio de Instalación",
@@ -1474,15 +1190,7 @@ const bigNewPriceTalker = async (
             }
           );
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             product.priceTalkerService,
@@ -1494,15 +1202,7 @@ const bigNewPriceTalker = async (
             }
           );
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
             `$${product.priceTalkerServicePrice},00`,
@@ -1547,15 +1247,7 @@ const bigNewPriceTalker = async (
 
       // -- MARCA --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial-bold",
-            "Arial Bold.ttf"
-          )
-        )
+        .font(fuenteBold)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerBrand.toLocaleUpperCase(),
@@ -1569,15 +1261,7 @@ const bigNewPriceTalker = async (
 
       // -- DESCRIPCIÓN --
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerdescription.toLocaleUpperCase(),
@@ -1663,15 +1347,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio}`,
@@ -1693,15 +1369,7 @@ const bigNewPriceTalker = async (
         // FIN DEL BLOQUE DE CODIGO
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizePrice)
           .text(
             `$ ${precio},00`,
@@ -1712,15 +1380,7 @@ const bigNewPriceTalker = async (
 
       // -- CÓDIGO SAP
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(priceTalkerfontSize)
         .text(
           product.priceTalkerSapCode.toLocaleUpperCase(),
@@ -1749,17 +1409,13 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerList === "3") {
         // ALMACEN AZUL
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`AZ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `AZ`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1767,36 +1423,28 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "6") {
         // ALMACEN VERDE
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`VD`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `VD`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
-        
+
         // FIN DEL BLOQUE DE CODIGO
       } else if (product.priceTalkerList === "4") {
         // ALMACEN NARANJA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`NJ`, boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `NJ`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1804,17 +1452,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "7") {
         // ALMACEN MAGENTA
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`MG`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `MG`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1822,17 +1466,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "8") {
         // ALMACEN A
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`A`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `A`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1841,17 +1481,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "9") {
         // ALMACEN B
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`B`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `B`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1860,17 +1496,13 @@ const bigNewPriceTalker = async (
       } else if (product.priceTalkerList === "10") {
         // ALMACEN C
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(20)
-          .text(`C`,  boxWith + priceTalkerLogoPositionX + ajusteMcd, boxHeight + boxPositionY + priceTalkerLogoPositionY);
+          .text(
+            `C`,
+            boxWith + priceTalkerLogoPositionX + ajusteMcd,
+            boxHeight + boxPositionY + priceTalkerLogoPositionY
+          );
 
         // EN CASO DE TNER ALMACEN DE COLOR
         mcdColor = true;
@@ -1896,15 +1528,7 @@ const bigNewPriceTalker = async (
       }
 
       doc
-        .font(
-          path.join(
-            priceTalkerFontPath,
-            "node_modules",
-            "@canvas-fonts",
-            "arial",
-            "Arial.ttf"
-          )
-        )
+        .font(fuente)
         .fontSize(10)
         .text(
           `Tiempo de Garantía ${product.priceTalkerWarranty} días`,
@@ -1921,15 +1545,7 @@ const bigNewPriceTalker = async (
       if (product.priceTalkerService != null && mcdColor === false) {
         // null
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             "Solicita tu Servicio de Instalación",
@@ -1942,15 +1558,7 @@ const bigNewPriceTalker = async (
           );
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
           .text(
             product.priceTalkerService,
@@ -1963,15 +1571,7 @@ const bigNewPriceTalker = async (
           );
 
         doc
-          .font(
-            path.join(
-              priceTalkerFontPath,
-              "node_modules",
-              "@canvas-fonts",
-              "arial-bold",
-              "Arial Bold.ttf"
-            )
-          )
+          .font(fuenteBold)
           .fontSize(priceTalkerFontSizeServicePrice)
           .text(
             `$${product.priceTalkerServicePrice},00`,
