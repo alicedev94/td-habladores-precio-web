@@ -9,8 +9,8 @@ import router from '@/router';
 
 const logout = () => {
     localStorage.removeItem("token");
-    // router.push("/")
-    location.reload();
+    router.push("/")
+    // location.reload();
 }
 
 onMounted(() => {

@@ -13,7 +13,7 @@ const label = (doc, contenido, fontSize, x, y) => {
     .text(contenido, x, y, {
       align: "left",
       width: 180,
-      height: 40
+      height: 40,
     });
 };
 
@@ -29,7 +29,6 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
     // Campo Titulo
     // Input (doc, ancho, alto, x, y)
     input(doc, 145, 40, 40, y);
-    console.log(y);
 
     // Campo valor
     // Input (doc, ancho, alto, x, y)
@@ -38,7 +37,12 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
     // Imagen (doc, ruta, imagen, ancho, alto, x, y)
     if (index == 0) {
       imagen(doc, rutaLogo, nombreLogo, 80, 80, 450, y);
-    };
+    }
+
+    // Valor descripcion
+    if (index == 2) {
+      console.log(y-20);
+    }
 
     // Cantidad
     if (index == 2) {
@@ -47,7 +51,7 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
 
     if (index == 3) {
       // Unidades
-      label(doc, "unidades".toLocaleUpperCase(), fontSize, 350+100, y + 20);
+      label(doc, "unidades".toLocaleUpperCase(), fontSize, 350 + 100, y + 20);
       input(doc, 140, 100, 395, y - 60);
     }
 
@@ -71,6 +75,8 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
   doc.on("data", inicio);
   doc.on("end", fin);
 
+  console.log("datos", datos);
+
   let x = 50;
   let y = 40;
 
@@ -80,10 +86,12 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
   estructura(doc, x, y, interlineadoTitulo);
 
   let primeraPosicion = {
-    codigoSap: 40 + 10,
-    descripcion: 50,
-    grupoArticulo: 100,
-    ubicacion: 150,
+    codigoSap: 40 + 13,
+    descripcion: 100 + 5,
+    grupoArticulo: 160 + 13,
+    ubicacion: 233,
+    cantidadY: 200,
+    cantidadX: 425, 
     cordenadaX: 150 + 60,
   };
 
@@ -95,7 +103,7 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
       // Código Sap
       label(
         doc,
-        hablador.priceTalkerSapCode,
+        hablador.priceTalkerSapCode.toLocaleUpperCase(),
         fontSize,
         primeraPosicion.cordenadaX,
         primeraPosicion.codigoSap
@@ -111,22 +119,31 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
       );
 
       // Grupo Articulo
-      // label(
-      //   doc,
-      //   hablador.linea,
-      //   fontSize,
-      //   primeraPosicion.cordenadaX,
-      //   primeraPosicion.grupoArticulo
-      // );
+      label(
+        doc,
+        hablador.linea.toLocaleUpperCase(),
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.grupoArticulo
+      );
 
       // Ubicación
-      // label(
-      //   doc,
-      //   hablador.galpon,
-      //   fontSize,
-      //   primeraPosicion.cordenadaX,
-      //   primeraPosicion.ubicacion
-      // );
+      label(
+        doc,
+        hablador.galpon,
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.ubicacion
+      );
+
+      // Cantidad
+      label(
+        doc,
+        hablador.cantidad,
+        30,
+        primeraPosicion.cantidadX,
+        primeraPosicion.cantidadY
+      );
     }
 
     // // Segunda Posición
