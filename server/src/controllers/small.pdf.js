@@ -12,6 +12,8 @@ const label = (doc, contenido, fontSize, x, y) => {
     .fontSize(fontSize)
     .text(contenido, x, y, {
       align: "left",
+      width: 180,
+      height: 40
     });
 };
 
@@ -51,10 +53,6 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
 
     y += interlineadoTitulo;
   });
-
-  // Unidades
-  // input(doc, 40, 40, 190, y - 62);
-  // label(doc, "unidades".toLocaleUpperCase(), fontSize, 350, y - interlineadoTitulo);
 };
 
 // LOGO DIRECCION DE LOGO DINAMICO
@@ -104,13 +102,13 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
       );
 
       // Descripción
-      // label(
-      //   doc,
-      //   hablador.priceTalkerdescription,
-      //   fontSize,
-      //   primeraPosicion.cordenadaX,
-      //   primeraPosicion.descripcion
-      // );
+      label(
+        doc,
+        hablador.priceTalkerdescription,
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.descripcion
+      );
 
       // Grupo Articulo
       // label(
