@@ -4,6 +4,8 @@ const discoLocalC = process.cwd();
 const fontSize = 16;
 const tipoLetra = "OMEGLE.ttf";
 
+let n1cm = 26.6;
+
 let campos = ["CODIGO SAP:", "DESCRIPCION:", "GRUPO ARTICULO:", "UBICACION:"];
 
 const label = (doc, contenido, fontSize, x, y) => {
@@ -19,6 +21,12 @@ const label = (doc, contenido, fontSize, x, y) => {
 
 const input = (doc, ancho, alto, x, y) => {
   doc.roundedRect(x, y, ancho, alto, 4).stroke();
+};
+
+// linea divisora. (x, y, longitud, x)
+const lineaHorizontal = (doc, x, y, longitud) => {
+  console.log(x, y, longitud);
+  doc.moveTo(y, x).lineTo(longitud, x);
 };
 
 const estructura = (doc, x, y, interlineadoTitulo) => {
@@ -41,7 +49,7 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
 
     // Valor descripcion
     if (index == 2) {
-      console.log(y-20);
+      console.log(y - 20);
     }
 
     // Cantidad
@@ -75,15 +83,10 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  console.log("datos", datos);
-
   let x = 50;
   let y = 40;
 
   let interlineadoTitulo = 60;
-
-  // Estructura (doc, x, y, interlineadoTitulo)
-  estructura(doc, x, y, interlineadoTitulo);
 
   let primeraPosicion = {
     codigoSap: 40 + 13,
@@ -91,15 +94,25 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
     grupoArticulo: 160 + 13,
     ubicacion: 233,
     cantidadY: 200,
-    cantidadX: 425, 
+    cantidadX: 425,
     cordenadaX: 150 + 60,
   };
 
   // Iteración del hablador
   let conVueltas = 0;
   datos.map((hablador) => {
+    if (conVueltas > 2) {
+      doc.addPage({ size: "A4" });
+      conVueltas = 0;
+    }
     // Primera Posición
     if (conVueltas == 0) {
+      //doc y, x, longitud
+      lineaHorizontal(doc, n1cm*7.7+y+15, 0, 800);
+
+      // Estructura (doc, x, y, interlineadoTitulo)
+      estructura(doc, x, y, interlineadoTitulo);
+
       // Código Sap
       label(
         doc,
@@ -144,21 +157,78 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
         primeraPosicion.cantidadX,
         primeraPosicion.cantidadY
       );
+
+      // console.log("aqui");
+      // lineaHorizontal(doc, 20, 100, 700);
+
+
+      conVueltas++;
     }
 
     // // Segunda Posición
-    // else if (conVueltas == 1) {
-    // }
+    else if (conVueltas == 1) {
+       //doc y, x, longitud
+       lineaHorizontal(doc, n1cm*14.14+y*2+59, 0, 800);
+
+      // Estructura (doc, x, y, interlineadoTitulo)
+      estructura(doc, x, n1cm * 7.7 + y + 50, interlineadoTitulo);
+      // Código Sap
+      // label(
+      //   doc,
+      //   "1 cm".toLocaleUpperCase(),
+      //   fontSize,
+      //   primeraPosicion.cordenadaX,
+      //   n1cm * 7.7 + y + 30 +
+      // );
+
+      // let real = primeraPosicion.codigoSap*5.4;
+      // console.log("real",real);
+
+      // // Descripción
+      // label(
+      //   doc,
+      //   hablador.priceTalkerdescription,
+      //   fontSize,
+      //   primeraPosicion.cordenadaX,
+      //   286.200
+      // );
+
+      // Grupo Articulo
+      label(
+        doc,
+        hablador.linea.toLocaleUpperCase(),
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.grupoArticulo * 10
+      );
+
+      // Ubicación
+      label(
+        doc,
+        hablador.galpon,
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.ubicacion * 10
+      );
+
+      // Cantidad
+      label(
+        doc,
+        hablador.cantidad,
+        30,
+        primeraPosicion.cantidadX,
+        primeraPosicion.cantidadY * 10
+      );
+
+      conVueltas++;
+    }
 
     // // Tercera Posición
-    // else if (conVueltas == 2) {
-    // } else {
-    //   console.error("Valor no contemplado");
-    // }
-
-    if (conVueltas >= 2) {
-      conVueltas = 0;
-    }
+    else if (conVueltas == 2) {
+      estructura(doc, x, n1cm * 14.14 + y * 2 + 90, interlineadoTitulo);
+      conVueltas++;
+      // doc.addPage({ size: "A4" });
+    } 
   });
 
   doc.end();
