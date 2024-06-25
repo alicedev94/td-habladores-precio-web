@@ -173,25 +173,22 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
       // Estructura (doc, x, y, interlineadoTitulo)
       estructura(doc, x, n1cm * 7.7 + y + 50, interlineadoTitulo);
       // Código Sap
-      // label(
-      //   doc,
-      //   "1 cm".toLocaleUpperCase(),
-      //   fontSize,
-      //   primeraPosicion.cordenadaX,
-      //   n1cm * 7.7 + y + 30 +
-      // );
-
-      // let real = primeraPosicion.codigoSap*5.4;
-      // console.log("real",real);
+      label(
+        doc,
+        hablador.priceTalkerSapCode.toLocaleUpperCase(),
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.codigoSap + (n1cm * 9.6)
+      );
 
       // // Descripción
-      // label(
-      //   doc,
-      //   hablador.priceTalkerdescription,
-      //   fontSize,
-      //   primeraPosicion.cordenadaX,
-      //   286.200
-      // );
+      label(
+        doc,
+        hablador.priceTalkerdescription,
+        fontSize,
+        primeraPosicion.cordenadaX,
+        primeraPosicion.descripcion + (n1cm * 9.6)
+      );
 
       // Grupo Articulo
       label(
@@ -199,7 +196,7 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
         hablador.linea.toLocaleUpperCase(),
         fontSize,
         primeraPosicion.cordenadaX,
-        primeraPosicion.grupoArticulo * 10
+        primeraPosicion.grupoArticulo + (n1cm * 9.6)
       );
 
       // Ubicación
@@ -208,7 +205,7 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
         hablador.galpon,
         fontSize,
         primeraPosicion.cordenadaX,
-        primeraPosicion.ubicacion * 10
+        primeraPosicion.ubicacion + (n1cm * 9.6)
       );
 
       // Cantidad
@@ -217,7 +214,7 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
         hablador.cantidad,
         30,
         primeraPosicion.cantidadX,
-        primeraPosicion.cantidadY * 10
+        primeraPosicion.cantidadY + (n1cm * 9.6)
       );
 
       conVueltas++;
@@ -226,6 +223,58 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
     // // Tercera Posición
     else if (conVueltas == 2) {
       estructura(doc, x, n1cm * 14.14 + y * 2 + 90, interlineadoTitulo);
+
+         //doc y, x, longitud
+         lineaHorizontal(doc, n1cm*14.14+y*2+59, 0, 800);
+
+         // Estructura (doc, x, y, interlineadoTitulo)
+         estructura(doc, x, n1cm * 7.7 + y + 50, interlineadoTitulo);
+         // Código Sap
+         label(
+           doc,
+           hablador.priceTalkerSapCode.toLocaleUpperCase(),
+           fontSize,
+           primeraPosicion.cordenadaX,
+           primeraPosicion.codigoSap + ((n1cm * 9.6) * 1.98)
+         );
+   
+         // // Descripción
+         label(
+           doc,
+           hablador.priceTalkerdescription,
+           fontSize,
+           primeraPosicion.cordenadaX,
+           primeraPosicion.descripcion + ((n1cm * 9.6) * 1.98)
+         );
+   
+         // Grupo Articulo
+         label(
+           doc,
+           hablador.linea.toLocaleUpperCase(),
+           fontSize,
+           primeraPosicion.cordenadaX,
+           primeraPosicion.grupoArticulo + ((n1cm * 9.6) * 1.98)
+         );
+   
+         // Ubicación
+         label(
+           doc,
+           hablador.galpon,
+           fontSize,
+           primeraPosicion.cordenadaX,
+           primeraPosicion.ubicacion + ((n1cm * 9.6) * 1.98)
+         );
+   
+         // Cantidad
+         label(
+           doc,
+           hablador.cantidad,
+           30,
+           primeraPosicion.cantidadX,
+           primeraPosicion.cantidadY + ((n1cm * 9.6) * 1.98)
+         );
+
+         
       conVueltas++;
       // doc.addPage({ size: "A4" });
     } 
