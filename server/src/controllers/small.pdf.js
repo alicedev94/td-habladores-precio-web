@@ -274,7 +274,6 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
            primeraPosicion.cantidadY + ((n1cm * 9.6) * 1.98)
          );
 
-         
       conVueltas++;
       // doc.addPage({ size: "A4" });
     } 

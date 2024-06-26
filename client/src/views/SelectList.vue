@@ -16,6 +16,7 @@ const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
 
 // PARA LA MUESTRA DE CONTENIDO EN EL SELECT LIST
 const tienda = ref(true)
+const superT = ref(false)
 const cdd = ref(true)
 
 const userSucursal = ref("")
@@ -95,7 +96,7 @@ const btnSend_2 = () => {
 
     <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
         <v-tab v-if="tienda" value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
-        <v-tab v-if="tienda" value="supermercado" color="#50C878">Supermercado</v-tab> 
+        <v-tab v-if="superT" value="supermercado" color="#50C878">Supermercado</v-tab> 
         <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
     </v-tabs>
 
@@ -135,7 +136,7 @@ const btnSend_2 = () => {
                 </v-card>
                 <Image imagen="/hablador_estandar.png" />
             </v-window-item> 
-            <v-window-item v-if="tienda" :value="tabOptions.two" class="display">
+            <v-window-item v-if="superT" :value="tabOptions.two" class="display">
                 <PanelSuperMercado class="card-select-list" v-model:typeList="selectDataSuperMarket.typeList"
                     v-model:sizeTalker="selectDataSuperMarket.typeList" v-model:sucursal="userSucursal"
                     @send-form="btnSend_2" />
