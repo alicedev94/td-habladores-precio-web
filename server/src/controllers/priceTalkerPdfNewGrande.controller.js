@@ -26,7 +26,7 @@ let priceTalkerLogoPositionY = 42.52;
 let priceTalkerCodeSapX = 225.91;
 let priceTalkerCodeSapY = 89.12;
 let priceTalkerPositionWarrantyX = 139.7;
-let priceTalkerPositionWarrantyY = 148.62 +10; // 148.62
+let priceTalkerPositionWarrantyY = 148.62 + 10; // 148.62
 let priceTalkerBarCodeX = 190;
 let priceTalkerBarCodeY = 105;
 let priceTalkerReBoxX = 148.62;
@@ -73,6 +73,8 @@ let boxPositionY3 = boxPositionY + boxHeight + 2;
 // Box4
 
 let primerosDosCaracteres = "";
+
+let n1cm = 26.6;
 
 // Script options
 const optionsBarCode = {
@@ -176,16 +178,6 @@ const bigNewPriceTalker = async (
           }
         );
 
-      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
-      console.log("X", boxPositionX + priceTalkerDescriptionPositionX);
-      console.log("Y", boxPositionY + priceTalkerDescriptionPositionY);
-
-      // label (fontSize, contenido, x, y)
-      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
-      label(doc, "Ancho:", 8, 103, 135+10, fuente);
-      label(doc, "Alto:", 8, 103, 135+20, fuente);
-      label(doc, "Profundidad:", 8, 103, 135+30, fuente);
-      // --
 
       // -- LOGO --
       // TYPES PROMOTION
@@ -194,7 +186,8 @@ const bigNewPriceTalker = async (
             2 SE FELIZ .99
             3 SE FELIZ CON ENTERO
             4 POR APLICAR
-          */
+        */
+
       if (product.priceTalkerIdHablador != 1) {
         // EL ID DEL HABLADOR ES DIFERENTE DE 1 POR LO CUAL ES LOGO SE FELIZ
         logoName = "LOGO_DAKA_SE_FELIZ.png";
@@ -516,6 +509,15 @@ const bigNewPriceTalker = async (
       mcdColor = false;
       abc = false;
       // FIN DEL CODIGO
+
+            // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      // label (fontSize, contenido, x, y)
+      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
+      label(doc, "Ancho:", 8, 103, 145, fuente);
+      label(doc, "Alto:", 8, 103, 155, fuente);
+      label(doc, "Profundidad:", 8, 103, 165, fuente);
+      // --
+
     } else if (contador == 1) {
       // box 1
       doc
@@ -873,6 +875,14 @@ const bigNewPriceTalker = async (
       mcdColor = false;
       abc = false;
       // FIN DEL CODIGO
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      // label (fontSize, contenido, x, y)
+      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, n1cm * 16.5, 135, fuenteBold);
+      label(doc, "Ancho:", 8, n1cm * 16.5, 145, fuente);
+      label(doc, "Alto:", 8, n1cm * 16.5, 155, fuente);
+      label(doc, "Profundidad:", 8, n1cm * 16.5, 165, fuente);
+      // --
     } else if (contador == 2) {
       // box 1
       doc
@@ -1233,6 +1243,16 @@ const bigNewPriceTalker = async (
       mcdColor = false;
       abc = false;
       // FIN DEL CODIGO
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      // label (fontSize, contenido, x, y, fuente)
+      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, n1cm * 14.5, fuenteBold);
+      label(doc, "Ancho:", 8, 103, n1cm * 14.5 + 10, fuente);
+      label(doc, "Alto:", 8, 103, n1cm * 14.5 + 20, fuente);
+      label(doc, "Profundidad:", 8, 103, n1cm * 14.5 + 30, fuente);
+      // --
+
+      n1cm
     } else if (contador == 3) {
       // box 1
       doc
@@ -1598,6 +1618,14 @@ const bigNewPriceTalker = async (
       mcdColor = false;
       abc = false;
       // FIN DEL CODIGO
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      // label (fontSize, contenido, x, y)
+      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, n1cm * 16.5, n1cm * 14.5, fuenteBold);
+      label(doc, "Ancho:", 8, n1cm * 16.5, n1cm * 14.5 + 10, fuente);
+      label(doc, "Alto:", 8, n1cm * 16.5, n1cm * 14.5 + 20, fuente);
+      label(doc, "Profundidad:", 8, n1cm * 16.5, n1cm * 14.5 + 30, fuente);
+      // --
     }
     contador++;
   }
