@@ -23,7 +23,7 @@ const userSucursal = ref("")
 
 // API AND PORT
 const api = `${window.location.hostname}`;
-const portApi = 3001;
+const portApi = 3002;
 
 onMounted(async () => {
     // comprobar rol de usuario.

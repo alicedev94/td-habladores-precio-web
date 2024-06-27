@@ -177,15 +177,13 @@ const bigNewPriceTalker = async (
         );
 
       // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
-      console.log("X", boxPositionX + priceTalkerDescriptionPositionX);
-      console.log("Y", boxPositionY + priceTalkerDescriptionPositionY);
 
-      // label (fontSize, contenido, x, y)
-      label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
-      label(doc, "Ancho:", 8, 103, 135+10, fuente);
-      label(doc, "Alto:", 8, 103, 135+20, fuente);
-      label(doc, "Profundidad:", 8, 103, 135+30, fuente);
-      // --
+      // // label (fontSize, contenido, x, y)
+      // label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
+      // label(doc, "Ancho:", 8, 103, 135+10, fuente);
+      // label(doc, "Alto:", 8, 103, 135+20, fuente);
+      // label(doc, "Profundidad:", 8, 103, 135+30, fuente);
+      // // --
 
       // -- LOGO --
       // TYPES PROMOTION

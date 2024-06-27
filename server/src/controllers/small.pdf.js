@@ -25,7 +25,6 @@ const input = (doc, ancho, alto, x, y) => {
 
 // linea divisora. (x, y, longitud, x)
 const lineaHorizontal = (doc, x, y, longitud) => {
-  console.log(x, y, longitud);
   doc.moveTo(y, x).lineTo(longitud, x);
 };
 
@@ -45,11 +44,6 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
     // Imagen (doc, ruta, imagen, ancho, alto, x, y)
     if (index == 0) {
       imagen(doc, rutaLogo, nombreLogo, 80, 80, 450, y);
-    }
-
-    // Valor descripcion
-    if (index == 2) {
-      console.log(y - 20);
     }
 
     // Cantidad
@@ -157,10 +151,6 @@ const habladorP2 = async (inicio, fin, datos, cantidad, ubicacion, doc) => {
         primeraPosicion.cantidadX,
         primeraPosicion.cantidadY
       );
-
-      // console.log("aqui");
-      // lineaHorizontal(doc, 20, 100, 700);
-
 
       conVueltas++;
     }

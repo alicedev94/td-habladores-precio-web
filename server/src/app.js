@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const port = 3001;
+const port = 3002;
 const path = require("path");
 
 // Obtén la ruta del directorio actual

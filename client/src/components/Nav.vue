@@ -9,8 +9,8 @@ import router from '@/router';
 
 const logout = () => {
     localStorage.removeItem("token");
-    router.push("/")
-    // location.reload();
+    // router.push("/")
+    location.reload();
 }
 
 onMounted(() => {
@@ -69,13 +69,13 @@ const handleClick = () => {
                 align-self="start" @click="handleClick" />
 
             <v-btn v-if="isMarketing" class="btnRedirectBack" variant="elevated">
-                <!-- <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a> -->
-                <router-link class="btn-link" to="/marketing/logo-change">CAMBIO DE LOGO</router-link>
+                <a class="btn-link" href="/marketing/logo-change">CAMBIO DE LOGO</a>
+                <!-- <router-link class="btn-link" to="/marketing/logo-change">CAMBIO DE LOGO</router-link> -->
             </v-btn>
 
             <v-btn v-if="back" variant="elevated">
-                <!--<a class="btn-link" href="/select-list">VOLVER</a>-->
-                <router-link class="btn-link" to="/select-list">VOLVER</router-link>
+                <a class="btn-link" href="/select-list">VOLVER</a>
+                <!-- <router-link class="btn-link" to="/select-list">VOLVER</router-link> -->
             </v-btn>
 
             <!-- <ul v-if="isMarketing">

@@ -42,7 +42,7 @@ var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3001;
+var portApi = 3002;
 
 // SETTINGS
 const headers = [
@@ -53,7 +53,7 @@ const headers = [
 onMounted(async () => {
     try {
         busquedaIncial()
-        const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+        const { data } = await axios.get(`http://localhost:3002/api/v1/tabla-data-cdd`);
         console.log(data); 
 
         // -
