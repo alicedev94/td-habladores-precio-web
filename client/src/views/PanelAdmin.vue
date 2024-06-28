@@ -81,7 +81,7 @@ onMounted(async () => {
         sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://${local_server}:3002/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://${api}:3002/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         console.log(response.data);
         // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES

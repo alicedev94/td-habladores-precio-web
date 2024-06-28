@@ -32,7 +32,6 @@ const sizeTalker = ref("")
 const rack = ref('')
 const galpon = ref('')
 
-
 // STATIC VARIBLES
 var deleteCode = []
 var existDestintCode = []
@@ -53,7 +52,7 @@ const headers = [
 onMounted(async () => {
     try {
         busquedaIncial()
-        const { data } = await axios.get(`http://localhost:3002/api/v1/tabla-data-cdd`);
+        const { data } = await axios.get(`http://${api}:${portApi}/api/v1/tabla-data-cdd`);
         console.log(data); 
 
         // -
@@ -218,6 +217,7 @@ const downloadBtn = async () => {
 
 <template>
     <Nav></Nav>
+    <span v-if="isLoadingPdf" class="loaderPdf"></span>
 
     <div class="table-container">
         <div>
