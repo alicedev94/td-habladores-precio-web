@@ -5,6 +5,7 @@ const bwipjs = require("bwip-js");
 
 // LOGO DIRECCION DE LOGO DINAMICO
 const dirnameLogo = require("../routes/uploads/index");
+const { isNull } = require("util");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -26,7 +27,7 @@ let priceTalkerLogoPositionY = 42.52;
 let priceTalkerCodeSapX = 225.91;
 let priceTalkerCodeSapY = 89.12;
 let priceTalkerPositionWarrantyX = 139.7;
-let priceTalkerPositionWarrantyY = 148.62 +10; // 148.62
+let priceTalkerPositionWarrantyY = 148.62 + 10; // 148.62
 let priceTalkerBarCodeX = 190;
 let priceTalkerBarCodeY = 105;
 let priceTalkerReBoxX = 148.62;
@@ -71,6 +72,8 @@ let boxPositionX2 = boxPositionX + boxWith + 2;
 // Box3
 let boxPositionY3 = boxPositionY + boxHeight + 2;
 // Box4
+
+let n1cm = 26.6;
 
 let primerosDosCaracteres = "";
 
@@ -125,7 +128,6 @@ const bigNewPriceTalker = async (
   endCallback,
   priceTalkerData
 ) => {
-  // // console.log(priceTalkerData);
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);
@@ -176,15 +178,6 @@ const bigNewPriceTalker = async (
           }
         );
 
-      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
-
-      // // label (fontSize, contenido, x, y)
-      // label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
-      // label(doc, "Ancho:", 8, 103, 135+10, fuente);
-      // label(doc, "Alto:", 8, 103, 135+20, fuente);
-      // label(doc, "Profundidad:", 8, 103, 135+30, fuente);
-      // // --
-
       // -- LOGO --
       // TYPES PROMOTION
       /*
@@ -234,7 +227,6 @@ const bigNewPriceTalker = async (
         // SI LA LISTA ES MARGARITA NO LLEVA IVA
         if (product.priceTalkerList != "1") {
           // CUALQUIER OTRA LISTA
-          // console.log("ss");
           // EN CASO DE SER MENOR A 1 NO SE LE APLICAN CARGOS PARA QUE NO DE -0.01  Y DE 0
           if (product.priceTalkerPrice < 1) {
             // 0 0,1 0,12123 etc
@@ -247,7 +239,6 @@ const bigNewPriceTalker = async (
             precio = Math.round(precio);
             precio = precio - 0.01;
             precio = precio.toString().replace(".", ",");
-            // console.log(precio);
           }
           //
           //
@@ -439,7 +430,6 @@ const bigNewPriceTalker = async (
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
 
@@ -457,7 +447,6 @@ const bigNewPriceTalker = async (
         );
 
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
-      // console.log(product);
       if (product.priceTalkerService != null && mcdColor === false) {
         // is not null
         doc
@@ -507,6 +496,24 @@ const bigNewPriceTalker = async (
             priceTalkerReBoxH
           )
           .stroke(); // X, Y , ALTO Y ANCHO
+      }
+      // --
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      if (product.ancho != null) {
+        label(doc, "MEDIDAS:".toLocaleUpperCase(), 8, 103, 135, fuenteBold);
+        label(doc, "Ancho:", 8, 103, 145, fuente);
+        label(doc, `${product.ancho}cm`, 8, 143, 145, fuente);
+      }
+
+      if (product.alto != null) {
+        label(doc, "Alto:", 8, 103, 155, fuente);
+        label(doc, `${product.alto}cm`, 8, 143, 155, fuente);
+      }
+
+      if (product.profundo != null) {
+        label(doc, "Profundo:", 8, 103, 165, fuente);
+        label(doc, `${product.profundo}cm`, 8, 143, 165, fuente);
       }
       // --
 
@@ -793,7 +800,6 @@ const bigNewPriceTalker = async (
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
       doc
@@ -810,10 +816,8 @@ const bigNewPriceTalker = async (
         );
 
       // -- SERVICIOS DE INSTALACION
-      // console.log(product.priceTalkerService);
       if (product.priceTalkerService != null && mcdColor === false) {
         // is not null
-        // console.log("Entramos", product.priceTalkerService);
         doc
           .font(fuenteBold)
           .fontSize(priceTalkerFontSizeService)
@@ -864,6 +868,31 @@ const bigNewPriceTalker = async (
         // .lineWidth(0.5)
         // .fillOpacity(0)
         // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+      }
+      // --
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      if (product.ancho != null) {
+        label(
+          doc,
+          "MEDIDAS:".toLocaleUpperCase(),
+          8,
+          n1cm * 16.5,
+          135,
+          fuenteBold
+        );
+        label(doc, "Ancho:", 8, n1cm * 16.5, 145, fuente);
+        label(doc, `${product.ancho}cm`, 8, n1cm * 16.5 + 40, 145, fuente);
+      }
+
+      if (product.alto != null) {
+        label(doc, "Alto:", 8, n1cm * 16.5, 155, fuente);
+        label(doc, `${product.alto}cm`, 8, n1cm * 16.5 + 40, 155, fuente);
+      }
+
+      if (product.profundo != null) {
+        label(doc, "Profundo:", 8, n1cm * 16.5, 165, fuente);
+        label(doc, `${product.profundo}cm`, 8, n1cm * 16.5 + 40, 165, fuente);
       }
       // --
 
@@ -1154,7 +1183,6 @@ const bigNewPriceTalker = async (
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
 
@@ -1172,7 +1200,6 @@ const bigNewPriceTalker = async (
         );
 
       // -- SERVICIOS DE INSTALACION
-      // console.log(product);
       if (product.priceTalkerService != null && mcdColor === false) {
         // null
         doc
@@ -1224,6 +1251,31 @@ const bigNewPriceTalker = async (
         // .lineWidth(0.5)
         // .fillOpacity(0)
         // .fillAndStroke("gray"); // X, Y , ALTO Y ANCHO
+      }
+      // --
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      if (product.ancho != null) {
+        label(
+          doc,
+          "MEDIDAS:".toLocaleUpperCase(),
+          8,
+          103,
+          n1cm * 14.5,
+          fuenteBold
+        );
+        label(doc, "Ancho:", 8, 103, n1cm * 14.5 + 10, fuente);
+        label(doc, `${product.ancho}cm`, 8, 143, n1cm * 14.5 + 10, fuente);
+      }
+
+      if (product.alto != null) {
+        label(doc, "Alto:", 8, 103, n1cm * 14.5 + 20, fuente);
+        label(doc, `${product.alto}cm`, 8, 143, n1cm * 14.5 + 20, fuente);
+      }
+
+      if (product.profundo != null) {
+        label(doc, "Profundo:", 8, 103, n1cm * 14.5 + 30, fuente);
+        label(doc, `${product.profundo}cm`, 8, 143, n1cm * 14.5 + 30, fuente);
       }
       // --
 
@@ -1521,7 +1573,6 @@ const bigNewPriceTalker = async (
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
 
@@ -1539,7 +1590,6 @@ const bigNewPriceTalker = async (
         );
 
       // -- SERVICIOS DE INSTALACION #ASJDADHKAS
-      // console.log(product);
       if (product.priceTalkerService != null && mcdColor === false) {
         // null
         doc
@@ -1589,7 +1639,30 @@ const bigNewPriceTalker = async (
           )
           .stroke();
       }
-      // console.log("asdka");
+      // --
+
+      // MEDIDAS PARA LA PISCION UNO DE LOS NUEVOS CAMPOS
+      if (product.ancho != null) {
+        label(
+          doc,
+          "MEDIDAS:".toLocaleUpperCase(),
+          8,
+          n1cm * 16.5, n1cm * 14.5,
+          fuenteBold
+        );
+        label(doc, "Ancho:", 8, n1cm * 16.5, n1cm * 14.5 + 10, fuente);
+        label(doc, `${product.ancho}cm`, 8, n1cm * 16.5 + 40, n1cm * 14.5 + 10, fuente);
+      }
+
+      if (product.alto != null) {
+        label(doc, "Alto:", 8,  n1cm * 16.5, n1cm * 14.5 + 20, fuente);
+        label(doc, `${product.alto}cm`, 8,  n1cm * 16.5 + 40, n1cm * 14.5 + 20, fuente);
+      }
+
+      if (product.profundo != null) {
+        label(doc, "Profundo:", 8,  n1cm * 16.5, n1cm * 14.5 + 30, fuente);
+        label(doc, `${product.profundo}cm`, 8,  n1cm * 16.5 + 40, n1cm * 14.5 + 30, fuente);
+      }
       // --
 
       // LAS VARRIABLES TIENEN QUE VOLVER A SU VALOR ORIGINAL

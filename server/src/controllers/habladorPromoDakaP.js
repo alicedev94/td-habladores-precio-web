@@ -37,13 +37,10 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
 
-  // console.log("datos", datos);
-
   datos.forEach((dato, index) => {
     let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } = dato;
 
     var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
-    // console.log("rtaPrecio", rtaPrecio);
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero

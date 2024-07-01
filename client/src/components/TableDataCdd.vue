@@ -5,7 +5,6 @@ import readXlsxFile from 'read-excel-file'
 import Nav from '@/components/Nav.vue';
 
 const listProducts = ref([]);
-const listProducts2 = ref([]);
 const expoListProduct = ref([]);
 const selectedProducts = ref([]);
 const selectedExpoProducts = ref([]);
@@ -18,7 +17,6 @@ const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
 const isLoadingPdf = ref(false)
-const pruebas = ref("hola desde vue js")
 
 const isAuthenticate = ref(false)
 
@@ -34,7 +32,6 @@ const galpon = ref('')
 
 // STATIC VARIBLES
 var deleteCode = []
-var existDestintCode = []
 var local_server = "localhost" // local
 // var local_server = "192.168.161.38" // local
 // var local_server = "192.168.21.241" // product
@@ -53,7 +50,6 @@ onMounted(async () => {
     try {
         busquedaIncial()
         const { data } = await axios.get(`http://${api}:${portApi}/api/v1/tabla-data-cdd`);
-        console.log(data); 
 
         // -
         for (const obj of data) {
@@ -84,12 +80,9 @@ const busquedaIncial = async () => {
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
 
-    // console.log(segmentos[1]);
-
     //saber si estoy en la ruta correspondiente
     if (segmentos[1] === "table-data-cdd") {
         isAuthenticate.value = true
-        //console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }
@@ -109,8 +102,6 @@ const busquedaIncial = async () => {
 
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
-    console.log("filter", filterExpoListProducts.value);
-
     isLoadingPdf.value = true
     try {
         fetch(`http://${api}:${portApi}/api/v1/gene-cdd/${rack.value}/${galpon.value}`, {
@@ -175,9 +166,6 @@ const fImportXlsx = async (event) => {
             .catch(error => {
                 alert(error)
             });
-
-        // expoListProduct.value = response.data.data
-        // console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }

@@ -124,7 +124,7 @@ router.post("/generate-pdf", async (req, res) => {
         noData
       );
     } else if (sizeTalker === "1") {
-      // HABLADOR PEQUEÑO
+      // HABLADOR GRANDE
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;
@@ -144,15 +144,13 @@ router.post("/generate-pdf", async (req, res) => {
         noData
       );
     } else if (sizeTalker === "2") {
-      // HABLADOR PEQUEÑO
-
+      // HABLADOR GRANDE
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;
       });
 
       const noData = proData;
-      // console.log(noData);
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
@@ -179,8 +177,6 @@ router.post("/generate-pdf", async (req, res) => {
 router.post("/generate-super-pdf", async (req, res) => {
   // SUPER MERCADO
   const { data, list, sizeTalker, typeTalker, datosRelacionados } = req.body;
-
-  console.log(data);
  
   try {
     if (typeTalker === "0") {
@@ -293,8 +289,6 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
   const { data, list, sizeTalker } = req.body;
   const { rack, galpon } = req.params;
 
-  console.log("modelData" ,data); 
-  
   const proData = modelData(data);
   proData.forEach((obj) => {
     obj.priceTalkerList = list;
@@ -338,7 +332,6 @@ router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
     });
   } else {
     const rta = await processData(req.body, list, sucur, sizeTalker);
-    // console.log("rta",rta[0]);
     res.json({ status: "ok", data: rta[0] });
   }
 });
@@ -365,8 +358,6 @@ router.post("/send/sap-code1", async (req, res) => {
 });
 
 router.post("/change/logo", async (req, res) => {
-  // const filePath = path.join(__dirname, "/uploads/", req.file.originalname);
-  // console.log(filePath);
   try {
     uploadImage(req, res, (err) => {
       if (err) {

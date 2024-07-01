@@ -1,8 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import Nav from './components/Nav.vue';
-import Footer from './components/Footer.vue';
 
 const isVisible = ref(false);
 const pathname = ref("");
@@ -20,10 +18,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <div v-if="isVisible && pathname !== '/'">
-    <Nav @logout="logout" />
-    <Footer />
-  </div> -->
-
   <RouterView />
 </template>

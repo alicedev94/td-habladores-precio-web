@@ -36,7 +36,6 @@ const comboDaka = async (products) => {
   //   const data = { data: response[0], Codigo_suma_resta: Codigo_suma_resta };
 
   // ESTO RETORNA UN JSON DEPENDIENDO DE LA CANTIDAD DE ARTICULOS Y SI SUMA O RESTA
-  console.log(data);
   return data;
 };
 
@@ -59,7 +58,6 @@ const armaCombo = async (codigo_relacion) => {
    where Codigo_relacion =  '${codigo_relacion}.1'`);
 
       return combo;
-  // console.log(combo);
 };
 
 // NUEVA CONSULTA PARA PROMO DAKA (COMBOS)

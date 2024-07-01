@@ -98,8 +98,11 @@ const products = async (list, type, sucur) => {
          ,[CodigoServicio]
       ,[PrecioServicio]
       ,PrecioTachado
+        ,[Alto]
+      ,[Ancho]
+      ,[Profundidad]
       ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -113,11 +116,14 @@ const products = async (list, type, sucur) => {
         ,[CodigoBarra]
         ,[PrecioaMostrar]
         ,[IdHablador]
-         ,[CodigoServicio]
-      ,[PrecioServicio]
-      ,PrecioTachado
-      ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+        ,[CodigoServicio]
+        ,[PrecioServicio]
+        ,PrecioTachado
+        ,[Alto]
+        ,[Ancho]
+        ,[Profundidad]
+        ,1 Codigo_relacion
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore}) 
  `);
@@ -134,8 +140,11 @@ const products = async (list, type, sucur) => {
          ,[CodigoServicio]
       ,[PrecioServicio]
       ,PrecioTachado
+        ,[Alto]
+      ,[Ancho]
+      ,[Profundidad]
       ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}
     AND [IdAlmacen] IN (${rtaStore})
  `);
@@ -196,8 +205,11 @@ const processData = async (data, list, sucur, sizeTalker) => {
          ,[CodigoServicio]
       ,[PrecioServicio]
       ,PrecioTachado
+        ,[Alto]
+      ,[Ancho]
+      ,[Profundidad]
       ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE (Codigo not like 'LB%' AND Codigo not like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})
     `);
@@ -214,8 +226,11 @@ const processData = async (data, list, sucur, sizeTalker) => {
          ,[CodigoServicio]
       ,[PrecioServicio]
       ,PrecioTachado
+        ,[Alto]
+      ,[Ancho]
+      ,[Profundidad]
       ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE (Codigo like 'LB%' OR Codigo like 'LM%') AND CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else if (sizeTalker == "2") {
@@ -231,8 +246,11 @@ const processData = async (data, list, sucur, sizeTalker) => {
          ,[CodigoServicio]
       ,[PrecioServicio]
       ,PrecioTachado
+        ,[Alto]
+      ,[Ancho]
+      ,[Profundidad]
       ,1 Codigo_relacion
-    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas]
+    FROM  [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
     WHERE CodigoSucursal = ${sucur} AND [Lista Precio] = ${list}  AND Codigo IN (${modSku})
     AND [IdAlmacen] IN (${rtaStore})`);
   } else {
@@ -319,7 +337,10 @@ const modelData = (data) => {
       precioTachado: item.PrecioTachado,
       linea: item.grupo,
       cantidad: item.Cantidad,
-      galpon: item.galpon
+      galpon: item.galpon,
+      alto: item.Alto,
+      ancho: item.Ancho,
+      profundo: item.Profundidad
     });
   });
 

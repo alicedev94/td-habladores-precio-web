@@ -3,12 +3,9 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 
 import readXlsxFile from 'read-excel-file'
-import Swal from 'sweetalert2'
 import Nav from '@/components/Nav.vue';
-import Footer from '@/components/Footer.vue';
 
 const listProducts = ref([]);
-const listProducts2 = ref([]);
 const expoListProduct = ref([]);
 const selectedProducts = ref([]);
 const selectedExpoProducts = ref([]);
@@ -20,8 +17,7 @@ const searchTable2 = ref("")
 const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
-const isLoadingPdf = ref(false)
-const pruebas = ref("hola desde vue js")
+const isLoadingPdf = ref(false) 
 
 const isAuthenticate = ref(false)
 
@@ -52,21 +48,15 @@ const headers = [
 ];
 
 onMounted(async () => {
-    // console.log("asjdkjasdj");
-    // console.log(location.pathname);
-    // agregar nav en caso de que el usuaurio este autenticado
     // SABER LA RUTA DONDE ESTOY
     let route = location.pathname
 
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
 
-    // console.log(segmentos[1]);
-
     // saber si estoy en la ruta correspondiente
     if (segmentos[1] === "table-data") {
         isAuthenticate.value = true
-        // console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }
@@ -83,16 +73,13 @@ onMounted(async () => {
         isLoading.value = true
         const response = await axios.get(`http://${api}:3002/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
-        console.log(response.data);
+
         // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
-        console.log(listProducts.value);
         isLoading.value = false
         document.body.classList.add("body-white")
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
-
-    // console.log(expoListProduct.value);
 })
 
 watch(() => {
@@ -107,10 +94,6 @@ watch(() => {
     } else {
         isDisabled.value = true
     }
-
-    // los archivos seleccionados de la tabla numero 1 
-    // console.log(selectedProducts.value);
-    //expoListProduct.value = dataprueba
 })
 
 
@@ -158,8 +141,6 @@ const fImportXlsx = async (event) => {
             sapCode.value.push(rows)
         })
 
-        // console.log(sapCode.value);
-
         // http://${api}:${portApi}/api/v1/send/sap-code1
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
             method: 'POST',
@@ -179,8 +160,6 @@ const fImportXlsx = async (event) => {
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    // console.log("aqui");
-                    // console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
@@ -190,9 +169,6 @@ const fImportXlsx = async (event) => {
                 // Handle errors
                 alert(error)
             });
-
-        //expoListProduct.value = response.data.data
-        //console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }

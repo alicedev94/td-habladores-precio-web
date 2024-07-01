@@ -67,8 +67,6 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
   doc.on("data", inicio);
   doc.on("end", fin);
 
-  console.log("datosRelacionados" ,datosRelacionados[0].details);
-
   // Recorres cada dato
   datosRelacionados.forEach((dato, index) => {
     // CREAR UNA NUEVA PAGINA CADA VEZ QUE TENGAMOS UN NUEVO GRUPO DE ARTICULOS
