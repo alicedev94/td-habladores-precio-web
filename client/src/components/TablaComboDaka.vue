@@ -3,10 +3,8 @@ import { ref, watch, onMounted, computed } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
 import Nav from './Nav.vue';
-import GreenjsTable from './GreenjsTable.vue';
 
 const listProducts = ref([])
-const listProducts2 = ref([])
 const expoListProduct = ref([])
 const selectedProducts = ref([])
 const selectedExpoProducts = ref([])
@@ -34,7 +32,7 @@ var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3001;
+var portApi = 3002;
 
 // SETTINGS
 const headers = [
@@ -50,12 +48,9 @@ const busquedaIncial = async () => {
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
 
-    // console.log(segmentos[1]);
-
     //saber si estoy en la ruta correspondiente
     if (segmentos[1] === "table-data-supermarke-combot") {
         isAuthenticate.value = true
-        //console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }
@@ -71,7 +66,7 @@ const busquedaIncial = async () => {
         sucur.value = match[4];
 
         isLoading.value = true
-        const response = await axios.get(`http://${local_server}:3001/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://${local_server}:3002/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")
@@ -83,7 +78,6 @@ const busquedaIncial = async () => {
 const filterListProducts = ref([])
 const rightBtn = async () => {
     // lista de todos los articulos 
-    // console.log(listProducts.value);
 
     // proceso para obtener solo lo seleccionado antes de darle siguiente 
     filterListProducts.value = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
@@ -93,11 +87,10 @@ const rightBtn = async () => {
 
     // NOTA: En este evento el app tiene que buscar en la misma tabla los que tengan relacion 1 con 1.1
     // 1 ACA LA DATA DE LA CABECERA POR CODIGO INDIVIDUAL (CABECERA) # PAN_DULCE
-    // console.log(filterListProducts); // ESTO ME GENERA UN ARRAY DE OBJETOS CON TODOS LOS CAMPOS NECESARIOS
 
     let promises = filterListProducts.value.map(async (obj) => {
 
-        let data = await axios.post(`http://${local_server}:3001/api/v1/arma-combo`, {
+        let data = await axios.post(`http://${local_server}:3002/api/v1/arma-combo`, {
             codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
 
         });
@@ -105,7 +98,6 @@ const rightBtn = async () => {
         data.data.Cabecera = obj; // `${obj.Codigo} ${obj.Nombre}`
      
         armaCombo.value.push(data.data);
-        // console.log("aramaCombo", data.data);
     })
     Promise.all(promises).then(() => {
         // NUEVA IMPLEMENTACION
@@ -116,15 +108,10 @@ const rightBtn = async () => {
             data.product = armaCombo.value[index].Cabecera
             data.details = armaCombo.value[index];
             master.push(data)
-            // console.log("master", master);
-            //expoListProduct.value = expoListProduct.value.concat(armaCombo.value[index]);
         });
 
         // ESTOS SON LOS DATOS PRINCIPALES QUE LLENAN LA SEGUNGA TABLA
-        console.log(master);
         items.value = master
- 
-        console.log("items", items.value);
         master = []
         armaCombo.value = []
     })
@@ -133,15 +120,6 @@ const rightBtn = async () => {
     selectedProducts.value = []
     // armaCombo.value = []
 }
-
-// ASI FUNCIONA NORMALMENTE 
-// const rightBtn = () => {
-//     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-//     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
-
-//     // una vez los elementos sean enviados a la segunda tabla (TABLA PARA EXPORTAR A UN EXCEL)
-//     selectedProducts.value = []
-// }
 
 const deleteBtn = () => {
     const filterListProducts2 = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
@@ -195,10 +173,6 @@ const fImportXlsx = async (event) => {
             sapCode.value.push(rows)
         })
 
-        // console.log(sapCode.value);
-
-        // http://${api}:${portApi}/api/v1/send/sap-code1
-        console.log(list.value);
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
@@ -217,7 +191,6 @@ const fImportXlsx = async (event) => {
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
@@ -226,9 +199,6 @@ const fImportXlsx = async (event) => {
                 // Handle errors
                 alert(error)
             });
-
-        //expoListProduct.value = response.data.data
-        //console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }
@@ -320,7 +290,6 @@ const filteredItems = computed(() => {
     </div>
     <!--<Footer v-if="isAuthenticate"></Footer>-->
     <!-- <GreenjsTable /> -->
-
 </template>
 
 <style scoped>

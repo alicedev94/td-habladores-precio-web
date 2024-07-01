@@ -2,14 +2,12 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import { useRouter } from "vue-router"; // Importa useRouter
 import router from "../router/index";
 
 const email = ref("");
 const password = ref("");
 const visible = ref(false);
 const isLoading = ref(false);
-// const router = useRouter(); // Inicializa router
 
 // funciones 
 const toggleVisibility = () => {
@@ -24,7 +22,7 @@ onMounted(() => {
 const login = async () => {
   // API AND PORT
   const api = `${window.location.hostname}`;
-  const portApi = 3001;
+  const portApi = 3002;
 
   try {
     isLoading.value = true;
@@ -42,14 +40,9 @@ const login = async () => {
       const { auth } = response.data;
 
       if (auth) {
-        // console.log(response.data);
         localStorage.setItem("token", JSON.stringify(response.data));
         isLoading.value = false;
 
-        //  location.href = "/select-list"
-        // setTimeout(()=> {
-
-        // })
         // la ruta no esta esperando a que se cree el token antes de avanzar
         router.push("/select-list"); // Usa router.push para redireccionar
       } else {
@@ -98,7 +91,7 @@ const login = async () => {
         Iniciar sesión
       </v-btn>
 
-      <label class="version-label">v-1.0.0h</label>
+      <label class="version-label">v1.2.1</label>
     </v-card>
   </form>
 </template>

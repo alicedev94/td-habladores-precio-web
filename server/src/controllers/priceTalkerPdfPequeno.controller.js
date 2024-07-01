@@ -451,7 +451,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
       doc
@@ -839,7 +838,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
       doc
@@ -1227,7 +1225,6 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
         // FIN DEL BLOQUE
       }
       doc
@@ -1612,7 +1609,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -1997,7 +1994,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -2382,7 +2379,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -2770,7 +2767,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -3160,7 +3157,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -3550,7 +3547,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -3939,7 +3936,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -4329,7 +4326,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc
@@ -4719,7 +4716,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
         } else {
           product.priceTalkerWarranty = "30";
         }
-        // console.log(`Código: ${product.priceTalkerSapCode}, Primeros dos caracteres: ${primerosDosCaracteres}`);
+ 
         // FIN DEL BLOQUE
       }
       doc

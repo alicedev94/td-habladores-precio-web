@@ -8,6 +8,7 @@ const {
   deleteUser,
   products,
   processData,
+  processDataCdd,
   stateData,
   modelData,
   findByEmail,
@@ -123,7 +124,7 @@ router.post("/generate-pdf", async (req, res) => {
         noData
       );
     } else if (sizeTalker === "1") {
-      // HABLADOR PEQUEÑO
+      // HABLADOR GRANDE
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;
@@ -143,15 +144,13 @@ router.post("/generate-pdf", async (req, res) => {
         noData
       );
     } else if (sizeTalker === "2") {
-      // HABLADOR PEQUEÑO
-
+      // HABLADOR GRANDE
       const proData = modelData(data);
       proData.forEach((obj) => {
         obj.priceTalkerList = list;
       });
 
       const noData = proData;
-      // console.log(noData);
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
@@ -286,8 +285,9 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
 });
 
 // EN PROCESO DE VALIDACION 2
-router.post(`/gene-cdd`, async (req, res) => {
+router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
   const { data, list, sizeTalker } = req.body;
+  const { rack, galpon } = req.params;
 
   const proData = modelData(data);
   proData.forEach((obj) => {
@@ -295,8 +295,6 @@ router.post(`/gene-cdd`, async (req, res) => {
   });
 
   const noData = proData;
-
-  // console.log("DATA EN EL CDD", noData);
 
   const stream = res.writeHead(200, {
     "Content-Type": "application/pdf",
@@ -307,7 +305,10 @@ router.post(`/gene-cdd`, async (req, res) => {
     // hasta este punto es totalmente funcional [smallPriceTalker]
     (data) => stream.write(data),
     () => stream.end(),
-    noData
+    noData,
+    rack,
+    galpon,
+    sizeTalker
   );
   // GENERAR EL HABLADOR DEL CDD
 });
@@ -331,8 +332,22 @@ router.post("/send/sap-code/:list/:sucur/:sizeTalker", async (req, res) => {
     });
   } else {
     const rta = await processData(req.body, list, sucur, sizeTalker);
-    // console.log("rta",rta[0]);
     res.json({ status: "ok", data: rta[0] });
+  }
+});
+
+router.post("/send/sap-code-cdd", async (req, res) => {
+  const { sapCode } = req.body;
+
+  if (sapCode[0].length > 5000) {
+    res.json({
+      status: "error",
+      descrip:
+        "El sistema no admite más de 5000 códigos SKU. Por favor, ingrese una cantidad inferior.",
+    });
+  } else {
+    const rta = await processDataCdd(req.body);
+    res.json({ status: "ok", data: rta});
   }
 });
 
@@ -343,8 +358,6 @@ router.post("/send/sap-code1", async (req, res) => {
 });
 
 router.post("/change/logo", async (req, res) => {
-  // const filePath = path.join(__dirname, "/uploads/", req.file.originalname);
-  // console.log(filePath);
   try {
     uploadImage(req, res, (err) => {
       if (err) {
@@ -366,7 +379,6 @@ router.post("/change/logo", async (req, res) => {
 // PUT
 router.put("/updateUser/:id", async (req, res) => {
   const name = req.body.name;
-  // console.log(name);
   await updateUser(req.params["id"], name);
   res.json({ update_records: name });
 });

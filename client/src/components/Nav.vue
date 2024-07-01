@@ -50,9 +50,6 @@ onMounted(() => {
     } else {
         back.value = false; // RUTA INCORRECTA
     }
-
-
-    // console.log("todo bien");
 })
 
 // functions 

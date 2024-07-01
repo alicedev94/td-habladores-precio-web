@@ -10,7 +10,7 @@ const isAuthenticate = ref(false)
 
 // API AND PORT
 const api = `${window.location.hostname}`;
-const portApi = 3001;
+const portApi = 3002;
 
 onMounted(() => {
     // SABER LA RUTA DONDE ESTOY
@@ -18,9 +18,6 @@ onMounted(() => {
 
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
-    // console.log(segmentos);
-
-    // console.log(segmentos[1]);
 
     // Saber si estoy en la rurta que corresponde
     if (segmentos[1] === "marketing" && segmentos[2] === "logo-change") {
@@ -58,7 +55,6 @@ const form = async () => {
             }
         });
 
-        // console.log(response);
     } catch (error) {
         alert(error)
         isLoading.value = false

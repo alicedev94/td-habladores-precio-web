@@ -13,7 +13,7 @@ const isAuthenticate = () => {
   token = localStorage.getItem("token");
   if (token != null) {
     let { rtaRol } = JSON.parse(token);
-    if (rtaRol === "ADMIN" || rtaRol === "MARKETING" || rtaRol === "CLIENT") {
+    if (rtaRol === "ADMIN" || rtaRol === "MARKETING" || rtaRol === "CLIENT" || rtaRol === "CDD") {
       return async (to, from, next) => {
         return next();
       };
@@ -52,14 +52,12 @@ const router = createRouter({
     },
     {
       path: "/table-data-supermarket/:list/:size/:type/:sucursal",
-       // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
       name: "AdminSupermarket",
       component: AdminSupermarket,
       beforeEnter: isAuthenticate,
     },
     {
       path: "/table-data-supermarket-combo/:list/:size/:type/:sucursal",
-       // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
       name: "TablaComboDaka",
       component: TablaComboDaka,
       beforeEnter: isAuthenticate,
@@ -71,7 +69,7 @@ const router = createRouter({
       beforeEnter: isAuthenticate,
     },
     {
-      path: "/table-data-cdd",
+      path: "/table-data-cdd/:ra/:ga/:size",
       name: "TableDataCdd",
       component: TableDataCdd,
       beforeEnter: isAuthenticate,

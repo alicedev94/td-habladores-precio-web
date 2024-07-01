@@ -5,7 +5,6 @@ import readXlsxFile from 'read-excel-file'
 import Nav from './Nav.vue';
 
 const listProducts = ref([])
-const listProducts2 = ref([])
 const expoListProduct = ref([])
 const selectedProducts = ref([])
 const selectedExpoProducts = ref([])
@@ -27,12 +26,10 @@ const sucur = ref("")
 
 // STATIC VARIBLES
 var deleteCode = []
-var existDestintCode = []
-var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3001;
+var portApi = 3002;
 
 // SETTINGS
 const headers = [
@@ -48,12 +45,9 @@ const busquedaIncial = async () => {
     // Divide la ruta en segmentos
     let segmentos = route.split('/');
 
-    // console.log(segmentos[1]);
-
     //saber si estoy en la ruta correspondiente
     if (segmentos[1] === "table-data-supermarket") {
         isAuthenticate.value = true
-        //console.log("dentro de pathnmane");
     } else {
         isAuthenticate.value = false
     }
@@ -68,15 +62,13 @@ const busquedaIncial = async () => {
         typeTalker.value = match[3];
         sucur.value = match[4];
 
-
-
         // REDIRECCIONAR A ULTIMAS EXISTENCIAS SEGUN EL TIPO DE HABLADOR
         if (typeTalker.value === "0") {
             // ESTO ES PROMO DAKA
             location.href = `/table-data-supermarket-combo/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`;
         } else {
             isLoading.value = true
-            const response = await axios.get(`http://${local_server}:3001/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
+            const response = await axios.get(`http://${api}:3002/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
             listProducts.value = response.data
             isLoading.value = false
             document.body.classList.add("body-white")
@@ -147,7 +139,6 @@ const fImportXlsx = async (event) => {
         await readXlsxFile(event.target.files[0]).then((rows) => {
             sapCode.value.push(rows)
         })
-        // console.log(sapCode.value);
 
         // http://${api}:${portApi}/api/v1/send/sap-code1
         fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
@@ -168,8 +159,6 @@ const fImportXlsx = async (event) => {
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    // console.log("aqui");
-                    // console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
@@ -178,9 +167,6 @@ const fImportXlsx = async (event) => {
                 // Handle errors
                 alert(error)
             });
-
-        //expoListProduct.value = response.data.data
-        //console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }

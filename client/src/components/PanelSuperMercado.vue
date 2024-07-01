@@ -21,7 +21,7 @@ const emit = defineEmits(['update:typeList', 'update:sizeTalker', 'update:typeTa
 
 // API AND PORT
 const api = `${window.location.hostname}`;
-const portApi = 3001;
+const portApi = 3002;
 
 const items = ref([])
 const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
@@ -29,8 +29,6 @@ const loading = ref(false)
 
 // Functions
 const generarSupermercado = async () => {
-    // const response = await axios.get(`http://${api}:${portApi}/api/v1/gene-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`);
-    // varibles de la url http://etc.../${LISTA}/${TAMAÑO}/${TIPO}/${SUCURSAL}
     setTimeout(() => {
         loading.value = true
         router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
@@ -41,7 +39,6 @@ const generarSupermercado = async () => {
 onMounted(async () => {
     const response = await axios.get(`http://${api}:${portApi}/api/v1/priceList`)
     items.value = response.data
-    // console.log(items.value);
 })
 
 watch(selectData.value, () => {

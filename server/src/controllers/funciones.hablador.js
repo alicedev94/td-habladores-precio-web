@@ -39,7 +39,6 @@ const validarTachado = (tachado, precio) => {
   return (tachado <= precio - 5) ? 1 : 0;
 }
 
-const response = validarTachado(150, 110);
-console.log(response);
+// const response = validarTachado(150, 110);
 
 module.exports = { generarPrecio, validarTachado };

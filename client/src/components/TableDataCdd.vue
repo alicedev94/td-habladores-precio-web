@@ -1,14 +1,10 @@
-
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import readXlsxFile from 'read-excel-file'
-import Swal from 'sweetalert2'
 import Nav from '@/components/Nav.vue';
-import Footer from '@/components/Footer.vue';
 
 const listProducts = ref([]);
-const listProducts2 = ref([]);
 const expoListProduct = ref([]);
 const selectedProducts = ref([]);
 const selectedExpoProducts = ref([]);
@@ -21,7 +17,6 @@ const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
 const isLoadingPdf = ref(false)
-const pruebas = ref("hola desde vue js")
 
 const isAuthenticate = ref(false)
 
@@ -30,28 +25,38 @@ const sapCode = ref([])
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
 const list = ref("")
 const sizeTalker = ref("")
-const sucur = ref("")
+
+// cdd 
+const rack = ref('')
+const galpon = ref('')
 
 // STATIC VARIBLES
 var deleteCode = []
-var existDestintCode = []
 var local_server = "localhost" // local
 // var local_server = "192.168.161.38" // local
 // var local_server = "192.168.21.241" // product
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3001;
+var portApi = 3002;
 
 // SETTINGS
 const headers = [
-    { text: 'ItemCode', value: 'ItemCode' },
-    { text: 'descripcion', value: 'descripcion' }
+    { text: 'Código', value: 'Codigo' },
+    { text: 'Descripción', value: 'Nombre' }
 ];
 
 onMounted(async () => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/api/v1/tabla-data-cdd`);
+        busquedaIncial()
+        const { data } = await axios.get(`http://${api}:${portApi}/api/v1/tabla-data-cdd`);
+
+        // -
+        for (const obj of data) {
+            obj.Cantidad = rack.value;
+            obj.galpon = galpon.value;
+        }// AGREGAMOS LA CANTIDAD SELECCIONADA EN EL INPUT EN CASO DE QUE SEA MANUAL.
+
         listProducts.value = data;
     } catch (error) {
         alert(error);
@@ -60,20 +65,46 @@ onMounted(async () => {
 
 watch(() => {
     // SECOND PRODUCT TABLE
-    filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
-    if (filterExpoListProducts.value.length > 0) {
+    filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo)); if (filterExpoListProducts.value.length > 0) {
+
         isDisabled.value = false
     } else {
         isDisabled.value = true
     }
 })
 
+const busquedaIncial = async () => {
+    // SABER LA RUTA DONDE ESTOY
+    let route = location.pathname
+
+    // Divide la ruta en segmentos
+    let segmentos = route.split('/');
+
+    //saber si estoy en la ruta correspondiente
+    if (segmentos[1] === "table-data-cdd") {
+        isAuthenticate.value = true
+    } else {
+        isAuthenticate.value = false
+    }
+
+    const ruta = window.location.pathname;
+    const regex = /\/table-data-cdd\/(\d+)\/(\d+)\/(\d+)*/;
+    const match = ruta.match(regex);
+
+    if (match) {
+        rack.value = match[1];
+        galpon.value = match[2];
+        sizeTalker.value = match[3];
+    } else {
+        console.error("La ruta no coincide con el patrón esperado.");
+    }
+}
+
 // LOCAL FUNCTION
 const fGeneratePdf = async () => {
     isLoadingPdf.value = true
     try {
-        let datos = { /* tu JSON grande */ };
-        fetch(`http://${api}:${portApi}/api/v1/gene-cdd`, {
+        fetch(`http://${api}:${portApi}/api/v1/gene-cdd/${rack.value}/${galpon.value}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -97,7 +128,6 @@ const fGeneratePdf = async () => {
                 isLoadingPdf.value = false
             })
             .catch((error) => alert(error));
-
     } catch (error) {
         console.error(error);
         isLoadingPdf.value = false
@@ -112,10 +142,7 @@ const fImportXlsx = async (event) => {
             sapCode.value.push(rows)
         })
 
-        // console.log(sapCode.value);
-
-        // http://${api}:${portApi}/api/v1/send/sap-code1
-        fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
+        fetch(`http://${api}:${portApi}/api/v1/send/sap-code-cdd`, {
             method: 'POST',
             timeout: 120000, // espera hasta 30 segundos
             headers: {
@@ -127,26 +154,18 @@ const fImportXlsx = async (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                // Handle successful response
                 if (data.status != "ok") {
-                    // remplazar por sweet alert
                     alert(data.descrip)
                     isLoading2.value = false
                 } else {
-                    // console.log("aqui");
-                    // console.log(data.data);
                     expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
                     isLoading2.value = false
                 }
 
             })
             .catch(error => {
-                // Handle errors
                 alert(error)
             });
-
-        //expoListProduct.value = response.data.data
-        //console.log(expoListProduct.value);
     } catch (error) {
         alert(error)
     }
@@ -185,6 +204,9 @@ const downloadBtn = async () => {
 </script>
 
 <template>
+    <Nav></Nav>
+    <span v-if="isLoadingPdf" class="loaderPdf"></span>
+
     <div class="table-container">
         <div>
             <v-text-field v-model="searchTable1" variant="solo-filled"
@@ -228,3 +250,13 @@ const downloadBtn = async () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.rightBtn,
+.deleteBtn {
+    display: block;
+    /* Asegura que los botones ocupen todo el ancho disponible */
+    margin-bottom: 10px;
+    /* Espacio entre los botones */
+}
+</style>
