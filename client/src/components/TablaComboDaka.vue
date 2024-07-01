@@ -5,7 +5,6 @@ import readXlsxFile from 'read-excel-file'
 import Nav from './Nav.vue';
 
 const listProducts = ref([])
-const listProducts2 = ref([])
 const expoListProduct = ref([])
 const selectedProducts = ref([])
 const selectedExpoProducts = ref([])
