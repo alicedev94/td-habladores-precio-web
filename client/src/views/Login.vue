@@ -22,7 +22,7 @@ onMounted(() => {
 const login = async () => {
   // API AND PORT
   const api = `${window.location.hostname}`;
-  const portApi = 3002;
+  const portApi = 3003;
 
   try {
     isLoading.value = true;
@@ -91,7 +91,7 @@ const login = async () => {
         Iniciar sesión
       </v-btn>
 
-      <label class="version-label">v1.2.1</label>
+      <label class="version-label">v1.2.2</label>
     </v-card>
   </form>
 </template>
