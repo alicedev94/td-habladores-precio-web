@@ -37,7 +37,7 @@ var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3002;
+var portApi = 3003;
 
 //
 
@@ -71,7 +71,7 @@ onMounted(async () => {
         sucur.value = match[3];
 
         isLoading.value = true
-        const response = await axios.get(`http://${api}:3002/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
 
         // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES

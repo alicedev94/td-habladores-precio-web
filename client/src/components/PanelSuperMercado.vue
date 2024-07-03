@@ -21,7 +21,7 @@ const emit = defineEmits(['update:typeList', 'update:sizeTalker', 'update:typeTa
 
 // API AND PORT
 const api = `${window.location.hostname}`;
-const portApi = 3002;
+const portApi = 3003;
 
 const items = ref([])
 const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
