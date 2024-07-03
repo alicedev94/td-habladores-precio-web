@@ -91,7 +91,7 @@ const login = async () => {
         Iniciar sesión
       </v-btn>
 
-      <label class="version-label">v1.2.2</label>
+      <label class="version-label">v1.2.3</label>
     </v-card>
   </form>
 </template>

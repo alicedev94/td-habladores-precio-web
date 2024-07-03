@@ -4,11 +4,11 @@ module.exports = {
       script: "./src/index.js",
       env: {
         NODE_ENV: "development",
-        VERSION: "1.2.2",
+        VERSION: "1.2.3",
       },
       env_production: {
         NODE_ENV: "production",
-        VERSION: "1.2.2",
+        VERSION: "1.2.3",
       }
     }]
   }

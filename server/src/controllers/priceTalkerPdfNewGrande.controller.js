@@ -552,6 +552,7 @@ const bigNewPriceTalker = async (
           boxPositionY + priceTalkerDescriptionPositionY, // 2,5 CM
           {
             width: priceTalkerWidthText,
+            height: 40,
             align: "left",
           }
         );
@@ -931,6 +932,7 @@ const bigNewPriceTalker = async (
           boxPositionY + priceTalkerDescriptionPositionY + boxHeight, // 2,5 CM
           {
             width: priceTalkerWidthText,
+            height: 40,
             align: "left",
           }
         );
@@ -1319,6 +1321,7 @@ const bigNewPriceTalker = async (
           boxPositionY + priceTalkerDescriptionPositionY + boxHeight, // 2,5 CM
           {
             width: priceTalkerWidthText,
+            height: 40,
             align: "left",
           }
         );
