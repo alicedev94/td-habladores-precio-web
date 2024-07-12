@@ -201,7 +201,7 @@ const smallPriceTalker = async (dataCallback, endCallback, priceTalkerData) => {
             // 0 0,1 0,12123 etc
             precio = parseFloat(product.priceTalkerPrice);
           } else {
-            precio = parseFloat(product.priceTalkerPrice * 1.16);
+            precio = parseFloat(product.priceTalkerPrice);
             precio = Math.round(precio);
           }
           //

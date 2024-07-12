@@ -229,7 +229,7 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR DESCRIPCION
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(20) // fontSize
       .text(
         `${dato.priceTalkerdescription}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,

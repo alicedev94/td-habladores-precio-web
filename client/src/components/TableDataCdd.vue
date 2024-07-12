@@ -48,7 +48,9 @@ const headers = [
 
 onMounted(async () => {
     try {
-        busquedaIncial()
+        isLoading.value = true;
+        await busquedaIncial()
+        isLoading.value = false;
         const { data } = await axios.get(`http://${api}:${portApi}/api/v1/tabla-data-cdd`);
 
         // -
@@ -214,7 +216,7 @@ const downloadBtn = async () => {
                 label="Buscar por código o descripción"></v-text-field>
             <v-card class="mx-auto card-select-list" width="600" height="375" color="#000" variant="solo-filled"
                 elevation="8">
-                <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers"
+                <v-data-table width="400" height="300" v-model="selectedProducts" :headers="headers" 
                     :search="searchTable1" :loading="isLoading" :items="listProducts" item-value="Codigo" show-select
                     no-data-text="No hay datos disponibles" items-per-page-text="Número de filas por página"
                     loading-text="Cargando..." />
