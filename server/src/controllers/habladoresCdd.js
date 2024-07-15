@@ -196,6 +196,7 @@ const estructuraCddM = (
 };
 
 function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
+
   // CREACIÓN DEL NUEVO DOCUMENTO
   doc.on("data", inicio);
   doc.on("end", fin);
@@ -207,6 +208,8 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
 
   // DATA
   datos.forEach((dato, index) => {
+    console.log("s",dato.cantidad);
+
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();

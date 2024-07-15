@@ -6,6 +6,7 @@ import router from '@/router';
 import PanelSuperMercado from '@/components/PanelSuperMercado.vue';
 import Image from '@/components/Image.vue';
 import SelectCDD from '@/components/selectCDD.vue';
+import SelectAlmacen from '@/components/SelectAlmacen.vue';
 
 const items = ref([])
 
@@ -16,7 +17,7 @@ const selectDataSuperMarket = ref({ typeList: '', sizeTalker: '' })
 
 // PARA LA MUESTRA DE CONTENIDO EN EL SELECT LIST
 const tienda = ref(true)
-const superT = ref(false)
+const superT = ref(true)
 const cdd = ref(true)
 
 const userSucursal = ref("")
@@ -31,9 +32,11 @@ onMounted(async () => {
     if (rol === 'CDD') {
         cdd.value = true
         tienda.value = false
+        superT.value = false
     } else {
         cdd.value = false
         tienda.value = true
+        superT.value = true
     }
 
     // quitar tema degradado
@@ -68,6 +71,7 @@ const tabOptions = {
     one: 'estandar',
     two: 'supermercado',
     three: 'cdd',
+    four: 'almacen'
 };
 
 const btnSend = () => {
@@ -98,6 +102,7 @@ const btnSend_2 = () => {
         <v-tab v-if="tienda" value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
         <v-tab v-if="superT" value="supermercado" color="#50C878">Supermercado</v-tab> 
         <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
+        <v-tab v-if="cdd" value="almacen" color="#50C878">Almacen</v-tab>
     </v-tabs>
 
     <v-card-text>
@@ -145,7 +150,10 @@ const btnSend_2 = () => {
             <v-window-item v-if="cdd" :value="tabOptions.three" class="display">
                 <SelectCDD />
                 <Image imagen="/habladorCDD.png" />
-
+            </v-window-item>
+            <v-window-item v-if="cdd" :value="tabOptions.four" class="display">
+                <SelectAlmacen />
+                <!-- <Image imagen="/habladorCDD.png" /> -->
             </v-window-item>
         </v-window>
     </v-card-text>

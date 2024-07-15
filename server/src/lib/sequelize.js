@@ -19,7 +19,8 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_SERVER,
     dialect:
-      "mssql" /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */,
+      "mssql",
+      logging: false, 
     dialectOptions: {
       options: {
         // Your tedious options here

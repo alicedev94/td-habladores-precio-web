@@ -6,6 +6,8 @@ import router from '@/router';
 const disPromo = ref(true)
 const disUlti = ref(true)
 
+const combo = ref(false)
+
 const props = defineProps({
     typeList: {
         typeList: String,
@@ -31,7 +33,14 @@ const loading = ref(false)
 const generarSupermercado = async () => {
     setTimeout(() => {
         loading.value = true
-        router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
+
+        // DETERMINAR SI ES UN COMBO O UNA PROMO NORMAL 
+        if (combo.value) {
+            router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
+        } else {
+            alert("Promociones")
+        }
+        
         loading.value = false
     }, 1000)
 }
@@ -69,20 +78,9 @@ watch(selectData.value, () => {
 <template>
     <v-card class="card-select-list" width="600" height="400" color="#000" variant="text" elevation="8">
         <v-card-item>
-            <div>
-                <!-- <div class="text-overline mb-3">
-                    HABLADOR DE PRECIO WEB
-                </div> -->
-                <div class="text-h10 mb-1">
-                    Seleccione lista de precio y tipo de hablador.
-                </div>
-                <div class="text-caption separador">Paso 1:</div>
-            </div>
 
             <v-autocomplete class="combo-select-list separador-text" label="Listas de precios" :items="items"
                 v-model="selectData.typeList" variant="outlined"></v-autocomplete>
-
-            <div class="text-caption">Paso 2:</div>
 
             <v-radio-group v-model="selectData.sizeTalker" :disabled="selectData.typeList === ''" inline>
                 <v-radio label="Pequeño" value="0"></v-radio>
@@ -90,16 +88,14 @@ watch(selectData.value, () => {
                 <v-radio label="Grande" value="2"></v-radio>
             </v-radio-group>
 
-            <div class="text-caption">Paso 3:</div>
             <v-radio-group v-model="selectData.typeTalker" :disabled="selectData.sizeTalker === ''" inline>
                 <v-radio :disabled="disPromo" label="Promo Daka" value="0"></v-radio>
                 <v-radio :disabled="disUlti" label="Ultimas Existencias" value="1"></v-radio>
             </v-radio-group>
 
-            <!-- :disabled="selectData.sizeTalker === ''" -->
-            <!-- <input hidden :value="sucursal" /> -->
 
-            <div class="text-caption">Paso 4:</div>
+            <v-switch label="Promo Daka Combo" color="success" :disabled="selectData.typeTalker === ''"  v-model="combo"></v-switch>
+
             <v-card-actions>
                 <v-btn variant="elevated" color="#d0fdd7" :loading="loading" :disabled="selectData.typeTalker === ''"
                     @click="generarSupermercado">

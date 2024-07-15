@@ -3,9 +3,7 @@ const PDFDocument = require("pdfkit");
 const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
 const { habladorG, habladorP, habladorM } = require("../controllers/habladoresCdd");
 const { habladorP2 } = require("../controllers/small.pdf.js");
-
-// Nuevos Modulos
-// const { habladorM } = require("../controllers/habladorCddMediano");
+const  big  = require("../controllers/store/warehouse/index.js");
 
 const SIZE_SMALL = "0";
 const SIZE_MEDIUM = "1";
@@ -42,8 +40,13 @@ const geneCdd = async (
         habladorM(inicio, fin, datos, cantidad, ubicacion, doc);
         break;
       case SIZE_LARGE:
-        doc = new PDFDocument({ size: "A4", layout: "landscape" });
-        habladorG(inicio, fin, datos, cantidad, ubicacion, doc);
+        if(cantidad && ubicacion == "00") {
+          doc = new PDFDocument({ size: "A4", layout: "landscape" });
+          big(doc, inicio, fin);
+        } else {
+          doc = new PDFDocument({ size: "A4", layout: "landscape" });
+          habladorG(inicio, fin, datos, cantidad, ubicacion, doc);
+        }
         break;
       default:
         throw new Error("Unrecognized sizeHablador value");
