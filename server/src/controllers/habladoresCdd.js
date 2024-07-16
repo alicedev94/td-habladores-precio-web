@@ -208,8 +208,6 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
 
   // DATA
   datos.forEach((dato, index) => {
-    console.log("s",dato.cantidad);
-
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
@@ -219,11 +217,11 @@ function habladorG(inicio, fin, datos, cantidad, ubicacion, doc) {
     // VALOR CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", tipoLetra))
-      .fontSize(fontSize)
+      .fontSize(55)
       .text(
         `${dato.priceTalkerSapCode}`, // .toLocaleUpperCase()
         reCuadroTitulo.x + n1cm * 9.1,
-        reCuadroTitulo.y + n1cm / 2,
+        reCuadroTitulo.y + n1cm / 4.4,
         {
           align: "left",
         }

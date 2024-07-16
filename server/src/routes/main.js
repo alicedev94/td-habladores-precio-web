@@ -100,76 +100,94 @@ router.post("/signin", async (req, res) => {
 });
 
 router.post("/generate-pdf", async (req, res) => {
-  const { data, list, sizeTalker } = req.body;
+  const { data, list, sizeTalker, combo } = req.body;
 
   try {
-    if (sizeTalker === "0") {
-      // HABLADOR PEQUEÑO
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
-
-      const noData = proData;
-      // console.log("PRECIOS GRANDES",noData);
-
+    if (combo) {
+      // PROMO INDIVIDUAL SUPERMERCADO (BOLETIN, LISTAS, ETC)
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
         "Content-Disposition": "attachment; filename=alicePdf.pdf",
       });
 
-      await smallPriceTalker(
+      await habladorPromoG(
         (data) => stream.write(data),
         () => stream.end(),
-        noData
+        data,
+        list,
+        data
       );
-    } else if (sizeTalker === "1") {
-      // HABLADOR GRANDE
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
 
-      const noData = proData;
-
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
-
-      await bigNewPriceTalker(
-        // bigPriceTalker
-        (data) => stream.write(data),
-        () => stream.end(),
-        noData
-      );
-    } else if (sizeTalker === "2") {
-      // HABLADOR GRANDE
-      const proData = modelData(data);
-      proData.forEach((obj) => {
-        obj.priceTalkerList = list;
-      });
-
-      const noData = proData;
-
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
-
-      // FUNCIONAL
-      // await bigPriceTalker(
-      //   (data) => stream.write(data),
-      //   () => stream.end(),
-      //   noData
-      // );
-      await bigNewPriceTalker(
-        (data) => stream.write(data),
-        () => stream.end(),
-        noData
-      );
     } else {
-      console.error("DATO NO CONTEMPLADO");
+      // HABLADOR ESTANDAR
+      if (sizeTalker === "0") {
+        // HABLADOR PEQUEÑO
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+
+        const noData = proData;
+        // console.log("PRECIOS GRANDES",noData);
+
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+
+        await smallPriceTalker(
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else if (sizeTalker === "1") {
+        // HABLADOR GRANDE
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+
+        const noData = proData;
+
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+
+        await bigNewPriceTalker(
+          // bigPriceTalker
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else if (sizeTalker === "2") {
+        // HABLADOR GRANDE
+        const proData = modelData(data);
+        proData.forEach((obj) => {
+          obj.priceTalkerList = list;
+        });
+
+        const noData = proData;
+
+        const stream = res.writeHead(200, {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=alicePdf.pdf",
+        });
+
+        // FUNCIONAL
+        // await bigPriceTalker(
+        //   (data) => stream.write(data),
+        //   () => stream.end(),
+        //   noData
+        // );
+        await bigNewPriceTalker(
+          (data) => stream.write(data),
+          () => stream.end(),
+          noData
+        );
+      } else {
+        console.error("DATO NO CONTEMPLADO");
+      }
     }
   } catch (error) {}
 });
@@ -177,7 +195,7 @@ router.post("/generate-pdf", async (req, res) => {
 router.post("/generate-super-pdf", async (req, res) => {
   // SUPER MERCADO
   const { data, list, sizeTalker, typeTalker, datosRelacionados } = req.body;
- 
+
   try {
     if (typeTalker === "0") {
       // PROMO DAKA (COMBOS)
@@ -192,7 +210,8 @@ router.post("/generate-super-pdf", async (req, res) => {
         await PromoDakaP(
           (data) => stream.write(data),
           () => stream.end(),
-          data, list
+          data,
+          list
         );
       } else if (sizeTalker === "1") {
         // PROMO MEDIANO
@@ -204,7 +223,8 @@ router.post("/generate-super-pdf", async (req, res) => {
         await PromoDakaM(
           (data) => stream.write(data),
           () => stream.end(),
-          data, list
+          data,
+          list
         );
       } else {
         const stream = res.writeHead(200, {
@@ -265,7 +285,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           noData
         );
 
-        // res.json({ estado: response}); 
+        // res.json({ estado: response});
       } else {
         console.error("DATO NO CONTEMPLADO");
       }
@@ -347,7 +367,7 @@ router.post("/send/sap-code-cdd", async (req, res) => {
     });
   } else {
     const rta = await processDataCdd(req.body);
-    res.json({ status: "ok", data: rta});
+    res.json({ status: "ok", data: rta });
   }
 });
 
