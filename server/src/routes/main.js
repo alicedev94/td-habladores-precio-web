@@ -1,5 +1,4 @@
 const { Router } = require("express");
-
 const router = Router();
 const {
   findAll,
@@ -18,34 +17,29 @@ const {
 
 const {
   bigNewPriceTalker,
-} = require("../controllers/priceTalkerPdfNewGrande.controller");
+} = require("../controllers/talker/store/standard/big.talker.controller");
 
 const {
   smallPriceTalker,
-} = require("../controllers/priceTalkerPdfPequeno.controller");
+} = require("../controllers/talker/store/standard/small.talker.controller");
 
-const { uploadImage, upload } = require("../controllers/changeLogo.controller");
+const { uploadImage } = require("../controllers/changeLogo.controller");
 
 const { changeLogo } = require("../controllers/remplaceRoute.controller");
 
 const {
   habladorUltimasExistenciasG,
-} = require("../controllers/habladorUltimasExistenciasG");
+} = require("../controllers/talker/store/supermarket/laststock/big.talker.controller");
 
 const { armaCombo } = require("../controllers/main.super.market");
 
-const {
-  habladorUltimasM,
-} = require("../controllers/ultimasExistenciasMediano");
-
-// RUTRAS PARA EL NUEVO LAYOUT
 // RUTAS PARA EL CDD ACA LOS DATOS Y EL PDF DEL HABLADOR PARA CDD
-const { dataCdd, geneCdd } = require("../controllers/cdd.controller");
+const { dataCdd, geneCdd } = require("../controllers/talker/cdd/main");
 
 // RUTA PARA LA GENERACION DE PROMO
-const { habladorPromoG } = require("../controllers/habladorPromoDakaG");
-const { PromoDakaM } = require("../controllers/habladorPromoDakaM");
-const { PromoDakaP } = require("../controllers/habladorPromoDakaP");
+const { habladorPromoG } = require("../controllers/talker/store/supermarket/promo/big.talker.controller");
+const { PromoDakaM } = require("../controllers/talker/store/supermarket/promo/mediun.talker.controller");
+const { PromoDakaP } = require("../controllers/talker/store/supermarket/promo/small.talker.controller");
 
 // GET
 router.get("/", async (req, res) => {
@@ -242,31 +236,11 @@ router.post("/generate-super-pdf", async (req, res) => {
       }
       // --
     } else if (typeTalker === "1") {
-      // ULTIMAS EXISTENCIAS
       if (sizeTalker === "0") {
-        // HABLADOR PEQUEÑO
         console.log("EN DESARROLLO: ULTIMAS EXISTENCIAS, PEQUEÑO");
       } else if (sizeTalker === "1") {
-        // HABLADOR MEDIANO
-        const proData = modelData(data);
-        proData.forEach((obj) => {
-          obj.priceTalkerList = list;
-        });
-
-        const noData = proData;
-
-        const stream = res.writeHead(200, {
-          "Content-Type": "application/pdf",
-          "Content-Disposition": "attachment; filename=alicePdf.pdf",
-        });
-
-        await habladorUltimasM(
-          (data) => stream.write(data),
-          () => stream.end(),
-          noData
-        );
+        console.log("EN DESARROLLO: ULTIMAS EXISTENCIAS, MEDIANO");
       } else if (sizeTalker === "2") {
-        // HABLADOR GRANDE
         const proData = modelData(data);
         proData.forEach((obj) => {
           obj.priceTalkerList = list;

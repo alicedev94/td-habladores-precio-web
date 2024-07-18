@@ -1,9 +1,9 @@
-const { sequelize } = require("../lib/sequelize");
+const { sequelize } = require("../../../lib/sequelize.js");
 const PDFDocument = require("pdfkit");
-const catalogo_productos_cdd = require("../lib/querys/productos.cdd");
-const { habladorG, habladorP, habladorM } = require("../controllers/habladoresCdd");
-const { habladorP2 } = require("../controllers/small.pdf.js");
-const  big  = require("../controllers/store/warehouse/index.js");
+const catalogo_productos_cdd = require("../../../lib/querys/productos.cdd.js");
+const { habladorG, habladorM } = require("../../habladoresCdd.js");
+const { habladorP2 } = require("./small.talker.controller.js");
+const  big  = require("../store/warehouse/index.js");
 
 const SIZE_SMALL = "0";
 const SIZE_MEDIUM = "1";
@@ -32,7 +32,6 @@ const geneCdd = async (
      switch  (sizeHablador) {
       case SIZE_SMALL:
         doc = new PDFDocument({ size: "A4", layout: "portrait" });
-        // habladorP(inicio, fin, datos, cantidad, ubicacion, doc);
         const rta = await habladorP2(inicio, fin, datos, cantidad, ubicacion, doc);
         break;
       case SIZE_MEDIUM:
@@ -52,7 +51,6 @@ const geneCdd = async (
         throw new Error("Unrecognized sizeHablador value");
     }
   } catch (error) {
-    // Handle error appropriately
     console.error("Error generating PDF:", error);
   }
 };

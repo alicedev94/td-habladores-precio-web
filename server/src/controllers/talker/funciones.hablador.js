@@ -7,7 +7,7 @@ const generarPrecio = (precio, listaPrecio) => {
       precio = parseFloat(precio);
       precio = precio.toString().replace(".", ",");
       precio = Math.round(precio);
-    } else {
+    } else { 
       // CUALQUIER OTRA LISTA
       precio = parseFloat(precio * 1.16);
       precio = Math.round(precio);

@@ -62,7 +62,7 @@ const estructura = (doc, x, y, interlineadoTitulo) => {
 };
 
 // LOGO DIRECCION DE LOGO DINAMICO
-const rutaLogo = require("../routes/uploads/index");
+const rutaLogo = require("../../../routes/uploads/index");
 var nombreLogo = "LODO_DAKA_REDONDO.png";
 
 const imagen = (doc, ruta, imagen, ancho, alto, x, y) => {

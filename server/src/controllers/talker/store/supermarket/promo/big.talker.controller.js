@@ -1,12 +1,12 @@
 const PDFDocument = require("pdfkit");
 const path = require("path");
-const { validarTachado } = require("../controllers/funciones.hablador");
-const { label } = require("../controllers/pdf-label/src/index");
+const { validarTachado } = require("../../../funciones.hablador");
+const { label } = require("../../../../pdf-label/src/index");
 
 var precio = 0;
 var precioDetalle = 0;
 let priceTalkerPositionPriceX = 226.77;
-let priceTalkerPositionPriceY = 219.21;
+let priceTalkerPositionPriceY = 219.21; 
 const priceTalkerFontSizePrice = 72;
 const priceTalkerFontPath = process.cwd();
 
@@ -41,8 +41,8 @@ const bigSimboY = 285.67;
 const bigPrecioX = 340.16; /* Precio */
 const bigPrecioY = 354.8;
 
-const bigPrecioTachadoX = 226.77;
-const bigPrecioTachadoY = 226.77;
+const bigPrecioTachadoX = 226.77; /* Precio tachado */
+const bigPrecioTachadoY = 268.35;
 
 const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
@@ -267,7 +267,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       });
 
       // Precio tachado
-      label(doc, font, fontPrecioTachado, 120, bigPrecioTachadoX, bigPrecioTachadoY + 11.34 + 37.8, {
+      label(doc, font, fontPrecioTachado, 120, bigPrecioTachadoX, bigPrecioTachadoY, {
         width: widthText,
         height: heightText,
         align: "center",

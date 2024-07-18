@@ -4,8 +4,7 @@ const path = require("path");
 const bwipjs = require("bwip-js");
 
 // LOGO DIRECCION DE LOGO DINAMICO
-const dirnameLogo = require("../routes/uploads/index");
-const { isNull } = require("util");
+const dirnameLogo = require("../../../../routes/uploads/index");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --
@@ -94,6 +93,7 @@ const fuente = path.join(
   "arial",
   "Arial.ttf"
 );
+
 const fuenteBold = path.join(
   priceTalkerFontPath,
   "node_modules",
@@ -193,13 +193,6 @@ const bigNewPriceTalker = async (
         // EL ID DEL HABLADOR ES 1 LO QUE CORRESPONDE A PROMOCION ACTUAL
         logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
       }
-
-      // `${dirnameLogo}/${logoName}`
-
-      // // CABLE
-      // if(product.priceTalkerSapCode == "LM-00000853") {
-      //   logoName = "LOGO_DAKA_PROMO_ACTUAL.png";
-      // }
 
       doc.image(
         `${dirnameLogo}/${logoName}`,

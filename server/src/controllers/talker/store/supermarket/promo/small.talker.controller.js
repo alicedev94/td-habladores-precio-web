@@ -6,52 +6,52 @@ const path = require("path");
 const {
   generarPrecio,
   validarTachado,
-} = require("../controllers/funciones.hablador");
+} = require("../../../funciones.hablador");
 
 // NUEVAS VARIABLES PARA EL LAYOUT DE HABLADORES
 /* NOTA: LA LETRA (P) AL FINAL DEL CADA VARIABLE INDICA EN ESPAÑOL 
 LA FRASE POSICIÓN */
 const n1cm = 37.8; // REPRESENTACION APROXIMADA DE 1CM CUADRADO EN EL PDF
 
-let precioTachadoP = { x: n1cm * 4.49, y: n1cm * 4.39 };
-let precioFullP = { X: n1cm * 5.9, Y: n1cm * 5.9 };
-let codigoSap = { x: n1cm * 8.4, y: n1cm * 3.9 };
-let descripcion = { x: n1cm * 8.4, y: n1cm * 4.6 };
-let garantiaP = { x: n1cm * 8.4, y: n1cm * 5.8 };
+let precioTachadoP = { x: n1cm * 13.5, y: n1cm * 7.9 };
+let codigoSap = { x: n1cm * 16.8, y: n1cm * 7.4 };
+let descripcion = { x: n1cm * 16.8, y: n1cm * 7.8 };
+let garantiaP = { x: n1cm * 16.8, y: n1cm * 8.4 };
+let precioFullP = { X: n1cm * 14.5, Y: n1cm * 8.8 };
+
 let altura = n1cm * 1.5;
 
 // Fuente
-const priceTalkerfontSize = 16;
-const priceTalkerFontSizePrice = 50;
-const priceTalkerFontSizePriceNew = 80;
+const priceTalkerfontSize = 16 / 2;
+const priceTalkerFontSizePrice = 50 / 2;
+const priceTalkerFontSizePriceNew = 80 / 2;
 
 // -- Contenido estático
-const priceTalkerWidthText = n1cm * 7;
+const priceTalkerWidthText = (n1cm * 7) / 2;
 const priceTalkerFontPath = process.cwd();
 
-const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
+const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
   // GENERADO Y DESCARGA DEL FORMATO PDF
-  const doc = new PDFDocument({ size: "A4", layout: "portrait" });
+  const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", dataCallback);
   doc.on("end", endCallback);
 
   datos.forEach((dato, index) => {
-    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
-      dato;
+    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } = dato;
+
+    var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
     }
 
-    var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
-
     if (PrecioaMostrar < 1) {
       rtaPrecio = 1;
       var precio = PrecioaMostrar;
       precio = precio.toString();
-      precio = precio.replace('.', ',');
+      precio = precio.replace(".", ",");
     } else {
       var precio = generarPrecio(PrecioaMostrar, list);
     }
@@ -68,7 +68,6 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
           precioTachadoP.y - n1cm
         );
     }
-
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
@@ -79,9 +78,7 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePriceNew)
-      .text(`$${precio}`, precioFullP.X, precioFullP.Y, {
-        width: priceTalkerWidthText + (n1cm * 5),
-      });
+      .text(`$${precio}`, precioFullP.X, precioFullP.Y);
     // CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
@@ -96,7 +93,7 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
       .fontSize(priceTalkerfontSize)
       .text(`${Nombre}`, descripcion.x, descripcion.y, {
         width: priceTalkerWidthText,
-        height: altura,
+        height: 30,
         align: "center",
       });
     // GARANTIA
@@ -119,5 +116,5 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
 };
 
 module.exports = {
-  PromoDakaM,
+  PromoDakaP,
 };

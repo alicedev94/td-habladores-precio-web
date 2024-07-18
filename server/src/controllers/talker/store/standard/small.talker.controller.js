@@ -1,13 +1,10 @@
 // -- LIBRERÍAS --
 const PDFDocument = require("pdfkit");
-const fs = require("fs");
 const path = require("path");
-const pathLog1 = require("../img/index");
-const moment = require("moment-timezone");
-const { ajustarCadena } = require("../controllers/main");
+const { ajustarCadena } = require("../../../main");
 
 // LOGO DIRECCION DE LOGO DINAMICO
-const dirnameLogo = require("../routes/uploads/index");
+const dirnameLogo = require("../../../../routes/uploads/index");
 var logoName = "PRUEBA.png";
 
 // -- VARIABLES --

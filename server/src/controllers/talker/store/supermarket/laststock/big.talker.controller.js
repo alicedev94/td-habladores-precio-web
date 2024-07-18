@@ -1,7 +1,7 @@
 // -- LIBRERÍAS --
 const PDFDocument = require("pdfkit");
 const path = require("path");
-const { generarPrecio ,validarTachado } = require("../controllers/funciones.hablador");
+const { generarPrecio ,validarTachado } = require("../../../funciones.hablador");
 
 // Posición
 let priceTalkerPositionPriceX = 264.57 - 37.8;
