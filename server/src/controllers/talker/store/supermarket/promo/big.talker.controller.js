@@ -120,10 +120,12 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
           console.log("solo tomammos el primer articulo..");
         }
         // CODIGOS RELACIONADOS
+        console.log("Detail codigo", detail.Codigo)
         doc
           .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
           .fontSize(18)
           .text(
+         
             `${detail.Codigo}/`,
             priceTalkerPositionPriceX + 113.39 + 151.18 + 26.46 + yOffset,
             priceTalkerPositionPriceY + 110 + 10 - 18.9 + 30.24,
@@ -219,19 +221,19 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         dato.product.PrecioaMostrar
       );
 
-      // 1 ES UN EL TACHADO ES MENOR Y ESO ESTA MAL Y 0 SIGMNIFICA QUE PROCEDE
-      if (rtaPrecio != 0) {
-        // ERROR PRECIO TACHADO
-        doc
-          .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-          .fontSize(11)
-          .fillColor("red")
-          .text(
-            "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
-            priceTalkerPositionPriceX,
-            priceTalkerPositionPriceY
-          );
-      }
+      // // 1 ES UN EL TACHADO ES MENOR Y ESO ESTA MAL Y 0 SIGMNIFICA QUE PROCEDE
+      // if (rtaPrecio != 0) {
+      //   // ERROR PRECIO TACHADO
+      //   doc
+      //     .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
+      //     .fontSize(11)
+      //     .fillColor("red")
+      //     .text(
+      //       "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
+      //       priceTalkerPositionPriceX,
+      //       priceTalkerPositionPriceY
+      //     );
+      // }
 
       // PRECIO TACHADO
       doc
@@ -244,14 +246,26 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
           priceTalkerPositionPriceY + 11.34 + 37.8
         );
     } else {
+      let centar = 30;
+      let ajuste = 30;
+
+      console.log("garantia", dato.Garantia);
+
       // Codigo
-      label(doc, font, bigFontSize, dato.Codigo, bigCodigoX, bigCodigoY, {
+      label(doc, font, bigFontSize, dato.Codigo, bigCodigoX, bigCodigoY + centar, {
         width: widthText,
         align: "center",
       });
 
       // Descripcion articulo
-      label(doc, font, bigFontSize, dato.Nombre, bigDesX, bigDesY, {
+      label(doc, font, bigFontSize, dato.Nombre, bigDesX, bigDesY + centar, {
+        width: 260,
+        height: heightText + ajuste,
+        align: "center",
+      });
+
+       // Descripcion articulo
+       label(doc, font, bigFontSize, `Tiempo de grantía ${dato.Garantia} días`, bigDesX, bigDesY + centar + 80, {
         width: widthText,
         height: heightText,
         align: "center",
@@ -260,14 +274,14 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       /* Toda la logica detras del precio */
 
       // Precio
-      label(doc, font, fontPrecio, 100, bigPrecioX, bigPrecioY, {
-        width: widthText,
+      label(doc, font, fontPrecio, "999,99", bigPrecioX -90, bigPrecioY, {
+        width: widthText + 10,
         height: heightText,
         align: "center",
       });
 
       // Precio tachado
-      label(doc, font, fontPrecioTachado, 120, bigPrecioTachadoX, bigPrecioTachadoY, {
+      label(doc, font, fontPrecioTachado, 120, bigPrecioTachadoX - 100, bigPrecioTachadoY, {
         width: widthText,
         height: heightText,
         align: "center",

@@ -4,7 +4,8 @@ import axios from 'axios'
 import router from '@/router';
 
 const disPromo = ref(true)
-const disUlti = ref(true)
+const disUlti = ref(false)
+const switchCombo = ref(true)
 
 const combo = ref(false)
 const paraCombo = ref('1')
@@ -27,7 +28,7 @@ const api = `${window.location.hostname}`;
 const portApi = 3003;
 
 const items = ref([])
-const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '' })
+const selectData = ref({ typeList: '', sizeTalker: '', typeTalker: '0' })
 const loading = ref(false)
 
 // Functions
@@ -43,8 +44,13 @@ const generarSupermercado = async () => {
             router.push(`/table-data-supermarket/${typeList}/${sizeTalker}/${typeTalker}/${props.sucursal}`)
         } else {
             // PROMOCION NORMAL (PANEL ADMIN)
-            console.log("paraCombo", paraCombo.value);
-            router.push(`/table-data/${typeList}/${sizeTalker}/${props.sucursal}/${paraCombo.value}`)
+            if (typeTalker === '1'|| sizeTalker === '0' || sizeTalker === '1') {
+                router.push(`/table-data-supermarket/${typeList}/${sizeTalker}/${typeTalker}/${props.sucursal}`)
+            } else 
+            { 
+                router.push(`/table-data/${typeList}/${sizeTalker}/${props.sucursal}/${paraCombo.value}`) 
+            }
+
         }
 
         loading.value = false
@@ -58,35 +64,43 @@ onMounted(async () => {
 
 watch(selectData.value, () => {
     // DEFINIR LOGICA DEL PROCESO ANTES DE PASARLO A CODIGO
-    // TIPO DE HABLADOR typeTalker
-    // TAMANO DE HABLADOR sizeTalker
-
     let { typeTalker, sizeTalker } = selectData.value;
 
     // TAMANO GRANDE
     if (sizeTalker === '2') {
         disPromo.value = false
         disUlti.value = false
+      
+        if(typeTalker === '0') {
+            switchCombo.value = false
+        } else {
+            switchCombo.value = true
+            combo.value = false
+        }
     }
     // TAMANAO MEDIANO
     else if (sizeTalker === '1') {
         disPromo.value = false
         disUlti.value = true
+        switchCombo.value = true
+        selectData.value.typeTalker = '0'
+        combo.value = false
     }
     // TAMANO PEQUENO
     else if (sizeTalker === '0') {
         disPromo.value = false
         disUlti.value = true
+        switchCombo.value = true
+        selectData.value.typeTalker = '0'
+        combo.value = false
     }
 })
 
 watch(combo.value, () => {
-    if(combo.value) {
+    if (combo.value) {
         paraCombo.value = '1'
-        console.log(combo.value);
     } else {
         paraCombo.value = '0'
-        console.log(combo.value);
     }
 }) 
 </script>
@@ -109,9 +123,12 @@ watch(combo.value, () => {
                 <v-radio :disabled="disUlti" label="Ultimas Existencias" value="1"></v-radio>
             </v-radio-group>
 
+            <!-- selectData.typeTalker === '1' || selectData.sizeTalker.trim() === '' -->
 
-            <v-switch label="Promo Daka Combo" color="success" :disabled="selectData.typeTalker === ''"
-                v-model="combo"></v-switch>
+            <v-switch label="Promo Daka Combo" color="success"
+                :disabled="switchCombo" v-model="combo"> 
+            </v-switch>
+
 
             <v-card-actions>
                 <v-btn variant="elevated" color="#d0fdd7" :loading="loading" :disabled="selectData.typeTalker === ''"

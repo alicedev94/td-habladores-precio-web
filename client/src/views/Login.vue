@@ -56,7 +56,6 @@ const login = async () => {
       }
     }, 1000);
   } catch (error) {
-    alert("aqui3")
     if (error.code === 'ECONNABORTED') {
       alert.error('Error: La solicitud tardó demasiado tiempo y fue abortada');
     }
