@@ -7,6 +7,7 @@ const disPromo = ref(true)
 const disUlti = ref(true)
 
 const combo = ref(false)
+const paraCombo = ref('1')
 
 const props = defineProps({
     typeList: {
@@ -34,13 +35,18 @@ const generarSupermercado = async () => {
     setTimeout(() => {
         loading.value = true
 
+        let { typeList, sizeTalker, typeTalker } = selectData.value
+
         // DETERMINAR SI ES UN COMBO O UNA PROMO NORMAL 
         if (combo.value) {
-            router.push(`/table-data-supermarket/${selectData.value.typeList}/${selectData.value.sizeTalker}/${selectData.value.typeTalker}/${props.sucursal}`)
+            // PROMOCION TIPO COMBO
+            router.push(`/table-data-supermarket/${typeList}/${sizeTalker}/${typeTalker}/${props.sucursal}`)
         } else {
-            alert("Promociones")
+            // PROMOCION NORMAL (PANEL ADMIN)
+            console.log("paraCombo", paraCombo.value);
+            router.push(`/table-data/${typeList}/${sizeTalker}/${props.sucursal}/${paraCombo.value}`)
         }
-        
+
         loading.value = false
     }, 1000)
 }
@@ -73,6 +79,16 @@ watch(selectData.value, () => {
         disUlti.value = true
     }
 })
+
+watch(combo.value, () => {
+    if(combo.value) {
+        paraCombo.value = '1'
+        console.log(combo.value);
+    } else {
+        paraCombo.value = '0'
+        console.log(combo.value);
+    }
+}) 
 </script>
 
 <template>
@@ -94,7 +110,8 @@ watch(selectData.value, () => {
             </v-radio-group>
 
 
-            <v-switch label="Promo Daka Combo" color="success" :disabled="selectData.typeTalker === ''"  v-model="combo"></v-switch>
+            <v-switch label="Promo Daka Combo" color="success" :disabled="selectData.typeTalker === ''"
+                v-model="combo"></v-switch>
 
             <v-card-actions>
                 <v-btn variant="elevated" color="#d0fdd7" :loading="loading" :disabled="selectData.typeTalker === ''"

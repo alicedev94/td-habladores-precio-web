@@ -51,6 +51,12 @@ const router = createRouter({
       beforeEnter: isAuthenticate,
     },
     {
+      path: "/table-data/:list/:type/:sucursal/:combo", 
+      name: "PanelAdmin2",
+      component: PanelAdmin,
+      beforeEnter: isAuthenticate,
+    },
+    {
       path: "/table-data-supermarket/:list/:size/:type/:sucursal",
       name: "AdminSupermarket",
       component: AdminSupermarket,

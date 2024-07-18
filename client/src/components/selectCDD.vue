@@ -32,7 +32,7 @@ function validarCampos() {
             <div class="text-caption">SELECCIONAR DATA PARA EL CDD</div>
             <div class="contenedor-tarjeta">
                 <v-text-field type="number" placeholder="Unidades" v-model="numero"></v-text-field>
-
+2
                 <v-autocomplete class="selector-combo" :items="galpones" v-model="vSeleccion" :disabled="numero === ''" label="Galpón"
                     variant="outlined"></v-autocomplete>
 

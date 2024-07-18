@@ -100,10 +100,10 @@ router.post("/signin", async (req, res) => {
 });
 
 router.post("/generate-pdf", async (req, res) => {
-  const { data, list, sizeTalker, combo } = req.body;
+  const { data, list, sizeTalker, promo } = req.body;
 
   try {
-    if (combo) {
+    if (promo === '1') {
       // PROMO INDIVIDUAL SUPERMERCADO (BOLETIN, LISTAS, ETC)
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",

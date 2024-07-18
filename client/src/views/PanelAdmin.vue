@@ -1,45 +1,34 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
-
-import readXlsxFile from 'read-excel-file'
-import Nav from '@/components/Nav.vue';
+import Nav from '@/components/Nav.vue'
+import { standardStorePdf, standardStoreXlsx } from "@/composables/export"
 
 const listProducts = ref([]);
 const expoListProduct = ref([]);
 const selectedProducts = ref([]);
 const selectedExpoProducts = ref([]);
-
 const filterExpoListProducts = ref();
-
 const searchTable1 = ref("")
 const searchTable2 = ref("")
 const isDisabled = ref(true)
 const isLoading = ref(false)
 const isLoading2 = ref(false)
-const isLoadingPdf = ref(false) 
-
+const isLoadingPdf = ref(false)
 const isAuthenticate = ref(false)
-
-const sapCode = ref([])
 
 //  DETERMINAR CARACTERISTICAS DEL HABLADOR TAMÑO ETC
 const list = ref("")
 const sizeTalker = ref("")
 const sucur = ref("")
+const promo = ref("")
 
 // STATIC VARIBLES
 var deleteCode = []
-var existDestintCode = []
-var local_server = "localhost" // local
-// var local_server = "192.168.161.38" // local
-// var local_server = "192.168.21.241" // product
 
 // API AND PORT
 var api = `${window.location.hostname}`;
 var portApi = 3003;
-
-//
 
 // SETTINGS
 const headers = [
@@ -62,13 +51,15 @@ onMounted(async () => {
     }
 
     const ruta = window.location.pathname;
-    const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
+    // const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)*/;
+    const regex = /\/table-data\/(\d+)\/(\d+)\/(\d+)(?:\/(\d+))?/;
     const match = ruta.match(regex);
 
     if (match) {
         list.value = match[1];
         sizeTalker.value = match[2];
         sucur.value = match[3];
+        promo.value = match[4];
 
         isLoading.value = true
         const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
@@ -83,10 +74,6 @@ onMounted(async () => {
 })
 
 watch(() => {
-    // FISRT PRODUCT TABLE
-    // const filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
-    // expoListProduct.value = filterListProducts
-
     // SECOND PRODUCT TABLE
     filterExpoListProducts.value = expoListProduct.value.filter(item => selectedExpoProducts.value.includes(item.Codigo));
     if (filterExpoListProducts.value.length > 0) {
@@ -96,85 +83,32 @@ watch(() => {
     }
 })
 
-
 // LOCAL FUNCTION
-const fGeneratePdf = async () => {
-    isLoadingPdf.value = true
-    try {
-        let datos = { /* tu JSON grande */ };
-        fetch(`http://${api}:${portApi}/api/v1/generate-pdf`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data: filterExpoListProducts.value,
-                list: list.value,
-                sizeTalker: sizeTalker.value
-            })
-        })
-            .then(response => response.blob())
-            .then(blob => {
-                let url = window.URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                a.href = url;
-                const fecha = new Date();
-                const fechaFormateada = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}_${fecha.getHours().toString().padStart(2, '0')}-${fecha.getMinutes()}`;
-                const nombreArchivo = `Hablador-Precio${fechaFormateada}.pdf`;
-                a.download = nombreArchivo;
-                a.click();
-                isLoadingPdf.value = false
-            })
-            .catch((error) => alert(error));
+const exportPdf = async () => {
+    let data = filterExpoListProducts.value
+    let list1 = list.value
+    let size = sizeTalker.value
+    let promo1 = promo.value
 
-    } catch (error) {
-        console.error(error);
-        isLoadingPdf.value = false
-    }
+    isLoadingPdf.value = true
+    await standardStorePdf(api, portApi, data, list1, size, promo1)
+    isLoadingPdf.value = false
 }
 
-const fImportXlsx = async (event) => {
+const exportXlsx = async (event) => {
+    let data = expoListProduct.value
+    let list1 = list.value
+    let size = sizeTalker.value
+    let sucur1 = sucur.value
+
     isLoading2.value = true
-    try {
-        sapCode.value = []
-        await readXlsxFile(event.target.files[0]).then((rows) => {
-            sapCode.value.push(rows)
-        })
-
-        // http://${api}:${portApi}/api/v1/send/sap-code1
-        fetch(`http://${api}:${portApi}/api/v1/send/sap-code/${list.value}/${sucur.value}/${sizeTalker.value}`, {
-            method: 'POST',
-            timeout: 120000, // espera hasta 30 segundos
-            headers: {
-                'Content-Type': 'application/json' // For sending JSON data
-            },
-            body: JSON.stringify({
-                sapCode: sapCode.value
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Handle successful response
-                if (data.status != "ok") {
-                    // remplazar por sweet alert
-                    alert(data.descrip)
-                    isLoading2.value = false
-                } else {
-                    expoListProduct.value = expoListProduct.value.concat(data.data) // expoListProduct listProducts2
-                    isLoading2.value = false
-                }
-
-            })
-            .catch(error => {
-                // Handle errors
-                alert(error)
-            });
-    } catch (error) {
-        alert(error)
-    }
+    const response = await standardStoreXlsx(api, portApi, event, data, list1, sucur1, size)
+    expoListProduct.value = response
+    isLoading2.value = false
 }
 
 var filterListProducts = []
+
 const rightBtn = () => {
     filterListProducts = listProducts.value.filter(item => selectedProducts.value.includes(item.Codigo));
     expoListProduct.value = expoListProduct.value.concat(filterListProducts);
@@ -190,19 +124,6 @@ const deleteBtn = () => {
     })
     expoListProduct.value = expoListProduct.value.filter(item => !deleteCode.includes(item.Codigo));
     deleteCode.length = 0
-}
-
-const downloadBtn = async () => {
-    const rta = await fetch(`http://${api}:${portApi}/api/v1/download`);
-    const blob = await rta.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "alicePdfdasdasdsa.pdf";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
 }
 </script>
 
@@ -242,25 +163,24 @@ const downloadBtn = async () => {
             </v-card>
 
             <div class="file-select" id="src-file1">
-                <input type="file" name="src-file1" @change="fImportXlsx" aria-label="Archivo">
+                <input type="file" name="src-file1" @change="exportXlsx" aria-label="Archivo">
             </div>
-            
+
             <v-btn size="small" class="btn-generate-pdf" :disabled="isDisabled" append-icon="mdi-download" color="red"
-                width="160" @click="fGeneratePdf">
+                width="160" @click="exportPdf">
                 Generar .PDF
             </v-btn>
         </div>
 
     </div>
-    <!--<Footer v-if="isAuthenticate"></Footer>-->
 </template>
 
 <style scoped>
 .rightBtn,
 .deleteBtn {
     display: block;
-    /* Asegura que los botones ocupen todo el ancho disponible */
     margin-bottom: 10px;
-    /* Espacio entre los botones */
+    margin-left: 10px;
+    margin-right: 10px;
 }
 </style>

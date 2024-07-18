@@ -75,21 +75,17 @@ const tabOptions = {
 };
 
 const btnSend = () => {
-    // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)
     isLoading.value = true
     setTimeout(() => {
         isLoading.value = false
-        // location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`
         router.push(`/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`)
     }, 1000)
 }
 
 const btnSend_2 = () => {
-    // enviar los datos al backend para hacer la consulta que se encargara de traer la data (Pruebas de performance)
     isLoading.value = true
     setTimeout(() => {
         isLoading.value = false
-        // location.href = `/table-data/${selectData.value.typeList}/${selectData.value.sizeTalker}/${userSucursal.value}`
         router.push(`/table-data-supermarket/${selectDataSuperMarket.value.typeList}/${selectDataSuperMarket.value.sizeTalker}/${userSucursal.value}`)
     }, 1000)
 }
@@ -98,7 +94,7 @@ const btnSend_2 = () => {
 <template>
     <Nav v-if="isAuthenticate"></Nav>
 
-    <v-tabs v-model="tab" align-tabs="center"> <!--color="deep-purple-accent-4" -->
+    <v-tabs v-model="tab" align-tabs="center"> 
         <v-tab v-if="tienda" value="estandar" color="#50C878"> <v-icon>mdi-mdi-android</v-icon> Estandar</v-tab>
         <v-tab v-if="superT" value="supermercado" color="#50C878">Supermercado</v-tab> 
         <v-tab v-if="cdd" value="cdd" color="#50C878">CDD</v-tab>
@@ -176,10 +172,7 @@ const btnSend_2 = () => {
 .v-tab:focus-within {
     text-decoration: underline;
     text-decoration-color: #50C878;
-    /* Color esmeralda */
     text-decoration-thickness: 2px;
-    /* Grosor de la línea */
-    /* Color del texto  color: #50C878;*/
 }
 
 .v-tab {

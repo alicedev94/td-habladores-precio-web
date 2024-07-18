@@ -8,9 +8,7 @@ const listProducts = ref([]);
 const expoListProduct = ref([]);
 const selectedProducts = ref([]);
 const selectedExpoProducts = ref([]);
-
 const filterExpoListProducts = ref();
-
 const searchTable1 = ref("")
 const searchTable2 = ref("")
 const isDisabled = ref(true)
@@ -191,18 +189,6 @@ const deleteBtn = () => {
     deleteCode.length = 0
 }
 
-const downloadBtn = async () => {
-    const rta = await fetch(`http://${api}:${portApi}/api/v1/download`);
-    const blob = await rta.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "alicePdfdasdasdsa.pdf";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
 </script>
 
 <template>
@@ -257,8 +243,8 @@ const downloadBtn = async () => {
 .rightBtn,
 .deleteBtn {
     display: block;
-    /* Asegura que los botones ocupen todo el ancho disponible */
     margin-bottom: 10px;
-    /* Espacio entre los botones */
+    margin-left: 10px;
+    margin-right: 10px;
 }
 </style>

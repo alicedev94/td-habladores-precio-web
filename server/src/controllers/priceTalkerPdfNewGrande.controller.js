@@ -113,7 +113,7 @@ const label = async (doc, contenido, fontSize, x, y, fuente) => {
 
 // Functions
 async function generateBarcode(text) {
-  optionsBarCode.text = text;
+  optionsBarCode.text = text; 
 
   try {
     const png = await bwipjs.toBuffer(optionsBarCode);
@@ -310,7 +310,7 @@ const bigNewPriceTalker = async (
       // -- CÓDIGO DE BARRAS
       const img = await generateBarcode(product.priceTalkerBarCode);
       doc.image(img, boxPositionX + priceTalkerBarCodeX, priceTalkerBarCodeY, {
-        fit: [100, 90],
+        fit: [100, 90], // 100 90
         align: "center",
         valign: "center",
       });
