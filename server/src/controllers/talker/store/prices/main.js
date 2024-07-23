@@ -8,7 +8,6 @@ const withIva = (list, priceFull) => {
   if (promo) {
     priceFull = promoNinetyNine(priceFull);
   }
-  console.log(parseInText(priceFull));
   return parseInText(priceFull);
 };
 
@@ -28,6 +27,9 @@ const promoNinetyNine = (priceInt) => {
   return priceInt - decimal;
 };
 
-console.log(noIva(2, 100));
+const validateCroOut = (preciousPrice, concurrentPrice) => {
+  let condicion = 5;
+  return (preciousPrice - concurrentPrice) >= condicion ? true : false;
+};
 
-module.exports = { withIva, noIva };
+module.exports = { withIva, noIva, validateCroOut};

@@ -36,9 +36,10 @@ const generarPrecio = (precio, listaPrecio) => {
 
 const validarTachado = (tachado, precio) => {
   // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
-  return (tachado <= precio - 5) ? 1 : 0;
+  return (tachado <= precio - 5) ? 1 : 0;   // 110 110
 }
 
-// const response = validarTachado(150, 110);
+const response = validarTachado(110, 110);
+console.log("validar tachado: ",response);
 
 module.exports = { generarPrecio, validarTachado };
