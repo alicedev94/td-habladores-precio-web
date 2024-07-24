@@ -260,7 +260,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           noData
         );
 
-        // res.json({ estado: response});
+        res.json({ estado: response});
       } else {
         console.error("DATO NO CONTEMPLADO");
       }

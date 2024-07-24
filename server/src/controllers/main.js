@@ -159,7 +159,7 @@ const productsSupermarket = async (list, size, type, sucur) => {
 
   // HABLADOR ESTANDAR
   const response = await sequelize.query(`
-  SELECT DISTINCT TOP (1000) 
+  SELECT DISTINCT 
   [ItemCode] as Codigo
      ,[Nombre]
      ,[Marca]

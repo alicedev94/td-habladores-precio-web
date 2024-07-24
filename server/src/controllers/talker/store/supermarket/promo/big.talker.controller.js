@@ -97,7 +97,6 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       dato.details.forEach((detail, index) => {
         // ESTO NO DEBERIA ESTAR ACA
 
-        console.log("DETALLE: ", detail);
 
         if (detail.Codigo_suma_resta == 1) {
           precioDetalle += detail.PrecioaMostrar;
@@ -235,7 +234,6 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
 
       var precio = generarPrecioSin99(PrecioaMostrar + precioDetalle, list);
       var precioIva = generarPrecio(PrecioaMostrar + precioDetalle, list);
-      console.log(precioIva);
       var tachadoIva = generarPrecioSin99(PrecioTachado + precioDetalle, list);
       var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
   

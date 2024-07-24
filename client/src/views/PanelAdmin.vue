@@ -61,13 +61,22 @@ onMounted(async () => {
         sucur.value = match[3];
         promo.value = match[4];
 
-        isLoading.value = true
-        const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
-        listProducts.value = response.data
+        if (promo.value !== "") {
+            isLoading.value = true
+            const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/10/${sucur.value}`);
+            listProducts.value = response.data
+            // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
+            isLoading.value = false
+            document.body.classList.add("body-white")
+        } else {
+            isLoading.value = true
+            const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+            listProducts.value = response.data
+            // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
+            isLoading.value = false
+            document.body.classList.add("body-white")
+        }
 
-        // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
-        isLoading.value = false
-        document.body.classList.add("body-white")
     } else {
         console.error("La ruta no coincide con el patrón esperado.");
     }
