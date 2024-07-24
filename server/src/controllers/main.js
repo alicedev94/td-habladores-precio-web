@@ -173,6 +173,8 @@ const productsSupermarket = async (list, size, type, sucur) => {
      ,[Codigo_suma_resta]
      ,[OldPrice]
      FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresCombos]
+     where  [Lista Precio] = ${list} and [CodigoSucursal] = ${sucur}
+     AND [IdAlmacen] IN (${rtaStore})
  `);
   return response;
 };

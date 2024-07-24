@@ -6,33 +6,33 @@ const cOut = (preciousPrice, concurrentPrice, priceDetail) => {
 
     if (response) {
         /* EL precio tachado es al menos 5usd mayor al precio a mostrar */ 
-        var fullPrice = concurrentPrice + precioDetalle;
+        var fullPrice = concurrentPrice + priceDetail;
         let validateFullPrice = validateCroOut(preciousPrice, fullPrice);
         if (validateFullPrice) {
             /* EL precio tachado es al menos 5usd mayor al precio full a mostrar  */
             console.log("PRECIO TACHADO", preciousPrice);
             console.log("PRECIO: ", fullPrice);
-            // return preciousPrice; 
+            return preciousPrice; 
         } else {
             /* El precio tachado es menor segun la condicion al precio full a mostrar */
-            let priceToShow = fullPrice * increase;
+            let priceToShow = preciousPrice * increase;
             console.log("PRECIO TACHADO", priceToShow);
             console.log("PRECIO: ", fullPrice);
-            // return priceToShow;
+            return priceToShow;
         }
     } else {
-        return Math.round((precioActual + precioDetalle) * increase);
+        return Math.round((preciousPrice + priceDetail) * increase);
     }
 
     /* En caso de ser falso, validar los posibles casos */
     // return response;
 };
 
-let precioAnterior = 104; // 15% = 120
-let precioActual = 100;
-let precioDetalle = 30;
+// let precioAnterior = 104; // 15% = 120
+// let precioActual = 100;
+// let priceDetail = 30;
 
-console.log(cOut(precioAnterior, precioActual, precioDetalle));
+// console.log(cOut(precioAnterior, precioActual, priceDetail));
 
 module.exports = { cOut };
 

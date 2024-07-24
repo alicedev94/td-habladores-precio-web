@@ -91,8 +91,9 @@ const rightBtn = async () => {
     let promises = filterListProducts.value.map(async (obj) => {
 
         let data = await axios.post(`http://${local_server}:3003/api/v1/arma-combo`, {
-            codigo_relaclion: obj.Codigo_relacion // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
-
+            codigo_relaclion: obj.Codigo_relacion, // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
+            lista_precio: obj.ListaPrecio,
+            codigo_sucursal: sucur.value
         });
         // AGREGAR DATOS COMO EL PRECIO 
         data.data.Cabecera = obj; // `${obj.Codigo} ${obj.Nombre}`

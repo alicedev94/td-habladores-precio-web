@@ -1,6 +1,6 @@
 const { sequelize } = require("../lib/sequelize"); // sequelize120
 
-const armaCombo = async (codigo_relacion) => {
+const armaCombo = async (codigo_relacion, lista_precio, codigo_sucursal) => {
   // ESTO SE TIENE QUE EJECUTAR DE MANERA INDIVIDUAL POR COMPO, DE ESA MANERA PUEDO RELACIONAR DE FORMA SEPARADA
   const combo = await sequelize.query(` 
   SELECT DISTINCT TOP (1000) 
@@ -16,7 +16,7 @@ const armaCombo = async (codigo_relacion) => {
      ,[Codigo_relacion]
      ,[Codigo_suma_resta]
      FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresCombos]
-   where Codigo_relacion =  '${codigo_relacion}.1'`);
+   where Codigo_relacion =  '${codigo_relacion}.1' and [Lista Precio] = '${lista_precio}' and CodigoSucursal = '${codigo_sucursal}'`);
 
       return combo;
 };

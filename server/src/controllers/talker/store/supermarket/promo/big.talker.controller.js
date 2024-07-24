@@ -3,6 +3,7 @@ const path = require("path");
 const { validarTachado } = require("../../../funciones.hablador");
 const { label } = require("../../../../pdf-label/src/index");
 const { withIva } = require("../../prices/main");
+const { cOut } = require("../../prices/crossedOut");
 
 var precio = 0;
 var precioDetalle = 0;
@@ -150,22 +151,42 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
 
       // PRECIO
       // dato.product.PrecioaMostrar = dato.product.PrecioaMostrar + precioDetalle;
-
+    
       if (list != 1) {
-        
       /* Toda la logica detras del precio */
-      let { IdHablador, PrecioaMostrar } = dato.product;
-      console.log(PrecioaMostrar);
+      let { IdHablador, PrecioaMostrar, PrecioTachado } = dato.product;
+      // console.log("dato.product", dato.product);
 
+      let precioIva = withIva(IdHablador, PrecioaMostrar + precioDetalle)
+      let tachadoIva = withIva(IdHablador, PrecioTachado + precioDetalle)
+
+      const fullPrice = Math.round(cOut(parseFloat(tachadoIva), parseFloat(precioIva), 0));
+
+      // Precio full
       label(
         doc,
         font,
         fontPrecio,
-        withIva(IdHablador, PrecioaMostrar + precioDetalle),
+        precioIva,
         bigPrecioX - 90,
         bigPrecioY,
         {
           width: widthText + 10,
+          height: heightText,
+          align: "center",
+        }
+      );
+
+      // Precio tachado
+      label(
+        doc,
+        font,
+        fontPrecioTachado,
+        fullPrice,
+        bigPrecioTachadoX - 100,
+        bigPrecioTachadoY,
+        {
+          width: widthText,
           height: heightText,
           align: "center",
         }
@@ -228,12 +249,17 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         }
       );
 
+      let precioIva = withIva(IdHablador, PrecioaMostrar)
+      let tachadoIva = withIva(IdHablador, dato.PrecioTachado)
+
+      const fullPrice = Math.round(cOut(parseFloat(tachadoIva), parseFloat(precioIva), 0));
+
       // Precio tachado
       label(
         doc,
         font,
         fontPrecioTachado,
-        120,
+        fullPrice,
         bigPrecioTachadoX - 100,
         bigPrecioTachadoY,
         {

@@ -3,11 +3,13 @@ const decimal = 0.01;
 const promo = true;
 
 const withIva = (list, priceFull) => {
+  console.log("priceFull",priceFull);
   priceFull = parseFloat(priceFull * iva);
   priceFull = Math.round(priceFull);
   if (promo) {
     priceFull = promoNinetyNine(priceFull);
   }
+  console.log("priceFullIva",priceFull);
   return parseInText(priceFull);
 };
 

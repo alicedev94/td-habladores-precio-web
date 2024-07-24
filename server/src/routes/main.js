@@ -308,9 +308,9 @@ router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {
 });
 
 router.post(`/arma-combo`, async (req, res) => {
-  // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
-  const { codigo_relaclion } = req.body;
-  const rta = await armaCombo(codigo_relaclion);
+  // LO QUE ESTA ANTES DE COMENZAR A TRABAJAR
+  const { codigo_relaclion, lista_precio, codigo_sucursal } = req.body;
+  const rta = await armaCombo(codigo_relaclion, lista_precio, codigo_sucursal);
   res.json(rta[0]);
 });
 
