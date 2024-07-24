@@ -68,7 +68,7 @@ const busquedaIncial = async () => {
             location.href = `/table-data-supermarket-combo/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`;
         } else {
             isLoading.value = true
-            const response = await axios.get(`http://${api}:3003/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
+            const response = await axios.get(`http://${api}:3003/api/v1/productsUltimasExistencias/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
             listProducts.value = response.data
             isLoading.value = false
             document.body.classList.add("body-white")

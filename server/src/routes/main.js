@@ -13,6 +13,7 @@ const {
   findByEmail,
   priceList,
   productsSupermarket,
+  productsUltimasExistencias
 } = require("../controllers/main");
 
 const {
@@ -275,6 +276,14 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
   // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
   const { list, size, type, sucur } = req.params;
   const rta = await productsSupermarket(list, size, type, sucur);
+  res.json(rta[0]);
+});
+
+// EN PROCESO DE VALIDACIÓN
+router.get(`/productsUltimasExistencias/:list/:size/:type/:sucur`, async (req, res) => {
+  // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
+  const { list, size, type, sucur } = req.params;
+  const rta = await productsUltimasExistencias(list, size, type, sucur);
   res.json(rta[0]);
 });
 

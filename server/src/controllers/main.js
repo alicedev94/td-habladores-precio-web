@@ -179,6 +179,32 @@ const productsSupermarket = async (list, size, type, sucur) => {
   return response;
 };
 
+const productsUltimasExistencias = async (list, size, type, sucur) => {
+  // OBTENER ALMACEN SEGUN LA LISTA
+  let rtaStore = store(list);
+
+  // HABLADOR ESTANDAR
+  const response = await sequelize.query(`
+  SELECT DISTINCT TOP (1000) 
+  [ItemCode] as Codigo
+     ,[Nombre]
+     ,[Marca]
+     ,[Garantia]
+     ,[CodigoBarra]
+     ,[PrecioaMostrar]
+     ,[PrecioTachado]
+     ,[Lista Precio] ListaPrecio
+     ,[FecCrea]
+     ,[Codigo_relacion]
+     ,[Codigo_suma_resta]
+     ,[OldPrice]
+     FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
+     where  [Lista Precio] = ${list} and [CodigoSucursal] = ${sucur}
+     AND [IdAlmacen] IN (${rtaStore})
+ `);
+  return response;
+};
+
 const processData = async (data, list, sucur, sizeTalker) => {
   // OBTENER ALMACEN SEGUN LA LISTA
   let rtaStore = store(list);
@@ -381,4 +407,5 @@ module.exports = {
   priceList,
   ajustarCadena,
   productsSupermarket,
+  productsUltimasExistencias
 };
