@@ -5,6 +5,7 @@ const path = require("path");
 // FUNCIONES
 const {
   generarPrecio,
+  generarPrecioSin99,
   validarTachado,
 } = require("../../../funciones.hablador");
 
@@ -47,38 +48,22 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
       doc.addPage();
     }
 
-    if (PrecioaMostrar < 1) {
-      rtaPrecio = 1;
-      var precio = PrecioaMostrar;
-      precio = precio.toString();
-      precio = precio.replace(".", ",");
-    } else {
-      var precio = generarPrecio(PrecioaMostrar, list);
-    }
-    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
-    if (rtaPrecio != 0) {
-      // ERROR PRECIO TACHADO
-      doc
-        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-        .fontSize(7.5)
-        .fillColor("red")
-        .text(
-          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
-          precioTachadoP.x,
-          precioTachadoP.y - n1cm
-        );
-    }
+    var precio = generarPrecioSin99(PrecioaMostrar, list);
+    var precioIva = generarPrecio(PrecioaMostrar, list);
+    var tachadoIva = generarPrecioSin99(PrecioTachado, list);
+    var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
+
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
       .fillColor("black")
-      .text(`$${PrecioTachado}`, precioTachadoP.x, precioTachadoP.y);
+      .text(`$${fullTachado}`, precioTachadoP.x, precioTachadoP.y);
     // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePriceNew)
-      .text(`$${precio}`, precioFullP.X, precioFullP.Y);
+      .text(`$${precioIva}`, precioFullP.X, precioFullP.Y);
     // CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))

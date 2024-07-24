@@ -4,7 +4,7 @@ const { validarTachado } = require("../../../funciones.hablador");
 const { label } = require("../../../../pdf-label/src/index");
 const { withIva } = require("../../prices/main");
 const { cOut } = require("../../prices/crossedOut");
-const { generarPrecio } = require("../../../funciones.hablador");
+const { generarPrecio, generarPrecioSin99 } = require("../../../funciones.hablador");
 
 var precio = 0;
 var precioDetalle = 0;
@@ -159,13 +159,11 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       // let precioIva = withIva(IdHablador, PrecioaMostrar)
       // let tachadoIva = withIva(IdHablador, dato.PrecioTachado)
 
-      let precioIva = generarPrecio(PrecioaMostrar + precioDetalle, list);
-      let tachadoIva = generarPrecio(PrecioTachado + precioDetalle, list);
-
-      const fullPrice = Math.round(
-        cOut(parseFloat(tachadoIva), parseFloat(precioIva), 0)
-      );
-
+      var precio = generarPrecioSin99(PrecioaMostrar + precioDetalle, list);
+      var precioIva = generarPrecio(PrecioaMostrar + precioDetalle, list);
+      var tachadoIva = generarPrecioSin99(PrecioTachado + precioDetalle, list);
+      var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
+  
       // Precio full
       label(doc, font, fontPrecio, precioIva, bigPrecioX - 90, bigPrecioY, {
         width: widthText + 10,
@@ -178,7 +176,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         doc,
         font,
         fontPrecioTachado,
-        fullPrice,
+        fullTachado,
         bigPrecioTachadoX - 100,
         bigPrecioTachadoY,
         {
@@ -188,7 +186,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         }
       );
     } else {
-      console.log("dato", dato);
+
 
       let centar = 30;
       let ajuste = 30;
@@ -235,15 +233,14 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
       // let precioIva = withIva(IdHablador, PrecioaMostrar)
       // let tachadoIva = withIva(IdHablador, dato.PrecioTachado)
 
-      let precioIva = generarPrecio(PrecioaMostrar, list);
-      let tachadoIva = generarPrecio(PrecioTachado, list);
-
-      const fullPrice = Math.round(
-        cOut(parseFloat(tachadoIva), parseFloat(precioIva), 0)
-      );
-
+      var precio = generarPrecioSin99(PrecioaMostrar + precioDetalle, list);
+      var precioIva = generarPrecio(PrecioaMostrar + precioDetalle, list);
+      console.log(precioIva);
+      var tachadoIva = generarPrecioSin99(PrecioTachado + precioDetalle, list);
+      var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
+  
       label(doc, font, fontPrecio, precioIva, bigPrecioX - 90, bigPrecioY, {
-        width: widthText + 10,
+        width: widthText + 50,
         height: heightText,
         align: "center",
       });
@@ -253,7 +250,7 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
         doc,
         font,
         fontPrecioTachado,
-        fullPrice,
+        fullTachado,
         bigPrecioTachadoX - 100,
         bigPrecioTachadoY,
         {

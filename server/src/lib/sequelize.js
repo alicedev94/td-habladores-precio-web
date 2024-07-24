@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_SERVER,
     dialect:
       "mssql",
-      logging: false, 
+      // logging: false, 
     dialectOptions: {
       options: {
         // Your tedious options here

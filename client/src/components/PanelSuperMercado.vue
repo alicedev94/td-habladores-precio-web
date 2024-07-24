@@ -44,7 +44,7 @@ const generarSupermercado = async () => {
             router.push(`/table-data-supermarket/${typeList}/${sizeTalker}/${typeTalker}/${props.sucursal}`)
         } else {
             // PROMOCION NORMAL (PANEL ADMIN)
-            if (typeTalker === '1'|| sizeTalker === '0' || sizeTalker === '1') {
+            if (typeTalker === '1') { // || sizeTalker === '0' || sizeTalker === '1'
                 router.push(`/table-data-supermarket/${typeList}/${sizeTalker}/${typeTalker}/${props.sucursal}`)
             } else 
             { 

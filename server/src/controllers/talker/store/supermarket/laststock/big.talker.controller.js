@@ -3,6 +3,7 @@ const PDFDocument = require("pdfkit");
 const path = require("path");
 const {
   generarPrecio,
+  generarPrecioSin99,
   validarTachado,
 } = require("../../../funciones.hablador");
 const { withIva } = require("../../prices/main");
@@ -43,12 +44,13 @@ const habladorUltimasExistenciasG = async (
       contador = 0;
     }
 
-    let precio = generarPrecio(priceTalkerPrice, priceTalkerList);
-    let tachadoIva = generarPrecio(product.precioTachado, priceTalkerList);
+    // let precio = generarPrecio(priceTalkerPrice, priceTalkerList);
+    // let tachadoIva = generarPrecio(product.precioTachado, priceTalkerList);
 
-    const tachadoCalculado = Math.round(
-      cOut(parseFloat(tachadoIva), parseFloat(precio), 0)
-    );
+    var precio = generarPrecioSin99(priceTalkerPrice, priceTalkerList);
+    var precioIva = generarPrecio(priceTalkerPrice, priceTalkerList);
+    var tachadoIva = generarPrecioSin99(product.precioTachado, priceTalkerList);
+    var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
 
     // PRECIO TACHADO
     doc
@@ -56,7 +58,7 @@ const habladorUltimasExistenciasG = async (
       .fontSize(priceTalkerFontSizePrice)
       .fillColor("black")
       .text(
-        `$${tachadoCalculado}`, // ${precioTachado}
+        `$${fullTachado}`, // ${precioTachado}
         priceTalkerPositionPriceX,
         priceTalkerPositionPriceY + 11.34
       );
@@ -66,7 +68,7 @@ const habladorUltimasExistenciasG = async (
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(100)
       .text(
-        `$${precio}`,
+        `$${precioIva}`,
         priceTalkerPositionPriceX + 113.39,
         priceTalkerPositionPriceY + 75.59
       );

@@ -5,8 +5,11 @@ const path = require("path");
 // FUNCIONES
 const {
   generarPrecio,
+  generarPrecioSin99,
   validarTachado,
 } = require("../../../funciones.hablador");
+
+const { cOut } = require("../../prices/crossedOut");
 
 // NUEVAS VARIABLES PARA EL LAYOUT DE HABLADORES
 /* NOTA: LA LETRA (P) AL FINAL DEL CADA VARIABLE INDICA EN ESPAÑOL 
@@ -37,50 +40,31 @@ const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
   doc.on("end", endCallback);
 
   datos.forEach((dato, index) => {
-    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } =
-      dato;
+    let { Codigo, Nombre, PrecioaMostrar, PrecioTachado, Garantia } = dato;
 
     if (index != 0) {
       // Agrega una nueva página para cada producto después del primero
       doc.addPage();
     }
 
-    var rtaPrecio = validarTachado(PrecioTachado, PrecioaMostrar);
-
-    if (PrecioaMostrar < 1) {
-      rtaPrecio = 1;
-      var precio = PrecioaMostrar;
-      precio = precio.toString();
-      precio = precio.replace('.', ',');
-    } else {
-      var precio = generarPrecio(PrecioaMostrar, list);
-    }
-    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
-    if (rtaPrecio != 0) {
-      // ERROR PRECIO TACHADO
-      doc
-        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-        .fontSize(7.5)
-        .fillColor("red")
-        .text(
-          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
-          precioTachadoP.x,
-          precioTachadoP.y - n1cm
-        );
-    }
+    /* Casos normales */
+    var precio = generarPrecioSin99(PrecioaMostrar, list);
+    var precioIva = generarPrecio(PrecioaMostrar, list);
+    var tachadoIva = generarPrecioSin99(PrecioTachado, list);
+    var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
 
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
       .fillColor("black")
-      .text(`$${PrecioTachado}`, precioTachadoP.x, precioTachadoP.y);
+      .text(`$${fullTachado}`, precioTachadoP.x, precioTachadoP.y);
     // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePriceNew)
-      .text(`$${precio}`, precioFullP.X, precioFullP.Y, {
-        width: priceTalkerWidthText + (n1cm * 5),
+      .text(`$${precioIva}`, precioFullP.X, precioFullP.Y, {
+        width: priceTalkerWidthText + n1cm * 5,
       });
     // CODIGO SAP
     doc
