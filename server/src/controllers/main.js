@@ -185,8 +185,8 @@ const productsUltimasExistencias = async (list, size, type, sucur) => {
 
   // HABLADOR ESTANDAR
   const response = await sequelize.query(`
-  SELECT DISTINCT TOP (1000) 
-  [ItemCode] as Codigo
+  SELECT DISTINCT 
+  Codigo
      ,[Nombre]
      ,[Marca]
      ,[Garantia]
@@ -195,9 +195,6 @@ const productsUltimasExistencias = async (list, size, type, sucur) => {
      ,[PrecioTachado]
      ,[Lista Precio] ListaPrecio
      ,[FecCrea]
-     ,[Codigo_relacion]
-     ,[Codigo_suma_resta]
-     ,[OldPrice]
      FROM [HABLADOR_PRECIO_DEV].[dbo].[HabladoresTiendas_Empotrables]
      where  [Lista Precio] = ${list} and [CodigoSucursal] = ${sucur}
      AND [IdAlmacen] IN (${rtaStore})

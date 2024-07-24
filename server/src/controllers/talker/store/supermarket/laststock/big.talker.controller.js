@@ -1,7 +1,12 @@
 // -- LIBRERÍAS --
 const PDFDocument = require("pdfkit");
 const path = require("path");
-const { generarPrecio ,validarTachado } = require("../../../funciones.hablador");
+const {
+  generarPrecio,
+  validarTachado,
+} = require("../../../funciones.hablador");
+const { withIva } = require("../../prices/main");
+const { cOut } = require("../../prices/crossedOut");
 
 // Posición
 let priceTalkerPositionPriceX = 264.57 - 37.8;
@@ -31,42 +36,30 @@ const habladorUltimasExistenciasG = async (
     const product = priceTalkerData[i];
 
     let { precioTachado, priceTalkerPrice, priceTalkerList } = product;
-    var rtaPrecio = validarTachado(precioTachado, priceTalkerPrice);
-    
+
     // AÑADIR NUEVAS PAGINA
     if (contador > 0) {
       doc.addPage({ size: "A4", layout: "landscape" });
       contador = 0;
     }
 
-    // 1 ES UN ERROR Y 0 SIGMNIFICA QUE PROCEDE
-    if (rtaPrecio != 0) {
-      // ERROR PRECIO TACHADO
-      doc
-        .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
-        .fontSize(7.5)
-        .fillColor('red')
-        .text(
-          "El precio tachado no es, al menos, $5 mayor que el precio de venta.", // ${precioTachado}
-          priceTalkerPositionPriceX,
-          priceTalkerPositionPriceY - 37.80
-        );
-    }
+    let precio = generarPrecio(priceTalkerPrice, priceTalkerList);
+    let tachadoIva = generarPrecio(product.precioTachado, priceTalkerList);
+
+    const tachadoCalculado = Math.round(
+      cOut(parseFloat(tachadoIva), parseFloat(precio), 0)
+    );
 
     // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
-      .fillColor('black')
+      .fillColor("black")
       .text(
-        `$${product.precioTachado}`, // ${precioTachado}
+        `$${tachadoCalculado}`, // ${precioTachado}
         priceTalkerPositionPriceX,
         priceTalkerPositionPriceY + 11.34
       );
-
-    // LOGICA DE PRECIO
-    let precio = generarPrecio(priceTalkerPrice, priceTalkerList);
-    // FIN DE LA LOGICA DE PRECIO
 
     // PRECIO
     doc
@@ -103,15 +96,11 @@ const habladorUltimasExistenciasG = async (
           align: "center",
         }
       );
-      contador++;
+    contador++;
   }
 
   contador = 0;
   doc.end();
-  if (rtaPrecio != 0) {
-    rtaPrecio = 0;
-    return "Algunos de los artículos seleccionados presentan un precio tachado que supera el precio de venta.";
-  }
 };
 
 module.exports = {
