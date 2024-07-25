@@ -13,7 +13,7 @@ const {
   findByEmail,
   priceList,
   productsSupermarket,
-  productsUltimasExistencias
+  productsUltimasExistencias,
 } = require("../controllers/main");
 
 const {
@@ -38,9 +38,17 @@ const { armaCombo } = require("../controllers/main.super.market");
 const { dataCdd, geneCdd } = require("../controllers/talker/cdd/main");
 
 // RUTA PARA LA GENERACION DE PROMO
-const { habladorPromoG } = require("../controllers/talker/store/supermarket/promo/big.talker.controller");
-const { PromoDakaM } = require("../controllers/talker/store/supermarket/promo/mediun.talker.controller");
-const { PromoDakaP } = require("../controllers/talker/store/supermarket/promo/small.talker.controller");
+const {
+  PromoDakaG,
+} = require("../controllers/talker/store/supermarket/promo/big.talker.controller");
+const {
+  PromoDakaM,
+} = require("../controllers/talker/store/supermarket/promo/mediun.talker.controller");
+const {
+  PromoDakaP,
+} = require("../controllers/talker/store/supermarket/promo/small.talker.controller");
+
+const { donwload } = require("./status200");
 
 // GET
 router.get("/", async (req, res) => {
@@ -98,21 +106,37 @@ router.post("/generate-pdf", async (req, res) => {
   const { data, list, sizeTalker, promo } = req.body;
 
   try {
-    if (promo === '1') {
-      // PROMO INDIVIDUAL SUPERMERCADO (BOLETIN, LISTAS, ETC)
-      const stream = res.writeHead(200, {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=alicePdf.pdf",
-      });
+    if (promo === "1") {
+      // Solo promo daka
+      const stream = donwload(res);
 
-      await habladorPromoG(
-        (data) => stream.write(data),
-        () => stream.end(),
-        data,
-        list,
-        data
-      );
-
+      if (sizeTalker == "0") {
+        await PromoDakaP(
+          (data) => stream.write(data),
+          () => stream.end(),
+          data,
+          list,
+          data
+        );
+      }
+      if (sizeTalker == "1") {
+        await PromoDakaM(
+          (data) => stream.write(data),
+          () => stream.end(),
+          data,
+          list,
+          data
+        );
+      }
+      if (sizeTalker == "2") {
+        await PromoDakaG(
+          (data) => stream.write(data),
+          () => stream.end(),
+          data,
+          list,
+          data
+        );
+      }
     } else {
       // HABLADOR ESTANDAR
       if (sizeTalker === "0") {
@@ -227,7 +251,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           "Content-Disposition": "attachment; filename=alicePdf.pdf",
         });
 
-        await habladorPromoG(
+        await PromoDakaG(
           (data) => stream.write(data),
           () => stream.end(),
           data,
@@ -260,7 +284,7 @@ router.post("/generate-super-pdf", async (req, res) => {
           noData
         );
 
-        res.json({ estado: response});
+        res.json({ estado: response });
       } else {
         console.error("DATO NO CONTEMPLADO");
       }
@@ -280,12 +304,15 @@ router.get(`/gene-supermarket/:list/:size/:type/:sucur`, async (req, res) => {
 });
 
 // EN PROCESO DE VALIDACIÓN
-router.get(`/productsUltimasExistencias/:list/:size/:type/:sucur`, async (req, res) => {
-  // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
-  const { list, size, type, sucur } = req.params;
-  const rta = await productsUltimasExistencias(list, size, type, sucur);
-  res.json(rta[0]);
-});
+router.get(
+  `/productsUltimasExistencias/:list/:size/:type/:sucur`,
+  async (req, res) => {
+    // LO QUE ESTAB AANTES DE COMENZAR A TRABAJAR
+    const { list, size, type, sucur } = req.params;
+    const rta = await productsUltimasExistencias(list, size, type, sucur);
+    res.json(rta[0]);
+  }
+);
 
 // EN PROCESO DE VALIDACION 2
 router.post(`/gene-cdd/:rack/:galpon`, async (req, res) => {

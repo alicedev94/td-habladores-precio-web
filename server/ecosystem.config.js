@@ -1,10 +1,10 @@
 module.exports = {
     apps : [{
-      name: "qah-habladores-precio-web",
+      name: "qa-habladores-precio-web",
       script: "./src/index.js",
       env: {
         NODE_ENV: "development",
-        VERSION: "1.3.0",
+        VERSION: "1.3.1",
       },
       env_production: {
         NODE_ENV: "production",

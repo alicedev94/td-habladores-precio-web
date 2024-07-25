@@ -124,10 +124,10 @@ watch(combo.value, () => {
             </v-radio-group>
 
             <!-- selectData.typeTalker === '1' || selectData.sizeTalker.trim() === '' -->
-
+<!-- 
             <v-switch label="Promo Daka Combo" color="success"
                 :disabled="switchCombo" v-model="combo"> 
-            </v-switch>
+            </v-switch> -->
 
 
             <v-card-actions>

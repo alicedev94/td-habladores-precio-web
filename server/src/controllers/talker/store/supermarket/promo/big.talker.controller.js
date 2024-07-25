@@ -49,7 +49,7 @@ const bigPrecioTachadoY = 268.35;
 const bigCodDetalleX = 517.8; /* Codido detalle */
 const bigCodDetalleY = 350.55;
 
-const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
+const PromoDakaG = async (inicio, fin, datos, list, datosRelacionados) => {
   const doc = new PDFDocument({ size: "A4", layout: "landscape" });
 
   doc.on("data", inicio);
@@ -266,5 +266,5 @@ const habladorPromoG = async (inicio, fin, datos, list, datosRelacionados) => {
 };
 
 module.exports = {
-  habladorPromoG,
+  PromoDakaG,
 };

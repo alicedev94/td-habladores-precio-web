@@ -9,6 +9,9 @@ const {
   validarTachado,
 } = require("../../../funciones.hablador");
 
+
+const { cOut } = require("../../prices/crossedOut");
+
 // NUEVAS VARIABLES PARA EL LAYOUT DE HABLADORES
 /* NOTA: LA LETRA (P) AL FINAL DEL CADA VARIABLE INDICA EN ESPAÑOL 
 LA FRASE POSICIÓN */
@@ -53,18 +56,18 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
     var tachadoIva = generarPrecioSin99(PrecioTachado, list);
     var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
 
-    // PRECIO TACHADO
+   // PRECIO TACHADO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePrice)
       .fillColor("black")
       .text(`$${fullTachado}`, precioTachadoP.x, precioTachadoP.y);
-    // PRECIO
+   // PRECIO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerFontSizePriceNew)
       .text(`$${precioIva}`, precioFullP.X, precioFullP.Y);
-    // CODIGO SAP
+    //CODIGO SAP
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerfontSize)
@@ -72,7 +75,7 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
         width: priceTalkerWidthText,
         align: "center",
       });
-    // DESCRIPCION DEL ARTICULO
+    //DESCRIPCION DEL ARTICULO
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerfontSize)
@@ -81,7 +84,7 @@ const PromoDakaP = async (dataCallback, endCallback, datos, list) => {
         height: 30,
         align: "center",
       });
-    // GARANTIA
+   // GARANTIA
     doc
       .font(path.join(priceTalkerFontPath, "fonts", "PermanentMarker.ttf"))
       .fontSize(priceTalkerfontSize)
