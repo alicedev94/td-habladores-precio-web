@@ -36,7 +36,7 @@ var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3003;
+var portApi = 3004;
 
 // SETTINGS
 const headers = [

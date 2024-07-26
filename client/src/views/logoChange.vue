@@ -10,7 +10,7 @@ const isAuthenticate = ref(false)
 
 // API AND PORT
 const api = `${window.location.hostname}`;
-const portApi = 3003;
+const portApi = 3004;
 
 onMounted(() => {
     // SABER LA RUTA DONDE ESTOY

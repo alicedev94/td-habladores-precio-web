@@ -32,7 +32,7 @@ var local_server = "localhost" // local
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3003;
+var portApi = 3004;
 
 // SETTINGS
 const headers = [
@@ -66,7 +66,7 @@ const busquedaIncial = async () => {
         sucur.value = match[4];
 
         isLoading.value = true
-        const response = await axios.get(`http://${api}:3003/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
+        const response = await axios.get(`http://${api}:3004/api/v1/gene-supermarket/${list.value}/${sizeTalker.value}/${typeTalker.value}/${sucur.value}`);
         listProducts.value = response.data
         isLoading.value = false
         document.body.classList.add("body-white")
@@ -90,7 +90,7 @@ const rightBtn = async () => {
 
     let promises = filterListProducts.value.map(async (obj) => {
 
-        let data = await axios.post(`http://${api}:3003/api/v1/arma-combo`, {
+        let data = await axios.post(`http://${api}:3004/api/v1/arma-combo`, {
             codigo_relaclion: obj.Codigo_relacion, // ESTO DEPENDE  DEL VALOR QUE TENGAS NUESTROS ARCHIVOS
             lista_precio: obj.ListaPrecio,
             codigo_sucursal: sucur.value

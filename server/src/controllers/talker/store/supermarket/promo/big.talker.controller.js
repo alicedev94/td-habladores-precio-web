@@ -237,8 +237,8 @@ const PromoDakaG = async (inicio, fin, datos, list, datosRelacionados) => {
       var tachadoIva = generarPrecioSin99(PrecioTachado + precioDetalle, list);
       var fullTachado = cOut(parseFloat(tachadoIva), parseFloat(precio), 0);
   
-      label(doc, font, fontPrecio, precioIva, bigPrecioX - 90, bigPrecioY, {
-        width: widthText + 50,
+      label(doc, font, fontPrecio, `$${precioIva}`, bigPrecioX - 70, bigPrecioY, {
+        width: widthText + 150,
         height: heightText,
         align: "center",
       });
@@ -248,8 +248,8 @@ const PromoDakaG = async (inicio, fin, datos, list, datosRelacionados) => {
         doc,
         font,
         fontPrecioTachado,
-        fullTachado,
-        bigPrecioTachadoX - 100,
+        `$${fullTachado}`,
+        bigPrecioTachadoX - 70,
         bigPrecioTachadoY,
         {
           width: widthText,

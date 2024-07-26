@@ -28,7 +28,7 @@ var deleteCode = []
 
 // API AND PORT
 var api = `${window.location.hostname}`;
-var portApi = 3003;
+var portApi = 3004;
 
 // SETTINGS
 const headers = [
@@ -63,14 +63,14 @@ onMounted(async () => {
 
         if (promo.value !== "") {
             isLoading.value = true
-            const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/10/${sucur.value}`);
+            const response = await axios.get(`http://${api}:3004/api/v1/products/${list.value}/10/${sucur.value}`);
             listProducts.value = response.data
             // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
             isLoading.value = false
             document.body.classList.add("body-white")
         } else {
             isLoading.value = true
-            const response = await axios.get(`http://${api}:3003/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
+            const response = await axios.get(`http://${api}:3004/api/v1/products/${list.value}/${sizeTalker.value}/${sucur.value}`);
             listProducts.value = response.data
             // MANERA CORRECTA DE ACCEDER AL VALOR DE LOS COMPONENETES
             isLoading.value = false

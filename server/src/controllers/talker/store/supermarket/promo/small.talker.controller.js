@@ -17,11 +17,11 @@ const { cOut } = require("../../prices/crossedOut");
 LA FRASE POSICIÓN */
 const n1cm = 37.8; // REPRESENTACION APROXIMADA DE 1CM CUADRADO EN EL PDF
 
-let precioTachadoP = { x: n1cm * 13.5, y: n1cm * 7.9 };
+let precioTachadoP = { x: n1cm * 14, y: n1cm * 7.7 }; //13.5 7.9    + baja
 let codigoSap = { x: n1cm * 16.8, y: n1cm * 7.4 };
 let descripcion = { x: n1cm * 16.8, y: n1cm * 7.8 };
 let garantiaP = { x: n1cm * 16.8, y: n1cm * 8.4 };
-let precioFullP = { X: n1cm * 14.5, Y: n1cm * 8.8 };
+let precioFullP = { X: n1cm * 15, Y: n1cm * 8.5 }; // 14.5 8.8
 
 let altura = n1cm * 1.5;
 

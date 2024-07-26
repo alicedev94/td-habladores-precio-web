@@ -29,7 +29,7 @@ const priceTalkerFontSizePrice = 50;
 const priceTalkerFontSizePriceNew = 80;
 
 // -- Contenido estático
-const priceTalkerWidthText = n1cm * 7;
+const priceTalkerWidthText = n1cm * 6.5;
 const priceTalkerFontPath = process.cwd();
 
 const PromoDakaM = async (dataCallback, endCallback, datos, list) => {
